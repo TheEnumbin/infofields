@@ -36,31 +36,10 @@ class AdminAjaxPrextrametaController extends ModuleAdminController
             $omnibus_meta = array_pop($mresults);
         }
 
-        $results = Db::getInstance()->executeS(
-            'SELECT *
-            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
-            WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND' . ' oc.`shop_id` = ' . (int) $shop_id . ' AND oc.`product_id` = ' . (int) $prd_id . ' ORDER BY date DESC',
-            true
-        );
-
-        $omnibus_prices = array();
-
-        foreach($results as $result){
-            $omnibus_prices[$result['id_prextrameta']]['id'] = $result['id_prextrameta'];
-            $omnibus_prices[$result['id_prextrameta']]['date'] = $result['date'];
-            $omnibus_prices[$result['id_prextrameta']]['price'] = Context::getContext()->getCurrentLocale()->formatPrice($result['price'], Context::getContext()->currency->iso_code);
-            $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Normal Price';
-
-            if($result['promo']){
-                $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Promotional Price';
-            }
-        }
-
-        if(isset($omnibus_meta) || isset($omnibus_prices)){
+        if(isset($omnibus_meta)){
             $returnarr = [
                 'success' => true,
                 'omnibus_meta' => $omnibus_meta,
-                'omnibus_prices' => $omnibus_prices,
             ];
             echo json_encode($returnarr);
             die();
@@ -114,80 +93,6 @@ class AdminAjaxPrextrametaController extends ModuleAdminController
             $returnarr = [
                 'success' => false,
                 'msg' => 'Something Wrong. Try Again!!!',
-            ];
-            echo json_encode($returnarr);
-            die();
-        }
-    }
-
-    /**
-     * This function allow to delete users
-     */
-    public function ajaxProcessAddCustomPrice()
-    {
-        $prd_id = Tools::getValue('prdid');
-        $price = Tools::getValue('price');
-        $promodate = Tools::getValue('promodate');
-        $pricetype = Tools::getValue('pricetype');
-        $lang_id = Tools::getValue('langid');
-        $shop_id = Tools::getValue('shopid');
-        $promotext = "Normal Price";
-        $promo = 0;
-
-        if($pricetype){
-            $promo = 1;
-            $promotext = "Promotional Price";
-        }
-
-        $result = Db::getInstance()->insert('prextrameta_products', [
-            'product_id' => (int) $prd_id,
-            'id_product_attribute' => 0,
-            'price' => $price,
-            'promo' => $promo,
-            'date' => $promodate,
-            'shop_id' => (int) $shop_id,
-            'lang_id' => (int) $lang_id,
-        ]);
-        $insert_id = Db::getInstance()->Insert_ID();
-        $price_formatted = Context::getContext()->getCurrentLocale()->formatPrice($price, Context::getContext()->currency->iso_code);
-
-        if($result){
-            $returnarr = [
-                'success' => true,
-                'date' => $promodate,
-                'price' => $price_formatted,
-                'promo' => $promotext,
-                'id_inserted' => $insert_id,
-            ];
-            echo json_encode($returnarr);
-            die();
-        }else{
-            $returnarr = [
-                'success' => false,
-            ];
-            echo json_encode($returnarr);
-            die();
-        }
-    }
-
-    public function ajaxProcessDeleteCustomPrice()
-    {
-        $pricing_id = Tools::getValue('pricing_id');
-
-        $result = Db::getInstance()->delete(
-            'prextrameta_products',
-            '`id_prextrameta` = ' . (int) $pricing_id
-        );
-        
-        if($result){
-            $returnarr = [
-                'success' => true,
-            ];
-            echo json_encode($returnarr);
-            die();
-        }else{
-            $returnarr = [
-                'success' => false,
             ];
             echo json_encode($returnarr);
             die();

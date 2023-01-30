@@ -77,36 +77,4 @@
             <button id="prextrameta_meta_add" class="btn btn-primary" type="button">Submit</button>
         </div>
     </div>
-    <div class="prextrameta-sec prextrameta-price-history">
-        <div><h2>Omnibus Pricing Section</h3></div>
-        <table id="prextrameta_history_table">
-            <tr>
-                <th>Date</th>
-                <th>Price Amount</th>
-                <th>Price Type</th>
-                <th>Action</th>
-            </tr>
-            {foreach from=$omnibus_prices item=omnibus_price}
-                <tr class="prextrameta-history-datam" id="prextrameta_history_{$omnibus_price.id}">
-                    <td>{$omnibus_price.date}</td>
-                    <td>{$omnibus_price.price}</td>
-                    <td>{$omnibus_price.promotext}</td>
-                    <td><button  class="prextrameta_history_delete btn btn-danger" type="button" value="{$omnibus_price.id}">Delete</button></td>
-                </tr>
-            {/foreach}
-        </table>
-    </div>
-    <div class="prextrameta-sec prextrameta-custom-section">
-        <h3>Add Your Custom Price</h3>
-        <div class="prextrameta-custom-fields">
-            <input class="prextrameta-custom-field" type="number" id="price_amount" name="price_amount">
-            <input class="prextrameta-custom-field" type="date" id="promodate" name="promodate">
-            <select class="prextrameta-custom-field promnibus-promo" name="price_type" id="price_type">
-                <option>Select Price Type</option>
-                <option value="1">Promotional</option>
-                <option value="0">Normal</option>
-            </select>
-            <button id="prextrameta_custom_price_add" class="btn btn-primary" type="button">Add</button>
-        </div>
-    </div>
 </div>
