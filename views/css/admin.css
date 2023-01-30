@@ -25,51 +25,51 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-.pricingomnibus-wrapper .pricingomnibus-sec h2{
+.prextrameta-wrapper .prextrameta-sec h2{
     text-align: center;
 }
-#promnibus_extra_meta{
+#prextrameta_extra_meta{
     width: 100%;
     height: 40px;
 }
-.pricingomnibus-meta-dates, .pricingomnibus-meta-dates .pricingomnibus-meta-date-item{
+.prextrameta-meta-dates, .prextrameta-meta-dates .prextrameta-meta-date-item{
     margin-top: 10px;
 }
-.pricingomnibus-meta-add, .pricingomnibus-custom-section {
+.prextrameta-meta-add, .prextrameta-custom-section {
     margin-top: 40px;
   }
-.pricingomnibus-meta-dates .pricingomnibus-meta-date-hint{
+.prextrameta-meta-dates .prextrameta-meta-date-hint{
     font-size: 10px;
     font-style: italic;
 }
-.pricingomnibus-header{
+.prextrameta-header{
     text-align: center;
 }
-.pricingomnibus-header .pricingomnibus-lang-changer, #extra_meta{
+.prextrameta-header .prextrameta-lang-changer, #extra_meta{
     background-color: #fff;
     padding: 8px;
 }
-.pricingomnibus-price-history table, .pricingomnibus-meta-section table {
+.prextrameta-price-history table, .prextrameta-meta-section table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
 }
-.pricingomnibus-price-history table td, .pricingomnibus-price-history table th, #pricingomnibus_meta_table th, #pricingomnibus_meta_table td{
+.prextrameta-price-history table td, .prextrameta-price-history table th, #prextrameta_meta_table th, #prextrameta_meta_table td{
     border: 1px solid #dddddd;
     text-align: left;
     padding: 8px;
 }
-.pricingomnibus-price-history, .pricingomnibus-meta-section, #promnibus_meta_add{
+.prextrameta-price-history, .prextrameta-meta-section, #prextrameta_meta_add{
     margin-top: 12px;
 }
-.pricingomnibus-custom-field{
+.prextrameta-custom-field{
     padding: 8px;
     margin-right: 6px;
 }
 .promnibus-promo{
     background-color: #fff;
 }
-.pricingomnibus-meta-section{
+.prextrameta-meta-section{
     padding-top: 14px;
     padding-bottom: 14px;
     border-top: 2px solid #000;

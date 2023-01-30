@@ -35,8 +35,8 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pricing_extrameta` (
     `lang_id` int(11),
     PRIMARY KEY  (`id_prextrameta`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
-$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pricingomnibus_products` (
-    `id_pricingomnibus` int(11) NOT NULL AUTO_INCREMENT,
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'prextrameta_products` (
+    `id_prextrameta` int(11) NOT NULL AUTO_INCREMENT,
     `product_id` int(11),
     `id_product_attribute` int(11),
     `price` decimal(20,6),
@@ -44,7 +44,7 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'pricingomnibus_products
     `date` datetime,
     `shop_id` int(11),
     `lang_id` int(11),
-    PRIMARY KEY  (`id_pricingomnibus`)
+    PRIMARY KEY  (`id_prextrameta`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
 foreach ($sql as $query) {

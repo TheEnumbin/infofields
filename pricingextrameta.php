@@ -27,7 +27,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Pricingomnibus extends Module
+class Pricingextrameta extends Module
 {
     protected $config_form = false;
 
@@ -55,25 +55,25 @@ class Pricingomnibus extends Module
     public function install()
     {
         $date = date('Y-m-d');
-        Configuration::updateValue('PRICINGOMNIBUS_SHOW_ON', 'discounted');
-        Configuration::updateValue('PRICINGOMNIBUS_SHOW_ON_CATELOGUE', true);
-        Configuration::updateValue('PRICINGOMNIBUS_AUTO_DELETE_OLD', false);
-        Configuration::updateValue('PRICINGOMNIBUS_SHOW_IF_CURRENT', true);
-        Configuration::updateValue('PRICINGOMNIBUS_NOTICE_STYLE', 'before_after');
-        Configuration::updateValue('PRICINGOMNIBUS_POSITION', 'after_price');
-        Configuration::updateValue('PRICINGOMNIBUS_BACK_COLOR', '#b3a700');
-        Configuration::updateValue('PRICINGOMNIBUS_FONT_COLOR', '#ffffff');
-        Configuration::updateValue('PRICINGOMNIBUS_DELETE_DATE', $date);
+        Configuration::updateValue('PREXTRAMETA_SHOW_ON', 'discounted');
+        Configuration::updateValue('PREXTRAMETA_SHOW_ON_CATELOGUE', true);
+        Configuration::updateValue('PREXTRAMETA_AUTO_DELETE_OLD', false);
+        Configuration::updateValue('PREXTRAMETA_SHOW_IF_CURRENT', true);
+        Configuration::updateValue('PREXTRAMETA_NOTICE_STYLE', 'before_after');
+        Configuration::updateValue('PREXTRAMETA_POSITION', 'after_price');
+        Configuration::updateValue('PREXTRAMETA_BACK_COLOR', '#b3a700');
+        Configuration::updateValue('PREXTRAMETA_FONT_COLOR', '#ffffff');
+        Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
 
         $languages = Language::getLanguages(false);
         foreach ($languages as $lang) {
-            Configuration::updateValue('PRICINGOMNIBUS_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
-            Configuration::updateValue('PRICINGOMNIBUS_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion.');
+            Configuration::updateValue('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
+            Configuration::updateValue('PREXTRAMETA_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion.');
         }
 
         $tab = new Tab();
         $tab->active = 1;
-        $tab->class_name = 'AdminAjaxPromnibus';
+        $tab->class_name = 'AdminAjaxPrextrameta';
         $tab->name = [];
         foreach ($languages as $lang) {
             $tab->name[$lang['id_lang']] = 'Pricing Omnibus Ajax';
@@ -100,22 +100,22 @@ class Pricingomnibus extends Module
         $languages = Language::getLanguages(false);
 
         foreach ($languages as $lang) {
-            Configuration::deleteByName('PRICINGOMNIBUS_TEXT_MINI_' . $lang['id_lang']);
-            Configuration::deleteByName('PRICINGOMNIBUS_TEXT_' . $lang['id_lang']);
+            Configuration::deleteByName('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang']);
+            Configuration::deleteByName('PREXTRAMETA_TEXT_' . $lang['id_lang']);
         }
         
-        Configuration::deleteByName('PRICINGOMNIBUS_SHOW_ON');
-        Configuration::deleteByName('PRICINGOMNIBUS_SHOW_ON_CATELOGUE');
-        Configuration::deleteByName('PRICINGOMNIBUS_AUTO_DELETE_OLD');
-        Configuration::deleteByName('PRICINGOMNIBUS_SHOW_IF_CURRENT');
-        Configuration::deleteByName('PRICINGOMNIBUS_NOTICE_STYLE');
-        Configuration::deleteByName('PRICINGOMNIBUS_POSITION');
-        Configuration::deleteByName('PRICINGOMNIBUS_BACK_COLOR');
-        Configuration::deleteByName('PRICINGOMNIBUS_FONT_SIZE');
-        Configuration::deleteByName('PRICINGOMNIBUS_PADDING');
-        Configuration::deleteByName('PRICINGOMNIBUS_FONT_COLOR');
-        Configuration::deleteByName('PRICINGOMNIBUS_DELETE_OLD');
-        Configuration::deleteByName('PRICINGOMNIBUS_DELETE_DATE');
+        Configuration::deleteByName('PREXTRAMETA_SHOW_ON');
+        Configuration::deleteByName('PREXTRAMETA_SHOW_ON_CATELOGUE');
+        Configuration::deleteByName('PREXTRAMETA_AUTO_DELETE_OLD');
+        Configuration::deleteByName('PREXTRAMETA_SHOW_IF_CURRENT');
+        Configuration::deleteByName('PREXTRAMETA_NOTICE_STYLE');
+        Configuration::deleteByName('PREXTRAMETA_POSITION');
+        Configuration::deleteByName('PREXTRAMETA_BACK_COLOR');
+        Configuration::deleteByName('PREXTRAMETA_FONT_SIZE');
+        Configuration::deleteByName('PREXTRAMETA_PADDING');
+        Configuration::deleteByName('PREXTRAMETA_FONT_COLOR');
+        Configuration::deleteByName('PREXTRAMETA_DELETE_OLD');
+        Configuration::deleteByName('PREXTRAMETA_DELETE_DATE');
 
         return parent::uninstall();
     }
@@ -125,7 +125,7 @@ class Pricingomnibus extends Module
      */
     public function getContent()
     {
-        if (((bool) Tools::isSubmit('submitPricingomnibusModule')) == true) {
+        if (((bool) Tools::isSubmit('submitPrextrametaModule')) == true) {
             $this->postProcess();
         }
 
@@ -144,7 +144,7 @@ class Pricingomnibus extends Module
         $helper->default_form_language = $this->context->language->id;
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
         $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitPricingomnibusModule';
+        $helper->submit_action = 'submitPrextrametaModule';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = [
@@ -171,7 +171,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'select',
                         'label' => $this->l('Show Notice On'),
-                        'name' => 'PRICINGOMNIBUS_SHOW_ON',
+                        'name' => 'PREXTRAMETA_SHOW_ON',
                         'options' => [
                             'query' => [
                                 [
@@ -191,7 +191,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'switch',
                         'label' => $this->l('Show notice if current price is the lowest.'),
-                        'name' => 'PRICINGOMNIBUS_SHOW_IF_CURRENT',
+                        'name' => 'PREXTRAMETA_SHOW_IF_CURRENT',
                         'values' => [
                             [
                                 'id' => 'yes',
@@ -209,7 +209,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'select',
                         'label' => $this->l('Select Notice Text Style'),
-                        'name' => 'PRICINGOMNIBUS_NOTICE_STYLE',
+                        'name' => 'PREXTRAMETA_NOTICE_STYLE',
                         'options' => [
                             'query' => [
                                 [
@@ -229,7 +229,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'switch',
                         'label' => $this->l('Automatically delete 30 days older data'),
-                        'name' => 'PRICINGOMNIBUS_AUTO_DELETE_OLD',
+                        'name' => 'PREXTRAMETA_AUTO_DELETE_OLD',
                         'values' => [
                             [
                                 'id' => 'yes',
@@ -247,7 +247,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'switch',
                         'label' => $this->l('Show omnibus directive notice on product catalog?'),
-                        'name' => 'PRICINGOMNIBUS_SHOW_ON_CATELOGUE',
+                        'name' => 'PREXTRAMETA_SHOW_ON_CATELOGUE',
                         'values' => [
                             [
                                 'id' => 'yes',
@@ -266,7 +266,7 @@ class Pricingomnibus extends Module
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Text to show where you show the lowest price in last 30 days.'),
-                        'name' => 'PRICINGOMNIBUS_TEXT_MINI',
+                        'name' => 'PREXTRAMETA_TEXT_MINI',
                         'label' => $this->l('Omni Directive Text'),
                         'tab' => 'content_list_tab',
                         'lang' => true,
@@ -275,7 +275,7 @@ class Pricingomnibus extends Module
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Text to show where you show the lowest price in last 30 days.'),
-                        'name' => 'PRICINGOMNIBUS_TEXT',
+                        'name' => 'PREXTRAMETA_TEXT',
                         'label' => $this->l('Omni Directive Text'),
                         'tab' => 'content_tab',
                         'lang' => true,
@@ -283,7 +283,7 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'select',
                         'label' => $this->l('Select Notice Position'),
-                        'name' => 'PRICINGOMNIBUS_POSITION',
+                        'name' => 'PREXTRAMETA_POSITION',
                         'options' => [
                             'query' => [
                                 [
@@ -311,20 +311,20 @@ class Pricingomnibus extends Module
                     [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
-                        'name' => 'PRICINGOMNIBUS_BACK_COLOR',
+                        'name' => 'PREXTRAMETA_BACK_COLOR',
                         'tab' => 'design_tab',
                     ],
                     [
                         'type' => 'color',
                         'label' => $this->l('Text Color'),
-                        'name' => 'PRICINGOMNIBUS_FONT_COLOR',
+                        'name' => 'PREXTRAMETA_FONT_COLOR',
                         'tab' => 'design_tab',
                     ],
                     [
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Put your font size like "12px"'),
-                        'name' => 'PRICINGOMNIBUS_FONT_SIZE',
+                        'name' => 'PREXTRAMETA_FONT_SIZE',
                         'label' => $this->l('Font Size'),
                         'tab' => 'design_tab',
                     ],
@@ -332,14 +332,14 @@ class Pricingomnibus extends Module
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Put your padding like "6px"'),
-                        'name' => 'PRICINGOMNIBUS_PADDING',
+                        'name' => 'PREXTRAMETA_PADDING',
                         'label' => $this->l('Padding'),
                         'tab' => 'design_tab',
                     ],
                     [
                         'type' => 'switch',
                         'label' => $this->l('Delete Data Before 30 Days?'),
-                        'name' => 'PRICINGOMNIBUS_DELETE_OLD',
+                        'name' => 'PREXTRAMETA_DELETE_OLD',
                         'values' => [
                             [
                                 'id' => 'yes',
@@ -375,23 +375,23 @@ class Pricingomnibus extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
-            'PRICINGOMNIBUS_SHOW_ON' => Configuration::get('PRICINGOMNIBUS_SHOW_ON', 'discounted'),
-            'PRICINGOMNIBUS_SHOW_ON_CATELOGUE' => Configuration::get('PRICINGOMNIBUS_SHOW_ON_CATELOGUE', true),
-            'PRICINGOMNIBUS_SHOW_IF_CURRENT' => Configuration::get('PRICINGOMNIBUS_SHOW_IF_CURRENT', true),
-            'PRICINGOMNIBUS_AUTO_DELETE_OLD' => Configuration::get('PRICINGOMNIBUS_AUTO_DELETE_OLD', false),
-            'PRICINGOMNIBUS_POSITION' => Configuration::get('PRICINGOMNIBUS_POSITION', 'after_price'),
-            'PRICINGOMNIBUS_NOTICE_STYLE' => Configuration::get('PRICINGOMNIBUS_NOTICE_STYLE', 'before_after'),
-            'PRICINGOMNIBUS_BACK_COLOR' => Configuration::get('PRICINGOMNIBUS_BACK_COLOR', '#b3a700'),
-            'PRICINGOMNIBUS_FONT_COLOR' => Configuration::get('PRICINGOMNIBUS_FONT_COLOR', '#ffffff'),
-            'PRICINGOMNIBUS_FONT_SIZE' => Configuration::get('PRICINGOMNIBUS_FONT_SIZE', '12px'),
-            'PRICINGOMNIBUS_PADDING' => Configuration::get('PRICINGOMNIBUS_PADDING', '6px'),
-            'PRICINGOMNIBUS_DELETE_OLD' => false,
+            'PREXTRAMETA_SHOW_ON' => Configuration::get('PREXTRAMETA_SHOW_ON', 'discounted'),
+            'PREXTRAMETA_SHOW_ON_CATELOGUE' => Configuration::get('PREXTRAMETA_SHOW_ON_CATELOGUE', true),
+            'PREXTRAMETA_SHOW_IF_CURRENT' => Configuration::get('PREXTRAMETA_SHOW_IF_CURRENT', true),
+            'PREXTRAMETA_AUTO_DELETE_OLD' => Configuration::get('PREXTRAMETA_AUTO_DELETE_OLD', false),
+            'PREXTRAMETA_POSITION' => Configuration::get('PREXTRAMETA_POSITION', 'after_price'),
+            'PREXTRAMETA_NOTICE_STYLE' => Configuration::get('PREXTRAMETA_NOTICE_STYLE', 'before_after'),
+            'PREXTRAMETA_BACK_COLOR' => Configuration::get('PREXTRAMETA_BACK_COLOR', '#b3a700'),
+            'PREXTRAMETA_FONT_COLOR' => Configuration::get('PREXTRAMETA_FONT_COLOR', '#ffffff'),
+            'PREXTRAMETA_FONT_SIZE' => Configuration::get('PREXTRAMETA_FONT_SIZE', '12px'),
+            'PREXTRAMETA_PADDING' => Configuration::get('PREXTRAMETA_PADDING', '6px'),
+            'PREXTRAMETA_DELETE_OLD' => false,
         ];
         $languages = Language::getLanguages(false);
 
         foreach ($languages as $lang) {
-            $ret_arr['PRICINGOMNIBUS_TEXT'][$lang['id_lang']] = Configuration::get('PRICINGOMNIBUS_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion');
-            $ret_arr['PRICINGOMNIBUS_TEXT_MINI'][$lang['id_lang']] = Configuration::get('PRICINGOMNIBUS_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
+            $ret_arr['PREXTRAMETA_TEXT'][$lang['id_lang']] = Configuration::get('PREXTRAMETA_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion');
+            $ret_arr['PREXTRAMETA_TEXT_MINI'][$lang['id_lang']] = Configuration::get('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
         }
 
         return $ret_arr;
@@ -406,7 +406,7 @@ class Pricingomnibus extends Module
         $lang_id = $this->context->language->id;
 
         foreach (array_keys($form_values) as $key) {
-            if ($key == 'PRICINGOMNIBUS_POSITION') {
+            if ($key == 'PREXTRAMETA_POSITION') {
                 if (Tools::getValue($key) == 'footer_product') {
                     $this->registerHook('displayFooterProduct');
                     $this->unregisterHook('displayProductButtons');
@@ -421,18 +421,18 @@ class Pricingomnibus extends Module
                     $this->unregisterHook('displayProductButtons');
                 }
                 Configuration::updateValue($key, Tools::getValue($key));
-            } elseif ($key == 'PRICINGOMNIBUS_DELETE_OLD') {
+            } elseif ($key == 'PREXTRAMETA_DELETE_OLD') {
                 if (Tools::getValue($key)) {
                     $date = date('Y-m-d');
                     $date_range = date('Y-m-d', strtotime('-31 days'));
 
                     Db::getInstance()->execute(
-                        'DELETE FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc
+                        'DELETE FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
                         WHERE oc.date < "' . $date_range . '"'
                     );
-                    Configuration::updateValue('PRICINGOMNIBUS_DELETE_DATE', $date);
+                    Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
                 }
-            } elseif($key == ('PRICINGOMNIBUS_TEXT_MINI') || $key == ('PRICINGOMNIBUS_TEXT')){
+            } elseif($key == ('PREXTRAMETA_TEXT_MINI') || $key == ('PREXTRAMETA_TEXT')){
                 
                 $languages = Language::getLanguages(false);
 
@@ -444,15 +444,15 @@ class Pricingomnibus extends Module
             }   
         }
 
-        $pricingomnibus_back_color = Configuration::get('PRICINGOMNIBUS_BACK_COLOR', '#b3a700');
-        $pricingomnibus_font_color = Configuration::get('PRICINGOMNIBUS_FONT_COLOR', '#ffffff');
-        $pricingomnibus_font_size = Configuration::get('PRICINGOMNIBUS_FONT_SIZE', '12px');
-        $pricingomnibus_padding = Configuration::get('PRICINGOMNIBUS_PADDING', '6px');
-        $gen_css = '.pricingomnibus-notice{
-                        padding: ' . $pricingomnibus_padding . ' !important;
-                        font-size: ' . $pricingomnibus_font_size . ' !important;
-                        color: ' . $pricingomnibus_font_color . ' !important;
-                        background: ' . $pricingomnibus_back_color . ' !important;
+        $prextrameta_back_color = Configuration::get('PREXTRAMETA_BACK_COLOR', '#b3a700');
+        $prextrameta_font_color = Configuration::get('PREXTRAMETA_FONT_COLOR', '#ffffff');
+        $prextrameta_font_size = Configuration::get('PREXTRAMETA_FONT_SIZE', '12px');
+        $prextrameta_padding = Configuration::get('PREXTRAMETA_PADDING', '6px');
+        $gen_css = '.prextrameta-notice{
+                        padding: ' . $prextrameta_padding . ' !important;
+                        font-size: ' . $prextrameta_font_size . ' !important;
+                        color: ' . $prextrameta_font_color . ' !important;
+                        background: ' . $prextrameta_back_color . ' !important;
                     }';
 
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
@@ -468,23 +468,23 @@ class Pricingomnibus extends Module
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
         Media::addJsDef([
-            'promnibus_ajax_url' => $this->context->link->getAdminLink('AdminAjaxPromnibus'),
-            'promnibus_shop_id' => $shop_id,
-            'promnibus_lang_id' => $lang_id,
+            'prextrameta_ajax_url' => $this->context->link->getAdminLink('AdminAjaxPrextrameta'),
+            'prextrameta_shop_id' => $shop_id,
+            'prextrameta_lang_id' => $lang_id,
         ]);
-        $omni_auto_del = Configuration::get('PRICINGOMNIBUS_AUTO_DELETE_OLD', false);
+        $omni_auto_del = Configuration::get('PREXTRAMETA_AUTO_DELETE_OLD', false);
 
         if($omni_auto_del){
             $date = date('Y-m-d');
             $date_range = date('Y-m-d', strtotime('-31 days'));
-            $pricingomnibus_delete_date = Configuration::get('PRICINGOMNIBUS_DELETE_DATE');
+            $prextrameta_delete_date = Configuration::get('PREXTRAMETA_DELETE_DATE');
     
-            if ($pricingomnibus_delete_date == $date_range) {
+            if ($prextrameta_delete_date == $date_range) {
                 Db::getInstance()->execute(
-                    'DELETE FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc
+                    'DELETE FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
                     WHERE oc.date < "' . $date_range . '"'
                 );
-                Configuration::updateValue('PRICINGOMNIBUS_DELETE_DATE', $date);
+                Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
             }
         }
     }
@@ -512,20 +512,20 @@ class Pricingomnibus extends Module
 
         $results = Db::getInstance()->executeS(
             'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc
+            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
             WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND' . ' oc.`shop_id` = ' . (int) $shop_id . ' AND oc.`product_id` = ' . (int) $id_product . ' ORDER BY date DESC',
             true
         );
         $omnibus_prices = array();
 
         foreach($results as $result){
-            $omnibus_prices[$result['id_pricingomnibus']]['id'] = $result['id_pricingomnibus'];
-            $omnibus_prices[$result['id_pricingomnibus']]['date'] = $result['date'];
-            $omnibus_prices[$result['id_pricingomnibus']]['price'] = $this->context->getCurrentLocale()->formatPrice($result['price'], $this->context->currency->iso_code);
-            $omnibus_prices[$result['id_pricingomnibus']]['promotext'] = 'Normal Price';
+            $omnibus_prices[$result['id_prextrameta']]['id'] = $result['id_prextrameta'];
+            $omnibus_prices[$result['id_prextrameta']]['date'] = $result['date'];
+            $omnibus_prices[$result['id_prextrameta']]['price'] = $this->context->getCurrentLocale()->formatPrice($result['price'], $this->context->currency->iso_code);
+            $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Normal Price';
 
             if($result['promo']){
-                $omnibus_prices[$result['id_pricingomnibus']]['promotext'] = 'Promotional Price';
+                $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Promotional Price';
             }
         }
         $languages = Language::getLanguages(false);
@@ -556,22 +556,22 @@ class Pricingomnibus extends Module
     public function hookDisplayProductPriceBlock($params)
     {
         $product = $params['product'];
-        $on_catlg = Configuration::get('PRICINGOMNIBUS_SHOW_ON_CATELOGUE', true);
-        $pricingomnibus_price = $this->pricingomnibus_init($product, $on_catlg);
+        $on_catlg = Configuration::get('PREXTRAMETA_SHOW_ON_CATELOGUE', true);
+        $prextrameta_price = $this->prextrameta_init($product, $on_catlg);
 
-        if ($pricingomnibus_price) {
+        if ($prextrameta_price) {
             $controller = Tools::getValue('controller');
     
             if($controller == 'product'){
-                $pricingomnibus_pos = Configuration::get('PRICINGOMNIBUS_POSITION', 'after_price');
+                $prextrameta_pos = Configuration::get('PREXTRAMETA_POSITION', 'after_price');
 
-                if ($params['type'] == $pricingomnibus_pos) {
-                    $this->pricingomnibus_show_notice($pricingomnibus_price);
+                if ($params['type'] == $prextrameta_pos) {
+                    $this->prextrameta_show_notice($prextrameta_price);
                 }
             }else{
 
                 if($on_catlg && $params['type'] == 'unit_price'){
-                    $this->pricingomnibus_show_notice($pricingomnibus_price, '_mini');
+                    $this->prextrameta_show_notice($prextrameta_price, '_mini');
                 }
             }
         }
@@ -583,10 +583,10 @@ class Pricingomnibus extends Module
     public function hookDisplayFooterProduct($params)
     {
         $product = $params['product'];
-        $pricingomnibus_price = $this->pricingomnibus_init($product);
+        $prextrameta_price = $this->prextrameta_init($product);
 
-        if ($pricingomnibus_price) {
-            $this->pricingomnibus_show_notice($pricingomnibus_price);
+        if ($prextrameta_price) {
+            $this->prextrameta_show_notice($prextrameta_price);
         }
     }
 
@@ -596,20 +596,20 @@ class Pricingomnibus extends Module
     public function hookDisplayProductButtons($params)
     {
         $product = $params['product'];
-        $pricingomnibus_price = $this->pricingomnibus_init($product);
+        $prextrameta_price = $this->prextrameta_init($product);
 
-        if ($pricingomnibus_price) {
-            $this->pricingomnibus_show_notice($pricingomnibus_price);
+        if ($prextrameta_price) {
+            $this->prextrameta_show_notice($prextrameta_price);
         }
     }
 
     /**
      * Returns the Omnibus Price if poduct has promotion
      */
-    private function pricingomnibus_init($product, $on_catlg = true)
+    private function prextrameta_init($product, $on_catlg = true)
     {
         $controller = Tools::getValue('controller');
-        $show_on = Configuration::get('PRICINGOMNIBUS_SHOW_ON', 'discounted');
+        $show_on = Configuration::get('PREXTRAMETA_SHOW_ON', 'discounted');
 
         if ($controller != 'product' && !$on_catlg) {
             return;
@@ -619,19 +619,19 @@ class Pricingomnibus extends Module
             return;
         }
         $price_amount = $product->price_amount;
-        $existing = $this->pricingomnibus_check_existance($product->id, $price_amount, $product->id_product_attribute);
+        $existing = $this->prextrameta_check_existance($product->id, $price_amount, $product->id_product_attribute);
 
         if (empty($existing)) {
-            $this->pricingomnibus_insert_data($product->id, $price_amount, $product->has_discount, $product->id_product_attribute);
+            $this->prextrameta_insert_data($product->id, $price_amount, $product->has_discount, $product->id_product_attribute);
         }
-        $omnibus_price = $this->pricingomnibus_get_price($product->id, $price_amount, $product->id_product_attribute);
+        $omnibus_price = $this->prextrameta_get_price($product->id, $price_amount, $product->id_product_attribute);
 
         if ($omnibus_price) {
-            $pricingomnibuse_formatted_price = $this->context->getCurrentLocale()->formatPrice($omnibus_price, $this->context->currency->iso_code);
+            $prextrametae_formatted_price = $this->context->getCurrentLocale()->formatPrice($omnibus_price, $this->context->currency->iso_code);
 
-            return $pricingomnibuse_formatted_price;
+            return $prextrametae_formatted_price;
         } else {
-            $omni_if_current = Configuration::get('PRICINGOMNIBUS_SHOW_IF_CURRENT', true);
+            $omni_if_current = Configuration::get('PREXTRAMETA_SHOW_IF_CURRENT', true);
 
             if ($omni_if_current) {
                 return $product->price;
@@ -646,7 +646,7 @@ class Pricingomnibus extends Module
     /**
      * Check if price is alredy available for the product
      */
-    private function pricingomnibus_check_existance($prd_id, $price, $id_attr = 0)
+    private function prextrameta_check_existance($prd_id, $price, $id_attr = 0)
     {
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
@@ -658,7 +658,7 @@ class Pricingomnibus extends Module
 
         $results = Db::getInstance()->executeS(
             'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc
+            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
             WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND oc.`shop_id` = ' . (int) $shop_id . '
             AND oc.`product_id` = ' . (int) $prd_id . ' AND oc.`price` = ' . $price . $attr_q
         );
@@ -669,7 +669,7 @@ class Pricingomnibus extends Module
     /**
      * Insert the minimum price to the table
      */
-    private function pricingomnibus_insert_data($prd_id, $price, $discounted, $id_attr = 0)
+    private function prextrameta_insert_data($prd_id, $price, $discounted, $id_attr = 0)
     {
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
@@ -680,7 +680,7 @@ class Pricingomnibus extends Module
             $promo = 1;
         }
 
-        $result = Db::getInstance()->insert('pricingomnibus_products', [
+        $result = Db::getInstance()->insert('prextrameta_products', [
             'product_id' => (int) $prd_id,
             'id_product_attribute' => $id_attr,
             'price' => $price,
@@ -694,7 +694,7 @@ class Pricingomnibus extends Module
     /**
      * Gets the minimum price within 30 days.
      */
-    private function pricingomnibus_get_price($id, $price_amount, $id_attr = 0)
+    private function prextrameta_get_price($id, $price_amount, $id_attr = 0)
     {
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
@@ -704,7 +704,7 @@ class Pricingomnibus extends Module
         }
         $date = date('Y-m-d');
         $date_range = date('Y-m-d', strtotime('-31 days'));
-        $result = Db::getInstance()->getValue('SELECT MIN(price) as ' . $this->name . '_price FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc 
+        $result = Db::getInstance()->getValue('SELECT MIN(price) as ' . $this->name . '_price FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc 
         WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND oc.`shop_id` = ' . (int) $shop_id . '
         AND oc.`product_id` = ' . (int) $id . ' AND oc.date > "' . $date_range . '" AND oc.price != "' . $price_amount . '"' . $attr_q);
 
@@ -714,16 +714,16 @@ class Pricingomnibus extends Module
     /**
      * Shows the notice
      */
-    private function pricingomnibus_show_notice($price, $controller = '')
+    private function prextrameta_show_notice($price, $controller = '')
     {
         $lang_id = $this->context->language->id;
         $mini_conf = strtoupper($controller);
-        $pricingomnibus_text = Configuration::get('PRICINGOMNIBUS_TEXT' . $mini_conf . '_' . $lang_id, 'Lowest price within 30 days before promotion.');
-        $pricingomnibus_text_style = Configuration::get('PRICINGOMNIBUS_NOTICE_STYLE', 'before_after');
+        $prextrameta_text = Configuration::get('PREXTRAMETA_TEXT' . $mini_conf . '_' . $lang_id, 'Lowest price within 30 days before promotion.');
+        $prextrameta_text_style = Configuration::get('PREXTRAMETA_NOTICE_STYLE', 'before_after');
         $this->context->smarty->assign([
-            'pricingomnibus_text' => $pricingomnibus_text,
-            'pricingomnibus_text_style' => $pricingomnibus_text_style,
-            'pricingomnibus_price' => $price,
+            'prextrameta_text' => $prextrameta_text,
+            'prextrameta_text_style' => $prextrameta_text_style,
+            'prextrameta_price' => $price,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/omni_front' . $controller . '.tpl');
 

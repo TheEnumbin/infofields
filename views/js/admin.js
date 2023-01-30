@@ -26,59 +26,59 @@
 * to avoid any conflicts with others containers.
 */
 $(document).ready(function() {
-    $(document).on('change', '#pricingomnibus_lang_changer', function(){
+    $(document).on('change', '#prextrameta_lang_changer', function(){
         var $val = $(this).val();
         var $prdid = $('#prd_id').val();
         $.ajax({
             type: 'POST',
-            url: promnibus_ajax_url,
+            url: prextrameta_ajax_url,
             dataType: 'html',
             data: {
-                controller : 'AdminAjaxPromnibus',
-                action : 'PricingomnibusChangeLang',
+                controller : 'AdminAjaxPrextrameta',
+                action : 'PrextrametaChangeLang',
                 prdid : $prdid,
                 langid : $val,
-                shopid : promnibus_shop_id,
+                shopid : prextrameta_shop_id,
                 ajax : true
             },
             success : function(data) {
                 var $data = JSON.parse(data);
                 if(typeof $data.success !== 'undefined' && $data.success){
                     console.log($data.omnibus_meta);
-                    $('#pricingomnibus_meta_table').find(".pricingomnibus-meta_datam").remove();
+                    $('#prextrameta_meta_table').find(".prextrameta-meta_datam").remove();
                     if($data.omnibus_meta.length === 0){
-                        $('#promnibus_extra_meta_id').val(0);
+                        $('#prextrameta_extra_meta_id').val(0);
                     }else{
-                        $('#pricingomnibus_meta_table').append('<tr class="pricingomnibus-meta_datam" id="pricingomnibus_history_' + $data.omnibus_meta.id_prextrameta + '">' 
+                        $('#prextrameta_meta_table').append('<tr class="prextrameta-meta_datam" id="prextrameta_history_' + $data.omnibus_meta.id_prextrameta + '">' 
                             + '<td>' + $data.omnibus_meta.meta_data + '</td><td>' + $data.omnibus_meta.start_date + '</td><td>' + $data.omnibus_meta.end_date + '</td>'
                             + '</tr>');
-                        $('#promnibus_extra_meta_id').val($data.omnibus_meta.id_prextrameta);
+                        $('#prextrameta_extra_meta_id').val($data.omnibus_meta.id_prextrameta);
                     }
                     
-                    $('#pricingomnibus_history_table').find(".pricingomnibus-history-datam").remove();
+                    $('#prextrameta_history_table').find(".prextrameta-history-datam").remove();
                     $.each( $data.omnibus_prices, function( key, value ) {
-                        $('#pricingomnibus_history_table').append('<tr class="pricingomnibus-history-datam" id="pricingomnibus_history_' + value.id + '">' 
+                        $('#prextrameta_history_table').append('<tr class="prextrameta-history-datam" id="prextrameta_history_' + value.id + '">' 
                         + '<td>' + value.date + '</td><td>' + value.price + '</td><td>' + value.promotext + '</td>'
-                        + '<td><button  class="pricingomnibus_history_delete btn btn-danger" type="button" value="' + value.id + '">Delete</button></td>'
+                        + '<td><button  class="prextrameta_history_delete btn btn-danger" type="button" value="' + value.id + '">Delete</button></td>'
                         + '</tr>');
                     });
                 }
             }
         });
     });
-    $(document).on('click', '#promnibus_meta_add', function(){
-        var $extra_meta_id = $('#promnibus_extra_meta_id').val();
+    $(document).on('click', '#prextrameta_meta_add', function(){
+        var $extra_meta_id = $('#prextrameta_extra_meta_id').val();
         var $prdid = $('#prd_id').val();
-        var $extrameta = $('#promnibus_extra_meta').val();
-        var $start_date = $('#promnibus_mdate_start').val();
-        var $end_date = $('#promnibus_mdate_end').val();
-        var $langid = $('#pricingomnibus_lang_changer').find(":selected").val();
+        var $extrameta = $('#prextrameta_extra_meta').val();
+        var $start_date = $('#prextrameta_mdate_start').val();
+        var $end_date = $('#prextrameta_mdate_end').val();
+        var $langid = $('#prextrameta_lang_changer').find(":selected").val();
         $.ajax({
             type: 'POST',
-            url: promnibus_ajax_url,
+            url: prextrameta_ajax_url,
             dataType: 'html',
             data: {
-                controller : 'AdminAjaxPromnibus',
+                controller : 'AdminAjaxPrextrameta',
                 action : 'AddExtraMeta',
                 exmtid : $extra_meta_id,
                 prdid : $prdid,
@@ -86,50 +86,50 @@ $(document).ready(function() {
                 s_date : $start_date,
                 e_date : $end_date,
                 langid : $langid,
-                shopid : promnibus_shop_id,
+                shopid : prextrameta_shop_id,
                 ajax : true
             },
             success : function(data) {
                 var $data = JSON.parse(data);
                 if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#pricingomnibus_meta_' + $extra_meta_id).remove();
-                    $('#pricingomnibus_meta_table').append('<tr class="pricingomnibus-meta_datam" id="pricingomnibus_meta_' + $data.id_inserted + '">' 
+                    $('#prextrameta_meta_' + $extra_meta_id).remove();
+                    $('#prextrameta_meta_table').append('<tr class="prextrameta-meta_datam" id="prextrameta_meta_' + $data.id_inserted + '">' 
                     + '<td>' + $data.meta_data + '</td><td>' + $data.start_date + '</td><td>' + $data.end_date + '</td>'
                     + '</tr>');
-                    $('#promnibus_extra_meta').val("");
-                    $('#promnibus_mdate_start').val("");
-                    $('#promnibus_mdate_end').val("");
-                    $('#promnibus_extra_meta_id').val($data.id_inserted);
-                    $('.promnibus_meta_notice').html($data.msg)
+                    $('#prextrameta_extra_meta').val("");
+                    $('#prextrameta_mdate_start').val("");
+                    $('#prextrameta_mdate_end').val("");
+                    $('#prextrameta_extra_meta_id').val($data.id_inserted);
+                    $('.prextrameta_meta_notice').html($data.msg)
                 }
             }
         });
     });
-    $(document).on('click', '#promnibus_custom_price_add', function(){
+    $(document).on('click', '#prextrameta_custom_price_add', function(){
         var $prdid = $('#prd_id').val();
         var $price = $('#price_amount').val();
         var $price_type = $('#price_type').val();
         var $promodate = $('#promodate').val();
-        var $langid = $('#pricingomnibus_lang_changer').find(":selected").val();
+        var $langid = $('#prextrameta_lang_changer').find(":selected").val();
         $.ajax({
             type: 'POST',
-            url: promnibus_ajax_url,
+            url: prextrameta_ajax_url,
             dataType: 'html',
             data: {
-                controller : 'AdminAjaxPromnibus',
+                controller : 'AdminAjaxPrextrameta',
                 action : 'AddCustomPrice',
                 prdid : $prdid,
                 price : $price,
                 pricetype : $price_type,
                 promodate : $promodate,
                 langid : $langid,
-                shopid : promnibus_shop_id,
+                shopid : prextrameta_shop_id,
                 ajax : true
             },
             success : function(data) {
                 var $data = JSON.parse(data);
                 if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#pricingomnibus_history_table').append('<tr class="pricingomnibus-history-datam"  id="pricingomnibus_history_' + $data.id_inserted + '">' 
+                    $('#prextrameta_history_table').append('<tr class="prextrameta-history-datam"  id="prextrameta_history_' + $data.id_inserted + '">' 
                     + '<td>' + $data.date + '</td><td>' + $data.price + '</td><td>' + $data.promo + '</td>'
                     + '</tr>');
                     $('#price_amount').val("");
@@ -139,14 +139,14 @@ $(document).ready(function() {
             }
         });
     });
-    $(document).on('click', '.pricingomnibus_history_delete', function(){
+    $(document).on('click', '.prextrameta_history_delete', function(){
         var $val = $(this).val();
         $.ajax({
             type: 'POST',
-            url: promnibus_ajax_url,
+            url: prextrameta_ajax_url,
             dataType: 'html',
             data: {
-                controller : 'AdminAjaxPromnibus',
+                controller : 'AdminAjaxPrextrameta',
                 action : 'DeleteCustomPrice',
                 pricing_id : $val,
                 ajax : true
@@ -154,7 +154,7 @@ $(document).ready(function() {
             success : function(data) {
                 var $data = JSON.parse(data);
                 if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#pricingomnibus_history_' + $val).remove();
+                    $('#prextrameta_history_' + $val).remove();
                 }
             }
         });

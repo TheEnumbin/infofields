@@ -31,7 +31,7 @@
  */
 $sql = [];
 $sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pricing_extrameta`;';
-$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pricingomnibus_products`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'prextrameta_products`;';
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
         return false;

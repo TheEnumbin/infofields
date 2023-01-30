@@ -22,8 +22,8 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-{if $pricingomnibus_text_style == 'before_after'}
-    <span class="pricingomnibus-notice">{$pricingomnibus_text} {$pricingomnibus_price}</span>
+{if $prextrameta_text_style == 'before_after'}
+    <span class="prextrameta-notice">{$prextrameta_text} {$prextrameta_price}</span>
 {else}
-    <span class="pricingomnibus-notice">{$pricingomnibus_price} {$pricingomnibus_text}</span>
+    <span class="prextrameta-notice">{$prextrameta_price} {$prextrameta_text}</span>
 {/if}

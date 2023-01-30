@@ -17,9 +17,9 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
-class AdminAjaxPromnibusController extends ModuleAdminController
+class AdminAjaxPrextrametaController extends ModuleAdminController
 {
-    public function ajaxProcessPricingomnibusChangeLang()
+    public function ajaxProcessPrextrametaChangeLang()
     {
         $lang_id = Tools::getValue('langid');
         $shop_id = Tools::getValue('shopid');
@@ -38,7 +38,7 @@ class AdminAjaxPromnibusController extends ModuleAdminController
 
         $results = Db::getInstance()->executeS(
             'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricingomnibus_products` oc
+            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
             WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND' . ' oc.`shop_id` = ' . (int) $shop_id . ' AND oc.`product_id` = ' . (int) $prd_id . ' ORDER BY date DESC',
             true
         );
@@ -46,13 +46,13 @@ class AdminAjaxPromnibusController extends ModuleAdminController
         $omnibus_prices = array();
 
         foreach($results as $result){
-            $omnibus_prices[$result['id_pricingomnibus']]['id'] = $result['id_pricingomnibus'];
-            $omnibus_prices[$result['id_pricingomnibus']]['date'] = $result['date'];
-            $omnibus_prices[$result['id_pricingomnibus']]['price'] = Context::getContext()->getCurrentLocale()->formatPrice($result['price'], Context::getContext()->currency->iso_code);
-            $omnibus_prices[$result['id_pricingomnibus']]['promotext'] = 'Normal Price';
+            $omnibus_prices[$result['id_prextrameta']]['id'] = $result['id_prextrameta'];
+            $omnibus_prices[$result['id_prextrameta']]['date'] = $result['date'];
+            $omnibus_prices[$result['id_prextrameta']]['price'] = Context::getContext()->getCurrentLocale()->formatPrice($result['price'], Context::getContext()->currency->iso_code);
+            $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Normal Price';
 
             if($result['promo']){
-                $omnibus_prices[$result['id_pricingomnibus']]['promotext'] = 'Promotional Price';
+                $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Promotional Price';
             }
         }
 
@@ -139,7 +139,7 @@ class AdminAjaxPromnibusController extends ModuleAdminController
             $promotext = "Promotional Price";
         }
 
-        $result = Db::getInstance()->insert('pricingomnibus_products', [
+        $result = Db::getInstance()->insert('prextrameta_products', [
             'product_id' => (int) $prd_id,
             'id_product_attribute' => 0,
             'price' => $price,
@@ -175,8 +175,8 @@ class AdminAjaxPromnibusController extends ModuleAdminController
         $pricing_id = Tools::getValue('pricing_id');
 
         $result = Db::getInstance()->delete(
-            'pricingomnibus_products',
-            '`id_pricingomnibus` = ' . (int) $pricing_id
+            'prextrameta_products',
+            '`id_prextrameta` = ' . (int) $pricing_id
         );
         
         if($result){
