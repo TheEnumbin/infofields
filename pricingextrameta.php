@@ -381,19 +381,10 @@ class Pricingextrameta extends Module
         $prextrameta_meta = $this->prextrameta_init($product);
 
         if ($prextrameta_meta) {
-            $controller = Tools::getValue('controller');
-    
-            if($controller == 'product'){
-                $prextrameta_pos = Configuration::get('PREXTRAMETA_POSITION', 'after_price');
+            $prextrameta_pos = Configuration::get('PREXTRAMETA_POSITION', 'after_price');
 
-                if ($params['type'] == $prextrameta_pos) {
-                    $this->prextrameta_show_notice($prextrameta_meta);
-                }
-            }else{
-
-                if($on_catlg && $params['type'] == 'unit_price'){
-                    $this->prextrameta_show_notice($prextrameta_meta, '_mini');
-                }
+            if ($params['type'] == $prextrameta_pos) {
+                $this->prextrameta_show_notice($prextrameta_meta);
             }
         }
     }
@@ -445,12 +436,8 @@ class Pricingextrameta extends Module
 
         if(isset($mresults) && !empty($mresults)){
             $prextrameta_meta = array_pop($mresults);
+            return $prextrameta_meta['meta_data'];
         }
-
-        echo '<pre>';
-        print_r($prextrameta_meta);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
 
         return false;
     }
