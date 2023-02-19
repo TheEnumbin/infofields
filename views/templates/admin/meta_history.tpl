@@ -24,13 +24,13 @@
 *}
 <div class="prextrameta-wrapper">
     <div class="prextrameta-sec prextrameta-header">
-        <input type="hidden" id="prd_id" name="prd_id" value="{$omnibus_prd_id}">
+        <input type="hidden" id="prd_id" name="prd_id" value="{$prextrameta_prd_id}">
         <select class="prextrameta-lang-changer" name="prextrameta_lang_changer" id="prextrameta_lang_changer">
-            {foreach from=$omnibus_langs item=omnibus_lang}
-                {if $omnibus_lang.id_lang == $omnibus_curr_lang}
-                    <option selected="selected" value="{$omnibus_lang.id_lang}">{$omnibus_lang.name}</option>
+            {foreach from=$prextrameta_langs item=prextrameta_lang}
+                {if $prextrameta_lang.id_lang == $prextrameta_curr_lang}
+                    <option selected="selected" value="{$prextrameta_lang.id_lang}">{$prextrameta_lang.name}</option>
                 {else}
-                    <option value="{$omnibus_lang.id_lang}">{$omnibus_lang.name}</option>
+                    <option value="{$prextrameta_lang.id_lang}">{$prextrameta_lang.name}</option>
                 {/if}
             {/foreach}
         </select>
@@ -44,23 +44,23 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                 </tr>
-                {if $omnibus_meta}
-                    <tr class="prextrameta-meta_datam" id="prextrameta_meta_{$omnibus_meta.id_prextrameta}">
-                        <td>{$omnibus_meta.meta_data}</td>
-                        <td>{$omnibus_meta.start_date}</td>
-                        <td>{$omnibus_meta.end_date}</td>
+                {if $prextrameta_meta}
+                    <tr class="prextrameta-meta_datam" id="prextrameta_meta_{$prextrameta_meta.id_prextrameta}">
+                        <td>{$prextrameta_meta.meta_data}</td>
+                        <td>{$prextrameta_meta.start_date}</td>
+                        <td>{$prextrameta_meta.end_date}</td>
                     </tr>
                 {/if}
             </table>
         </div>
         <div class="prextrameta-meta-add">
             <label><h3>Input Your Extra Meta Data Here</h3></label>
-            {if $omnibus_meta}
-                <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="{$omnibus_meta.id_prextrameta}">
+            {if $prextrameta_meta}
+                <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="{$prextrameta_meta.id_prextrameta}">
             {else}
                 <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="0">
             {/if}
-            <input type="text" id="prextrameta_extra_meta" name="extra_meta" value="{$omnibus_meta.id_prextrameta}">
+            <input type="text" id="prextrameta_extra_meta" name="extra_meta" value="">
             <div class="prextrameta-meta-dates">
                 <div class="prextrameta-meta-date-item">
                     <label>Start date for showing this meta</label>

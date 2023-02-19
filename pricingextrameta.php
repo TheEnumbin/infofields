@@ -55,22 +55,11 @@ class Pricingextrameta extends Module
     public function install()
     {
         $date = date('Y-m-d');
-        Configuration::updateValue('PREXTRAMETA_SHOW_ON', 'discounted');
-        Configuration::updateValue('PREXTRAMETA_SHOW_ON_CATELOGUE', true);
-        Configuration::updateValue('PREXTRAMETA_AUTO_DELETE_OLD', false);
-        Configuration::updateValue('PREXTRAMETA_SHOW_IF_CURRENT', true);
-        Configuration::updateValue('PREXTRAMETA_NOTICE_STYLE', 'before_after');
         Configuration::updateValue('PREXTRAMETA_POSITION', 'after_price');
         Configuration::updateValue('PREXTRAMETA_BACK_COLOR', '#b3a700');
         Configuration::updateValue('PREXTRAMETA_FONT_COLOR', '#ffffff');
-        Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
 
         $languages = Language::getLanguages(false);
-        foreach ($languages as $lang) {
-            Configuration::updateValue('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
-            Configuration::updateValue('PREXTRAMETA_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion.');
-        }
-
         $tab = new Tab();
         $tab->active = 1;
         $tab->class_name = 'AdminAjaxPrextrameta';
@@ -170,118 +159,6 @@ class Pricingextrameta extends Module
                 'input' => [
                     [
                         'type' => 'select',
-                        'label' => $this->l('Show Notice On'),
-                        'name' => 'PREXTRAMETA_SHOW_ON',
-                        'options' => [
-                            'query' => [
-                                [
-                                    'id' => 'all_prds',
-                                    'name' => $this->l('All Products'),
-                                ],
-                                [
-                                    'id' => 'discounted',
-                                    'name' => $this->l('Only Discounted Products'),
-                                ],
-                            ],
-                            'id' => 'id',
-                            'name' => 'name',
-                        ],
-                        'tab' => 'general',
-                    ],
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Show notice if current price is the lowest.'),
-                        'name' => 'PREXTRAMETA_SHOW_IF_CURRENT',
-                        'values' => [
-                            [
-                                'id' => 'yes',
-                                'value' => true,
-                                'label' => $this->l('Yes'),
-                            ],
-                            [
-                                'id' => 'no',
-                                'value' => false,
-                                'label' => $this->l('No'),
-                            ],
-                        ],
-                        'tab' => 'general',
-                    ],
-                    [
-                        'type' => 'select',
-                        'label' => $this->l('Select Notice Text Style'),
-                        'name' => 'PREXTRAMETA_NOTICE_STYLE',
-                        'options' => [
-                            'query' => [
-                                [
-                                    'id' => 'before_after',
-                                    'name' => $this->l('Notice Text _ Price'),
-                                ],
-                                [
-                                    'id' => 'after_before',
-                                    'name' => $this->l('Price _ Notice Text'),
-                                ],
-                            ],
-                            'id' => 'id',
-                            'name' => 'name',
-                        ],
-                        'tab' => 'general',
-                    ],
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Automatically delete 30 days older data'),
-                        'name' => 'PREXTRAMETA_AUTO_DELETE_OLD',
-                        'values' => [
-                            [
-                                'id' => 'yes',
-                                'value' => true,
-                                'label' => $this->l('Yes'),
-                            ],
-                            [
-                                'id' => 'no',
-                                'value' => false,
-                                'label' => $this->l('No'),
-                            ],
-                        ],
-                        'tab' => 'general',
-                    ],
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Show omnibus directive notice on product catalog?'),
-                        'name' => 'PREXTRAMETA_SHOW_ON_CATELOGUE',
-                        'values' => [
-                            [
-                                'id' => 'yes',
-                                'value' => true,
-                                'label' => $this->l('Yes'),
-                            ],
-                            [
-                                'id' => 'no',
-                                'value' => false,
-                                'label' => $this->l('No'),
-                            ],
-                        ],
-                        'tab' => 'content_list_tab',
-                    ],
-                    [
-                        'col' => 3,
-                        'type' => 'text',
-                        'desc' => $this->l('Text to show where you show the lowest price in last 30 days.'),
-                        'name' => 'PREXTRAMETA_TEXT_MINI',
-                        'label' => $this->l('Omni Directive Text'),
-                        'tab' => 'content_list_tab',
-                        'lang' => true,
-                    ],
-                    [
-                        'col' => 3,
-                        'type' => 'text',
-                        'desc' => $this->l('Text to show where you show the lowest price in last 30 days.'),
-                        'name' => 'PREXTRAMETA_TEXT',
-                        'label' => $this->l('Omni Directive Text'),
-                        'tab' => 'content_tab',
-                        'lang' => true,
-                    ],
-                    [
-                        'type' => 'select',
                         'label' => $this->l('Select Notice Position'),
                         'name' => 'PREXTRAMETA_POSITION',
                         'options' => [
@@ -312,13 +189,13 @@ class Pricingextrameta extends Module
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
                         'name' => 'PREXTRAMETA_BACK_COLOR',
-                        'tab' => 'design_tab',
+                        'tab' => 'content_tab',
                     ],
                     [
                         'type' => 'color',
                         'label' => $this->l('Text Color'),
                         'name' => 'PREXTRAMETA_FONT_COLOR',
-                        'tab' => 'design_tab',
+                        'tab' => 'content_tab',
                     ],
                     [
                         'col' => 3,
@@ -326,7 +203,7 @@ class Pricingextrameta extends Module
                         'desc' => $this->l('Put your font size like "12px"'),
                         'name' => 'PREXTRAMETA_FONT_SIZE',
                         'label' => $this->l('Font Size'),
-                        'tab' => 'design_tab',
+                        'tab' => 'content_tab',
                     ],
                     [
                         'col' => 3,
@@ -334,7 +211,7 @@ class Pricingextrameta extends Module
                         'desc' => $this->l('Put your padding like "6px"'),
                         'name' => 'PREXTRAMETA_PADDING',
                         'label' => $this->l('Padding'),
-                        'tab' => 'design_tab',
+                        'tab' => 'content_tab',
                     ],
                     [
                         'type' => 'switch',
@@ -356,10 +233,7 @@ class Pricingextrameta extends Module
                     ],
                 ],
                 'tabs' => [
-                    'general' => 'General',
-                    'content_list_tab' => 'Content (Product Catalog)',
-                    'content_tab' => 'Content (Single Product)',
-                    'design_tab' => 'Design',
+                    'content_tab' => 'Content & Design',
                     'action_tab' => 'Action',
                 ],
                 'submit' => [
@@ -375,24 +249,13 @@ class Pricingextrameta extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
-            'PREXTRAMETA_SHOW_ON' => Configuration::get('PREXTRAMETA_SHOW_ON', 'discounted'),
-            'PREXTRAMETA_SHOW_ON_CATELOGUE' => Configuration::get('PREXTRAMETA_SHOW_ON_CATELOGUE', true),
-            'PREXTRAMETA_SHOW_IF_CURRENT' => Configuration::get('PREXTRAMETA_SHOW_IF_CURRENT', true),
-            'PREXTRAMETA_AUTO_DELETE_OLD' => Configuration::get('PREXTRAMETA_AUTO_DELETE_OLD', false),
             'PREXTRAMETA_POSITION' => Configuration::get('PREXTRAMETA_POSITION', 'after_price'),
-            'PREXTRAMETA_NOTICE_STYLE' => Configuration::get('PREXTRAMETA_NOTICE_STYLE', 'before_after'),
             'PREXTRAMETA_BACK_COLOR' => Configuration::get('PREXTRAMETA_BACK_COLOR', '#b3a700'),
             'PREXTRAMETA_FONT_COLOR' => Configuration::get('PREXTRAMETA_FONT_COLOR', '#ffffff'),
             'PREXTRAMETA_FONT_SIZE' => Configuration::get('PREXTRAMETA_FONT_SIZE', '12px'),
             'PREXTRAMETA_PADDING' => Configuration::get('PREXTRAMETA_PADDING', '6px'),
             'PREXTRAMETA_DELETE_OLD' => false,
         ];
-        $languages = Language::getLanguages(false);
-
-        foreach ($languages as $lang) {
-            $ret_arr['PREXTRAMETA_TEXT'][$lang['id_lang']] = Configuration::get('PREXTRAMETA_TEXT_' . $lang['id_lang'], 'Lowest price within 30 days before promotion');
-            $ret_arr['PREXTRAMETA_TEXT_MINI'][$lang['id_lang']] = Configuration::get('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang'], 'Lowest price within 30 days');
-        }
 
         return $ret_arr;
     }
@@ -432,13 +295,6 @@ class Pricingextrameta extends Module
                     );
                     Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
                 }
-            } elseif($key == ('PREXTRAMETA_TEXT_MINI') || $key == ('PREXTRAMETA_TEXT')){
-                
-                $languages = Language::getLanguages(false);
-
-                foreach ($languages as $lang) {
-                    Configuration::updateValue($key . '_' . $lang['id_lang'], Tools::getValue($key . '_' . $lang['id_lang']));
-                }
             } else{
                 Configuration::updateValue($key, Tools::getValue($key));
             }   
@@ -472,21 +328,6 @@ class Pricingextrameta extends Module
             'prextrameta_shop_id' => $shop_id,
             'prextrameta_lang_id' => $lang_id,
         ]);
-        $omni_auto_del = Configuration::get('PREXTRAMETA_AUTO_DELETE_OLD', false);
-
-        if($omni_auto_del){
-            $date = date('Y-m-d');
-            $date_range = date('Y-m-d', strtotime('-31 days'));
-            $prextrameta_delete_date = Configuration::get('PREXTRAMETA_DELETE_DATE');
-    
-            if ($prextrameta_delete_date == $date_range) {
-                Db::getInstance()->execute(
-                    'DELETE FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
-                    WHERE oc.date < "' . $date_range . '"'
-                );
-                Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
-            }
-        }
     }
 
     /**
@@ -498,7 +339,7 @@ class Pricingextrameta extends Module
 
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
-        $omnibus_meta = false;
+        $prextrameta_meta = false;
         $mresults = Db::getInstance()->executeS(
             'SELECT *
             FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
@@ -507,36 +348,17 @@ class Pricingextrameta extends Module
         );
 
         if(isset($mresults) && !empty($mresults)){
-            $omnibus_meta = array_pop($mresults);
+            $prextrameta_meta = array_pop($mresults);
         }
 
-        $results = Db::getInstance()->executeS(
-            'SELECT *
-            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
-            WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND' . ' oc.`shop_id` = ' . (int) $shop_id . ' AND oc.`product_id` = ' . (int) $id_product . ' ORDER BY date DESC',
-            true
-        );
-        $omnibus_prices = array();
-
-        foreach($results as $result){
-            $omnibus_prices[$result['id_prextrameta']]['id'] = $result['id_prextrameta'];
-            $omnibus_prices[$result['id_prextrameta']]['date'] = $result['date'];
-            $omnibus_prices[$result['id_prextrameta']]['price'] = $this->context->getCurrentLocale()->formatPrice($result['price'], $this->context->currency->iso_code);
-            $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Normal Price';
-
-            if($result['promo']){
-                $omnibus_prices[$result['id_prextrameta']]['promotext'] = 'Promotional Price';
-            }
-        }
         $languages = Language::getLanguages(false);
         $this->context->smarty->assign([
-            'omnibus_meta' => $omnibus_meta,
-            'omnibus_prices' => $omnibus_prices,
-            'omnibus_prd_id' => $id_product,
-            'omnibus_langs' => $languages,
-            'omnibus_curr_lang' => $lang_id,
+            'prextrameta_meta' => $prextrameta_meta,
+            'prextrameta_prd_id' => $id_product,
+            'prextrameta_langs' => $languages,
+            'prextrameta_curr_lang' => $lang_id,
         ]);
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/price_history.tpl');
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/meta_history.tpl');
 
         return $output;
     }
@@ -556,22 +378,21 @@ class Pricingextrameta extends Module
     public function hookDisplayProductPriceBlock($params)
     {
         $product = $params['product'];
-        $on_catlg = Configuration::get('PREXTRAMETA_SHOW_ON_CATELOGUE', true);
-        $prextrameta_price = $this->prextrameta_init($product, $on_catlg);
+        $prextrameta_meta = $this->prextrameta_init($product);
 
-        if ($prextrameta_price) {
+        if ($prextrameta_meta) {
             $controller = Tools::getValue('controller');
     
             if($controller == 'product'){
                 $prextrameta_pos = Configuration::get('PREXTRAMETA_POSITION', 'after_price');
 
                 if ($params['type'] == $prextrameta_pos) {
-                    $this->prextrameta_show_notice($prextrameta_price);
+                    $this->prextrameta_show_notice($prextrameta_meta);
                 }
             }else{
 
                 if($on_catlg && $params['type'] == 'unit_price'){
-                    $this->prextrameta_show_notice($prextrameta_price, '_mini');
+                    $this->prextrameta_show_notice($prextrameta_meta, '_mini');
                 }
             }
         }
@@ -583,10 +404,10 @@ class Pricingextrameta extends Module
     public function hookDisplayFooterProduct($params)
     {
         $product = $params['product'];
-        $prextrameta_price = $this->prextrameta_init($product);
+        $prextrameta_meta = $this->prextrameta_init($product);
 
-        if ($prextrameta_price) {
-            $this->prextrameta_show_notice($prextrameta_price);
+        if ($prextrameta_meta) {
+            $this->prextrameta_show_notice($prextrameta_meta);
         }
     }
 
@@ -596,136 +417,56 @@ class Pricingextrameta extends Module
     public function hookDisplayProductButtons($params)
     {
         $product = $params['product'];
-        $prextrameta_price = $this->prextrameta_init($product);
+        $prextrameta_meta = $this->prextrameta_init($product);
 
-        if ($prextrameta_price) {
-            $this->prextrameta_show_notice($prextrameta_price);
+        if ($prextrameta_meta) {
+            $this->prextrameta_show_notice($prextrameta_meta);
         }
     }
 
     /**
      * Returns the Omnibus Price if poduct has promotion
      */
-    private function prextrameta_init($product, $on_catlg = true)
+    private function prextrameta_init($product)
     {
         $controller = Tools::getValue('controller');
-        $show_on = Configuration::get('PREXTRAMETA_SHOW_ON', 'discounted');
 
-        if ($controller != 'product' && !$on_catlg) {
-            return;
+        $id_product = $product->id;
+
+        $lang_id = $this->context->language->id;
+        $shop_id = $this->context->shop->id;
+        $prextrameta_meta = false;
+        $mresults = Db::getInstance()->executeS(
+            'SELECT *
+            FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
+            WHERE pemt.`lang_id` = ' . (int) $lang_id . ' AND' . ' pemt.`shop_id` = ' . (int) $shop_id . ' AND pemt.`product_id` = ' . (int) $id_product,
+            true
+        );
+
+        if(isset($mresults) && !empty($mresults)){
+            $prextrameta_meta = array_pop($mresults);
         }
 
-        if (!$product->has_discount && $show_on == 'discounted') {
-            return;
-        }
-        $price_amount = $product->price_amount;
-        $existing = $this->prextrameta_check_existance($product->id, $price_amount, $product->id_product_attribute);
-
-        if (empty($existing)) {
-            $this->prextrameta_insert_data($product->id, $price_amount, $product->has_discount, $product->id_product_attribute);
-        }
-        $omnibus_price = $this->prextrameta_get_price($product->id, $price_amount, $product->id_product_attribute);
-
-        if ($omnibus_price) {
-            $prextrametae_formatted_price = $this->context->getCurrentLocale()->formatPrice($omnibus_price, $this->context->currency->iso_code);
-
-            return $prextrametae_formatted_price;
-        } else {
-            $omni_if_current = Configuration::get('PREXTRAMETA_SHOW_IF_CURRENT', true);
-
-            if ($omni_if_current) {
-                return $product->price;
-            }
-
-            return false;
-        }
+        echo '<pre>';
+        print_r($prextrameta_meta);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
 
         return false;
     }
 
-    /**
-     * Check if price is alredy available for the product
-     */
-    private function prextrameta_check_existance($prd_id, $price, $id_attr = 0)
-    {
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
-        $attr_q = '';
-
-        if($id_attr){
-            $attr_q = ' AND oc.`id_product_attribute` = ' . $id_attr;
-        }
-
-        $results = Db::getInstance()->executeS(
-            'SELECT *
-            FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
-            WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND oc.`shop_id` = ' . (int) $shop_id . '
-            AND oc.`product_id` = ' . (int) $prd_id . ' AND oc.`price` = ' . $price . $attr_q
-        );
-
-        return $results;
-    }
-
-    /**
-     * Insert the minimum price to the table
-     */
-    private function prextrameta_insert_data($prd_id, $price, $discounted, $id_attr = 0)
-    {
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
-        $date = date('Y-m-d');
-        $promo = 0;
-
-        if($discounted){
-            $promo = 1;
-        }
-
-        $result = Db::getInstance()->insert('prextrameta_products', [
-            'product_id' => (int) $prd_id,
-            'id_product_attribute' => $id_attr,
-            'price' => $price,
-            'promo' => $promo,
-            'date' => $date,
-            'shop_id' => (int) $shop_id,
-            'lang_id' => (int) $lang_id,
-        ]);
-    }
-
-    /**
-     * Gets the minimum price within 30 days.
-     */
-    private function prextrameta_get_price($id, $price_amount, $id_attr = 0)
-    {
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
-        $attr_q = '';
-        if($id_attr){
-            $attr_q = ' AND oc.`id_product_attribute` = ' . $id_attr;
-        }
-        $date = date('Y-m-d');
-        $date_range = date('Y-m-d', strtotime('-31 days'));
-        $result = Db::getInstance()->getValue('SELECT MIN(price) as ' . $this->name . '_price FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc 
-        WHERE oc.`lang_id` = ' . (int) $lang_id . ' AND oc.`shop_id` = ' . (int) $shop_id . '
-        AND oc.`product_id` = ' . (int) $id . ' AND oc.date > "' . $date_range . '" AND oc.price != "' . $price_amount . '"' . $attr_q);
-
-        return $result;
-    }
 
     /**
      * Shows the notice
      */
-    private function prextrameta_show_notice($price, $controller = '')
+    private function prextrameta_show_notice($prextrameta_text)
     {
         $lang_id = $this->context->language->id;
-        $mini_conf = strtoupper($controller);
-        $prextrameta_text = Configuration::get('PREXTRAMETA_TEXT' . $mini_conf . '_' . $lang_id, 'Lowest price within 30 days before promotion.');
-        $prextrameta_text_style = Configuration::get('PREXTRAMETA_NOTICE_STYLE', 'before_after');
+        
         $this->context->smarty->assign([
             'prextrameta_text' => $prextrameta_text,
-            'prextrameta_text_style' => $prextrameta_text_style,
-            'prextrameta_price' => $price,
         ]);
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/omni_front' . $controller . '.tpl');
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/prextrameta.tpl');
 
         echo $output;
     }
