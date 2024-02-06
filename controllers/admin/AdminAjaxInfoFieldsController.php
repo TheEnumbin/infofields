@@ -17,7 +17,7 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
-class AdminAjaxPrextrametaController extends ModuleAdminController
+class AdminAjaxInfoFieldsController extends ModuleAdminController
 {
     public function ajaxProcessPrextrametaChangeLang()
     {
@@ -27,7 +27,7 @@ class AdminAjaxPrextrametaController extends ModuleAdminController
         $omnibus_meta = array();
         $mresults = Db::getInstance()->executeS(
             'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
+            FROM `' . _DB_PREFIX_ . 'infofields` pemt
             WHERE pemt.`lang_id` = ' . (int) $lang_id . ' AND' . ' pemt.`shop_id` = ' . (int) $shop_id . ' AND pemt.`product_id` = ' . (int) $prd_id,
             true
         );
@@ -63,11 +63,11 @@ class AdminAjaxPrextrametaController extends ModuleAdminController
         $shop_id = Tools::getValue('shopid');
 
         $result = Db::getInstance()->delete(
-            'pricing_extrameta',
-            '`id_prextrameta` = ' . (int) $exmtid
+            'infofields',
+            '`id_infofields` = ' . (int) $exmtid
         );
 
-        $result = Db::getInstance()->insert('pricing_extrameta', [
+        $result = Db::getInstance()->insert('infofields', [
             'product_id' => (int) $prd_id,
             'id_product_attribute' => 0,
             'meta_data' => $meta,

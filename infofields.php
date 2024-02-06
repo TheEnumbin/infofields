@@ -58,7 +58,6 @@ class Infofields extends Module
         Configuration::updateValue('INFOFIELDS_POSITION', 'after_price');
         Configuration::updateValue('INFOFIELDS_BACK_COLOR', '#b3a700');
         Configuration::updateValue('INFOFIELDS_FONT_COLOR', '#ffffff');
-
         $languages = Language::getLanguages(false);
         $tab = new Tab();
         $tab->active = 1;
