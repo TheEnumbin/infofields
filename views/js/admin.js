@@ -54,14 +54,6 @@ $(document).ready(function() {
                             + '</tr>');
                         $('#prextrameta_extra_meta_id').val($data.omnibus_meta.id_prextrameta);
                     }
-                    
-                    $('#prextrameta_history_table').find(".prextrameta-history-datam").remove();
-                    $.each( $data.omnibus_prices, function( key, value ) {
-                        $('#prextrameta_history_table').append('<tr class="prextrameta-history-datam" id="prextrameta_history_' + value.id + '">' 
-                        + '<td>' + value.date + '</td><td>' + value.price + '</td><td>' + value.promotext + '</td>'
-                        + '<td><button  class="prextrameta_history_delete btn btn-danger" type="button" value="' + value.id + '">Delete</button></td>'
-                        + '</tr>');
-                    });
                 }
             }
         });
@@ -101,60 +93,6 @@ $(document).ready(function() {
                     $('#prextrameta_mdate_end').val("");
                     $('#prextrameta_extra_meta_id').val($data.id_inserted);
                     $('.prextrameta_meta_notice').html($data.msg)
-                }
-            }
-        });
-    });
-    $(document).on('click', '#prextrameta_custom_price_add', function(){
-        var $prdid = $('#prd_id').val();
-        var $price = $('#price_amount').val();
-        var $price_type = $('#price_type').val();
-        var $promodate = $('#promodate').val();
-        var $langid = $('#prextrameta_lang_changer').find(":selected").val();
-        $.ajax({
-            type: 'POST',
-            url: prextrameta_ajax_url,
-            dataType: 'html',
-            data: {
-                controller : 'AdminAjaxPrextrameta',
-                action : 'AddCustomPrice',
-                prdid : $prdid,
-                price : $price,
-                pricetype : $price_type,
-                promodate : $promodate,
-                langid : $langid,
-                shopid : prextrameta_shop_id,
-                ajax : true
-            },
-            success : function(data) {
-                var $data = JSON.parse(data);
-                if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#prextrameta_history_table').append('<tr class="prextrameta-history-datam"  id="prextrameta_history_' + $data.id_inserted + '">' 
-                    + '<td>' + $data.date + '</td><td>' + $data.price + '</td><td>' + $data.promo + '</td>'
-                    + '</tr>');
-                    $('#price_amount').val("");
-                    $('#promodate').val("");
-                    $('#price_type').prop('selectedIndex',0);
-                }
-            }
-        });
-    });
-    $(document).on('click', '.prextrameta_history_delete', function(){
-        var $val = $(this).val();
-        $.ajax({
-            type: 'POST',
-            url: prextrameta_ajax_url,
-            dataType: 'html',
-            data: {
-                controller : 'AdminAjaxPrextrameta',
-                action : 'DeleteCustomPrice',
-                pricing_id : $val,
-                ajax : true
-            },
-            success : function(data) {
-                var $data = JSON.parse(data);
-                if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#prextrameta_history_' + $val).remove();
                 }
             }
         });

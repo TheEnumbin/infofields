@@ -22,10 +22,4 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<div class="prextrameta-mini-wrapper">
-    {if $prextrameta_text_style == 'before_after'}
-        <span class="prextrameta-notice">{$prextrameta_text} {$prextrameta_price}</span>
-    {else}
-        <span class="prextrameta-notice">{$prextrameta_price} {$prextrameta_text}</span>
-    {/if}
-</div>
+<span class="prextrameta-notice">{$prextrameta_text}</span>

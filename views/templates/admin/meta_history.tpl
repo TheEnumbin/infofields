@@ -24,13 +24,13 @@
 *}
 <div class="prextrameta-wrapper">
     <div class="prextrameta-sec prextrameta-header">
-        <input type="hidden" id="prd_id" name="prd_id" value="{$omnibus_prd_id}">
+        <input type="hidden" id="prd_id" name="prd_id" value="{$prextrameta_prd_id}">
         <select class="prextrameta-lang-changer" name="prextrameta_lang_changer" id="prextrameta_lang_changer">
-            {foreach from=$omnibus_langs item=omnibus_lang}
-                {if $omnibus_lang.id_lang == $omnibus_curr_lang}
-                    <option selected="selected" value="{$omnibus_lang.id_lang}">{$omnibus_lang.name}</option>
+            {foreach from=$prextrameta_langs item=prextrameta_lang}
+                {if $prextrameta_lang.id_lang == $prextrameta_curr_lang}
+                    <option selected="selected" value="{$prextrameta_lang.id_lang}">{$prextrameta_lang.name}</option>
                 {else}
-                    <option value="{$omnibus_lang.id_lang}">{$omnibus_lang.name}</option>
+                    <option value="{$prextrameta_lang.id_lang}">{$prextrameta_lang.name}</option>
                 {/if}
             {/foreach}
         </select>
@@ -44,23 +44,23 @@
                     <th>Start Date</th>
                     <th>End Date</th>
                 </tr>
-                {if $omnibus_meta}
-                    <tr class="prextrameta-meta_datam" id="prextrameta_meta_{$omnibus_meta.id_prextrameta}">
-                        <td>{$omnibus_meta.meta_data}</td>
-                        <td>{$omnibus_meta.start_date}</td>
-                        <td>{$omnibus_meta.end_date}</td>
+                {if $prextrameta_meta}
+                    <tr class="prextrameta-meta_datam" id="prextrameta_meta_{$prextrameta_meta.id_prextrameta}">
+                        <td>{$prextrameta_meta.meta_data}</td>
+                        <td>{$prextrameta_meta.start_date}</td>
+                        <td>{$prextrameta_meta.end_date}</td>
                     </tr>
                 {/if}
             </table>
         </div>
         <div class="prextrameta-meta-add">
             <label><h3>Input Your Extra Meta Data Here</h3></label>
-            {if $omnibus_meta}
-                <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="{$omnibus_meta.id_prextrameta}">
+            {if $prextrameta_meta}
+                <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="{$prextrameta_meta.id_prextrameta}">
             {else}
                 <input type="hidden" id="prextrameta_extra_meta_id" name="prextrameta_extra_meta_id" value="0">
             {/if}
-            <input type="text" id="prextrameta_extra_meta" name="extra_meta" value="{$omnibus_meta.id_prextrameta}">
+            <input type="text" id="prextrameta_extra_meta" name="extra_meta" value="">
             <div class="prextrameta-meta-dates">
                 <div class="prextrameta-meta-date-item">
                     <label>Start date for showing this meta</label>
@@ -75,38 +75,6 @@
                 </div>
             </div>
             <button id="prextrameta_meta_add" class="btn btn-primary" type="button">Submit</button>
-        </div>
-    </div>
-    <div class="prextrameta-sec prextrameta-price-history">
-        <div><h2>Omnibus Pricing Section</h3></div>
-        <table id="prextrameta_history_table">
-            <tr>
-                <th>Date</th>
-                <th>Price Amount</th>
-                <th>Price Type</th>
-                <th>Action</th>
-            </tr>
-            {foreach from=$omnibus_prices item=omnibus_price}
-                <tr class="prextrameta-history-datam" id="prextrameta_history_{$omnibus_price.id}">
-                    <td>{$omnibus_price.date}</td>
-                    <td>{$omnibus_price.price}</td>
-                    <td>{$omnibus_price.promotext}</td>
-                    <td><button  class="prextrameta_history_delete btn btn-danger" type="button" value="{$omnibus_price.id}">Delete</button></td>
-                </tr>
-            {/foreach}
-        </table>
-    </div>
-    <div class="prextrameta-sec prextrameta-custom-section">
-        <h3>Add Your Custom Price</h3>
-        <div class="prextrameta-custom-fields">
-            <input class="prextrameta-custom-field" type="number" id="price_amount" name="price_amount">
-            <input class="prextrameta-custom-field" type="date" id="promodate" name="promodate">
-            <select class="prextrameta-custom-field promnibus-promo" name="price_type" id="price_type">
-                <option>Select Price Type</option>
-                <option value="1">Promotional</option>
-                <option value="0">Normal</option>
-            </select>
-            <button id="prextrameta_custom_price_add" class="btn btn-primary" type="button">Add</button>
         </div>
     </div>
 </div>
