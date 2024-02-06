@@ -27,13 +27,13 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-class Pricingextrameta extends Module
+class Infofields extends Module
 {
     protected $config_form = false;
 
     public function __construct()
     {
-        $this->name = 'pricingextrameta';
+        $this->name = 'infofields';
         $this->version = '1.0.0';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
@@ -43,9 +43,9 @@ class Pricingextrameta extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->l('Pricing Extra Meta');
-        $this->description = $this->l('Share extra information about your product pricing.');
-        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => '1.7.8.7'];
+        $this->displayName = $this->l('Info Fields: Create Advanced Custom Meta Fields');
+        $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
+        $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
     }
 
     /**
@@ -55,17 +55,17 @@ class Pricingextrameta extends Module
     public function install()
     {
         $date = date('Y-m-d');
-        Configuration::updateValue('PREXTRAMETA_POSITION', 'after_price');
-        Configuration::updateValue('PREXTRAMETA_BACK_COLOR', '#b3a700');
-        Configuration::updateValue('PREXTRAMETA_FONT_COLOR', '#ffffff');
+        Configuration::updateValue('INFOFIELDS_POSITION', 'after_price');
+        Configuration::updateValue('INFOFIELDS_BACK_COLOR', '#b3a700');
+        Configuration::updateValue('INFOFIELDS_FONT_COLOR', '#ffffff');
 
         $languages = Language::getLanguages(false);
         $tab = new Tab();
         $tab->active = 1;
-        $tab->class_name = 'AdminAjaxPrextrameta';
+        $tab->class_name = 'AdminAjaxInfoFields';
         $tab->name = [];
         foreach ($languages as $lang) {
-            $tab->name[$lang['id_lang']] = 'Pricing Omnibus Ajax';
+            $tab->name[$lang['id_lang']] = 'Infofields Ajax';
         }
         $tab->id_parent = -1;
         $tab->module = $this->name;
@@ -74,7 +74,7 @@ class Pricingextrameta extends Module
         include _PS_MODULE_DIR_ . $this->name . '/sql/install.php';
 
         return parent::install() &&
-            $this->registerHook('header') &&
+            $this->registerHook('displayHeader') &&
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
             $this->registerHook('displayProductPriceBlock');
@@ -86,25 +86,12 @@ class Pricingextrameta extends Module
     public function uninstall()
     {
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall.php';
-        $languages = Language::getLanguages(false);
 
-        foreach ($languages as $lang) {
-            Configuration::deleteByName('PREXTRAMETA_TEXT_MINI_' . $lang['id_lang']);
-            Configuration::deleteByName('PREXTRAMETA_TEXT_' . $lang['id_lang']);
-        }
-        
-        Configuration::deleteByName('PREXTRAMETA_SHOW_ON');
-        Configuration::deleteByName('PREXTRAMETA_SHOW_ON_CATELOGUE');
-        Configuration::deleteByName('PREXTRAMETA_AUTO_DELETE_OLD');
-        Configuration::deleteByName('PREXTRAMETA_SHOW_IF_CURRENT');
-        Configuration::deleteByName('PREXTRAMETA_NOTICE_STYLE');
-        Configuration::deleteByName('PREXTRAMETA_POSITION');
-        Configuration::deleteByName('PREXTRAMETA_BACK_COLOR');
-        Configuration::deleteByName('PREXTRAMETA_FONT_SIZE');
-        Configuration::deleteByName('PREXTRAMETA_PADDING');
-        Configuration::deleteByName('PREXTRAMETA_FONT_COLOR');
-        Configuration::deleteByName('PREXTRAMETA_DELETE_OLD');
-        Configuration::deleteByName('PREXTRAMETA_DELETE_DATE');
+        Configuration::deleteByName('INFOFIELDS_POSITION');
+        Configuration::deleteByName('INFOFIELDS_BACK_COLOR');
+        Configuration::deleteByName('INFOFIELDS_FONT_SIZE');
+        Configuration::deleteByName('INFOFIELDS_PADDING');
+        Configuration::deleteByName('INFOFIELDS_FONT_COLOR');
 
         return parent::uninstall();
     }
@@ -114,7 +101,7 @@ class Pricingextrameta extends Module
      */
     public function getContent()
     {
-        if (((bool) Tools::isSubmit('submitPrextrametaModule')) == true) {
+        if (((bool) Tools::isSubmit('submitInfofieldsModule')) == true) {
             $this->postProcess();
         }
 
@@ -133,7 +120,7 @@ class Pricingextrameta extends Module
         $helper->default_form_language = $this->context->language->id;
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG', 0);
         $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitPrextrametaModule';
+        $helper->submit_action = 'submitInfofieldsModule';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false) . '&configure=' . $this->name . '&tab_module=' . $this->tab . '&module_name=' . $this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
         $helper->tpl_vars = [
@@ -160,7 +147,7 @@ class Pricingextrameta extends Module
                     [
                         'type' => 'select',
                         'label' => $this->l('Select Notice Position'),
-                        'name' => 'PREXTRAMETA_POSITION',
+                        'name' => 'INFOFIELDS_POSITION',
                         'options' => [
                             'query' => [
                                 [
@@ -188,20 +175,20 @@ class Pricingextrameta extends Module
                     [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
-                        'name' => 'PREXTRAMETA_BACK_COLOR',
+                        'name' => 'INFOFIELDS_BACK_COLOR',
                         'tab' => 'content_tab',
                     ],
                     [
                         'type' => 'color',
                         'label' => $this->l('Text Color'),
-                        'name' => 'PREXTRAMETA_FONT_COLOR',
+                        'name' => 'INFOFIELDS_FONT_COLOR',
                         'tab' => 'content_tab',
                     ],
                     [
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Put your font size like "12px"'),
-                        'name' => 'PREXTRAMETA_FONT_SIZE',
+                        'name' => 'INFOFIELDS_FONT_SIZE',
                         'label' => $this->l('Font Size'),
                         'tab' => 'content_tab',
                     ],
@@ -209,32 +196,13 @@ class Pricingextrameta extends Module
                         'col' => 3,
                         'type' => 'text',
                         'desc' => $this->l('Put your padding like "6px"'),
-                        'name' => 'PREXTRAMETA_PADDING',
+                        'name' => 'INFOFIELDS_PADDING',
                         'label' => $this->l('Padding'),
                         'tab' => 'content_tab',
-                    ],
-                    [
-                        'type' => 'switch',
-                        'label' => $this->l('Delete Data Before 30 Days?'),
-                        'name' => 'PREXTRAMETA_DELETE_OLD',
-                        'values' => [
-                            [
-                                'id' => 'yes',
-                                'value' => true,
-                                'label' => $this->l('Yes'),
-                            ],
-                            [
-                                'id' => 'no',
-                                'value' => false,
-                                'label' => $this->l('No'),
-                            ],
-                        ],
-                        'tab' => 'action_tab',
                     ],
                 ],
                 'tabs' => [
                     'content_tab' => 'Content & Design',
-                    'action_tab' => 'Action',
                 ],
                 'submit' => [
                     'title' => $this->l('Save'),
@@ -249,12 +217,11 @@ class Pricingextrameta extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
-            'PREXTRAMETA_POSITION' => Configuration::get('PREXTRAMETA_POSITION', 'after_price'),
-            'PREXTRAMETA_BACK_COLOR' => Configuration::get('PREXTRAMETA_BACK_COLOR', '#b3a700'),
-            'PREXTRAMETA_FONT_COLOR' => Configuration::get('PREXTRAMETA_FONT_COLOR', '#ffffff'),
-            'PREXTRAMETA_FONT_SIZE' => Configuration::get('PREXTRAMETA_FONT_SIZE', '12px'),
-            'PREXTRAMETA_PADDING' => Configuration::get('PREXTRAMETA_PADDING', '6px'),
-            'PREXTRAMETA_DELETE_OLD' => false,
+            'INFOFIELDS_POSITION' => Configuration::get('INFOFIELDS_POSITION', 'after_price'),
+            'INFOFIELDS_BACK_COLOR' => Configuration::get('INFOFIELDS_BACK_COLOR', '#b3a700'),
+            'INFOFIELDS_FONT_COLOR' => Configuration::get('INFOFIELDS_FONT_COLOR', '#ffffff'),
+            'INFOFIELDS_FONT_SIZE' => Configuration::get('INFOFIELDS_FONT_SIZE', '12px'),
+            'INFOFIELDS_PADDING' => Configuration::get('INFOFIELDS_PADDING', '6px'),
         ];
 
         return $ret_arr;
@@ -269,7 +236,7 @@ class Pricingextrameta extends Module
         $lang_id = $this->context->language->id;
 
         foreach (array_keys($form_values) as $key) {
-            if ($key == 'PREXTRAMETA_POSITION') {
+            if ($key == 'INFOFIELDS_POSITION') {
                 if (Tools::getValue($key) == 'footer_product') {
                     $this->registerHook('displayFooterProduct');
                     $this->unregisterHook('displayProductButtons');
@@ -284,31 +251,20 @@ class Pricingextrameta extends Module
                     $this->unregisterHook('displayProductButtons');
                 }
                 Configuration::updateValue($key, Tools::getValue($key));
-            } elseif ($key == 'PREXTRAMETA_DELETE_OLD') {
-                if (Tools::getValue($key)) {
-                    $date = date('Y-m-d');
-                    $date_range = date('Y-m-d', strtotime('-31 days'));
-
-                    Db::getInstance()->execute(
-                        'DELETE FROM `' . _DB_PREFIX_ . 'prextrameta_products` oc
-                        WHERE oc.date < "' . $date_range . '"'
-                    );
-                    Configuration::updateValue('PREXTRAMETA_DELETE_DATE', $date);
-                }
             } else{
                 Configuration::updateValue($key, Tools::getValue($key));
             }   
         }
 
-        $prextrameta_back_color = Configuration::get('PREXTRAMETA_BACK_COLOR', '#b3a700');
-        $prextrameta_font_color = Configuration::get('PREXTRAMETA_FONT_COLOR', '#ffffff');
-        $prextrameta_font_size = Configuration::get('PREXTRAMETA_FONT_SIZE', '12px');
-        $prextrameta_padding = Configuration::get('PREXTRAMETA_PADDING', '6px');
+        $infofields_back_color = Configuration::get('INFOFIELDS_BACK_COLOR', '#b3a700');
+        $infofields_font_color = Configuration::get('INFOFIELDS_FONT_COLOR', '#ffffff');
+        $infofields_font_size = Configuration::get('INFOFIELDS_FONT_SIZE', '12px');
+        $infofields_padding = Configuration::get('INFOFIELDS_PADDING', '6px');
         $gen_css = '.prextrameta-notice{
-                        padding: ' . $prextrameta_padding . ' !important;
-                        font-size: ' . $prextrameta_font_size . ' !important;
-                        color: ' . $prextrameta_font_color . ' !important;
-                        background: ' . $prextrameta_back_color . ' !important;
+                        padding: ' . $infofields_padding . ' !important;
+                        font-size: ' . $infofields_font_size . ' !important;
+                        color: ' . $infofields_font_color . ' !important;
+                        background: ' . $infofields_back_color . ' !important;
                     }';
 
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
@@ -324,9 +280,9 @@ class Pricingextrameta extends Module
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
         Media::addJsDef([
-            'prextrameta_ajax_url' => $this->context->link->getAdminLink('AdminAjaxPrextrameta'),
-            'prextrameta_shop_id' => $shop_id,
-            'prextrameta_lang_id' => $lang_id,
+            'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
+            'infofields_shop_id' => $shop_id,
+            'infofields_lang_id' => $lang_id,
         ]);
     }
 
@@ -339,7 +295,7 @@ class Pricingextrameta extends Module
 
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
-        $prextrameta_meta = false;
+        $infofields_meta = false;
         $mresults = Db::getInstance()->executeS(
             'SELECT *
             FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
@@ -348,15 +304,15 @@ class Pricingextrameta extends Module
         );
 
         if(isset($mresults) && !empty($mresults)){
-            $prextrameta_meta = array_pop($mresults);
+            $infofields_meta = array_pop($mresults);
         }
 
         $languages = Language::getLanguages(false);
         $this->context->smarty->assign([
-            'prextrameta_meta' => $prextrameta_meta,
-            'prextrameta_prd_id' => $id_product,
-            'prextrameta_langs' => $languages,
-            'prextrameta_curr_lang' => $lang_id,
+            'infofields_meta' => $infofields_meta,
+            'infofields_prd_id' => $id_product,
+            'infofields_langs' => $languages,
+            'infofields_curr_lang' => $lang_id,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/meta_history.tpl');
 
@@ -378,13 +334,13 @@ class Pricingextrameta extends Module
     public function hookDisplayProductPriceBlock($params)
     {
         $product = $params['product'];
-        $prextrameta_meta = $this->prextrameta_init($product);
+        $infofields_meta = $this->infofields_init($product);
 
-        if ($prextrameta_meta) {
-            $prextrameta_pos = Configuration::get('PREXTRAMETA_POSITION', 'after_price');
+        if ($infofields_meta) {
+            $infofields_pos = Configuration::get('INFOFIELDS_POSITION', 'after_price');
 
-            if ($params['type'] == $prextrameta_pos) {
-                $this->prextrameta_show_notice($prextrameta_meta);
+            if ($params['type'] == $infofields_pos) {
+                $this->infofields_show_notice($infofields_meta);
             }
         }
     }
@@ -395,10 +351,10 @@ class Pricingextrameta extends Module
     public function hookDisplayFooterProduct($params)
     {
         $product = $params['product'];
-        $prextrameta_meta = $this->prextrameta_init($product);
+        $infofields_meta = $this->infofields_init($product);
 
-        if ($prextrameta_meta) {
-            $this->prextrameta_show_notice($prextrameta_meta);
+        if ($infofields_meta) {
+            $this->infofields_show_notice($infofields_meta);
         }
     }
 
@@ -408,17 +364,17 @@ class Pricingextrameta extends Module
     public function hookDisplayProductButtons($params)
     {
         $product = $params['product'];
-        $prextrameta_meta = $this->prextrameta_init($product);
+        $infofields_meta = $this->infofields_init($product);
 
-        if ($prextrameta_meta) {
-            $this->prextrameta_show_notice($prextrameta_meta);
+        if ($infofields_meta) {
+            $this->infofields_show_notice($infofields_meta);
         }
     }
 
     /**
      * Returns the Omnibus Price if poduct has promotion
      */
-    private function prextrameta_init($product)
+    private function infofields_init($product)
     {
         $controller = Tools::getValue('controller');
 
@@ -426,7 +382,7 @@ class Pricingextrameta extends Module
 
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
-        $prextrameta_meta = false;
+        $infofields_meta = false;
         $mresults = Db::getInstance()->executeS(
             'SELECT *
             FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
@@ -435,8 +391,8 @@ class Pricingextrameta extends Module
         );
 
         if(isset($mresults) && !empty($mresults)){
-            $prextrameta_meta = array_pop($mresults);
-            return $prextrameta_meta['meta_data'];
+            $infofields_meta = array_pop($mresults);
+            return $infofields_meta['meta_data'];
         }
 
         return false;
@@ -446,12 +402,12 @@ class Pricingextrameta extends Module
     /**
      * Shows the notice
      */
-    private function prextrameta_show_notice($prextrameta_text)
+    private function infofields_show_notice($infofields_text)
     {
         $lang_id = $this->context->language->id;
         
         $this->context->smarty->assign([
-            'prextrameta_text' => $prextrameta_text,
+            'infofields_text' => $infofields_text,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/prextrameta.tpl');
 

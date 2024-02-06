@@ -30,7 +30,7 @@
  * but does not want to loose all of the data associated to the module.
  */
 $sql = [];
-$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'pricing_extrameta`;';
+$sql[] = 'DROP TABLE `' . _DB_PREFIX_ . 'infofields`;';
 foreach ($sql as $query) {
     if (Db::getInstance()->execute($query) == false) {
         return false;
