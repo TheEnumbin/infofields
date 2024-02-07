@@ -19,5 +19,33 @@
  */
 class AdminInfoListsController extends ModuleAdminController
 {
-    
+    public $module;
+
+    public function __construct()
+    {
+        $this->module = 'infofields';
+        $this->bootstrap = true;
+        $this->table = 'infofields';
+        $this->identifier = 'id_infofields';
+        $this->className = 'FieldsModel';
+        $this->lang = false;
+        $this->deleted = false;
+
+        $this->context = Context::getContext();
+
+        $this->_orderBy = 'id_infofields';
+        $this->_orderWay = 'asc';
+
+        parent::__construct();
+    }
+
+    public function setMedia($isNewTheme = false)
+    {
+        parent::setMedia($isNewTheme);
+    }
+
+    public function initPageHeaderToolbar()
+    {
+        parent::initPageHeaderToolbar();
+    }
 }
