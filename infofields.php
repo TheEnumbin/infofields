@@ -43,7 +43,7 @@ class Infofields extends Module
 
         parent::__construct();
 
-        $this->displayName = $this->l('Info Fields: Create Advanced Custom Meta Fields');
+        $this->displayName = $this->l('Custom Info Fields: Create Advanced Meta Fields');
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
     }
@@ -58,19 +58,9 @@ class Infofields extends Module
         Configuration::updateValue('INFOFIELDS_POSITION', 'after_price');
         Configuration::updateValue('INFOFIELDS_BACK_COLOR', '#b3a700');
         Configuration::updateValue('INFOFIELDS_FONT_COLOR', '#ffffff');
-        $languages = Language::getLanguages(false);
-        $tab = new Tab();
-        $tab->active = 1;
-        $tab->class_name = 'AdminAjaxInfoFields';
-        $tab->name = [];
-        foreach ($languages as $lang) {
-            $tab->name[$lang['id_lang']] = 'Infofields Ajax';
-        }
-        $tab->id_parent = -1;
-        $tab->module = $this->name;
-        $tab->add();
 
         include _PS_MODULE_DIR_ . $this->name . '/sql/install.php';
+        include _PS_MODULE_DIR_ . $this->name . '/sql/install_tabs.php';
 
         return parent::install() &&
             $this->registerHook('displayHeader') &&
@@ -85,6 +75,7 @@ class Infofields extends Module
     public function uninstall()
     {
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall.php';
+        include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall_tabs.php';
 
         Configuration::deleteByName('INFOFIELDS_POSITION');
         Configuration::deleteByName('INFOFIELDS_BACK_COLOR');
