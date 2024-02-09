@@ -39,6 +39,34 @@ class AdminInfoListsController extends ModuleAdminController
         parent::__construct();
     }
 
+    public function renderList()
+    {
+        $this->addRowAction('edit');
+        $this->addRowAction('delete');
+
+        $this->fields_list = [
+            'id_infofields' => [
+                'title' => $this->module->l('ID'),
+                'align' => 'center',
+                'type' => 'integer'
+            ],
+            'field_name' => [
+                'title' => $this->module->l('Name'),
+                'align' => 'center',
+                'type' => 'string'
+            ],
+            'item_type' => [
+                'title' => $this->module->l('Type'),
+                'align' => 'center',
+                'type' => 'string'
+            ],
+        ];
+
+        
+
+        return parent::renderList();
+    }
+
     public function setMedia($isNewTheme = false)
     {
         parent::setMedia($isNewTheme);

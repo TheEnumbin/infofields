@@ -26,6 +26,7 @@
 $sql = [];
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields` (
     `id_infofields` int(11) NOT NULL AUTO_INCREMENT,
+    `field_name` VARCHAR(255),
     `item_type` int(11),
     `meta_data` longtext,
     `start_date` datetime,
