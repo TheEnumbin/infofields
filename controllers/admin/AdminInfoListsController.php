@@ -87,7 +87,10 @@ class AdminInfoListsController extends ModuleAdminController
 
     public function renderForm()
 	{
-
+        $obj = $this->loadObject(true);
+        if (!$obj) {
+            return;
+        }
 		$languages = Language::getLanguages(false);
         $parents = $this->getParentItems();
         $field_types = $this->getFieldTypes();
@@ -162,11 +165,27 @@ class AdminInfoListsController extends ModuleAdminController
                     'type' => 'date',
                     'name' => 'end_date',
                 ],
+                [
+					'type'     => 'text',
+					'label'    => $this->l('Shortcode'),
+					'name'     => 'shortcode',
+					'id'       => 'shortcode',
+					'size'     => 60,
+					'desc'     => $this->l('Use this in your tpl file to show the meta info.'),
+					'disabled'  => true,
+                ],
             ],
             'submit' => [
                 'title' => $this->module->l('Save'),
             ]
         ];
+
+        if (isset($_GET['id_infofields']) && $_GET['id_infofields'] > 0) {
+            $lang_id = Context::getContext()->language->id;
+            $alias = ucfirst(str_replace(' ', '', $obj->field_name[$lang_id]));
+            $id = $obj->id_infofields;
+            $this->fields_value['shortcode'] = "{hook h='displayInfofield$alias id_infofields=$id'}";
+        }
 		return parent::renderForm();
 	}
 
