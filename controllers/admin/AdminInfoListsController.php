@@ -181,13 +181,15 @@ class AdminInfoListsController extends ModuleAdminController
         ];
 
         if (isset($_GET['id_infofields']) && $_GET['id_infofields'] > 0) {
-            $lang_id = Context::getContext()->language->id;
-            $alias = ucfirst(str_replace(' ', '', $obj->field_name[$lang_id]));
             $id = $obj->id_infofields;
-            $this->fields_value['shortcode'] = "{hook h='displayInfofield$alias id_infofields=$id'}";
+            $this->fields_value['shortcode'] = $this->getShortcode($id);
         }
 		return parent::renderForm();
 	}
+
+    public function getShortcode($id){
+        return "{hook h='displayInfofield id_infofields=$id'}";
+    }
 
     public function getParentName($key) {
         $parents = $this->getParentItems();
