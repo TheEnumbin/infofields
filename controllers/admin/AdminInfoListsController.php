@@ -31,7 +31,7 @@ class AdminInfoListsController extends ModuleAdminController
         $this->table = 'infofields';
         $this->identifier = 'id_infofields';
         $this->className = 'FieldsModel';
-        $this->lang = false;
+        $this->lang = true;
         $this->deleted = false;
 
         $this->context = Context::getContext();
@@ -61,22 +61,24 @@ class AdminInfoListsController extends ModuleAdminController
             'id_infofields' => [
                 'title' => $this->module->l('ID'),
                 'align' => 'center',
-                'type' => 'integer'
+                'type' => 'integer',
             ],
             'field_name' => [
                 'title' => $this->module->l('Name'),
                 'align' => 'center',
-                'type' => 'string'
+                'type' => 'string',
             ],
             'parent_item' => [
                 'title' => $this->module->l('Parent Item'),
                 'align' => 'center',
-                'type' => 'string'
+                'type' => 'string',
+                'callback' => 'getParentName',
             ],
             'field_type' => [
                 'title' => $this->module->l('Field Type'),
                 'align' => 'center',
-                'type' => 'string'
+                'type' => 'string',
+                'callback' => 'getFieldtypeName',
             ],
         ];
 
@@ -87,6 +89,22 @@ class AdminInfoListsController extends ModuleAdminController
 	{
 
 		$languages = Language::getLanguages(false);
+        $parents = $this->getParentItems();
+        $field_types = $this->getFieldTypes();
+        $parent_arr = [];
+        $field_types_arr = [];
+        foreach ($parents as $id => $parent) {
+            $parent_arr[] = [
+                'id' => $id,
+                'name' => $parent,
+            ];
+        }
+        foreach ($field_types as $id => $field_type) {
+            $field_types_arr[] = [
+                'id' => $id,
+                'name' => $field_type,
+            ];
+        }
 
 		$this->fields_form = [
 			'legend' => [
@@ -119,24 +137,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'label' => $this->l('Parent Item'),
                     'name' => 'parent_item',
                     'options' => [
-                        'query' => [
-                            [
-                                'id' => 1,
-                                'name' => $this->l('Category'),
-                            ],
-                            [
-                                'id' => 2,
-                                'name' => $this->l('Product'),
-                            ],
-                            [
-                                'id' => 3,
-                                'name' => $this->l('CMS Page'),
-                            ],
-                            [
-                                'id' => 4,
-                                'name' => $this->l('Customer'),
-                            ],
-                        ],
+                        'query' => $parent_arr,
                         'id' => 'id',
                         'name' => 'name',
                     ],
@@ -146,24 +147,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'label' => $this->l('Field Type'),
                     'name' => 'field_type',
                     'options' => [
-                        'query' => [
-                            [
-                                'id' => 1,
-                                'name' => $this->l('Text Field'),
-                            ],
-                            [
-                                'id' => 2,
-                                'name' => $this->l('Rich Text Field'),
-                            ],
-                            [
-                                'id' => 3,
-                                'name' => $this->l('Image'),
-                            ],
-                            [
-                                'id' => 4,
-                                'name' => $this->l('File'),
-                            ],
-                        ],
+                        'query' => $field_types_arr,
                         'id' => 'id',
                         'name' => 'name',
                     ],
@@ -185,4 +169,32 @@ class AdminInfoListsController extends ModuleAdminController
         ];
 		return parent::renderForm();
 	}
+
+    public function getParentName($key) {
+        $parents = $this->getParentItems();
+        return $parents[$key];
+    }
+
+    public function getFieldtypeName($key) {
+        $field_types = $this->getFieldTypes();
+        return $field_types[$key];
+    }
+
+    public function getParentItems() {
+        return [
+            1 => $this->module->l('Category'),
+            2 => $this->module->l('Product'),
+            3 => $this->module->l('CMS Page'),
+            4 => $this->module->l('Customer'),
+        ];
+    }
+
+    public function getFieldTypes() {
+        return [
+            1 => $this->module->l('Text Field'),
+            2 => $this->module->l('Rich Text Field'),
+            3 => $this->module->l('Image'),
+            4 => $this->module->l('File'),
+        ];
+    }
 }
