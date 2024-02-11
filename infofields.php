@@ -46,6 +46,15 @@ class Infofields extends Module
         $this->displayName = $this->l('Custom Info Fields: Create Advanced Meta Fields');
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
+        $this->define_constants();
+    }
+
+
+    private function define_constants(){
+
+        if(!defined('INFOFIELDS_CLASSES_PATH')){
+            define('INFOFIELDS_CLASSES_PATH', _PS_MODULE_DIR_ . 'infofields/classes/');
+        }
     }
 
     /**

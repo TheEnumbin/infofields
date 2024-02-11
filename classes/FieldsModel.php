@@ -30,5 +30,47 @@ if (!defined('_PS_VERSION_')) {
 
 class FieldsModel extends ObjectModel
 {
-    
+    public $id_infofields;
+    public $item_type;
+    public $start_date;
+    public $end_date;
+    public $field_name;
+    public $global_meta_data;
+
+    public static $definition = array(
+		'table'     => 'infofields',
+		'primary'   => 'id_infofields',
+		'multilang' => true,
+		'fields'    => array(
+			'item_type'            => array(
+				'type'     => self::TYPE_BOOL,
+				'validate' => 'isBool',
+			),
+			'start_date'          => array(
+				'type'     => self::TYPE_DATE,
+				'validate' => 'isString',
+			),
+			'end_date'         => array(
+				'type'     => self::TYPE_DATE,
+				'validate' => 'isString',
+			),
+			'field_name'         => array(
+				'type'     => self::TYPE_STRING,
+				'validate' => 'isString',
+				'lang'     => true,
+				'required' => true,
+			),
+			'global_meta_data'           => array(
+				'type'     => self::TYPE_STRING,
+				'validate' => 'isString',
+				'lang'     => true,
+			),
+		),
+	);
+
+	public function __construct($id = null, $id_lang = null, $id_shop = null)
+	{
+		Shop::addTableAssociation('infofields', array('type' => 'shop'));
+		parent::__construct($id, $id_lang, $id_shop);
+	}
 }

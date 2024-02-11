@@ -26,14 +26,28 @@
 $sql = [];
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields` (
     `id_infofields` int(11) NOT NULL AUTO_INCREMENT,
-    `field_name` VARCHAR(255),
     `item_type` int(11),
-    `meta_data` longtext,
     `start_date` datetime,
     `end_date` datetime,
-    `shop_id` int(11),
-    `lang_id` int(11),
     PRIMARY KEY  (`id_infofields`)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_lang` (
+    `id_infofields` int(11),
+    `id_lang` int(11),
+    `field_name` VARCHAR(255),
+    `global_meta_data` longtext,
+    PRIMARY KEY  (`id_infofields`, `id_lang`),
+    FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_shop` (
+    `id_infofields` int(11),
+    `id_shop` VARCHAR(255),
+    PRIMARY KEY  (`id_infofields`, `id_shop`),
+    FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
 foreach ($sql as $query) {
