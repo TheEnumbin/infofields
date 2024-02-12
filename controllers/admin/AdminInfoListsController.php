@@ -99,13 +99,13 @@ class AdminInfoListsController extends ModuleAdminController
         foreach ($parents as $id => $parent) {
             $parent_arr[] = [
                 'id' => $id,
-                'name' => $parent,
+                'name' => $this->l($parent),
             ];
         }
         foreach ($field_types as $id => $field_type) {
             $field_types_arr[] = [
                 'id' => $id,
-                'name' => $field_type,
+                'name' => $this->l($field_type),
             ];
         }
 
@@ -173,6 +173,7 @@ class AdminInfoListsController extends ModuleAdminController
 					'size'     => 60,
 					'desc'     => $this->l('Use this in your tpl file to show the meta info.'),
 					'disabled'  => true,
+                    'class' => 'text-danger',
                 ],
             ],
             'submit' => [
@@ -182,13 +183,18 @@ class AdminInfoListsController extends ModuleAdminController
 
         if (isset($_GET['id_infofields']) && $_GET['id_infofields'] > 0) {
             $id = $obj->id_infofields;
-            $this->fields_value['shortcode'] = $this->getShortcode($id);
+            $parent = strtolower($this->getParentName($obj->parent_item));
+            $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
         }
 		return parent::renderForm();
 	}
 
-    public function getShortcode($id){
-        return "{hook h='displayInfofield id_infofields=$id'}";
+    public function getShortcode($id, $parent){
+        $parent_obj = '';
+        if($parent == 'product'){
+            $parent_obj = '$product';
+        }
+        return "{hook h='displayInfofield' id_infofields=$id $parent=$parent_obj}";
     }
 
     public function getParentName($key) {
@@ -203,19 +209,19 @@ class AdminInfoListsController extends ModuleAdminController
 
     public function getParentItems() {
         return [
-            1 => $this->module->l('Category'),
-            2 => $this->module->l('Product'),
-            3 => $this->module->l('CMS Page'),
-            4 => $this->module->l('Customer'),
+            1 => 'Category',
+            2 => 'Product',
+            3 => 'CMS Page',
+            4 => 'Customer',
         ];
     }
 
     public function getFieldTypes() {
         return [
-            1 => $this->module->l('Text Field'),
-            2 => $this->module->l('Rich Text Field'),
-            3 => $this->module->l('Image'),
-            4 => $this->module->l('File'),
+            1 => 'Text Field',
+            2 => 'Rich Text Field',
+            3 => 'Image',
+            4 => 'File',
         ];
     }
 }

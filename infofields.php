@@ -38,9 +38,7 @@ class Infofields extends Module
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
-
         $this->bootstrap = true;
-
         parent::__construct();
 
         $this->displayName = $this->l('Custom Info Fields: Create Advanced Meta Fields');
@@ -48,7 +46,6 @@ class Infofields extends Module
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
     }
-
 
     private function define_constants(){
 
@@ -75,6 +72,7 @@ class Infofields extends Module
             $this->registerHook('displayHeader') &&
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
+            $this->registerHook('displayInfofield') &&
             $this->registerHook('displayProductPriceBlock');
     }
 
@@ -325,6 +323,14 @@ class Infofields extends Module
     {
         $this->context->controller->addCSS($this->_path . '/views/css/front_generated.css');
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
+    }
+
+    /**
+     * Call back function for the  hook DisplayProductPriceBlock
+     */
+    public function hookDisplayInfofield($params)
+    {
+        echo "Hello Hook";
     }
 
     /**
