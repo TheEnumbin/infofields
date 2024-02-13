@@ -42,14 +42,34 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_lang` (
     FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
-
-
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_shop` (
     `id_infofields` int(11),
     `id_shop` VARCHAR(255),
     PRIMARY KEY  (`id_infofields`, `id_shop`),
     FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_meta` (
+    `id_infofields_meta` int(11) NOT NULL AUTO_INCREMENT,
+    `id_infofields` int(11),
+    `parent_item_id` int(11),
+    PRIMARY KEY  (`id_infofields_meta`)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_meta_lang` (
+    `id_infofields_meta` int(11),
+    `id_lang` int(11),
+    `meta_data` longtext,
+    PRIMARY KEY  (`id_infofields_meta`, `id_lang`),
+    FOREIGN KEY (`id_infofields_meta`) REFERENCES `' . _DB_PREFIX_ . 'infofields_meta`(id_infofields_meta)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+// $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_shop` (
+//     `id_infofields` int(11),
+//     `id_shop` VARCHAR(255),
+//     PRIMARY KEY  (`id_infofields`, `id_shop`),
+//     FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
+// ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
 foreach ($sql as $query) {
 

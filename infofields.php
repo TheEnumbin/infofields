@@ -289,28 +289,9 @@ class Infofields extends Module
     public function hookDisplayAdminProductsExtra($params)
     {
         $id_product = $params['id_product'];
+        $parent_item = 2;
 
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
-        $infofields_meta = false;
-        $mresults = Db::getInstance()->executeS(
-            'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
-            WHERE pemt.`lang_id` = ' . (int) $lang_id . ' AND' . ' pemt.`shop_id` = ' . (int) $shop_id . ' AND pemt.`product_id` = ' . (int) $id_product,
-            true
-        );
-
-        if(isset($mresults) && !empty($mresults)){
-            $infofields_meta = array_pop($mresults);
-        }
-
-        $languages = Language::getLanguages(false);
-        $this->context->smarty->assign([
-            'infofields_meta' => $infofields_meta,
-            'infofields_prd_id' => $id_product,
-            'infofields_langs' => $languages,
-            'infofields_curr_lang' => $lang_id,
-        ]);
+       
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/meta_history.tpl');
 
         return $output;
