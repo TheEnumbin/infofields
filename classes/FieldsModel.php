@@ -78,4 +78,17 @@ class FieldsModel extends ObjectModel
 		Shop::addTableAssociation('infofields', ['type' => 'shop']);
 		parent::__construct($id, $id_lang, $id_shop);
 	}
+
+	public function get_infofield_by_parent_item($p_item){
+		// $lang_id = $this->context->language->id;
+        // $shop_id = $this->context->shop->id;
+
+        $results = Db::getInstance()->executeS(
+            'SELECT *
+            FROM `' . _DB_PREFIX_ . 'infofields` inf
+            WHERE inf.parent_item = ' . (int) $p_item,
+            true
+        );
+		return $results;
+	}
 }

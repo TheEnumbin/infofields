@@ -27,6 +27,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
+
 class Infofields extends Module
 {
     protected $config_form = false;
@@ -288,8 +290,16 @@ class Infofields extends Module
      */
     public function hookDisplayAdminProductsExtra($params)
     {
+        
         $id_product = $params['id_product'];
         $parent_item = 2;
+
+        $infofield = new FieldsModel();
+        echo '<pre>';
+        print_r($infofield->get_infofield_by_parent_item($parent_item));
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        return json_encode($infofield->get_infofield_by_parent_item($parent_item));
 
        
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/meta_history.tpl');
