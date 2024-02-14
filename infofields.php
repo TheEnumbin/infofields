@@ -294,15 +294,12 @@ class Infofields extends Module
         $id_product = $params['id_product'];
         $parent_item = 2;
 
-        $infofield = new FieldsModel();
-        echo '<pre>';
-        print_r($infofield->get_infofield_by_parent_item($parent_item));
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        return json_encode($infofield->get_infofield_by_parent_item($parent_item));
-
-       
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/meta_history.tpl');
+        $fieldsmodel = new FieldsModel();
+        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        $this->context->smarty->assign([
+            'infofields' => $fields,
+        ]);       
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 
         return $output;
     }

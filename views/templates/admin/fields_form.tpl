@@ -22,3 +22,11 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
+
+{foreach from=$infofields item=infofield}
+    {if $infofield.field_type == 1}
+        <input type="text" id="fname" name="fname">
+    {else}
+
+    {/if}
+{/foreach}
