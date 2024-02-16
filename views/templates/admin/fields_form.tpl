@@ -24,7 +24,9 @@
 *}
 
 {foreach from=$infofields item=infofield}
+    {$infofield|print_r }
     {if $infofield.field_type == 1}
+        <label>{$infofield.field_name}</label>
         <input type="text" id="fname" name="fname">
     {else}
 
