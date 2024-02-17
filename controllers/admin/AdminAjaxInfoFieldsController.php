@@ -17,8 +17,25 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
+require_once(dirname(__FILE__) . '/../../classes/MetaModel.php');
+
+
 class AdminAjaxInfoFieldsController extends ModuleAdminController
 {
+
+    public function ajaxProcessSaveInfometa()
+    {
+        $object = new MetaModel();
+        echo '<pre>';
+        print_r($object);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
+    }
+
     public function ajaxProcessPrextrametaChangeLang()
     {
         $lang_id = Tools::getValue('langid');

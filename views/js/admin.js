@@ -26,74 +26,25 @@
 * to avoid any conflicts with others containers.
 */
 $(document).ready(function() {
-    $(document).on('change', '#prextrameta_lang_changer', function(){
-        var $val = $(this).val();
-        var $prdid = $('#prd_id').val();
+    $(document).on('click', '#saveInfoMeta', function(){
+        // var $extra_meta_id = $('#prextrameta_extra_meta_id').val();
+        // var $prdid = $('#prd_id').val();
+        // var $extrameta = $('#prextrameta_extra_meta').val();
+        // var $start_date = $('#prextrameta_mdate_start').val();
+        // var $end_date = $('#prextrameta_mdate_end').val();
+        // var $langid = $('#prextrameta_lang_changer').find(":selected").val();
+        console.log(infofields_ajax_url);
         $.ajax({
             type: 'POST',
-            url: prextrameta_ajax_url,
+            url: infofields_ajax_url,
             dataType: 'html',
             data: {
-                controller : 'AdminAjaxPrextrameta',
-                action : 'PrextrametaChangeLang',
-                prdid : $prdid,
-                langid : $val,
-                shopid : prextrameta_shop_id,
-                ajax : true
+                controller : 'AdminAjaxInfofields',
+                action : 'SaveInfometa',
+                ajax : '1'
             },
             success : function(data) {
-                var $data = JSON.parse(data);
-                if(typeof $data.success !== 'undefined' && $data.success){
-                    console.log($data.omnibus_meta);
-                    $('#prextrameta_meta_table').find(".prextrameta-meta_datam").remove();
-                    if($data.omnibus_meta.length === 0){
-                        $('#prextrameta_extra_meta_id').val(0);
-                    }else{
-                        $('#prextrameta_meta_table').append('<tr class="prextrameta-meta_datam" id="prextrameta_history_' + $data.omnibus_meta.id_prextrameta + '">' 
-                            + '<td>' + $data.omnibus_meta.meta_data + '</td><td>' + $data.omnibus_meta.start_date + '</td><td>' + $data.omnibus_meta.end_date + '</td>'
-                            + '</tr>');
-                        $('#prextrameta_extra_meta_id').val($data.omnibus_meta.id_prextrameta);
-                    }
-                }
-            }
-        });
-    });
-    $(document).on('click', '#prextrameta_meta_add', function(){
-        var $extra_meta_id = $('#prextrameta_extra_meta_id').val();
-        var $prdid = $('#prd_id').val();
-        var $extrameta = $('#prextrameta_extra_meta').val();
-        var $start_date = $('#prextrameta_mdate_start').val();
-        var $end_date = $('#prextrameta_mdate_end').val();
-        var $langid = $('#prextrameta_lang_changer').find(":selected").val();
-        $.ajax({
-            type: 'POST',
-            url: prextrameta_ajax_url,
-            dataType: 'html',
-            data: {
-                controller : 'AdminAjaxPrextrameta',
-                action : 'AddExtraMeta',
-                exmtid : $extra_meta_id,
-                prdid : $prdid,
-                meta : $extrameta,
-                s_date : $start_date,
-                e_date : $end_date,
-                langid : $langid,
-                shopid : prextrameta_shop_id,
-                ajax : true
-            },
-            success : function(data) {
-                var $data = JSON.parse(data);
-                if(typeof $data.success !== 'undefined' && $data.success){
-                    $('#prextrameta_meta_' + $extra_meta_id).remove();
-                    $('#prextrameta_meta_table').append('<tr class="prextrameta-meta_datam" id="prextrameta_meta_' + $data.id_inserted + '">' 
-                    + '<td>' + $data.meta_data + '</td><td>' + $data.start_date + '</td><td>' + $data.end_date + '</td>'
-                    + '</tr>');
-                    $('#prextrameta_extra_meta').val("");
-                    $('#prextrameta_mdate_start').val("");
-                    $('#prextrameta_mdate_end').val("");
-                    $('#prextrameta_extra_meta_id').val($data.id_inserted);
-                    $('.prextrameta_meta_notice').html($data.msg)
-                }
+
             }
         });
     });

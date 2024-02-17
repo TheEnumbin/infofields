@@ -31,4 +31,5 @@
     {else}
 
     {/if}
+    <button id="saveInfoMeta" type="button">Save</button>
 {/foreach}

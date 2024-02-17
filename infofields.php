@@ -279,7 +279,7 @@ class Infofields extends Module
         $lang_id = $this->context->language->id;
         $shop_id = $this->context->shop->id;
         Media::addJsDef([
-            'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
+            'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields', false),
             'infofields_shop_id' => $shop_id,
             'infofields_lang_id' => $lang_id,
         ]);
