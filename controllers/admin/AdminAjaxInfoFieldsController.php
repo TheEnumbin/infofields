@@ -23,16 +23,17 @@ if (!defined('_PS_VERSION_')) {
 require_once(dirname(__FILE__) . '/../../classes/MetaModel.php');
 
 
-class AdminAjaxInfoFieldsController extends ModuleAdminController
+class AdminAjaxInfofieldsController extends ModuleAdminController
 {
 
     public function ajaxProcessSaveInfometa()
     {
         $object = new MetaModel();
-        echo '<pre>';
-        print_r($object);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
+        $object->id_infofields = 1;
+        $object->parent_item_id = 19;
+        $object->meta_data = "hello Single Meta";
+
+        $object->add();
         die(__FILE__ . ' : ' . __LINE__);
     }
 

@@ -41,7 +41,7 @@ $(document).ready(function() {
             data: {
                 controller : 'AdminAjaxInfofields',
                 action : 'SaveInfometa',
-                ajax : '1'
+                ajax : true
             },
             success : function(data) {
 
