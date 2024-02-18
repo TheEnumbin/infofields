@@ -31,7 +31,13 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $object = new MetaModel();
         $object->id_infofields = 1;
         $object->parent_item_id = 19;
-        $object->meta_data = "hello Single Meta";
+        $object->meta_data[1] = "hello Single Meta";
+        $object->meta_data[2] = "hello Single Meta GB";
+
+        echo '<pre>';
+        print_r($object);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
 
         $object->add();
         die(__FILE__ . ' : ' . __LINE__);
