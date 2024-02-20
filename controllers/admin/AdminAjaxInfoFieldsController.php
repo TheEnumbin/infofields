@@ -28,22 +28,18 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
     public function ajaxProcessSaveInfometa()
     {
+        $iso_code = trim(Tools::getValue('iso_code'));
+        $languages = Language::getLanguages(false);
         $lang_id = Context::getContext()->language->id;
-        echo '<pre>';
-        print_r($lang_id);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        foreach ($languages as $language) {
+            if($language['iso_code'] == $iso_code) {
+                $lang_id = (int) $language['id_lang'];
+            }
+        }
         $object = new MetaModel();
         $object->id_infofields = 1;
         $object->parent_item_id = 19;
-        $object->meta_data[1] = "hello Single Meta";
-
-        echo '<pre>';
-        print_r($object);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-
+        $object->meta_data[$lang_id] = "hello Single Meta";
         $object->add();
         die(__FILE__ . ' : ' . __LINE__);
     }

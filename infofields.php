@@ -276,12 +276,8 @@ class Infofields extends Module
     {
         $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
         $this->context->controller->addJS($this->_path . 'views/js/admin.js');
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
         Media::addJsDef([
             'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
-            'infofields_shop_id' => $shop_id,
-            'infofields_lang_id' => $lang_id,
         ]);
     }
 

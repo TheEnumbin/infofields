@@ -33,7 +33,7 @@ $(document).ready(function() {
         // var $start_date = $('#prextrameta_mdate_start').val();
         // var $end_date = $('#prextrameta_mdate_end').val();
         // var $langid = $('#prextrameta_lang_changer').find(":selected").val();
-        console.log(infofields_ajax_url);
+        let $iso_code = $(".js-locale-btn").html();
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
@@ -41,6 +41,7 @@ $(document).ready(function() {
             data: {
                 controller : 'AdminAjaxInfofields',
                 action : 'SaveInfometa',
+                iso_code : $iso_code,
                 ajax : true
             },
             success : function(data) {
