@@ -41,7 +41,7 @@ $(document).ready(function() {
             data: {
                 controller : 'AdminAjaxInfofields',
                 action : 'SaveInfometa',
-                iso_code : $iso_code,
+                iso_code : $iso_code.trim(),
                 ajax : true
             },
             success : function(data) {
