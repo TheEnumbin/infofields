@@ -36,12 +36,23 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $object = new MetaModel();
-        $object->id_infofields = 1;
-        $object->parent_item_id = 19;
-        $object->meta_data[$lang_id] = "hello Single Meta";
-        $object->add();
-        die(__FILE__ . ' : ' . __LINE__);
+        $object = new MetaModel(null, 1, 19);
+        if(isset($object->id)) {
+            $object->meta_data[$lang_id] = "hello Single Meta Updated";
+            echo '<pre>';
+            print_r($object->update);
+            echo '</pre>';
+            echo __FILE__ . ' : ' . __LINE__;
+            die(__FILE__ . ' : ' . __LINE__);
+        } else {
+            $object->id_infofields = 1;
+            $object->parent_item_id = 19;
+            $object->meta_data[$lang_id] = "hello Single Meta";
+            $object->add();
+            die(__FILE__ . ' : ' . __LINE__);
+        }
+        
+        
     }
 
     public function ajaxProcessPrextrametaChangeLang()

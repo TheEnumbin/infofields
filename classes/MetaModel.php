@@ -56,11 +56,30 @@ class MetaModel extends ObjectModel
 		],
 	];
 
-	public function __construct($id = null, $id_lang = null, $id_shop = null)
+	// public function __construct($id = null, $id_lang = null, $id_shop = null)
+	// {
+	// 	// Shop::addTableAssociation('infofields_meta', ['type' => 'shop']);
+	// 	parent::__construct($id, $id_lang, $id_shop);
+	// }
+
+	public function __construct($id = null, $id_infofields = null, $parent_item_id = null, $id_lang = null)
 	{
-		// Shop::addTableAssociation('infofields_meta', ['type' => 'shop']);
-		parent::__construct($id, $id_lang, $id_shop);
+		if ($id) {
+            parent::__construct($id);
+        } elseif ($id_infofields && $parent_item_id) {
+            $row = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow('
+				SELECT *
+				FROM `' . _DB_PREFIX_ . 'infofields_meta` inm
+				WHERE `id_infofields` = \'' . (int) $id_infofields . '\' AND `parent_item_id` = ' . (int) $parent_item_id);
+
+                if ($row) {
+                    parent::__construct($row['id_infofields_meta']);
+                } else {
+                    parent::__construct();
+                }
+        }
 	}
+
 
 	
 }
