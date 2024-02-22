@@ -38,9 +38,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         }
         $object = new MetaModel(null, 1, 19);
         if(isset($object->id)) {
-            $object->meta_data[$lang_id] = "hello Single Meta Updated";
+            $object->meta_data[$lang_id] = "hello Single Meta GB";
             echo '<pre>';
-            print_r($object->update);
+            print_r($object->update());
             echo '</pre>';
             echo __FILE__ . ' : ' . __LINE__;
             die(__FILE__ . ' : ' . __LINE__);
