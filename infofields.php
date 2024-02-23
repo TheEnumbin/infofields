@@ -28,6 +28,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
+require_once(dirname(__FILE__) . '/classes/MetaModel.php');
 
 class Infofields extends Module
 {
@@ -290,6 +291,8 @@ class Infofields extends Module
         $parent_item = 2;
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        // $metamodel = new MetaModel();
+        // $fields = $metamodel->get_infofield_by_parent_item($parent_item);
         $this->context->smarty->assign([
             'infofields' => $fields,
             'id_prd' => $id_product,
