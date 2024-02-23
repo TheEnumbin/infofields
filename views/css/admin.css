@@ -25,9 +25,11 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-
+.inf-meta-wrapper {
+    margin-top: 12px;
+}
 .inf-meta-form-wrapper {
-    border-top: 2px dashed #000;
-    border-bottom: 2px dashed #000;
+    border-top: 1px dashed #000;
+    border-bottom: 1px dashed #000;
     padding: 12px 0px 12px 0px;
 }

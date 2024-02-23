@@ -286,14 +286,13 @@ class Infofields extends Module
      */
     public function hookDisplayAdminProductsExtra($params)
     {
-        
         $id_product = $params['id_product'];
         $parent_item = 2;
-
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
         $this->context->smarty->assign([
             'infofields' => $fields,
+            'id_prd' => $id_product,
         ]);       
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 

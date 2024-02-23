@@ -29,6 +29,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     public function ajaxProcessSaveInfometa()
     {
         $iso_code = trim(Tools::getValue('iso_code'));
+        $inf_id = (int) trim(Tools::getValue('inf_id'));
+        $prd_id = (int) trim(Tools::getValue('prd_id'));
+        $inf_value = trim(Tools::getValue('inf_value'));
         $languages = Language::getLanguages(false);
         $lang_id = Context::getContext()->language->id;
         foreach ($languages as $language) {
@@ -36,23 +39,17 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $object = new MetaModel(null, 1, 19);
+        $object = new MetaModel(null, $inf_id, $prd_id);
         if(isset($object->id)) {
-            $object->meta_data[$lang_id] = "hello Single Meta GB";
-            echo '<pre>';
-            print_r($object->update());
-            echo '</pre>';
-            echo __FILE__ . ' : ' . __LINE__;
-            die(__FILE__ . ' : ' . __LINE__);
+            $object->meta_data[$lang_id] = $inf_value;
+            $object->update();
         } else {
-            $object->id_infofields = 1;
-            $object->parent_item_id = 19;
-            $object->meta_data[$lang_id] = "hello Single Meta";
+            $object->id_infofields = $inf_id;
+            $object->parent_item_id = $prd_id;
+            $object->meta_data[$lang_id] = $inf_value;
             $object->add();
-            die(__FILE__ . ' : ' . __LINE__);
         }
-        
-        
+        die();
     }
 
     public function ajaxProcessPrextrametaChangeLang()

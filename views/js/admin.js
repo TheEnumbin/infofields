@@ -27,13 +27,12 @@
 */
 $(document).ready(function() {
     $(document).on('click', '#saveInfoMeta', function(){
-        // var $extra_meta_id = $('#prextrameta_extra_meta_id').val();
-        // var $prdid = $('#prd_id').val();
-        // var $extrameta = $('#prextrameta_extra_meta').val();
-        // var $start_date = $('#prextrameta_mdate_start').val();
-        // var $end_date = $('#prextrameta_mdate_end').val();
-        // var $langid = $('#prextrameta_lang_changer').find(":selected").val();
         let $iso_code = $(".js-locale-btn").html();
+        let $this = $(this);
+        let $wrapper = $this.parent('.inf-meta-form-wrapper');
+        let $infofield_id = $wrapper.find('.inf_input_id').val();
+        let $prd_id = $wrapper.find('.inf_input_prd').val();
+        let $value = $wrapper.find('#inf_input_' + $infofield_id).val();
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
@@ -42,6 +41,9 @@ $(document).ready(function() {
                 controller : 'AdminAjaxInfofields',
                 action : 'SaveInfometa',
                 iso_code : $iso_code.trim(),
+                inf_id : $infofield_id,
+                prd_id : $prd_id,
+                inf_value : $value,
                 ajax : true
             },
             success : function(data) {
