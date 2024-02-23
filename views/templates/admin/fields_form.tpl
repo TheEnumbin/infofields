@@ -25,20 +25,22 @@
 {$infofields|print_r }
 <div>
     {foreach from=$infofields item=infofield}
-        
-        {if $infofield.field_type == 1}
-            <label>{$infofield.field_name}</label>
-            <div class="form-group">
-                <div class="input-group locale-input-group js-locale-input-group d-flex" id="" tabindex="1">
-                    <div class="js-locale-input js-locale-en" style="flex-grow: 1;">
+        <div class="inf-meta-form-wrapper">
+            <h3>{$infofield.field_name}</h3>
+            <div class="inf-meta-form-group form-group">
+            {if $infofield.field_type == 1}
+                <div class="input-group locale-input-group js-locale-input-group d-flex" tabindex="1">
+                    <div class="js-locale-input" style="flex-grow: 1;">
                         <div class="input-group js-text-with-length-counter">
-                            <input type="text" id="" name="" class="serp-watched-title form-control">
+                            <input type="text" id="inf_input_{$infofield.id_infofields}" name="inf_input_{$infofield.id_infofields}" class="inf-meta-input form-control">
+                        </div>
                     </div>
                 </div>
-            </div>
-        {else}
+            {else}
 
-        {/if}
+            {/if}
+            </div>
+            <button id="saveInfoMeta" type="button">Save</button>
+        </div>
     {/foreach}
-    <button id="saveInfoMeta" type="button">Save</button>
 </div>

@@ -25,53 +25,9 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-.prextrameta-wrapper .prextrameta-sec h2{
-    text-align: center;
-}
-#prextrameta_extra_meta{
-    width: 100%;
-    height: 40px;
-}
-.prextrameta-meta-dates, .prextrameta-meta-dates .prextrameta-meta-date-item{
-    margin-top: 10px;
-}
-.prextrameta-meta-add, .prextrameta-custom-section {
-    margin-top: 40px;
-  }
-.prextrameta-meta-dates .prextrameta-meta-date-hint{
-    font-size: 10px;
-    font-style: italic;
-}
-.prextrameta-header{
-    text-align: center;
-}
-.prextrameta-header .prextrameta-lang-changer, #extra_meta{
-    background-color: #fff;
-    padding: 8px;
-}
-.prextrameta-price-history table, .prextrameta-meta-section table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-.prextrameta-price-history table td, .prextrameta-price-history table th, #prextrameta_meta_table th, #prextrameta_meta_table td{
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-}
-.prextrameta-price-history, .prextrameta-meta-section, #prextrameta_meta_add{
-    margin-top: 12px;
-}
-.prextrameta-custom-field{
-    padding: 8px;
-    margin-right: 6px;
-}
-.promnibus-promo{
-    background-color: #fff;
-}
-.prextrameta-meta-section{
-    padding-top: 14px;
-    padding-bottom: 14px;
-    border-top: 2px solid #000;
-    border-bottom: 2px solid #000;
+
+.inf-meta-form-wrapper {
+    border-top: 2px dashed #000;
+    border-bottom: 2px dashed #000;
+    padding: 12px 0px 12px 0px;
 }
