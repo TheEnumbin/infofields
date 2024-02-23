@@ -22,14 +22,23 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
+{$infofields|print_r }
+<div>
+    {foreach from=$infofields item=infofield}
+        
+        {if $infofield.field_type == 1}
+            <label>{$infofield.field_name}</label>
+            <div class="form-group">
+                <div class="input-group locale-input-group js-locale-input-group d-flex" id="" tabindex="1">
+                    <div class="js-locale-input js-locale-en" style="flex-grow: 1;">
+                        <div class="input-group js-text-with-length-counter">
+                            <input type="text" id="" name="" class="serp-watched-title form-control">
+                    </div>
+                </div>
+            </div>
+        {else}
 
-{foreach from=$infofields item=infofield}
-    {$infofield|print_r }
-    {if $infofield.field_type == 1}
-        <label>{$infofield.field_name}</label>
-        <input type="text" id="fname" name="fname">
-    {else}
-
-    {/if}
+        {/if}
+    {/foreach}
     <button id="saveInfoMeta" type="button">Save</button>
-{/foreach}
+</div>
