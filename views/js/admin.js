@@ -32,7 +32,7 @@ $(document).ready(function() {
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
         let $infofield_id = $wrapper.find('.inf_input_id').val();
         let $prd_id = $wrapper.find('.inf_input_prd').val();
-        let $value = $wrapper.find('#inf_input_' + $infofield_id).val();
+        let $value = $wrapper.find('#inf_metafield_' + $infofield_id).val();
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,

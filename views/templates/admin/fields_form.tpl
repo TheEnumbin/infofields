@@ -31,11 +31,11 @@
             <div class="inf-meta-form-group form-group">
             {if $infofield.field_type == 1}
                 <div class="input-group">
-                    <input type="text" id="inf_input_{$infofield.id_infofields}" name="inf_input_{$infofield.id_infofields}" class="inf-meta-input form-control">
+                    <input type="text" id="inf_metafield_{$infofield.id_infofields}" name="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field form-control">
                 </div>
             {elseif $infofield.field_type == 2}
                 <div class="input-group">
-                <textarea name="inf_input_{$infofield.id_infofields}" id="inf_input_{$infofield.id_infofields}" class="inf-meta-input form-control rte autoload_rte">
+                <textarea name="inf_metafield_{$infofield.id_infofields}" id="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field form-control rte autoload_rte">
                 </textarea>
                 </div>
             {/if}
