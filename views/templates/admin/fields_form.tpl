@@ -33,7 +33,11 @@
                 <div class="input-group">
                     <input type="text" id="inf_input_{$infofield.id_infofields}" name="inf_input_{$infofield.id_infofields}" class="inf-meta-input form-control">
                 </div>
-            {else}
+            {elseif $infofield.field_type == 2}
+                <div class="input-group">
+                <textarea name="inf_input_{$infofield.id_infofields}" id="inf_input_{$infofield.id_infofields}" class="inf-meta-input form-control rte autoload_rte">
+                </textarea>
+                </div>
             {/if}
             </div>
             <button id="saveInfoMeta" class="inf-meta-save-bt btn-primary btn" type="button">Save</button>
