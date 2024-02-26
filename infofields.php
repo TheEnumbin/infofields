@@ -291,8 +291,9 @@ class Infofields extends Module
         $parent_item = 2;
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        // $metamodel = new MetaModel();
-        // $fields = $metamodel->get_infofield_by_parent_item($parent_item);
+        
+        $metamodel = new MetaModel();
+        $metas = $metamodel->get_meta_by_parent($id_product, $fields);
         $this->context->smarty->assign([
             'infofields' => $fields,
             'id_prd' => $id_product,

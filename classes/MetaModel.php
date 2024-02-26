@@ -79,4 +79,20 @@ class MetaModel extends ObjectModel
                 }
         }
 	}
+
+	public function get_meta_by_parent($parent_id, $parent_field){
+		if(empty($parent_field)){
+			return false;
+		}
+		$row = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow('
+				SELECT *
+				FROM `' . _DB_PREFIX_ . 'infofields_meta` inm
+				WHERE `id_infofields` = \'' . (int) $id_infofields . '\' AND `parent_item_id` = ' . (int) $parent_item_id);
+
+                if ($row) {
+                    parent::__construct($row['id_infofields_meta']);
+                } else {
+                    parent::__construct();
+                }
+	}
 }
