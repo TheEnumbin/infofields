@@ -26,6 +26,20 @@
 * to avoid any conflicts with others containers.
 */
 $(document).ready(function() {
+
+    const $toogle_langs = ($locale, $old_locale) => {
+        $('.inf-meta-form-wrapper-' + $locale).toggleClass('hidden-field')
+        $('.inf-meta-form-wrapper-' + $old_locale).toggleClass('hidden-field')
+        $(".inf_lang_iso").val($locale);
+    }
+
+    $(document).on('click', '.js-locale-item', function(){
+        let $old_locale = $(".inf_lang_iso").val();
+        let $this = $(this);
+        let $locale = $this.data('locale');
+        $toogle_langs($locale, $old_locale);
+    });
+
     $(document).on('click', '#saveInfoMeta', function(){
         let $iso_code = $(".js-locale-btn").html();
         let $this = $(this);

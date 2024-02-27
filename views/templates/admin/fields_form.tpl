@@ -23,19 +23,24 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="inf-meta-wrapper">
+<input type="hidden" class="inf_lang_iso" value="{$langs[$id_lang]}">
     {foreach from=$infofields item=infofield}
-        <div class="inf-meta-form-wrapper">
+        {assign var="hidden" value=''}
+        {if $infofield.id_lang != $id_lang}
+            {assign var="hidden" value='hidden-field'}
+        {/if}
+        <div class="inf-meta-form-wrapper inf-meta-form-wrapper-{$langs[$infofield.id_lang]} {$hidden}">
             <input type="hidden" class="inf_input_prd" value="{$id_prd}">
             <input type="hidden" class="inf_input_id" value="{$infofield.id_infofields}">
             <h3>{$infofield.field_name}</h3>
             <div class="inf-meta-form-group form-group">
             {if $infofield.field_type == 1}
                 <div class="input-group">
-                    <input type="text" value="{$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}" id="inf_metafield_{$infofield.id_infofields}" name="inf_metafield_{$infofield.id_infofields}_lang_{$infofield.id_lang}" class="inf-meta-field inf-meta-field-lang{$infofield.id_lang} form-control">
+                    <input type="text" value="{$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}" id="inf_metafield_{$infofield.id_infofields}" name="inf_metafield_{$infofield.id_infofields}_lang_{$langs[$infofield.id_lang]}" class="inf-meta-field inf-meta-field-lang-{$langs[$infofield.id_lang]} form-control">
                 </div>
             {elseif $infofield.field_type == 2}
                 <div class="input-group">
-                <textarea name="inf_metafield_{$infofield.id_infofields}_lang_{$infofield.id_lang}" id="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field inf-meta-field-lang{$infofield.id_lang} form-control rte autoload_rte">
+                <textarea name="inf_metafield_{$infofield.id_infofields}_lang_{$langs[$infofield.id_lang]}" id="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field inf-meta-field-lang-{$langs[$infofield.id_lang]} form-control rte autoload_rte">
                 {$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}
                 </textarea>
                 </div>

@@ -289,15 +289,22 @@ class Infofields extends Module
     {
         $id_product = $params['id_product'];
         $parent_item = 2;
+        $languages = Language::getLanguages(false);
+        $langs = [];
+        foreach ($languages as $lang) {
+            $langs[$lang['id_lang']] = $lang['iso_code'];
+        }
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
         
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($id_product, $fields);
         $this->context->smarty->assign([
+            'id_lang' => $this->context->language->id,
             'infofields' => $fields,
             'infometas' => $metas,
             'id_prd' => $id_product,
+            'langs' => $langs,
         ]);       
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 
