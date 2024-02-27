@@ -296,6 +296,7 @@ class Infofields extends Module
         $metas = $metamodel->get_meta_by_parent($id_product, $fields);
         $this->context->smarty->assign([
             'infofields' => $fields,
+            'infometas' => $metas,
             'id_prd' => $id_product,
         ]);       
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');

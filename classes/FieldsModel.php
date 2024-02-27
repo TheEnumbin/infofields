@@ -92,9 +92,7 @@ class FieldsModel extends ObjectModel
 		$results = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
 		SELECT *
 		FROM ' . _DB_PREFIX_ . 'infofields inf
-		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields AND infl.id_lang = ' . (int) $lang_id . 
-		// ' AND infl.id_shop = ' . (int) $shop_id . 
-		')
+		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields)
 		' . Shop::addSqlAssociation('infofields', 'inf') . '
 		WHERE inf.parent_item = ' . (int) $p_item, true);
 		return $results;

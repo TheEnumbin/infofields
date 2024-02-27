@@ -80,19 +80,23 @@ class MetaModel extends ObjectModel
         }
 	}
 
-	public function get_meta_by_parent($parent_id, $parent_field){
-		if(empty($parent_field)){
+	public function get_meta_by_parent($parent_id, $parent_fields){
+		if(empty($parent_fields)){
 			return false;
 		}
-		$row = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow('
-				SELECT *
-				FROM `' . _DB_PREFIX_ . 'infofields_meta` inm
-				WHERE `id_infofields` = \'' . (int) $id_infofields . '\' AND `parent_item_id` = ' . (int) $parent_item_id);
-
-                if ($row) {
-                    parent::__construct($row['id_infofields_meta']);
-                } else {
-                    parent::__construct();
-                }
+		$id_parents = [];
+		foreach($parent_fields as $parent_field){
+			$id_parents[] = $parent_field['id_infofields'];
+		}
+		$id_parents = implode(', ', $id_parents);
+		$metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
+		SELECT *
+		FROM `" . _DB_PREFIX_ . "infofields_meta` infm LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
+		WHERE `id_infofields` IN ($id_parents) AND `parent_item_id` = " . (int) $parent_id);
+		$return_arr = [];
+		foreach ($metas as $meta) {
+			$return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
+		}
+		return $return_arr;
 	}
 }
