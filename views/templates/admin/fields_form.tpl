@@ -22,12 +22,6 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-<pre>
-{$infofields|print_r}
-</pre>
-<pre>
-{$infometas|print_r}
-</pre>
 <div class="inf-meta-wrapper">
     {foreach from=$infofields item=infofield}
         <div class="inf-meta-form-wrapper">
@@ -37,11 +31,11 @@
             <div class="inf-meta-form-group form-group">
             {if $infofield.field_type == 1}
                 <div class="input-group">
-                    <input type="text" value="{$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}" id="inf_metafield_{$infofield.id_infofields}" name="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field form-control">
+                    <input type="text" value="{$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}" id="inf_metafield_{$infofield.id_infofields}" name="inf_metafield_{$infofield.id_infofields}_lang_{$infofield.id_lang}" class="inf-meta-field inf-meta-field-lang{$infofield.id_lang} form-control">
                 </div>
             {elseif $infofield.field_type == 2}
                 <div class="input-group">
-                <textarea name="inf_metafield_{$infofield.id_infofields}" id="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field form-control rte autoload_rte">
+                <textarea name="inf_metafield_{$infofield.id_infofields}_lang_{$infofield.id_lang}" id="inf_metafield_{$infofield.id_infofields}" class="inf-meta-field inf-meta-field-lang{$infofield.id_lang} form-control rte autoload_rte">
                 {$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}
                 </textarea>
                 </div>
