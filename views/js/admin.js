@@ -42,11 +42,11 @@ $(document).ready(function() {
 
     $(document).on('click', '#saveInfoMeta', function(){
         let $iso_code = $(".js-locale-btn").html();
+        let $prd_id = $('.inf_input_prd').val();
         let $this = $(this);
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
         let $infofield_id = $wrapper.find('.inf_input_id').val();
-        let $prd_id = $wrapper.find('.inf_input_prd').val();
-        let $value = $wrapper.find('#inf_metafield_' + $infofield_id).val();
+        let $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
