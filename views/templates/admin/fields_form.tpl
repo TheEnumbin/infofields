@@ -23,18 +23,17 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="inf-meta-wrapper">
-<pre>
-{$infofields|print_r}
-</pre>
-<pre>
-{$infometas|print_r}
-</pre>
 <input type="hidden" class="inf_lang_iso" value="{$langs[$id_lang]}">
 <input type="hidden" class="inf_input_prd" value="{$id_prd}">
     {foreach from=$infofields item=infofield}
         {assign var="hidden" value=''}
         {if $infofield.id_lang != $id_lang}
             {assign var="hidden" value='hidden-field'}
+        {/if}
+        {if $infometas[$infofield.id_infofields][$infofield.id_lang] == true}
+            {assign var="infometa_value" value=$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}
+        {else}
+            {assign var="infometa_value" value=""}
         {/if}
         <div class="inf-meta-form-wrapper inf-meta-form-wrapper-{$langs[$infofield.id_lang]} {$hidden}">
             <input type="hidden" class="inf_input_id" value="{$infofield.id_infofields}">
@@ -43,13 +42,13 @@
             {if $infofield.field_type == 1}
                 <div class="input-group">
                     <input type="text" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control"
-                    value="{$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}"
+                    value="{$infometa_value}"
                     >
                 </div>
             {elseif $infofield.field_type == 2}
                 <div class="input-group">
                 <textarea name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control rte autoload_rte">
-                {$infometas[$infofield.id_infofields][$infofield.id_lang].meta_data}
+                {$infometa_value}
                 </textarea>
                 </div>
             {/if}
