@@ -34,14 +34,14 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.js-locale-item', function(){
-        let $old_locale = $(".inf_lang_iso").val();
+        let $old_locale = $(".inf_lang_iso").val().trim();
         let $this = $(this);
-        let $locale = $this.data('locale');
+        let $locale = $this.data('locale').trim();
         $toogle_langs($locale, $old_locale);
     });
 
     $(document).on('click', '#saveInfoMeta', function(){
-        let $iso_code = $(".js-locale-btn").html();
+        let $iso_code = $(".js-locale-btn").html().trim();
         let $prd_id = $('.inf_input_prd').val();
         let $this = $(this);
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
@@ -54,7 +54,7 @@ $(document).ready(function() {
             data: {
                 controller : 'AdminAjaxInfofields',
                 action : 'SaveInfometa',
-                iso_code : $iso_code.trim(),
+                iso_code : $iso_code,
                 inf_id : $infofield_id,
                 prd_id : $prd_id,
                 inf_value : $value,

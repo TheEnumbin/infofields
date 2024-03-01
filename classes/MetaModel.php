@@ -49,8 +49,8 @@ class MetaModel extends ObjectModel
 				'validate' => 'isunsignedInt',
 			],
 			'meta_data'           => [
-				'type'     => self::TYPE_STRING,
-				'validate' => 'isString',
+				'type'     => self::TYPE_HTML,
+				'validate' => 'isCleanHtml',
 				'lang'     => true,
 			],
 		],
@@ -85,25 +85,20 @@ class MetaModel extends ObjectModel
 			return false;
 		}
 		$id_parents = [];
+		$return_arr = [];
 		foreach($parent_fields as $parent_field){
 			$id_parents[] = $parent_field['id_infofields'];
+			$return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
 		}
 		$id_parents = implode(', ', $id_parents);
 		$metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
 		SELECT *
 		FROM `" . _DB_PREFIX_ . "infofields_meta` infm LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
 		WHERE `id_infofields` IN ($id_parents) AND `parent_item_id` = " . (int) $parent_id);
-		$return_arr = [];
-		if (!empty($metas)) {
-			foreach ($metas as $meta) {
-				$return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
-			}
-		} else {
-			foreach($parent_fields as $parent_field){
-				$return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
-			}
-		}
 
+		foreach ($metas as $meta) {
+			$return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
+		}
 		return $return_arr;
 	}
 }

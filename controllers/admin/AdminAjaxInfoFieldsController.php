@@ -39,6 +39,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
+        
         $object = new MetaModel(null, $inf_id, $prd_id);
         if(isset($object->id)) {
             $object->meta_data[$lang_id] = $inf_value;

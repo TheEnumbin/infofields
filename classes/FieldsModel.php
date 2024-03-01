@@ -66,8 +66,8 @@ class FieldsModel extends ObjectModel
 				'required' => true,
 			],
 			'global_meta_data'           => [
-				'type'     => self::TYPE_STRING,
-				'validate' => 'isString',
+				'type'     => self::TYPE_HTML,
+				'validate' => 'isCleanHtml',
 				'lang'     => true,
 			],
 		],
