@@ -321,14 +321,31 @@ class Infofields extends Module
     }
 
     /**
-     * Call back function for the  hook DisplayProductPriceBlock
+     * Call back function for the  hook DisplayInfofield
      */
     public function hookDisplayInfofield($params)
     {
-        $inf_id = $params['id_infofields'];
+        $inf_ids = $params['id_infofields'];
         $prd_id = $params['product_id'];
+        $id_lang = $this->context->language->id;
+        $fields = [];
+        $index = 0;
+        if(is_array($inf_ids)) {
+
+        } else {
+            $fields[$index]['id_infofields'] = $inf_ids;
+            $fields[$index]['id_lang'] = $id_lang;
+        }
         $metamodel = new MetaModel();
-        $metas = $metamodel->get_meta_by_parent($id_product, $fields);
+        $metas = $metamodel->get_meta_by_parent($prd_id, $fields, $id_lang);
+
+        $this->context->smarty->assign([
+            'infofields_metas' => $metas,
+        ]);
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
+
+        echo $output;
+        
     }
 
     /**
