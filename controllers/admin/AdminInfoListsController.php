@@ -194,6 +194,7 @@ class AdminInfoListsController extends ModuleAdminController
     public function getShortcode($id, $parent){
         $parent_obj = '';
         if($parent == 'product'){
+            $parent = $parent . '_id';
             $parent_obj = '$product.id';
         }
         return "{hook h='displayInfofield' id_infofields=$id $parent=$parent_obj}";

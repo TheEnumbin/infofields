@@ -325,11 +325,10 @@ class Infofields extends Module
      */
     public function hookDisplayInfofield($params)
     {
-        echo '<pre>';
-        print_r($params);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        $inf_id = $params['id_infofields'];
+        $prd_id = $params['product_id'];
+        $metamodel = new MetaModel();
+        $metas = $metamodel->get_meta_by_parent($id_product, $fields);
     }
 
     /**
