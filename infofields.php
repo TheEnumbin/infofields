@@ -325,7 +325,11 @@ class Infofields extends Module
      */
     public function hookDisplayInfofield($params)
     {
-        echo "Hello Hook";
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
     }
 
     /**

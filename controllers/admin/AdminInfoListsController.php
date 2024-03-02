@@ -117,25 +117,25 @@ class AdminInfoListsController extends ModuleAdminController
             ],
 			'input'  => [
 				[
-					'type'     => 'text',
-					'label'    => $this->l('Field Name'),
-					'name'     => 'field_name',
-					'id'       => 'field_name',
-					'size'     => 60,
+					'type' => 'text',
+					'label' => $this->l('Field Name'),
+					'name' => 'field_name',
+					'id' => 'field_name',
+					'size' => 60,
 					'required' => true,
-					'desc'     => $this->l('This will appear as the field name on your form.'),
-					'lang'     => true,
+					'desc' => $this->l('This will appear as the field name on your form.'),
+					'lang' => true,
                 ],
 				[
-					'type'         => 'textarea',
-					'label'        => $this->l('Global Metadata'),
-					'name'         => 'global_meta_data',
-					'lang'         => true,
-					'rows'         => 10,
-					'cols'         => 62,
-					'class'        => 'rte',
+					'type' => 'textarea',
+					'label' => $this->l('Global Metadata'),
+					'name' => 'global_meta_data',
+					'lang' => true,
+					'rows' => 10,
+					'cols' => 62,
+					'class' => 'rte',
 					'autoload_rte' => true,
-					'desc'         => $this->l('This will act as global meta data. Specific meta will overwrite it.'),
+					'desc' => $this->l('This will act as global meta data. Specific meta will overwrite it.'),
                 ],
 				[
                     'type' => 'select',
@@ -168,13 +168,13 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'end_date',
                 ],
                 [
-					'type'     => 'text',
-					'label'    => $this->l('Shortcode'),
-					'name'     => 'shortcode',
-					'id'       => 'shortcode',
-					'size'     => 60,
-					'desc'     => $this->l('Use this in your tpl file to show the meta info.'),
-					'disabled'  => true,
+					'type' => 'text',
+					'label' => $this->l('Shortcode'),
+					'name' => 'shortcode',
+					'id' => 'shortcode',
+					'size' => 60,
+					'desc' => $this->l('Use this in your tpl file to show the meta info.'),
+					'disabled' => true,
                     'class' => 'text-danger',
                 ],
             ],
@@ -194,7 +194,7 @@ class AdminInfoListsController extends ModuleAdminController
     public function getShortcode($id, $parent){
         $parent_obj = '';
         if($parent == 'product'){
-            $parent_obj = '$product';
+            $parent_obj = '$product.id';
         }
         return "{hook h='displayInfofield' id_infofields=$id $parent=$parent_obj}";
     }
