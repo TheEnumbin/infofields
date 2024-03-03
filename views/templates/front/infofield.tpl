@@ -22,4 +22,10 @@
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
 *}
-{$infofields_metas|print_r}
+<div class="infofield-wrapper">
+    {foreach from=$infofields_metas item=infometa}
+        <div class="infofield-meta-item">
+            {$infometa[$lang_id].meta_data nofilter}
+        </div>
+    {/foreach}
+</div>

@@ -341,6 +341,7 @@ class Infofields extends Module
 
         $this->context->smarty->assign([
             'infofields_metas' => $metas,
+            'lang_id' => $id_lang,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
 
