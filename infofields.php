@@ -72,6 +72,7 @@ class Infofields extends Module
         include _PS_MODULE_DIR_ . $this->name . '/sql/install_tabs.php';
 
         return parent::install() &&
+            $this->registerHook('actionCmsPageFormBuilderModifier') &&
             $this->registerHook('displayHeader') &&
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
@@ -106,6 +107,10 @@ class Infofields extends Module
         }
 
         return $this->renderForm();
+    }
+
+    public function hookActionCmsPageFormBuilderModifier($param) {
+        
     }
 
     /**
