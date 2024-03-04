@@ -27,6 +27,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShopBundle\Form\Admin\Type\TranslatableType;
+
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
 require_once(dirname(__FILE__) . '/classes/MetaModel.php');
 
@@ -109,8 +111,18 @@ class Infofields extends Module
         return $this->renderForm();
     }
 
-    public function hookActionCmsPageFormBuilderModifier($param) {
-        
+    public function hookActionCmsPageFormBuilderModifier(array $params) {
+        $params['form_builder']
+            ->add(
+                'info_fied',
+                null,
+                [
+                    'required' => false,
+                    'label' => 'Meta title',
+                    'help' => "help",
+                    'data' => "title",
+                ]
+            );
     }
 
     /**
