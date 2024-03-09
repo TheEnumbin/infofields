@@ -28,6 +28,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
 require_once(dirname(__FILE__) . '/classes/MetaModel.php');
@@ -109,20 +110,6 @@ class Infofields extends Module
         }
 
         return $this->renderForm();
-    }
-
-    public function hookActionCmsPageFormBuilderModifier(array $params) {
-        $params['form_builder']
-            ->add(
-                'info_fied',
-                null,
-                [
-                    'required' => false,
-                    'label' => 'Meta title',
-                    'help' => "help",
-                    'data' => "title",
-                ]
-            );
     }
 
     /**
@@ -326,6 +313,37 @@ class Infofields extends Module
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 
         return $output;
+    }
+
+    public function hookActionCmsPageFormBuilderModifier(array $params) {
+        // $id_product = $params['id_product'];
+        // $parent_item = 2;
+        // $languages = Language::getLanguages(false);
+        // $langs = [];
+        // foreach ($languages as $lang) {
+        //     $langs[$lang['id_lang']] = $lang['iso_code'];
+        // }
+        // $fieldsmodel = new FieldsModel();
+        // $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        
+        // $metamodel = new MetaModel();
+        // $metas = $metamodel->get_meta_by_parent($id_product, $fields);
+        // foreach ($fields as $field) {
+
+        // }
+        $translator = $this->context->getTranslator();
+        $params['form_builder']
+            ->add(
+                'info_fied',
+                TranslatableType::class,
+                [
+                    'type' => TextType::class,
+                    'required' => false,
+                    'label' => 'Meta title',
+                    'help' => "help",
+                    'data' => "title",
+                ]
+            );
     }
 
     /**
