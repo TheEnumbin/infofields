@@ -335,15 +335,17 @@ class Infofields extends Module
         $params['form_builder']
             ->add(
                 'info_fied',
-                TranslatableType::class,
+                null,
                 [
-                    'type' => TextType::class,
                     'required' => false,
                     'label' => 'Meta title',
                     'help' => "help",
                     'data' => "title",
                 ]
             );
+        // $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/test.tpl');
+
+        // return $output;
     }
 
     /**
