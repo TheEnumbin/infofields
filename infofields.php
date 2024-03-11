@@ -29,6 +29,7 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
 require_once(dirname(__FILE__) . '/classes/MetaModel.php');
@@ -335,7 +336,7 @@ class Infofields extends Module
         $params['form_builder']
             ->add(
                 'info_fied',
-                null,
+                TextType::class,
                 [
                     'required' => false,
                     'label' => 'Meta title',
