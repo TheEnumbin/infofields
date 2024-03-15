@@ -338,45 +338,56 @@ class Infofields extends Module
     }
 
     public function hookActionCmsPageFormBuilderModifier(array $params) {
-        // $id_product = $params['id_product'];
-        // $parent_item = 2;
-        // $languages = Language::getLanguages(false);
-        // $langs = [];
-        // foreach ($languages as $lang) {
-        //     $langs[$lang['id_lang']] = $lang['iso_code'];
-        // }
-        // $fieldsmodel = new FieldsModel();
-        // $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        $id_cms = $params['id'];
+        $parent_item = 3;
+        $languages = Language::getLanguages(false);
+        $langs = [];
+        foreach ($languages as $lang) {
+            $langs[$lang['id_lang']] = $lang['iso_code'];
+        }
+        $fieldsmodel = new FieldsModel();
+        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        echo '<pre>';
+        print_r($fields);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
         
         // $metamodel = new MetaModel();
-        // $metas = $metamodel->get_meta_by_parent($id_product, $fields);
+        // $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
         // foreach ($fields as $field) {
-
+        //     $params['form_builder']
+        //         ->add(
+        //             'inf_metafield_' . $field['id_infofoeld'],
+        //             TextType::class,
+        //             [
+        //                 'required' => false,
+        //                 'label' => $field['field_name'],
+        //                 'help' => "help",
+        //                 'data' => $id_cms,
+        //             ]
+        //         );
         // }
-        $translator = $this->context->getTranslator();
-        $params['form_builder']
-            ->add(
-                'info_fied',
-                TextType::class,
-                [
-                    'required' => false,
-                    'label' => 'Meta title',
-                    'help' => "help",
-                    'data' => "title",
-                ]
-            )
-            ->add('description',  FormattedTextareaType::class, [
-                'required' => false,
-                'empty_data' => '',
-                'attr' => [
-                    'rows' => 10,
-                ],
-                'label' => 'Meta title saasdsd',            
-            ]
-        );
-        // $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/test.tpl');
-
-        // return $output;
+        // $translator = $this->context->getTranslator();
+        // $params['form_builder']
+        //     ->add(
+        //         'info_fied',
+        //         TextType::class,
+        //         [
+        //             'required' => false,
+        //             'label' => 'Meta title',
+        //             'help' => "help",
+        //             'data' => $id_cms,
+        //         ]
+        //     )
+        //     ->add('description',  FormattedTextareaType::class, [
+        //         'required' => false,
+        //         'empty_data' => '',
+        //         'attr' => [
+        //             'rows' => 10,
+        //         ],
+        //         'label' => 'Meta title saasdsd',            
+        //     ]
+        // );
     }
 
     /**
