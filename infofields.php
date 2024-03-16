@@ -52,18 +52,18 @@ class Infofields extends Module
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
 
-        $parent_item = 3;
-        $languages = Language::getLanguages(false);
-        $langs = [];
-        foreach ($languages as $lang) {
-            $langs[$lang['id_lang']] = $lang['iso_code'];
-        }
-        $fieldsmodel = new FieldsModel();
-        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        echo '<pre>';
-        print_r($fields);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
+        // $parent_item = 3;
+        // $languages = Language::getLanguages(false);
+        // $langs = [];
+        // foreach ($languages as $lang) {
+        //     $langs[$lang['id_lang']] = $lang['iso_code'];
+        // }
+        // $fieldsmodel = new FieldsModel();
+        // $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        // echo '<pre>';
+        // print_r($fields);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
     }
 
     private function define_constants(){
@@ -341,7 +341,7 @@ class Infofields extends Module
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
         $builder = new InfofieldBuilder();
-        $builder->inf_build_form($fields);
+        $builder->inf_build_form($params['form_builder'], $fields);
 
         // $translator = $this->context->getTranslator();
         // $params['form_builder']

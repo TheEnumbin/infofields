@@ -55,20 +55,34 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InfofieldBuilder
 {
-    public function inf_build_form($fields){
+    public function inf_build_form(FormBuilderInterface $formBuilder, $fields){
 		foreach ($fields as $field) {
-            $params['form_builder']
+			$field_type = $this->inf_get_field_type($field['field_type']);
+            $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'] . '_' . $field['id_lang'],
-                    TextType::class,
+                    $field_type,
                     [
                         'required' => false,
                         'label' => $field['field_name'],
                         'help' => "help",
-                        'data' => $id_cms,
+                        'data' => 'value',
                         'attr' => ["class" => "hello"]
                     ]
                 );
         }
+	}
+
+	public function inf_get_field_type($field_type){
+		$return_class = null;
+		switch($field_type) {
+			case 1;
+				$return_class = TextType::class;
+				break;
+			case 2;
+				$return_class = FormattedTextareaType::class;
+				break;
+		}
+		return $return_class;
 	}
 }
