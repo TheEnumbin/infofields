@@ -27,33 +27,11 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShopBundle\Form\Admin\Type\TranslatableType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-
-use PrestaShop\PrestaShop\Core\ConfigurationInterface;
-use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
-use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
-use PrestaShop\PrestaShop\Core\Domain\Category\SeoSettings;
-use PrestaShop\PrestaShop\Core\Feature\FeatureInterface;
-use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
-use PrestaShopBundle\Form\Admin\Type\Material\MaterialChoiceTableType;
-use PrestaShopBundle\Form\Admin\Type\ShopChoiceTreeType;
-use PrestaShopBundle\Form\Admin\Type\SwitchType;
-use PrestaShopBundle\Form\Admin\Type\TextWithRecommendedLengthType;
-use PrestaShopBundle\Form\Admin\Type\TranslateType;
-use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
 require_once(dirname(__FILE__) . '/classes/MetaModel.php');
+require_once(dirname(__FILE__) . '/includes/InfofieldBuilder.php');
 
 class Infofields extends Module
 {
@@ -73,6 +51,19 @@ class Infofields extends Module
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
+
+        $parent_item = 3;
+        $languages = Language::getLanguages(false);
+        $langs = [];
+        foreach ($languages as $lang) {
+            $langs[$lang['id_lang']] = $lang['iso_code'];
+        }
+        $fieldsmodel = new FieldsModel();
+        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        echo '<pre>';
+        print_r($fields);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
     }
 
     private function define_constants(){
@@ -347,26 +338,11 @@ class Infofields extends Module
         }
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        echo '<pre>';
-        print_r($fields);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        
-        // $metamodel = new MetaModel();
-        // $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
-        // foreach ($fields as $field) {
-        //     $params['form_builder']
-        //         ->add(
-        //             'inf_metafield_' . $field['id_infofoeld'],
-        //             TextType::class,
-        //             [
-        //                 'required' => false,
-        //                 'label' => $field['field_name'],
-        //                 'help' => "help",
-        //                 'data' => $id_cms,
-        //             ]
-        //         );
-        // }
+        $metamodel = new MetaModel();
+        $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
+        $builder = new InfofieldBuilder();
+        $builder->inf_build_form($fields);
+
         // $translator = $this->context->getTranslator();
         // $params['form_builder']
         //     ->add(
