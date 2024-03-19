@@ -62,20 +62,22 @@ class InfofieldBuilder
             $field_type = $this->inf_get_field_type($field['field_type']);
             $class = '';
             if($field['id_lang'] == $id_lang) {
-                $class = 'hidden-field active';
-            }
-            $formBuilder
+                $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'] . '_' . $field['id_lang'],
-                    $field_type,
+                    TranslatableType::class,
                     [
+                        // we'll have text area that is translatable
+                        'type' => $field_type,
                         'required' => false,
                         'label' => $field['field_name'],
-                        // 'help' => "help",
-                        'data' => 'value',
-                        'attr' => ["class" => $class]
+                        'data' => [],
+                        'constraints' => [
+                            new DefaultLanguage(),
+                        ],
                     ]
                 );
+            }
         }
     }
 
