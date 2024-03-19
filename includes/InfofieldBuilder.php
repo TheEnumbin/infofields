@@ -55,9 +55,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InfofieldBuilder
 {
-    public function inf_build_form(FormBuilderInterface $formBuilder, $fields){
-		foreach ($fields as $field) {
-			$field_type = $this->inf_get_field_type($field['field_type']);
+    public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $id_lang)
+    {
+
+        foreach ($fields as $field) {
+            $field_type = $this->inf_get_field_type($field['field_type']);
+            $class = '';
+            if($field['id_lang'] == $id_lang) {
+                $class = 'hidden-field active';
+            }
             $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'] . '_' . $field['id_lang'],
@@ -65,24 +71,25 @@ class InfofieldBuilder
                     [
                         'required' => false,
                         'label' => $field['field_name'],
-                        'help' => "help",
+                        // 'help' => "help",
                         'data' => 'value',
-                        'attr' => ["class" => "hello"]
+                        'attr' => ["class" => $class]
                     ]
                 );
         }
-	}
+    }
 
-	public function inf_get_field_type($field_type){
-		$return_class = null;
-		switch($field_type) {
-			case 1;
-				$return_class = TextType::class;
-				break;
-			case 2;
-				$return_class = FormattedTextareaType::class;
-				break;
-		}
-		return $return_class;
-	}
+    public function inf_get_field_type($field_type)
+    {
+        $return_class = null;
+        switch($field_type) {
+            case 1:
+                $return_class = TextType::class;
+                break;
+            case 2:
+                $return_class = FormattedTextareaType::class;
+                break;
+        }
+        return $return_class;
+    }
 }

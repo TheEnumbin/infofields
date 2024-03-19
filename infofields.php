@@ -66,9 +66,10 @@ class Infofields extends Module
         // echo __FILE__ . ' : ' . __LINE__;
     }
 
-    private function define_constants(){
+    private function define_constants()
+    {
 
-        if(!defined('INFOFIELDS_CLASSES_PATH')){
+        if(!defined('INFOFIELDS_CLASSES_PATH')) {
             define('INFOFIELDS_CLASSES_PATH', _PS_MODULE_DIR_ . 'infofields/classes/');
         }
     }
@@ -268,9 +269,9 @@ class Infofields extends Module
                     $this->unregisterHook('displayProductButtons');
                 }
                 Configuration::updateValue($key, Tools::getValue($key));
-            } else{
+            } else {
                 Configuration::updateValue($key, Tools::getValue($key));
-            }   
+            }
         }
 
         $infofields_back_color = Configuration::get('INFOFIELDS_BACK_COLOR', '#b3a700');
@@ -313,7 +314,7 @@ class Infofields extends Module
         }
         $fieldsmodel = new FieldsModel();
         $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        
+
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($id_product, $fields);
         $this->context->smarty->assign([
@@ -322,15 +323,17 @@ class Infofields extends Module
             'infometas' => $metas,
             'id_prd' => $id_product,
             'langs' => $langs,
-        ]);       
+        ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 
         return $output;
     }
 
-    public function hookActionCmsPageFormBuilderModifier(array $params) {
+    public function hookActionCmsPageFormBuilderModifier(array $params)
+    {
         $id_cms = $params['id'];
         $parent_item = 3;
+        $id_lang = $this->context->language->id;
         $languages = Language::getLanguages(false);
         $langs = [];
         foreach ($languages as $lang) {
@@ -341,29 +344,7 @@ class Infofields extends Module
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
         $builder = new InfofieldBuilder();
-        $builder->inf_build_form($params['form_builder'], $fields);
-
-        // $translator = $this->context->getTranslator();
-        // $params['form_builder']
-        //     ->add(
-        //         'info_fied',
-        //         TextType::class,
-        //         [
-        //             'required' => false,
-        //             'label' => 'Meta title',
-        //             'help' => "help",
-        //             'data' => $id_cms,
-        //         ]
-        //     )
-        //     ->add('description',  FormattedTextareaType::class, [
-        //         'required' => false,
-        //         'empty_data' => '',
-        //         'attr' => [
-        //             'rows' => 10,
-        //         ],
-        //         'label' => 'Meta title saasdsd',            
-        //     ]
-        // );
+        $builder->inf_build_form($params['form_builder'], $fields, $id_lang);
     }
 
     /**
@@ -401,7 +382,7 @@ class Infofields extends Module
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
 
         echo $output;
-        
+
     }
 
     /**
@@ -466,7 +447,7 @@ class Infofields extends Module
             true
         );
 
-        if(isset($mresults) && !empty($mresults)){
+        if(isset($mresults) && !empty($mresults)) {
             $infofields_meta = array_pop($mresults);
             return $infofields_meta['meta_data'];
         }
@@ -481,7 +462,7 @@ class Infofields extends Module
     private function infofields_show_notice($infofields_text)
     {
         $lang_id = $this->context->language->id;
-        
+
         $this->context->smarty->assign([
             'infofields_text' => $infofields_text,
         ]);
