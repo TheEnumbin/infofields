@@ -67,14 +67,10 @@ class InfofieldBuilder
                     'inf_metafield_' . $field['id_infofields'] . '_' . $field['id_lang'],
                     TranslatableType::class,
                     [
-                        // we'll have text area that is translatable
                         'type' => $field_type,
                         'required' => false,
                         'label' => $field['field_name'],
                         'data' => [],
-                        'constraints' => [
-                            new DefaultLanguage(),
-                        ],
                     ]
                 );
             }

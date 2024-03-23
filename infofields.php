@@ -64,6 +64,7 @@ class Infofields extends Module
         // print_r($fields);
         // echo '</pre>';
         // echo __FILE__ . ' : ' . __LINE__;
+        // $this->registerHook('actionObjectCmsUpdateAfter');
     }
 
     private function define_constants()
@@ -90,6 +91,7 @@ class Infofields extends Module
 
         return parent::install() &&
             $this->registerHook('actionCmsPageFormBuilderModifier') &&
+            $this->registerHook('actionObjectCmsUpdateAfter') &&
             $this->registerHook('displayHeader') &&
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
@@ -345,6 +347,16 @@ class Infofields extends Module
         $metas = $metamodel->get_meta_by_parent($id_cms, $fields);
         $builder = new InfofieldBuilder();
         $builder->inf_build_form($params['form_builder'], $fields, $id_lang);
+    }
+
+    public function hookActionObjectCmsUpdateAfter($params)
+    {
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
+        return true;
     }
 
     /**
