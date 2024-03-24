@@ -349,6 +349,15 @@ class Infofields extends Module
         $builder->inf_build_form($params['form_builder'], $fields, $id_lang);
     }
 
+    // public function hookActionObjectUpdateAfter($params)
+    // {
+    //     // echo '<pre>';
+    //     // print_r($params['object']);
+    //     // echo '</pre>';
+    //     // echo __FILE__ . ' : ' . __LINE__;
+    //     // // die(__FILE__ . ' : ' . __LINE__);
+    // }
+
     public function hookActionObjectCmsUpdateAfter($params)
     {
         echo '<pre>';
@@ -356,8 +365,9 @@ class Infofields extends Module
         echo '</pre>';
         echo __FILE__ . ' : ' . __LINE__;
         die(__FILE__ . ' : ' . __LINE__);
-        return true;
+        // $this->clearMenuCache();
     }
+
 
     /**
      * Add the CSS & JavaScript files you want to be added on the FO.
