@@ -361,9 +361,12 @@ class Infofields extends Module
     public function hookActionObjectCmsUpdateAfter($params)
     {
         echo '<pre>';
-        print_r($params);
+        print_r(Tools::getValue('cms_page'));
         echo '</pre>';
         echo __FILE__ . ' : ' . __LINE__;
+        echo '<pre>';
+        print_r($params);
+        echo '</pre>';
         die(__FILE__ . ' : ' . __LINE__);
         // $this->clearMenuCache();
     }
