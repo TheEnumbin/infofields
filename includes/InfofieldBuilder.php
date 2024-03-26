@@ -32,6 +32,7 @@ use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -55,26 +56,34 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InfofieldBuilder
 {
-    public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $id_lang)
+    public function inf_build_form(FormBuilderInterface $formBuilder, $fields)
     {
-
+        $inf_ids = [];
         foreach ($fields as $field) {
             $field_type = $this->inf_get_field_type($field['field_type']);
-            $class = '';
-            if($field['id_lang'] == $id_lang) {
-                $formBuilder
-                ->add(
-                    'inf_metafield_' . $field['id_infofields'] . '_' . $field['id_lang'],
-                    TranslatableType::class,
-                    [
-                        'type' => $field_type,
-                        'required' => false,
-                        'label' => $field['field_name'],
-                        'data' => [],
-                    ]
-                );
-            }
+            $inf_ids[] = $field['id_infofields'];
+            $formBuilder
+            ->add(
+                'inf_metafield_' . $field['id_infofields'],
+                TranslatableType::class,
+                [
+                    'type' => $field_type,
+                    'required' => false,
+                    'label' => $field['field_name'],
+                    'data' => [],
+                ]
+            );
         }
+        $inf_ids = array_unique($inf_ids);
+        $inf_ids = implode(",", $inf_ids);
+        $formBuilder
+        ->add(
+            'inf_infofield_ids',
+            HiddenType::class,
+            [
+                'data' => $inf_ids,
+            ]
+        );
     }
 
     public function inf_get_field_type($field_type)
