@@ -56,7 +56,7 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InfofieldBuilder
 {
-    public function inf_build_form(FormBuilderInterface $formBuilder, $fields)
+    public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $metas)
     {
         $inf_ids = [];
         foreach ($fields as $field) {
