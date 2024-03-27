@@ -62,6 +62,7 @@ class InfofieldBuilder
         foreach ($fields as $field) {
             $field_type = $this->inf_get_field_type($field['field_type']);
             $inf_ids[] = $field['id_infofields'];
+            $data = $metas[$field['id_infofields']];
             $formBuilder
             ->add(
                 'inf_metafield_' . $field['id_infofields'],
@@ -70,7 +71,7 @@ class InfofieldBuilder
                     'type' => $field_type,
                     'required' => false,
                     'label' => $field['field_name'],
-                    'data' => [],
+                    'data' => $data,
                 ]
             );
         }
