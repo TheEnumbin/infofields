@@ -24,8 +24,10 @@
 *}
 <div class="infofield-wrapper">
     {foreach from=$infofields_metas item=infometa}
-        <div class="infofield-meta-item">
-            {$infometa[$lang_id].meta_data nofilter}
-        </div>
+        {if $infometa[$lang_id] != false}
+            <div class="infofield-meta-item">
+                {$infometa[$lang_id].meta_data nofilter}
+            </div>
+        {/if}
     {/foreach}
 </div>

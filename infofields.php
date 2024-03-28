@@ -393,7 +393,7 @@ class Infofields extends Module
     public function hookDisplayInfofield($params)
     {
         $inf_ids = $params['id_infofields'];
-        $prd_id = $params['product_id'];
+        $item_id = $params['item_id'];
         $id_lang = $this->context->language->id;
         $fields = [];
         $index = 0;
@@ -404,8 +404,7 @@ class Infofields extends Module
             $fields[$index]['id_lang'] = $id_lang;
         }
         $metamodel = new MetaModel();
-        $metas = $metamodel->get_meta_by_parent($prd_id, $fields, $id_lang);
-
+        $metas = $metamodel->get_meta_by_parent($item_id, $fields, $id_lang);
         $this->context->smarty->assign([
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,

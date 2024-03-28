@@ -88,12 +88,12 @@ class AdminInfoListsController extends ModuleAdminController
     }
 
     public function renderForm()
-	{
+    {
         $obj = $this->loadObject(true);
         if (!$obj) {
             return;
         }
-		$languages = Language::getLanguages(false);
+        $languages = Language::getLanguages(false);
         $parents = $this->getParentItems();
         $field_types = $this->getFieldTypes();
         $parent_arr = [];
@@ -111,33 +111,33 @@ class AdminInfoListsController extends ModuleAdminController
             ];
         }
 
-		$this->fields_form = [
-			'legend' => [
-				'title' => $this->l('Info Field Form'),
+        $this->fields_form = [
+            'legend' => [
+                'title' => $this->l('Info Field Form'),
             ],
-			'input'  => [
-				[
-					'type' => 'text',
-					'label' => $this->l('Field Name'),
-					'name' => 'field_name',
-					'id' => 'field_name',
-					'size' => 60,
-					'required' => true,
-					'desc' => $this->l('This will appear as the field name on your form.'),
-					'lang' => true,
+            'input'  => [
+                [
+                    'type' => 'text',
+                    'label' => $this->l('Field Name'),
+                    'name' => 'field_name',
+                    'id' => 'field_name',
+                    'size' => 60,
+                    'required' => true,
+                    'desc' => $this->l('This will appear as the field name on your form.'),
+                    'lang' => true,
                 ],
-				[
-					'type' => 'textarea',
-					'label' => $this->l('Global Metadata'),
-					'name' => 'global_meta_data',
-					'lang' => true,
-					'rows' => 10,
-					'cols' => 62,
-					'class' => 'rte',
-					'autoload_rte' => true,
-					'desc' => $this->l('This will act as global meta data. Specific meta will overwrite it.'),
+                [
+                    'type' => 'textarea',
+                    'label' => $this->l('Global Metadata'),
+                    'name' => 'global_meta_data',
+                    'lang' => true,
+                    'rows' => 10,
+                    'cols' => 62,
+                    'class' => 'rte',
+                    'autoload_rte' => true,
+                    'desc' => $this->l('This will act as global meta data. Specific meta will overwrite it.'),
                 ],
-				[
+                [
                     'type' => 'select',
                     'label' => $this->l('Parent Item'),
                     'name' => 'parent_item',
@@ -168,13 +168,13 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'end_date',
                 ],
                 [
-					'type' => 'text',
-					'label' => $this->l('Shortcode'),
-					'name' => 'shortcode',
-					'id' => 'shortcode',
-					'size' => 60,
-					'desc' => $this->l('Use this in your tpl file to show the meta info.'),
-					'disabled' => true,
+                    'type' => 'text',
+                    'label' => $this->l('Shortcode'),
+                    'name' => 'shortcode',
+                    'id' => 'shortcode',
+                    'size' => 60,
+                    'desc' => $this->l('Use this in your tpl file to show the meta info.'),
+                    'disabled' => true,
                     'class' => 'text-danger',
                 ],
             ],
@@ -188,29 +188,32 @@ class AdminInfoListsController extends ModuleAdminController
             $parent = strtolower($this->getParentName($obj->parent_item));
             $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
         }
-		return parent::renderForm();
-	}
-
-    public function getShortcode($id, $parent){
-        $parent_obj = '';
-        if($parent == 'product'){
-            $parent = $parent . '_id';
-            $parent_obj = '$product.id';
-        }
-        return "{hook h='displayInfofield' id_infofields=$id $parent=$parent_obj}";
+        return parent::renderForm();
     }
 
-    public function getParentName($key) {
+    public function getShortcode($id, $parent)
+    {
+        $parent_obj = '';
+        if($parent == 'product') {
+            $parent_obj = '$product.id';
+        }
+        return "{hook h='displayInfofield' id_infofields=$id item_id=$parent_obj}";
+    }
+
+    public function getParentName($key)
+    {
         $parents = $this->getParentItems();
         return $parents[$key];
     }
 
-    public function getFieldtypeName($key) {
+    public function getFieldtypeName($key)
+    {
         $field_types = $this->getFieldTypes();
         return $field_types[$key];
     }
 
-    public function getParentItems() {
+    public function getParentItems()
+    {
         return [
             1 => 'Category',
             2 => 'Product',
@@ -219,7 +222,8 @@ class AdminInfoListsController extends ModuleAdminController
         ];
     }
 
-    public function getFieldTypes() {
+    public function getFieldTypes()
+    {
         return [
             1 => 'Text Field',
             2 => 'Rich Text Field',
