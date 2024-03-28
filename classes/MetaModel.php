@@ -36,29 +36,29 @@ class MetaModel extends ObjectModel
     public $meta_data;
 
     public static $definition = [
-		'table'     => 'infofields_meta',
-		'primary'   => 'id_infofields_meta',
-		'multilang' => true,
-		'fields'    => [
-			'id_infofields'            => [
-				'type'     => self::TYPE_INT,
-				'validate' => 'isunsignedInt',
-			],
-			'parent_item_id'            => [
-				'type'     => self::TYPE_INT,
-				'validate' => 'isunsignedInt',
-			],
-			'meta_data'           => [
-				'type'     => self::TYPE_HTML,
-				'validate' => 'isCleanHtml',
-				'lang'     => true,
-			],
-		],
-	];
+        'table'     => 'infofields_meta',
+        'primary'   => 'id_infofields_meta',
+        'multilang' => true,
+        'fields'    => [
+            'id_infofields'            => [
+                'type'     => self::TYPE_INT,
+                'validate' => 'isunsignedInt',
+            ],
+            'parent_item_id'            => [
+                'type'     => self::TYPE_INT,
+                'validate' => 'isunsignedInt',
+            ],
+            'meta_data'           => [
+                'type'     => self::TYPE_HTML,
+                'validate' => 'isCleanHtml',
+                'lang'     => true,
+            ],
+        ],
+    ];
 
-	public function __construct($id = null, $id_infofields = null, $parent_item_id = null, $id_lang = null)
-	{
-		if ($id) {
+    public function __construct($id = null, $id_infofields = null, $parent_item_id = null, $id_lang = null)
+    {
+        if ($id) {
             parent::__construct($id);
         } elseif ($id_infofields && $parent_item_id) {
             $row = Db::getInstance(_PS_USE_SQL_SLAVE_)->getRow('
@@ -66,37 +66,42 @@ class MetaModel extends ObjectModel
 				FROM `' . _DB_PREFIX_ . 'infofields_meta` inm
 				WHERE `id_infofields` = \'' . (int) $id_infofields . '\' AND `parent_item_id` = ' . (int) $parent_item_id);
 
-                if ($row) {
-                    parent::__construct($row['id_infofields_meta']);
-                } else {
-                    parent::__construct();
-                }
+            if ($row) {
+                parent::__construct($row['id_infofields_meta']);
+            } else {
+                parent::__construct();
+            }
         }
-	}
+    }
 
-	public function get_meta_by_parent($parent_id, $parent_fields, $id_lang = null){
-		if (empty($parent_fields)) {
-			return false;
-		}
-		$where_lang = '';
-		if ($id_lang != null) {
-			$where_lang = " AND infml.`id_lang` = " . (int) $id_lang;
-		}
-		$id_parents = [];
-		$return_arr = [];
-		foreach($parent_fields as $parent_field){
-			$id_parents[] = $parent_field['id_infofields'];
-			$return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
-		}
-		$id_parents = implode(', ', $id_parents);
-		$metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
+    public function get_meta_by_parent($parent_id, $parent_fields, $id_lang = null, $only_data = false)
+    {
+        if (empty($parent_fields)) {
+            return false;
+        }
+        $where_lang = '';
+        if ($id_lang != null) {
+            $where_lang = " AND infml.`id_lang` = " . (int) $id_lang;
+        }
+        $id_parents = [];
+        $return_arr = [];
+        foreach($parent_fields as $parent_field) {
+            $id_parents[] = $parent_field['id_infofields'];
+            $return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
+        }
+        $id_parents = implode(', ', $id_parents);
+        $metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
 		SELECT *
 		FROM `" . _DB_PREFIX_ . "infofields_meta` infm LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
 		WHERE infm.`id_infofields` IN ($id_parents) AND infm.`parent_item_id` = " . (int) $parent_id . $where_lang);
 
-		foreach ($metas as $meta) {
-			$return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
-		}
-		return $return_arr;
-	}
+        foreach ($metas as $meta) {
+            if ($only_data) {
+                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta['meta_data'];
+            } else {
+                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
+            }
+        }
+        return $return_arr;
+    }
 }
