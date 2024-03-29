@@ -56,6 +56,27 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class InfofieldBuilder
 {
+    private $fields;
+    private $metas;
+
+    public function __construct($form_for, $item_id)
+    {
+        $fieldsmodel = new FieldsModel();
+        $this->fields = $fieldsmodel->get_infofield_by_parent_item($form_for);
+        $metamodel = new MetaModel();
+        $this->metas = $metamodel->get_meta_by_parent($item_id, $this->fields, null, true);
+    }
+
+    public function get_fields()
+    {
+        return $this->fields;
+    }
+
+    public function get_metas()
+    {
+        return $this->metas;
+    }
+
     public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $metas)
     {
         $inf_ids = [];

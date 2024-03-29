@@ -66,7 +66,8 @@ class Infofields extends Module
         // print_r($metas);
         // echo '</pre>';
         // echo __FILE__ . ' : ' . __LINE__;
-        // $this->registerHook('actionObjectCmsUpdateAfter');
+        $this->registerHook('actionObjectCustomerUpdateAfter');
+        $this->registerHook('actionCustomerFormBuilderModifier');
     }
 
     private function define_constants()
@@ -94,6 +95,7 @@ class Infofields extends Module
         return parent::install() &&
             $this->registerHook('actionCmsPageFormBuilderModifier') &&
             $this->registerHook('actionObjectCmsUpdateAfter') &&
+            $this->registerHook('actionObjectCustomerUpdateAfter') &&
             $this->registerHook('displayHeader') &&
             $this->registerHook('displayBackOfficeHeader') &&
             $this->registerHook('displayAdminProductsExtra') &&
@@ -336,23 +338,16 @@ class Infofields extends Module
     public function hookActionCmsPageFormBuilderModifier(array $params)
     {
         $id_cms = $params['id'];
-        $parent_item = 3;
-        $fieldsmodel = new FieldsModel();
-        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        $metamodel = new MetaModel();
-        $metas = $metamodel->get_meta_by_parent($id_cms, $fields, null, true);
-        $builder = new InfofieldBuilder();
-        $builder->inf_build_form($params['form_builder'], $fields, $metas);
+        $builder = new InfofieldBuilder(3, $id_cms);
+        $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
     }
 
-    // public function hookActionObjectUpdateAfter($params)
-    // {
-    //     // echo '<pre>';
-    //     // print_r($params['object']);
-    //     // echo '</pre>';
-    //     // echo __FILE__ . ' : ' . __LINE__;
-    //     // // die(__FILE__ . ' : ' . __LINE__);
-    // }
+    public function hookActionCustomerFormBuilderModifier(array $params)
+    {
+        $id_customer = $params['id'];
+        $builder = new InfofieldBuilder(4, $id_customer);
+        $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
+    }
 
     public function hookActionObjectCmsUpdateAfter($params)
     {
@@ -375,6 +370,10 @@ class Infofields extends Module
                 }
             }
         }
+    }
+
+    public function hookActionObjectCustomerUpdateAfter()
+    {
     }
 
 
