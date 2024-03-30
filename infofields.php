@@ -372,8 +372,27 @@ class Infofields extends Module
         }
     }
 
-    public function hookActionObjectCustomerUpdateAfter()
+    public function hookActionObjectCustomerUpdateAfter($params)
     {
+        $data = Tools::getValue('customer');
+        $inf_ids = $data['inf_infofield_ids'];
+        $inf_ids = explode(",", $inf_ids);
+        $customer_obj = $params['object'];
+
+        if (!empty($inf_ids)) {
+            foreach ($inf_ids as $inf_id) {
+                $object = new MetaModel(null, $inf_id, $customer_obj->id);
+                if(isset($object->id)) {
+                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    $object->update();
+                } else {
+                    $object->id_infofields = $inf_id;
+                    $object->parent_item_id = $customer_obj->id;
+                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    $object->add();
+                }
+            }
+        }
     }
 
 
