@@ -294,6 +294,26 @@ class Infofields extends Module
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
     }
 
+    public function inf_update_object($obj, $data)
+    {
+        $inf_ids = $data['inf_infofield_ids'];
+        $inf_ids = explode(",", $inf_ids);
+        if (!empty($inf_ids)) {
+            foreach ($inf_ids as $inf_id) {
+                $object = new MetaModel(null, $inf_id, $obj->id);
+                if(isset($object->id)) {
+                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    $object->update();
+                } else {
+                    $object->id_infofields = $inf_id;
+                    $object->parent_item_id = $obj->id;
+                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    $object->add();
+                }
+            }
+        }
+    }
+
     /**
      * Add the CSS & JavaScript files you want to be loaded in the BO.
      */
@@ -352,47 +372,15 @@ class Infofields extends Module
     public function hookActionObjectCmsUpdateAfter($params)
     {
         $data = Tools::getValue('cms_page');
-        $inf_ids = $data['inf_infofield_ids'];
-        $inf_ids = explode(",", $inf_ids);
         $cms_obj = $params['object'];
-
-        if (!empty($inf_ids)) {
-            foreach ($inf_ids as $inf_id) {
-                $object = new MetaModel(null, $inf_id, $cms_obj->id);
-                if(isset($object->id)) {
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    $object->update();
-                } else {
-                    $object->id_infofields = $inf_id;
-                    $object->parent_item_id = $cms_obj->id;
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    $object->add();
-                }
-            }
-        }
+        $this->inf_update_object($cms_obj, $data);
     }
 
     public function hookActionObjectCustomerUpdateAfter($params)
     {
         $data = Tools::getValue('customer');
-        $inf_ids = $data['inf_infofield_ids'];
-        $inf_ids = explode(",", $inf_ids);
         $customer_obj = $params['object'];
-
-        if (!empty($inf_ids)) {
-            foreach ($inf_ids as $inf_id) {
-                $object = new MetaModel(null, $inf_id, $customer_obj->id);
-                if(isset($object->id)) {
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    $object->update();
-                } else {
-                    $object->id_infofields = $inf_id;
-                    $object->parent_item_id = $customer_obj->id;
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    $object->add();
-                }
-            }
-        }
+        $this->inf_update_object($customer_obj, $data);
     }
 
 
