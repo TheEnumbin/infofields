@@ -66,8 +66,8 @@ class Infofields extends Module
         // print_r($metas);
         // echo '</pre>';
         // echo __FILE__ . ' : ' . __LINE__;
-        $this->registerHook('actionObjectCustomerUpdateAfter');
-        $this->registerHook('actionCustomerFormBuilderModifier');
+        $this->registerHook('actionObjectCategoryUpdateAfter');
+        $this->registerHook('actionCategoryFormBuilderModifier');
     }
 
     private function define_constants()
@@ -355,6 +355,13 @@ class Infofields extends Module
         return $output;
     }
 
+    public function hookActionCategoryFormBuilderModifier(array $params)
+    {
+        $id_cms = $params['id'];
+        $builder = new InfofieldBuilder(1, $id_cms);
+        $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
+    }
+
     public function hookActionCmsPageFormBuilderModifier(array $params)
     {
         $id_cms = $params['id'];
@@ -367,6 +374,13 @@ class Infofields extends Module
         $id_customer = $params['id'];
         $builder = new InfofieldBuilder(4, $id_customer);
         $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
+    }
+
+    public function hookActionObjectCategoryUpdateAfter($params)
+    {
+        $data = Tools::getValue('category');
+        $category_obj = $params['object'];
+        $this->inf_update_object($category_obj, $data);
     }
 
     public function hookActionObjectCmsUpdateAfter($params)
