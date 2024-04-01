@@ -66,8 +66,8 @@ class Infofields extends Module
         // print_r($metas);
         // echo '</pre>';
         // echo __FILE__ . ' : ' . __LINE__;
-        $this->registerHook('actionObjectCategoryUpdateAfter');
-        $this->registerHook('actionCategoryFormBuilderModifier');
+        // $this->registerHook('actionObjectCategoryUpdateAfter');
+        // $this->registerHook('actionCategoryFormBuilderModifier');
     }
 
     private function define_constants()
@@ -483,25 +483,6 @@ class Infofields extends Module
      */
     private function infofields_init($product)
     {
-        $controller = Tools::getValue('controller');
-
-        $id_product = $product->id;
-
-        $lang_id = $this->context->language->id;
-        $shop_id = $this->context->shop->id;
-        $infofields_meta = false;
-        $mresults = Db::getInstance()->executeS(
-            'SELECT *
-            FROM `' . _DB_PREFIX_ . 'pricing_extrameta` pemt
-            WHERE pemt.`lang_id` = ' . (int) $lang_id . ' AND' . ' pemt.`shop_id` = ' . (int) $shop_id . ' AND pemt.`product_id` = ' . (int) $id_product,
-            true
-        );
-
-        if(isset($mresults) && !empty($mresults)) {
-            $infofields_meta = array_pop($mresults);
-            return $infofields_meta['meta_data'];
-        }
-
         return false;
     }
 
