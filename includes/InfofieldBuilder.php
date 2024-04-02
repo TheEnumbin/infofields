@@ -30,9 +30,10 @@ if (!defined('_PS_VERSION_')) {
 
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use PrestaShopBundle\Form\Admin\Type\SwitchType;
 
 
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -40,10 +41,9 @@ use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
 use PrestaShop\PrestaShop\Core\Domain\Category\SeoSettings;
 use PrestaShop\PrestaShop\Core\Feature\FeatureInterface;
-use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use PrestaShopBundle\Form\Admin\Type\Material\MaterialChoiceTableType;
 use PrestaShopBundle\Form\Admin\Type\ShopChoiceTreeType;
-use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TextWithRecommendedLengthType;
 use PrestaShopBundle\Form\Admin\Type\TranslateType;
 use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
@@ -84,17 +84,30 @@ class InfofieldBuilder
             $field_type = $this->inf_get_field_type($field['field_type']);
             $inf_ids[] = $field['id_infofields'];
             $data = $metas[$field['id_infofields']];
-            $formBuilder
-            ->add(
-                'inf_metafield_' . $field['id_infofields'],
-                TranslatableType::class,
-                [
-                    'type' => $field_type,
-                    'required' => false,
-                    'label' => $field['field_name'],
-                    'data' => $data,
-                ]
-            );
+            if($field_type['has_translator']) {
+                $formBuilder
+                ->add(
+                    'inf_metafield_' . $field['id_infofields'],
+                    TranslatableType::class,
+                    [
+                        'type' => $field_type['classtype'],
+                        'required' => false,
+                        'label' => $field['field_name'],
+                        'data' => $data,
+                    ]
+                );
+            } else {
+                $formBuilder
+                ->add(
+                    'inf_metafield_' . $field['id_infofields'],
+                    $field_type['classtype'],
+                    [
+                        'required' => false,
+                        'label' => $field['field_name'],
+                        'data' => '',
+                    ]
+                );
+            }
         }
         $inf_ids = array_unique($inf_ids);
         $inf_ids = implode(",", $inf_ids);
@@ -110,15 +123,25 @@ class InfofieldBuilder
 
     public function inf_get_field_type($field_type)
     {
-        $return_class = null;
+        $return_arr = null;
         switch($field_type) {
             case 1:
-                $return_class = TextType::class;
+                $return_arr['classtype'] = TextType::class;
+                $return_arr['has_translator'] = true;
                 break;
             case 2:
-                $return_class = FormattedTextareaType::class;
+                $return_arr['classtype'] = FormattedTextareaType::class;
+                $return_arr['has_translator'] = true;
+                break;
+            case 3:
+                $return_arr['classtype'] = TextareaType::class;
+                $return_arr['has_translator'] = true;
+                break;
+            case 4:
+                $return_arr['classtype'] = SwitchType::class;
+                $return_arr['has_translator'] = false;
                 break;
         }
-        return $return_class;
+        return $return_arr;
     }
 }

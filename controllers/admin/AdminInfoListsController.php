@@ -227,8 +227,10 @@ class AdminInfoListsController extends ModuleAdminController
         return [
             1 => 'Text Field',
             2 => 'Rich Text Field',
-            3 => 'Image',
-            4 => 'File',
+            3 => 'Textarea',
+            4 => 'Switch',
+            5 => 'Image',
+            6 => 'File',
         ];
     }
 }
