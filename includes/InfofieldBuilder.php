@@ -104,7 +104,7 @@ class InfofieldBuilder
                     [
                         'required' => false,
                         'label' => $field['field_name'],
-                        'data' => '',
+                        'data' => $data,
                     ]
                 );
             }
