@@ -52,20 +52,26 @@ class Infofields extends Module
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
 
-        $parent_item = 3;
-        $languages = Language::getLanguages(false);
-        $langs = [];
-        foreach ($languages as $lang) {
-            $langs[$lang['id_lang']] = $lang['iso_code'];
-        }
-        $fieldsmodel = new FieldsModel();
-        $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
-        $metamodel = new MetaModel();
-        $metas = $metamodel->get_meta_by_parent(1, $fields, null, true);
-        echo '<pre>';
-        print_r($metas);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
+        // $parent_item = 3;
+        // $languages = Language::getLanguages(false);
+        // $langs = [];
+        // foreach ($languages as $lang) {
+        //     $langs[$lang['id_lang']] = $lang['iso_code'];
+        // }
+        // $fieldsmodel = new FieldsModel();
+        // $fields = $fieldsmodel->get_infofield_by_parent_item($parent_item);
+        // $metamodel = new MetaModel();
+        // $metas = $metamodel->get_meta_by_parent(1, $fields, null, true);
+        // foreach ($fields as $field) {
+        //     // $field_type = $this->inf_get_field_type($field['field_type']);
+        //     $inf_ids[] = $field['id_infofields'];
+        //     $data = $metas[$field['id_infofields']];
+        //     $data = array_pop($data);
+        //     echo '<pre>';
+        //     print_r($data);
+        //     echo '</pre>';
+        //     echo __FILE__ . ' : ' . __LINE__;
+        // }
         // $this->registerHook('actionObjectCategoryUpdateAfter');
         // $this->registerHook('actionCategoryFormBuilderModifier');
     }

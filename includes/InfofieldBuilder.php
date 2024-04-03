@@ -97,6 +97,7 @@ class InfofieldBuilder
                     ]
                 );
             } else {
+                $data = array_pop($data);
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
