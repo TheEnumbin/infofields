@@ -168,6 +168,26 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'end_date',
                 ],
                 [
+                    'type' => 'switch',
+                    'label' => $this->l('Show with field name'),
+                    'name' => 'with_field_name',
+                    'required' => false,
+                    'class' => 't',
+                    'values' => [
+                        [
+                            'id' => 'active_on',
+                            'value' => 1,
+                            'label' => $this->l('Yes'),
+                        ],
+                        [
+                            'id' => 'active_off',
+                            'value' => 0,
+                            'label' => $this->l('No'),
+                        ],
+                    ],
+                    'hint' => $this->l('Show with the field name on frontend ex: Field name: Value'),
+                ],
+                [
                     'type' => 'text',
                     'label' => $this->l('Shortcode'),
                     'name' => 'shortcode',
