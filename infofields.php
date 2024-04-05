@@ -431,6 +431,7 @@ class Infofields extends Module
         }
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($item_id, $fields, $id_lang);
+
         $this->context->smarty->assign([
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,

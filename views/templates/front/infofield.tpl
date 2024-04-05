@@ -26,6 +26,9 @@
     {foreach from=$infofields_metas item=infometa}
         {if $infometa[$lang_id] != false}
             <div class="infofield-meta-item">
+                {if $infometa[$lang_id].with_field_name != false}
+                    Field Name
+                {/if}
                 {$infometa[$lang_id].meta_data nofilter}
             </div>
         {/if}

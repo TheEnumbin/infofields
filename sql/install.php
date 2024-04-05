@@ -30,6 +30,7 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields` (
     `field_type` int(11),
     `start_date` datetime,
     `end_date` datetime,
+    `with_field_name` BOOLEAN,
     PRIMARY KEY  (`id_infofields`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
