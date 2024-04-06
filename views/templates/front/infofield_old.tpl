@@ -23,18 +23,14 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="infofield-wrapper">
-    {foreach from=$infofields item=infofield}
-        {if isset($infofields_metas[$infofield.id_infofields])}
-            {assign var="infometa" value=$infofields_metas[$infofield.id_infofields]}
-            {if $infometa[$lang_id] != false}
-                <div class="infofield-meta-item">
-                    {if $infofield.with_field_name != false}
-                        {$infofield.field_name}
-                    {/if}
-                    {$infometa[$lang_id].meta_data nofilter}
-                </div>
-            {/if}
+    {foreach from=$infofields_metas item=infometa}
+        {if $infometa[$lang_id] != false}
+            <div class="infofield-meta-item">
+                {if $infometa[$lang_id].with_field_name != false}
+                    Field Name
+                {/if}
+                {$infometa[$lang_id].meta_data nofilter}
+            </div>
         {/if}
-
     {/foreach}
 </div>

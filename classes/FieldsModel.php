@@ -102,4 +102,15 @@ class FieldsModel extends ObjectModel
 		WHERE inf.parent_item = ' . (int) $p_item, true);
         return $results;
     }
+
+    public function get_infofield_by_id($id, $id_lang)
+    {
+        $results = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
+		SELECT *
+		FROM ' . _DB_PREFIX_ . 'infofields inf
+		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields)
+		' . Shop::addSqlAssociation('infofields', 'inf') . '
+		WHERE inf.id_infofields = ' . (int) $id . ' AND infl.id_lang = ' . (int) $id_lang, true);
+        return $results;
+    }
 }

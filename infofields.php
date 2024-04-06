@@ -426,13 +426,14 @@ class Infofields extends Module
         if(is_array($inf_ids)) {
 
         } else {
-            $fields[$index]['id_infofields'] = $inf_ids;
-            $fields[$index]['id_lang'] = $id_lang;
+            $fieldsmodel = new FieldsModel();
+            $fields = $fieldsmodel->get_infofield_by_id($inf_ids, $id_lang);
         }
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($item_id, $fields, $id_lang);
 
         $this->context->smarty->assign([
+            'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
         ]);
