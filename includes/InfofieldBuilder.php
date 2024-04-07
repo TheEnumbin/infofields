@@ -29,13 +29,13 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
+use PrestaShopBundle\Form\Admin\Type\SwitchType;
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use PrestaShopBundle\Form\Admin\Type\SwitchType;
-use PrestaShopBundle\Form\Admin\Type\DateType;
-
 
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
@@ -104,9 +104,16 @@ class InfofieldBuilder
                     'inf_metafield_' . $field['id_infofields'],
                     $field_type['classtype'],
                     [
-                        'required' => false,
                         'label' => $field['field_name'],
-                        'data' => $data,
+                        'required' => false,
+                        'format' => 'yyyy-MM-dd',
+                        'input' => 'string',
+                        // 'data' => [
+                        //     'year' => '2028',
+                        //     'month' => '10',
+                        //     'day' => '24',
+                        // ]
+                        'data' => '2028-10-01'
                     ]
                 );
             }
@@ -143,7 +150,7 @@ class InfofieldBuilder
                 $return_arr['classtype'] = SwitchType::class;
                 $return_arr['has_translator'] = false;
                 break;
-            case 4:
+            case 7:
                 $return_arr['classtype'] = DateType::class;
                 $return_arr['has_translator'] = false;
                 break;
