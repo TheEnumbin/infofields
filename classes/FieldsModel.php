@@ -35,6 +35,7 @@ class FieldsModel extends ObjectModel
     public $field_type;
     public $start_date;
     public $end_date;
+    public $with_field_name;
     public $field_name;
     public $global_meta_data;
 

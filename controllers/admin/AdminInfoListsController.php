@@ -251,6 +251,7 @@ class AdminInfoListsController extends ModuleAdminController
             4 => 'Switch',
             5 => 'Image',
             6 => 'File',
+            7 => 'Date',
         ];
     }
 }

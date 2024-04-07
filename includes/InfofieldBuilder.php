@@ -34,6 +34,7 @@ use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use PrestaShopBundle\Form\Admin\Type\DateType;
 
 
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -142,7 +143,12 @@ class InfofieldBuilder
                 $return_arr['classtype'] = SwitchType::class;
                 $return_arr['has_translator'] = false;
                 break;
+            case 4:
+                $return_arr['classtype'] = DateType::class;
+                $return_arr['has_translator'] = false;
+                break;
         }
+
         return $return_arr;
     }
 }
