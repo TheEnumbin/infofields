@@ -99,6 +99,7 @@ class InfofieldBuilder
                 );
             } else {
                 $data = array_pop($data);
+                $data = implode('-', json_decode($data, true));
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
@@ -106,14 +107,9 @@ class InfofieldBuilder
                     [
                         'label' => $field['field_name'],
                         'required' => false,
-                        'format' => 'yyyy-MM-dd',
+                        'format' => 'yyyy-M-dd',
                         'input' => 'string',
-                        // 'data' => [
-                        //     'year' => '2028',
-                        //     'month' => '10',
-                        //     'day' => '24',
-                        // ]
-                        'data' => '2028-10-01'
+                        'data' => $data
                     ]
                 );
             }

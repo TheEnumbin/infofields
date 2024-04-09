@@ -71,10 +71,13 @@ class Infofields extends Module
             // $field_type = $this->inf_get_field_type($field['field_type']);
             $inf_ids[] = $field['id_infofields'];
             $data = $metas[$field['id_infofields']];
-            // echo '<pre>';
-            // print_r($field);
-            // echo '</pre>';
-            // echo __FILE__ . ' : ' . __LINE__;
+
+            $data = array_pop($data);
+            $data = implode('-', json_decode($data, true));
+            echo '<pre>';
+            print_r($data);
+            echo '</pre>';
+            echo __FILE__ . ' : ' . __LINE__;
             // echo '<pre>';
             // print_r($data);
             // echo '</pre>';
@@ -322,11 +325,17 @@ class Infofields extends Module
                 $object = new MetaModel(null, $inf_id, $obj->id);
                 if(isset($object->id)) {
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    if (is_array($object->meta_data)) {
+                        $object->meta_data = json_encode($object->meta_data);
+                    }
                     $object->update();
                 } else {
                     $object->id_infofields = $inf_id;
                     $object->parent_item_id = $obj->id;
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    if (is_array($object->meta_data)) {
+                        $object->meta_data = json_encode($object->meta_data);
+                    }
                     $object->add();
                 }
             }
@@ -405,11 +414,6 @@ class Infofields extends Module
     public function hookActionObjectCmsUpdateAfter($params)
     {
         $data = Tools::getValue('cms_page');
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
         $cms_obj = $params['object'];
         $this->inf_update_object($cms_obj, $data);
     }
