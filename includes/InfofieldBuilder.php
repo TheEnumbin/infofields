@@ -84,7 +84,7 @@ class InfofieldBuilder
         foreach ($fields as $field) {
             $field_type = $this->inf_get_field_type($field['field_type']);
             $inf_ids[] = $field['id_infofields'];
-            $data = $metas[$field['id_infofields']];
+            $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
             if($field_type['has_translator']) {
                 $formBuilder
                 ->add(
@@ -98,8 +98,6 @@ class InfofieldBuilder
                     ]
                 );
             } else {
-                $data = array_pop($data);
-                $data = implode('-', json_decode($data, true));
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
@@ -153,5 +151,25 @@ class InfofieldBuilder
         }
 
         return $return_arr;
+    }
+
+    public function inf_prepare_data($data, $field_type)
+    {
+        switch($field_type) {
+            case 1:
+            case 2:
+            case 3:
+                return $data;
+                break;
+            case 4:
+                $data = array_pop($data);
+                return $data;
+                break;
+            case 7:
+                $data = array_pop($data);
+                $data = implode('-', json_decode($data, true));
+                return $data;
+                break;
+        }
     }
 }
