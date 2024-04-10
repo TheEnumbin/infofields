@@ -82,10 +82,10 @@ class InfofieldBuilder
     {
         $inf_ids = [];
         foreach ($fields as $field) {
-            $field_type = $this->inf_get_field_type($field['field_type']);
+            $field_params = $this->inf_get_field_params($field['field_type']);
             $inf_ids[] = $field['id_infofields'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
-            if($field_type['has_translator']) {
+            if($field_params['has_translator']) {
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
@@ -129,7 +129,12 @@ class InfofieldBuilder
         $return_arr = null;
         switch($field_type) {
             case 1:
-                $return_arr['classtype'] = TextType::class;
+                $return_arr['params'] = [
+                    'type' => TextType::class,
+                    'required' => false,
+                    'label' => $field['field_name'],
+                    'data' => $data,
+                ];
                 $return_arr['has_translator'] = true;
                 break;
             case 2:
