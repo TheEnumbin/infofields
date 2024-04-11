@@ -97,14 +97,8 @@ class InfofieldBuilder
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
-                    $field_type['classtype'],
-                    [
-                        'label' => $field['field_name'],
-                        'required' => false,
-                        'format' => 'yyyy-M-dd',
-                        'input' => 'string',
-                        'data' => $data
-                    ]
+                    $field_params['classtype'],
+                    $field_params['params'],
                 );
             }
         }
@@ -127,24 +121,18 @@ class InfofieldBuilder
             case 1:
                 $return_arr['params'] = [
                     'type' => TextType::class,
-                    'required' => false,
-                    'label' => $field['field_name'],
                 ];
                 $return_arr['has_translator'] = true;
                 break;
             case 2:
                 $return_arr['params'] = [
                     'type' => FormattedTextareaType::class,
-                    'required' => false,
-                    'label' => $field['field_name'],
                 ];
                 $return_arr['has_translator'] = true;
                 break;
             case 3:
                 $return_arr['params'] = [
                     'type' => TextareaType::class,
-                    'required' => false,
-                    'label' => $field['field_name'],
                 ];
                 $return_arr['has_translator'] = true;
                 break;
@@ -153,10 +141,17 @@ class InfofieldBuilder
                 $return_arr['has_translator'] = false;
                 break;
             case 7:
+                $return_arr['params'] = [
+                    'format' => 'yyyy-MM-dd',
+                    'input' => 'string',
+                ];
                 $return_arr['classtype'] = DateType::class;
                 $return_arr['has_translator'] = false;
                 break;
         }
+
+        $return_arr['params']['required'] = false;
+        $return_arr['params']['label'] = $field['field_name'];
 
         return $return_arr;
     }
@@ -167,17 +162,20 @@ class InfofieldBuilder
             case 1:
             case 2:
             case 3:
-                return $data;
                 break;
             case 4:
                 $data = array_pop($data);
-                return $data;
                 break;
             case 7:
                 $data = array_pop($data);
-                $data = implode('-', json_decode($data, true));
-                return $data;
+                $data = json_decode($data, true);
+                if(is_array($data)) {
+                    $data = implode('-', );
+                } else {
+                    $data = '';
+                }
                 break;
         }
+        return $data;
     }
 }
