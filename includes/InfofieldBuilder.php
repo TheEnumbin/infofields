@@ -82,20 +82,16 @@ class InfofieldBuilder
     {
         $inf_ids = [];
         foreach ($fields as $field) {
-            $field_params = $this->inf_get_field_params($field['field_type']);
+            $field_params = $this->inf_get_field_params($field);
             $inf_ids[] = $field['id_infofields'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
+            $field_params['params']['data'] = $data;
             if($field_params['has_translator']) {
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
                     TranslatableType::class,
-                    [
-                        'type' => $field_type['classtype'],
-                        'required' => false,
-                        'label' => $field['field_name'],
-                        'data' => $data,
-                    ]
+                    $field_params['params'],
                 );
             } else {
                 $formBuilder
@@ -124,25 +120,32 @@ class InfofieldBuilder
         );
     }
 
-    public function inf_get_field_type($field_type)
+    public function inf_get_field_params($field)
     {
         $return_arr = null;
-        switch($field_type) {
+        switch($field['field_type']) {
             case 1:
                 $return_arr['params'] = [
                     'type' => TextType::class,
                     'required' => false,
                     'label' => $field['field_name'],
-                    'data' => $data,
                 ];
                 $return_arr['has_translator'] = true;
                 break;
             case 2:
-                $return_arr['classtype'] = FormattedTextareaType::class;
+                $return_arr['params'] = [
+                    'type' => FormattedTextareaType::class,
+                    'required' => false,
+                    'label' => $field['field_name'],
+                ];
                 $return_arr['has_translator'] = true;
                 break;
             case 3:
-                $return_arr['classtype'] = TextareaType::class;
+                $return_arr['params'] = [
+                    'type' => TextareaType::class,
+                    'required' => false,
+                    'label' => $field['field_name'],
+                ];
                 $return_arr['has_translator'] = true;
                 break;
             case 4:
