@@ -23,8 +23,8 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="inf-meta-wrapper">
-<input type="hidden" class="inf_lang_iso" value="{$langs[$id_lang]}">
-<input type="hidden" class="inf_input_prd" value="{$id_prd}">
+    <input type="hidden" class="inf_lang_iso" value="{$langs[$id_lang]}">
+    <input type="hidden" class="inf_input_prd" value="{$id_prd}">
     {foreach from=$infofields item=infofield}
         {assign var="hidden" value=''}
         {if $infofield.id_lang != $id_lang}
@@ -37,21 +37,47 @@
         {/if}
         <div class="inf-meta-form-wrapper inf-meta-form-wrapper-{$langs[$infofield.id_lang]} {$hidden}">
             <input type="hidden" class="inf_input_id" value="{$infofield.id_infofields}">
+            <input type="hidden" class="inf_input_type" value="{$infofield.field_type}">
             <h3>{$infofield.field_name}</h3>
             <div class="inf-meta-form-group form-group">
-            {if $infofield.field_type == 1}
-                <div class="input-group">
-                    <input type="text" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control"
-                    value="{$infometa_value}"
-                    >
-                </div>
-            {elseif $infofield.field_type == 2}
-                <div class="input-group">
-                <textarea name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control rte autoload_rte">
-                {$infometa_value}
-                </textarea>
-                </div>
-            {/if}
+                {if $infofield.field_type == 1}
+                    <div class="input-group">
+                        <input type="text" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control"
+                            value="{$infometa_value}">
+                    </div>
+                {elseif $infofield.field_type == 2}
+                    <div class="input-group">
+                        <textarea name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control rte autoload_rte">{$infometa_value}</textarea>
+                    </div>
+                {elseif $infofield.field_type == 3}
+                    <div class="input-group">
+                        <textarea name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                            class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control">{$infometa_value}</textarea>
+                    </div>
+                {elseif $infofield.field_type == 4}
+                    <div class="input-group">
+                        <span id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" class="ps-switch">
+                            <input name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}_0"
+                                class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control ps-switch"
+                                name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" value="0"
+                                type="radio" {if $infometa_value == 0} checked="" {/if}>
+                            <label for="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}_0">No</label>
+                            <input name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}_1"
+                                class="inf-meta-field inf-meta-field-{$langs[$infofield.id_lang]} form-control ps-switch"
+                                name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}" value="1"
+                                type="radio" {if $infometa_value == 1} checked="" {/if}>
+                            <label for="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}_1">Yes</label>
+                            <span class="slide-button"></span>
+                        </span>
+                    </div>
+                {/if}
             </div>
             <button id="saveInfoMeta" class="inf-meta-save-bt btn-primary btn" type="button">Save</button>
         </div>

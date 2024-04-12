@@ -46,7 +46,13 @@ $(document).ready(function() {
         let $this = $(this);
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
         let $infofield_id = $wrapper.find('.inf_input_id').val();
-        let $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
+        let $infofield_type = $wrapper.find('.inf_input_type').val();
+        var $value = '';
+        if($infofield_type == "4"){
+            $value = $wrapper.find("input[type='radio'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']:checked").val();
+        } else {
+            $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
+        }
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
@@ -56,6 +62,7 @@ $(document).ready(function() {
                 action : 'SaveInfometa',
                 iso_code : $iso_code,
                 inf_id : $infofield_id,
+                inf_type : $infofield_type,
                 prd_id : $prd_id,
                 inf_value : $value,
                 ajax : true
