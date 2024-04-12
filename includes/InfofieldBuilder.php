@@ -83,7 +83,7 @@ class InfofieldBuilder
         $inf_ids = [];
         foreach ($fields as $field) {
             $field_params = $this->inf_get_field_params($field);
-            $inf_ids[] = $field['id_infofields'];
+            $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
             $field_params['params']['data'] = $data;
             if($field_params['has_translator']) {
@@ -103,7 +103,7 @@ class InfofieldBuilder
             }
         }
         $inf_ids = array_unique($inf_ids);
-        $inf_ids = implode(",", $inf_ids);
+        $inf_ids = json_encode($inf_ids);
         $formBuilder
         ->add(
             'inf_infofield_ids',
@@ -170,7 +170,7 @@ class InfofieldBuilder
                 $data = array_pop($data);
                 $data = json_decode($data, true);
                 if(is_array($data)) {
-                    $data = implode('-', );
+                    $data = implode('-', $data);
                 } else {
                     $data = '';
                 }

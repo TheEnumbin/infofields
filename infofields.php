@@ -319,13 +319,13 @@ class Infofields extends Module
     public function inf_update_object($obj, $data)
     {
         $inf_ids = $data['inf_infofield_ids'];
-        $inf_ids = explode(",", $inf_ids);
+        $inf_ids = json_decode($inf_ids, true);
         if (!empty($inf_ids)) {
-            foreach ($inf_ids as $inf_id) {
+            foreach ($inf_ids as $inf_id => $parent_type) {
                 $object = new MetaModel(null, $inf_id, $obj->id);
                 if(isset($object->id)) {
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    if (is_array($object->meta_data)) {
+                    if($parent_type == 7) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->update();
@@ -333,7 +333,7 @@ class Infofields extends Module
                     $object->id_infofields = $inf_id;
                     $object->parent_item_id = $obj->id;
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    if (is_array($object->meta_data)) {
+                    if($parent_type == 7) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->add();
