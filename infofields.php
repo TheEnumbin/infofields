@@ -27,8 +27,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-
-
 require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
 require_once(dirname(__FILE__) . '/classes/MetaModel.php');
 require_once(dirname(__FILE__) . '/includes/InfofieldBuilder.php');
