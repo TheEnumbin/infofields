@@ -38,6 +38,7 @@ class FieldsModel extends ObjectModel
     public $with_field_name;
     public $field_name;
     public $global_meta_data;
+    public $available_values;
 
     public static $definition = [
         'table'     => 'infofields',
@@ -73,6 +74,11 @@ class FieldsModel extends ObjectModel
             'global_meta_data'           => [
                 'type'     => self::TYPE_HTML,
                 'validate' => 'isCleanHtml',
+                'lang'     => true,
+            ],
+            'available_values'           => [
+                'type'     => self::TYPE_STRING,
+                'validate' => 'isString',
                 'lang'     => true,
             ],
         ],
