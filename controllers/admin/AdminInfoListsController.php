@@ -158,6 +158,15 @@ class AdminInfoListsController extends ModuleAdminController
                     ],
                 ],
                 [
+                    'type' => 'textarea',
+                    'label' => $this->l('Available Items'),
+                    'name' => 'available_values',
+                    'lang' => true,
+                    'rows' => 10,
+                    'cols' => 62,
+                    'desc' => $this->l('Example Format: key1:label1,key2:label2'),
+                ],
+                [
                     'label' => $this->l('Start Date'),
                     'type' => 'date',
                     'name' => 'start_date',
