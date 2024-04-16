@@ -164,7 +164,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'lang' => true,
                     'rows' => 10,
                     'cols' => 62,
-                    'desc' => $this->l('Example Format: key1:label1,key2:label2'),
+                    'desc' => $this->l('Only needed for Select, Radio, Checkboxes types. Example Format: key1:label1,key2:label2'),
                 ],
                 [
                     'label' => $this->l('Start Date'),
@@ -259,8 +259,11 @@ class AdminInfoListsController extends ModuleAdminController
             3 => 'Textarea',
             4 => 'Switch',
             5 => 'Image',
-            6 => 'File',
-            7 => 'Date',
+            // 6 => 'File',
+            6 => 'Date',
+            // 7 => 'Radio',
+            7 => 'Checkboxes',
+            8 => 'Select',
         ];
     }
 }

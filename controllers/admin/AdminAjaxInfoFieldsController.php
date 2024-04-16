@@ -42,7 +42,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         $object = new MetaModel(null, $inf_id, $prd_id);
         if(isset($object->id)) {
-            if($inf_type == 7) {
+            if($inf_type == 6) {
                 $inf_value = json_encode($inf_value);
             }
             $object->meta_data[$lang_id] = $inf_value;
@@ -50,7 +50,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         } else {
             $object->id_infofields = $inf_id;
             $object->parent_item_id = $prd_id;
-            if($inf_type == 7) {
+            if($inf_type == 6) {
                 $inf_value = json_encode($inf_value);
             }
             $object->meta_data[$lang_id] = $inf_value;

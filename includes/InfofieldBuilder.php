@@ -36,7 +36,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
+use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
@@ -140,12 +142,16 @@ class InfofieldBuilder
                 $return_arr['classtype'] = SwitchType::class;
                 $return_arr['has_translator'] = false;
                 break;
-            case 7:
+            case 6:
                 $return_arr['params'] = [
                     'format' => 'yyyy-MM-dd',
                     'input' => 'string',
                 ];
                 $return_arr['classtype'] = DateType::class;
+                $return_arr['has_translator'] = false;
+                break;
+            case 7:
+                $return_arr['classtype'] = CheckboxType::class;
                 $return_arr['has_translator'] = false;
                 break;
         }
@@ -166,7 +172,7 @@ class InfofieldBuilder
             case 4:
                 $data = array_pop($data);
                 break;
-            case 7:
+            case 6:
                 $data = array_pop($data);
                 $data = json_decode($data, true);
                 if(is_array($data)) {
@@ -174,6 +180,9 @@ class InfofieldBuilder
                 } else {
                     $data = '';
                 }
+                break;
+            case 7:
+                $data = array_pop($data);
                 break;
         }
         return $data;

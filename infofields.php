@@ -285,7 +285,7 @@ class Infofields extends Module
                 $object = new MetaModel(null, $inf_id, $obj->id);
                 if(isset($object->id)) {
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    if($parent_type == 7) {
+                    if($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->update();
@@ -293,7 +293,7 @@ class Infofields extends Module
                     $object->id_infofields = $inf_id;
                     $object->parent_item_id = $obj->id;
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
-                    if($parent_type == 7) {
+                    if($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->add();
