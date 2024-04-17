@@ -36,7 +36,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -150,9 +150,24 @@ class InfofieldBuilder
                 $return_arr['classtype'] = DateType::class;
                 $return_arr['has_translator'] = false;
                 break;
-            case 7:
-                $return_arr['classtype'] = CheckboxType::class;
+            case 8:
+                $return_arr['classtype'] = ChoiceType::class;
                 $return_arr['has_translator'] = false;
+                $available_values = explode(',', $field['available_values']);
+                $return_arr['params']['choices']['Select An Item'] = 0;
+                foreach($available_values as $available_value) {
+                    $key_value = explode(":", $available_value);
+                    if(isset($key_value[1])) {
+                        $label = $key_value[1];
+                        $key = $key_value[0];
+                    } else {
+                        $label = $key_value[0];
+                        $key = str_replace(" ", "", strtolower($label));
+                    }
+                    if($key != "") {
+                        $return_arr['params']['choices'][$label] = $key;
+                    }
+                }
                 break;
         }
 
@@ -181,8 +196,8 @@ class InfofieldBuilder
                     $data = '';
                 }
                 break;
-            case 7:
-                $data = array_pop($data);
+            case 8:
+                $data = 'key1';
                 break;
         }
         return $data;
