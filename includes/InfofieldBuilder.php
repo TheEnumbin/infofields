@@ -37,6 +37,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 use Symfony\Component\Form\Extension\Core\Type\RadioType;
 use PrestaShop\PrestaShop\Core\ConfigurationInterface;
@@ -96,12 +97,27 @@ class InfofieldBuilder
                     $field_params['params'],
                 );
             } else {
-                $formBuilder
-                ->add(
-                    'inf_metafield_' . $field['id_infofields'],
-                    $field_params['classtype'],
-                    $field_params['params'],
-                );
+                if(isset($field_params['has_inner']) && $field_params['has_inner']) {
+                    $available_values = explode(',', $field['available_values']);
+                    foreach($available_values as $available_value) {
+                        $formBuilder
+                            ->add(
+                                'inf_metafield_' . $field['id_infofields'] . '_' . str_replace(' ', '', strtolower($available_value)),
+                                $field_params['classtype'],
+                                [
+                                    'label' => $available_value,
+                                ],
+                            );
+                    }
+                } else {
+                    $formBuilder
+                    ->add(
+                        'inf_metafield_' . $field['id_infofields'],
+                        $field_params['classtype'],
+                        $field_params['params'],
+                    );
+                }
+
             }
         }
         $inf_ids = array_unique($inf_ids);
@@ -150,6 +166,14 @@ class InfofieldBuilder
                 $return_arr['classtype'] = DateType::class;
                 $return_arr['has_translator'] = false;
                 break;
+            case 7:
+                $return_arr['classtype'] = CheckboxType::class;
+                $return_arr['has_translator'] = false;
+                $return_arr['has_inner'] = true;
+                $return_arr['attr'] = [
+                    'material_design' => true,
+                ];
+                break;
             case 8:
                 $return_arr['classtype'] = ChoiceType::class;
                 $return_arr['has_translator'] = false;
@@ -196,6 +220,9 @@ class InfofieldBuilder
                 } else {
                     $data = '';
                 }
+                break;
+            case 7:
+                $data = false;
                 break;
         }
         return $data;
