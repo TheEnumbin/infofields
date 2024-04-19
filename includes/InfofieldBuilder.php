@@ -97,27 +97,12 @@ class InfofieldBuilder
                     $field_params['params'],
                 );
             } else {
-                if(isset($field_params['has_inner']) && $field_params['has_inner']) {
-                    $available_values = explode(',', $field['available_values']);
-                    foreach($available_values as $available_value) {
-                        $formBuilder
-                            ->add(
-                                'inf_metafield_' . $field['id_infofields'] . '_' . str_replace(' ', '', strtolower($available_value)),
-                                $field_params['classtype'],
-                                [
-                                    'label' => $available_value,
-                                ],
-                            );
-                    }
-                } else {
-                    $formBuilder
+                $formBuilder
                     ->add(
                         'inf_metafield_' . $field['id_infofields'],
                         $field_params['classtype'],
                         $field_params['params'],
                     );
-                }
-
             }
         }
         $inf_ids = array_unique($inf_ids);
@@ -169,7 +154,6 @@ class InfofieldBuilder
             case 7:
                 $return_arr['classtype'] = CheckboxType::class;
                 $return_arr['has_translator'] = false;
-                $return_arr['has_inner'] = true;
                 $return_arr['attr'] = [
                     'material_design' => true,
                 ];
@@ -222,7 +206,13 @@ class InfofieldBuilder
                 }
                 break;
             case 7:
-                $data = false;
+                $data = array_pop($data);
+                if($data == 1) {
+                    $data = true;
+                } else {
+                    $data = false;
+                }
+
                 break;
         }
         return $data;

@@ -55,6 +55,11 @@ class Infofields extends Module
         // $metamodel = new MetaModel();
         // $metas = $metamodel->get_meta_by_parent(1, $fields, null, true);
 
+        // echo '<pre>';
+        // print_r($metas);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+
         // foreach($fields as $field) {
         //     echo '<pre>';
         //     print_r($field);
