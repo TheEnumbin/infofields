@@ -185,6 +185,7 @@ class InfofieldBuilder
             case 3:
                 break;
             case 4:
+            case 8:
                 $data = array_pop($data);
                 break;
             case 6:
@@ -195,9 +196,6 @@ class InfofieldBuilder
                 } else {
                     $data = '';
                 }
-                break;
-            case 8:
-                $data = 'key1';
                 break;
         }
         return $data;
