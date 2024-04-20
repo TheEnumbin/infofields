@@ -77,6 +77,18 @@
                             <span class="slide-button"></span>
                         </span>
                     </div>
+{elseif $infofield.field_type == 8}
+                    <div class="form-group row select-widget">
+                        <div class="col-sm input-container">
+                            <select id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                class="custom-select form-control">
+                                <option value="0">Select An Item</option>
+                                <option value="key1">label1</option>
+                                <option value="key2">label2</option>
+                            </select>
+                        </div>
+                    </div>
                 {/if}
             </div>
             <button id="saveInfoMeta" class="inf-meta-save-bt btn-primary btn" type="button">Save</button>
