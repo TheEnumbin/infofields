@@ -1,4 +1,4 @@
-no<?php
+<?php
 /**
 * 2007-2022 PrestaShop
 *
