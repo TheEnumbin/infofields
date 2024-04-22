@@ -1,4 +1,4 @@
-<?php
+no<?php
 /**
 * 2007-2022 PrestaShop
 *
@@ -49,54 +49,6 @@ class Infofields extends Module
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
-
-        // $fieldsmodel = new FieldsModel();
-        // $fields = $fieldsmodel->get_infofield_by_parent_item(3);
-        // $metamodel = new MetaModel();
-        // $metas = $metamodel->get_meta_by_parent(1, $fields, null, true);
-
-        // echo '<pre>';
-        // print_r($metas);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-
-        // foreach($fields as $field) {
-        //     echo '<pre>';
-        //     print_r($field);
-        //     echo '</pre>';
-        //     echo __FILE__ . ' : ' . __LINE__;
-
-        //     $choices = [
-        //         'Select An Item' => 0,
-        //     ];
-        //     if($field['field_type'] == 8) {
-        //         $available_values = explode(',', $field['available_values']);
-        //         $choices = [
-        //             'Select An Item' => 0,
-        //         ];
-
-        //         foreach($available_values as $available_value) {
-        //             $key_value = explode(":", $available_value);
-        //             // echo '<pre>';
-        //             // print_r($key_value);
-        //             // echo '</pre>';
-        //             // echo __FILE__ . ' : ' . __LINE__;
-        //             if(isset($key_value[1])) {
-        //                 $label = $key_value[1];
-        //                 $key = $key_value[0];
-        //             } else {
-        //                 $label = $key_value[0];
-        //                 $key = str_replace(" ", "", strtolower($label));
-        //             }
-        //             if($key != "") {
-        //                 $return_arr['params']['choices'][$label] = $key;
-        //             }
-        //         }
-
-        //     }
-
-        // }
-
 
     }
 
