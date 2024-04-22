@@ -80,19 +80,19 @@
                 {elseif $infofield.field_type == 8}
                     <div class="form-group row select-widget">
                         <div class="col-sm input-container">
-                            { assign available_values=$infofield.available_values | split: "," }
+                            {assign var="available_values" value=","|explode:$infofield.available_values}
                             <select id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                 name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                 class="custom-select form-control">
                                 <option value="0">Select An Item</option>
                                 {foreach from=$available_values item=available_value}
-                                    { assign key_value = $available_value | split: ":" }
+                                    {assign var="key_value" value=":"|explode:$available_value}
                                     {if isset($key_value[1])}
-                                        { assign label=$key_value[1] }
-                                        { assign key=$key_value[0] }
+                                        {assign var="label" value=$key_value[1]}
+                                        {assign var="key" value=$key_value[0]}
                                     {else}
-                                        { assign label=$key_value[0] }
-                                        { assign key=$key_value[0] }
+                                        {assign var="label" value=$key_value[0]}
+                                        {assign var="key" value=$key_value[0]}
                                     {/if}
                                     <option value="{$key}">{$label}</option>
                                 {/foreach}
