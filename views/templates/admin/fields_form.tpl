@@ -77,15 +77,25 @@
                             <span class="slide-button"></span>
                         </span>
                     </div>
-{elseif $infofield.field_type == 8}
+                {elseif $infofield.field_type == 8}
                     <div class="form-group row select-widget">
                         <div class="col-sm input-container">
+                            { assign available_values=$infofield.available_values | split: "," }
                             <select id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                 name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                 class="custom-select form-control">
                                 <option value="0">Select An Item</option>
-                                <option value="key1">label1</option>
-                                <option value="key2">label2</option>
+                                {foreach from=$available_values item=available_value}
+                                    { assign key_value = $available_value | split: ":" }
+                                    {if isset($key_value[1])}
+                                        { assign label=$key_value[1] }
+                                        { assign key=$key_value[0] }
+                                    {else}
+                                        { assign label=$key_value[0] }
+                                        { assign key=$key_value[0] }
+                                    {/if}
+                                    <option value="{$key}">{$label}</option>
+                                {/foreach}
                             </select>
                         </div>
                     </div>
