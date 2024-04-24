@@ -87,6 +87,7 @@
                                 <option value="0">Select An Item</option>
                                 {foreach from=$available_values item=available_value}
                                     {assign var="key_value" value=":"|explode:$available_value}
+                                    {assign var="selected_str" value=''}
                                     {if isset($key_value[1])}
                                         {assign var="label" value=$key_value[1]}
                                         {assign var="key" value=$key_value[0]}
@@ -94,7 +95,10 @@
                                         {assign var="label" value=$key_value[0]}
                                         {assign var="key" value=$key_value[0]}
                                     {/if}
-                                    <option value="{$key}">{$label}</option>
+                                    {if $key == $infometa_value }
+                                        {assign var="selected_str" value=' selected="selected" '}
+                                    {/if}
+                                    <option {$selected_str} value="{$key}">{$label}</option>
                                 {/foreach}
                             </select>
                         </div>
