@@ -84,12 +84,11 @@
                             <div class="form-check form-check-radio form-checkbox">
                                 <div class="md-checkbox md-checkbox-inline">
                                     <label>
-                                        {$infometa_value}
                                         <input type="checkbox"
                                             id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                             name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
-                                            class="form-check-input" value="1" {if $infometa_value == 1} checked="checked"
-                                            {/if}><i class="md-checkbox-control">
+                                            class="form-check-input" value="{$infometa_value}" {if $infometa_value == 1}
+                                            checked="checked" {/if}><i class="md-checkbox-control">
                                         </i>{$infofield.field_name}
                                     </label>
                                 </div>

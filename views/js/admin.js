@@ -48,11 +48,19 @@ $(document).ready(function() {
         let $infofield_id = $wrapper.find('.inf_input_id').val();
         let $infofield_type = $wrapper.find('.inf_input_type').val();
         var $value = '';
-        if($infofield_type == "4" || $infofield_type == "7"){
+        if($infofield_type == "4"){
             $value = $wrapper.find("input[type='radio'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']:checked").val();
+        } else if($infofield_type == "7") {
+            if($wrapper.find("input[type='checkbox'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']").prop('checked')){
+                $value = 1;
+            }else {
+                $value = 0;
+            }
+            
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
+        console.log($value);
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
