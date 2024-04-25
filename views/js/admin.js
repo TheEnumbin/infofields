@@ -48,7 +48,7 @@ $(document).ready(function() {
         let $infofield_id = $wrapper.find('.inf_input_id').val();
         let $infofield_type = $wrapper.find('.inf_input_type').val();
         var $value = '';
-        if($infofield_type == "4"){
+        if($infofield_type == "4" || $infofield_type == "7"){
             $value = $wrapper.find("input[type='radio'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']:checked").val();
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
