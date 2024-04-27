@@ -156,6 +156,7 @@ class AdminInfoListsController extends ModuleAdminController
                         'id' => 'id',
                         'name' => 'name',
                     ],
+                    'desc' => $this->l('Rich textfield only works for Products and Category.'),
                 ],
                 [
                     'type' => 'textarea',
@@ -258,7 +259,7 @@ class AdminInfoListsController extends ModuleAdminController
             2 => 'Rich Text Field',
             3 => 'Textarea',
             4 => 'Switch',
-            5 => 'Image',
+            // 5 => 'Image',
             // 6 => 'File',
             6 => 'Date',
             // 7 => 'Radio',
