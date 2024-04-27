@@ -42,10 +42,11 @@ class Infofields extends Module
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
+        $this->module_key = '573462b9857b4ede3a667c2b6d431205';
         $this->bootstrap = true;
         parent::__construct();
 
-        $this->displayName = $this->l('Custom Info Fields: Create Advanced Meta Fields');
+        $this->displayName = $this->l('Info Fields: Create Custom Advanced Meta Fields');
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
