@@ -25,13 +25,13 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-.prextrameta-mini-wrapper{
-    margin-top: 4px;
+.infofield-meta-item h3{
+    margin: 0;
 }
-.prextrameta-notice{
-    padding: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    color: #fff;
-    background: #b3a700;
+.infofield-meta-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 0px 8px 0px;
 }

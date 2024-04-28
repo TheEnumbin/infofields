@@ -26,10 +26,19 @@
     {foreach from=$infofields item=infofield}
         {if isset($infofields_metas[$infofield.id_infofields])}
             {assign var="infometa" value=$infofields_metas[$infofield.id_infofields]}
+            {if $infofield.parent_item == 1}
+                {assign var="parent_item" value="category"}
+            {elseif $infofield.parent_item == 2}
+                {assign var="parent_item" value="product"}
+            {elseif $infofield.parent_item == 3}
+                {assign var="parent_item" value="cms"}
+            {elseif $infofield.parent_item == 4}
+                {assign var="parent_item" value="customer"}
+            {/if}
             {if $infometa[$lang_id] != false}
-                <div class="infofield-meta-item">
+                <div class="infofield-meta-item infofield-{$parent_item}-meta">
                     {if $infofield.with_field_name != false}
-                        {$infofield.field_name}
+                        <h3 class="infofield-meta-label">{$infofield.field_name}</h3>
                     {/if}
                     {$infometa[$lang_id].meta_data nofilter}
                 </div>

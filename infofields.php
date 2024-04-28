@@ -68,9 +68,6 @@ class Infofields extends Module
     public function install()
     {
         $date = date('Y-m-d');
-        Configuration::updateValue('INFOFIELDS_POSITION', 'after_price');
-        Configuration::updateValue('INFOFIELDS_BACK_COLOR', '#b3a700');
-        Configuration::updateValue('INFOFIELDS_FONT_COLOR', '#ffffff');
 
         include _PS_MODULE_DIR_ . $this->name . '/sql/install.php';
         include _PS_MODULE_DIR_ . $this->name . '/sql/install_tabs.php';
@@ -94,11 +91,23 @@ class Infofields extends Module
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall.php';
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall_tabs.php';
 
-        Configuration::deleteByName('INFOFIELDS_POSITION');
-        Configuration::deleteByName('INFOFIELDS_BACK_COLOR');
-        Configuration::deleteByName('INFOFIELDS_FONT_SIZE');
-        Configuration::deleteByName('INFOFIELDS_PADDING');
-        Configuration::deleteByName('INFOFIELDS_FONT_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_PRD_BACK_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_PRD_FONT_SIZE');
+        Configuration::deleteByName('IINFOFIELDS_PRD_PADDING');
+        Configuration::deleteByName('IINFOFIELDS_PRD_FONT_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CTG_BACK_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CTG_FONT_SIZE');
+        Configuration::deleteByName('IINFOFIELDS_CTG_PADDING');
+        Configuration::deleteByName('IINFOFIELDS_CTG_FONT_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CUST_BACK_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CUST_FONT_SIZE');
+        Configuration::deleteByName('IINFOFIELDS_CUST_PADDING');
+        Configuration::deleteByName('IINFOFIELDS_CUST_FONT_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CMS_BACK_COLOR');
+        Configuration::deleteByName('IINFOFIELDS_CMS_FONT_SIZE');
+        Configuration::deleteByName('IINFOFIELDS_CMS_PADDING');
+        Configuration::deleteByName('IINFOFIELDS_CMS_FONT_COLOR');
+
 
         return parent::uninstall();
     }
@@ -179,7 +188,6 @@ class Infofields extends Module
                         'label' => $this->l('Padding'),
                         'tab' => 'peoduct_design',
                     ],
-
                     // Category Design
                     [
                         'type' => 'color',
@@ -287,11 +295,22 @@ class Infofields extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
-            'INFOFIELDS_POSITION' => Configuration::get('INFOFIELDS_POSITION', 'after_price'),
-            'INFOFIELDS_BACK_COLOR' => Configuration::get('INFOFIELDS_BACK_COLOR', '#b3a700'),
-            'INFOFIELDS_FONT_COLOR' => Configuration::get('INFOFIELDS_FONT_COLOR', '#ffffff'),
-            'INFOFIELDS_FONT_SIZE' => Configuration::get('INFOFIELDS_FONT_SIZE', '12px'),
-            'INFOFIELDS_PADDING' => Configuration::get('INFOFIELDS_PADDING', '6px'),
+            'INFOFIELDS_PRD_BACK_COLOR' => Configuration::get('INFOFIELDS_PRD_BACK_COLOR', ''),
+            'INFOFIELDS_PRD_FONT_COLOR' => Configuration::get('INFOFIELDS_PRD_FONT_COLOR', ''),
+            'INFOFIELDS_PRD_FONT_SIZE' => Configuration::get('INFOFIELDS_PRD_FONT_SIZE', ''),
+            'INFOFIELDS_PRD_PADDING' => Configuration::get('INFOFIELDS_PRD_PADDING', ''),
+            'INFOFIELDS_CTG_BACK_COLOR' => Configuration::get('INFOFIELDS_CTG_BACK_COLOR', ''),
+            'INFOFIELDS_CTG_FONT_COLOR' => Configuration::get('INFOFIELDS_CTG_FONT_COLOR', ''),
+            'INFOFIELDS_CTG_FONT_SIZE' => Configuration::get('INFOFIELDS_CTG_FONT_SIZE', ''),
+            'INFOFIELDS_CTG_PADDING' => Configuration::get('INFOFIELDS_CTG_PADDING', ''),
+            'INFOFIELDS_CUST_BACK_COLOR' => Configuration::get('INFOFIELDS_CUST_BACK_COLOR', ''),
+            'INFOFIELDS_CUST_FONT_COLOR' => Configuration::get('INFOFIELDS_CUST_FONT_COLOR', ''),
+            'INFOFIELDS_CUST_FONT_SIZE' => Configuration::get('INFOFIELDS_CUST_FONT_SIZE', ''),
+            'INFOFIELDS_CUST_PADDING' => Configuration::get('INFOFIELDS_CUST_PADDING', ''),
+            'INFOFIELDS_CMS_BACK_COLOR' => Configuration::get('INFOFIELDS_CMS_BACK_COLOR', ''),
+            'INFOFIELDS_CMS_FONT_COLOR' => Configuration::get('INFOFIELDS_CMS_FONT_COLOR', ''),
+            'INFOFIELDS_CMS_FONT_SIZE' => Configuration::get('INFOFIELDS_CMS_FONT_SIZE', ''),
+            'INFOFIELDS_CMS_PADDING' => Configuration::get('INFOFIELDS_CMS_PADDING', ''),
         ];
 
         return $ret_arr;
@@ -306,36 +325,57 @@ class Infofields extends Module
         $lang_id = $this->context->language->id;
 
         foreach (array_keys($form_values) as $key) {
-            if ($key == 'INFOFIELDS_POSITION') {
-                if (Tools::getValue($key) == 'footer_product') {
-                    $this->registerHook('displayFooterProduct');
-                    $this->unregisterHook('displayProductButtons');
-                    $this->unregisterHook('displayProductPriceBlock');
-                } elseif (Tools::getValue($key) == 'product_bts') {
-                    $this->registerHook('displayProductButtons');
-                    $this->unregisterHook('displayFooterProduct');
-                    $this->unregisterHook('displayProductPriceBlock');
-                } else {
-                    $this->registerHook('displayProductPriceBlock');
-                    $this->unregisterHook('displayFooterProduct');
-                    $this->unregisterHook('displayProductButtons');
-                }
-                Configuration::updateValue($key, Tools::getValue($key));
-            } else {
-                Configuration::updateValue($key, Tools::getValue($key));
-            }
+            Configuration::updateValue($key, Tools::getValue($key));
         }
 
-        $infofields_back_color = Configuration::get('INFOFIELDS_BACK_COLOR', '#b3a700');
-        $infofields_font_color = Configuration::get('INFOFIELDS_FONT_COLOR', '#ffffff');
-        $infofields_font_size = Configuration::get('INFOFIELDS_FONT_SIZE', '12px');
-        $infofields_padding = Configuration::get('INFOFIELDS_PADDING', '6px');
-        $gen_css = '.prextrameta-notice{
-                        padding: ' . $infofields_padding . ' !important;
-                        font-size: ' . $infofields_font_size . ' !important;
-                        color: ' . $infofields_font_color . ' !important;
-                        background: ' . $infofields_back_color . ' !important;
-                    }';
+        $infofields_prd_back_color = Configuration::get('INFOFIELDS_PRD_BACK_COLOR', '');
+        $infofields_prd_font_color = Configuration::get('INFOFIELDS_PRD_FONT_COLOR', '');
+        $infofields_prd_font_size = Configuration::get('INFOFIELDS_PRD_FONT_SIZE', '');
+        $infofields_prd_padding = Configuration::get('INFOFIELDS_PRD_PADDING', '');
+
+        $infofields_ctg_back_color = Configuration::get('INFOFIELDS_CTG_BACK_COLOR', '');
+        $infofields_ctg_font_color = Configuration::get('INFOFIELDS_CTG_FONT_COLOR', '');
+        $infofields_ctg_font_size = Configuration::get('INFOFIELDS_CTG_FONT_SIZE', '');
+        $infofields_ctg_padding = Configuration::get('INFOFIELDS_CTG_PADDING', '');
+
+        $infofields_cust_back_color = Configuration::get('INFOFIELDS_CUST_BACK_COLOR', '');
+        $infofields_cust_font_color = Configuration::get('INFOFIELDS_CUST_FONT_COLOR', '');
+        $infofields_cust_font_size = Configuration::get('INFOFIELDS_CUST_FONT_SIZE', '');
+        $infofields_cust_padding = Configuration::get('INFOFIELDS_CUST_PADDING', '');
+
+        $infofields_cms_back_color = Configuration::get('INFOFIELDS_CMS_BACK_COLOR', '');
+        $infofields_cms_font_color = Configuration::get('INFOFIELDS_CMS_FONT_COLOR', '');
+        $infofields_cms_font_size = Configuration::get('INFOFIELDS_CMS_FONT_SIZE', '');
+        $infofields_cms_padding = Configuration::get('INFOFIELDS_CMS_PADDING', '');
+
+        $gen_css = '.infofield-wrapper .infofield-product-meta{
+                        padding: ' . $infofields_prd_padding . ' !important;
+                        font-size: ' . $infofields_prd_font_size . ' !important;
+                        color: ' . $infofields_prd_font_color . ' !important;
+                        background: ' . $infofields_prd_back_color . ' !important;
+                    }
+                    
+                    .infofield-wrapper .infofield-category-meta{
+                        padding: ' . $infofields_ctg_padding . ' !important;
+                        font-size: ' . $infofields_ctg_font_size . ' !important;
+                        color: ' . $infofields_ctg_font_color . ' !important;
+                        background: ' . $infofields_ctg_back_color . ' !important;
+                    }
+
+                    .infofield-wrapper .infofield-customer-meta{
+                        padding: ' . $infofields_cust_padding . ' !important;
+                        font-size: ' . $infofields_cust_font_size . ' !important;
+                        color: ' . $infofields_cust_font_color . ' !important;
+                        background: ' . $infofields_cust_back_color . ' !important;
+                    }
+
+                    .infofield-wrapper .infofield-cms-meta{
+                        padding: ' . $infofields_cms_padding . ' !important;
+                        font-size: ' . $infofields_cms_font_size . ' !important;
+                        color: ' . $infofields_cms_font_color . ' !important;
+                        background: ' . $infofields_cms_back_color . ' !important;
+                    }
+                    ';
 
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
     }
@@ -470,7 +510,7 @@ class Infofields extends Module
         $fields = [];
         $index = 0;
         if(is_array($inf_ids)) {
-
+            // If have multiple ids
         } else {
             $fieldsmodel = new FieldsModel();
             $fields = $fieldsmodel->get_infofield_by_id($inf_ids, $id_lang);
