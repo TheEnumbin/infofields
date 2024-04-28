@@ -277,10 +277,10 @@ class Infofields extends Module
                     ],
                 ],
                 'tabs' => [
-                    'peoduct_design' => 'Product Meta Design',
-                    'category_design' => 'Category Meta Design',
-                    'customer_design' => 'Customer Meta Design',
-                    'cms_design' => 'Cms Meta Design',
+                    'peoduct_design' => 'Product Meta Settings',
+                    'category_design' => 'Category Meta Settings',
+                    'customer_design' => 'Customer Meta Settings',
+                    'cms_design' => 'Cms Meta Settings',
                 ],
                 'submit' => [
                     'title' => $this->l('Save'),
