@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-	<name>pricingextrameta</name>
-	<displayName><![CDATA[Pricing Extra Meta]]></displayName>
+	<name>infofields</name>
+	<displayName><![CDATA[Info Fields: Create Custom Advanced Meta Fields]]></displayName>
 	<version><![CDATA[1.0.0]]></version>
-	<description><![CDATA[Share extra information about your product pricing.]]></description>
+	<description><![CDATA[Add extra fields to your Products, Categories, Customers, Pages.]]></description>
 	<author><![CDATA[TheEnumbin]]></author>
 	<tab><![CDATA[pricing_promotion]]></tab>
 	<is_configurable>1</is_configurable>
