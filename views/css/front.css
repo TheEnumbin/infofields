@@ -28,6 +28,9 @@
 .infofield-meta-item h3{
     margin: 0;
 }
+.infofield-meta-item p{
+    margin: 0;
+}
 .infofield-meta-item {
     display: flex;
     flex-direction: row;
