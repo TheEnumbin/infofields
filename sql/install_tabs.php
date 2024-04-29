@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -36,12 +37,12 @@ $tabs = [
 ];
 
 
-foreach($tabs as $t){
+foreach($tabs as $t) {
     $tab = new Tab();
     $tab->active = 1;
     $tab->class_name = $t['class_name'];
     $tab->name = [];
-    
+
     foreach ($languages as $lang) {
         $tab->name[$lang['id_lang']] = $t['name'];
     }
