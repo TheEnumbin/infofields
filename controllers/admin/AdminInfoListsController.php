@@ -35,12 +35,9 @@ class AdminInfoListsController extends ModuleAdminController
         $this->className = 'FieldsModel';
         $this->lang = true;
         $this->deleted = false;
-
         $this->context = Context::getContext();
-
         $this->_orderBy = 'id_infofields';
         $this->_orderWay = 'asc';
-
         parent::__construct();
     }
 
@@ -213,14 +210,14 @@ class AdminInfoListsController extends ModuleAdminController
             ]
         ];
 
-      $id_infofields = Tools::getValue('id_infofields');
+        $id_infofields = Tools::getValue('id_infofields');
 
-if ($id_infofields && $id_infofields > 0) {
-    $id = $obj->id_infofields;
-    $parent = strtolower($this->getParentName($obj->parent_item));
-    $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
-} 
-return parent::renderForm(); 
+        if ($id_infofields && $id_infofields > 0) {
+            $id = $obj->id_infofields;
+            $parent = strtolower($this->getParentName($obj->parent_item));
+            $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
+        }
+        return parent::renderForm();
 
     }
 

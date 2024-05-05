@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * International Registered Trademark & Property of MBE Worldwide
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -41,45 +40,45 @@ class FieldsModel extends ObjectModel
     public $available_values;
 
     public static $definition = [
-        'table'     => 'infofields',
-        'primary'   => 'id_infofields',
+        'table' => 'infofields',
+        'primary' => 'id_infofields',
         'multilang' => true,
-        'fields'    => [
-            'parent_item'            => [
-                'type'     => self::TYPE_INT,
+        'fields' => [
+            'parent_item' => [
+                'type' => self::TYPE_INT,
                 'validate' => 'isunsignedInt',
             ],
-            'field_type'            => [
-                'type'     => self::TYPE_INT,
+            'field_type' => [
+                'type' => self::TYPE_INT,
                 'validate' => 'isunsignedInt',
             ],
-            'start_date'          => [
-                'type'     => self::TYPE_DATE,
+            'start_date' => [
+                'type' => self::TYPE_DATE,
                 'validate' => 'isString',
             ],
-            'end_date'         => [
-                'type'     => self::TYPE_DATE,
+            'end_date' => [
+                'type' => self::TYPE_DATE,
                 'validate' => 'isString',
             ],
-            'field_name'         => [
-                'type'     => self::TYPE_STRING,
+            'field_name' => [
+                'type' => self::TYPE_STRING,
                 'validate' => 'isString',
-                'lang'     => true,
+                'lang' => true,
                 'required' => true,
             ],
             'with_field_name' => [
                 'type' => self::TYPE_BOOL,
                 'validate' => 'isBool',
             ],
-            'global_meta_data'           => [
-                'type'     => self::TYPE_HTML,
+            'global_meta_data' => [
+                'type' => self::TYPE_HTML,
                 'validate' => 'isCleanHtml',
-                'lang'     => true,
+                'lang' => true,
             ],
-            'available_values'           => [
-                'type'     => self::TYPE_STRING,
+            'available_values' => [
+                'type' => self::TYPE_STRING,
                 'validate' => 'isString',
-                'lang'     => true,
+                'lang' => true,
             ],
         ],
     ];
@@ -94,19 +93,13 @@ class FieldsModel extends ObjectModel
     {
         $lang_id = Context::getContext()->language->id;
         $shop_id = Context::getContext()->shop->id;
-
-        // $results = Db::getInstance()->executeS(
-        //     'SELECT *
-        //     FROM `' . _DB_PREFIX_ . 'infofields` inf
-        //     WHERE inf.parent_item = ' . (int) $p_item,
-        //     true
-        // );
         $results = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
 		SELECT *
 		FROM ' . _DB_PREFIX_ . 'infofields inf
 		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields)
 		' . Shop::addSqlAssociation('infofields', 'inf') . '
 		WHERE inf.parent_item = ' . (int) $p_item, true);
+
         return $results;
     }
 
@@ -118,6 +111,7 @@ class FieldsModel extends ObjectModel
 		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields)
 		' . Shop::addSqlAssociation('infofields', 'inf') . '
 		WHERE inf.id_infofields = ' . (int) $id . ' AND infl.id_lang = ' . (int) $id_lang, true);
+
         return $results;
     }
 }

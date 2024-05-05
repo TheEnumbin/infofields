@@ -1,28 +1,28 @@
 <?php
 /**
-* 2007-2022 PrestaShop
-*
-* NOTICE OF LICENSE
-*
-* This source file is subject to the Academic Free License (AFL 3.0)
-* that is bundled with this package in the file LICENSE.txt.
-* It is also available through the world-wide-web at this URL:
-* http://opensource.org/licenses/afl-3.0.php
-* If you did not receive a copy of the license and are unable to
-* obtain it through the world-wide-web, please send an email
-* to license@prestashop.com so we can send you a copy immediately.
-*
-* DISCLAIMER
-*
-* Do not edit or add to this file if you wish to upgrade PrestaShop to newer
-* versions in the future. If you wish to customize PrestaShop for your
-* needs please refer to http://www.prestashop.com for more information.
-*
-*  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2022 PrestaShop SA
-*  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
-*  International Registered Trademark & Property of PrestaShop SA
-*/
+ * 2007-2022 PrestaShop
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@prestashop.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * versions in the future. If you wish to customize PrestaShop for your
+ * needs please refer to http://www.prestashop.com for more information.
+ *
+ * @author    PrestaShop SA <contact@prestashop.com>
+ * @copyright 2007-2022 PrestaShop SA
+ * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ * International Registered Trademark & Property of PrestaShop SA
+ */
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -45,17 +45,14 @@ class Infofields extends Module
         $this->module_key = '573462b9857b4ede3a667c2b6d431205';
         $this->bootstrap = true;
         parent::__construct();
-
         $this->displayName = $this->l('Info Fields: Create Custom Advanced Meta Fields');
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
-
     }
 
     private function define_constants()
     {
-
         if(!defined('INFOFIELDS_CLASSES_PATH')) {
             define('INFOFIELDS_CLASSES_PATH', _PS_MODULE_DIR_ . 'infofields/classes/');
         }
@@ -90,7 +87,6 @@ class Infofields extends Module
     {
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall.php';
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall_tabs.php';
-
         Configuration::deleteByName('IINFOFIELDS_PRD_BACK_COLOR');
         Configuration::deleteByName('IINFOFIELDS_PRD_FONT_SIZE');
         Configuration::deleteByName('IINFOFIELDS_PRD_PADDING');
@@ -107,7 +103,6 @@ class Infofields extends Module
         Configuration::deleteByName('IINFOFIELDS_CMS_FONT_SIZE');
         Configuration::deleteByName('IINFOFIELDS_CMS_PADDING');
         Configuration::deleteByName('IINFOFIELDS_CMS_FONT_COLOR');
-
 
         return parent::uninstall();
     }
@@ -327,7 +322,6 @@ class Infofields extends Module
         foreach (array_keys($form_values) as $key) {
             Configuration::updateValue($key, Tools::getValue($key));
         }
-
         $infofields_prd_back_color = Configuration::get('INFOFIELDS_PRD_BACK_COLOR', '');
         $infofields_prd_font_color = Configuration::get('INFOFIELDS_PRD_FONT_COLOR', '');
         $infofields_prd_font_size = Configuration::get('INFOFIELDS_PRD_FONT_SIZE', '');
@@ -347,28 +341,24 @@ class Infofields extends Module
         $infofields_cms_font_color = Configuration::get('INFOFIELDS_CMS_FONT_COLOR', '');
         $infofields_cms_font_size = Configuration::get('INFOFIELDS_CMS_FONT_SIZE', '');
         $infofields_cms_padding = Configuration::get('INFOFIELDS_CMS_PADDING', '');
-
         $gen_css = '.infofield-wrapper .infofield-product-meta{
                         padding: ' . $infofields_prd_padding . ' !important;
                         font-size: ' . $infofields_prd_font_size . ' !important;
                         color: ' . $infofields_prd_font_color . ' !important;
                         background: ' . $infofields_prd_back_color . ' !important;
                     }
-                    
                     .infofield-wrapper .infofield-category-meta{
                         padding: ' . $infofields_ctg_padding . ' !important;
                         font-size: ' . $infofields_ctg_font_size . ' !important;
                         color: ' . $infofields_ctg_font_color . ' !important;
                         background: ' . $infofields_ctg_back_color . ' !important;
                     }
-
                     .infofield-wrapper .infofield-customer-meta{
                         padding: ' . $infofields_cust_padding . ' !important;
                         font-size: ' . $infofields_cust_font_size . ' !important;
                         color: ' . $infofields_cust_font_color . ' !important;
                         background: ' . $infofields_cust_back_color . ' !important;
                     }
-
                     .infofield-wrapper .infofield-cms-meta{
                         padding: ' . $infofields_cms_padding . ' !important;
                         font-size: ' . $infofields_cms_font_size . ' !important;
@@ -376,7 +366,6 @@ class Infofields extends Module
                         background: ' . $infofields_cms_back_color . ' !important;
                     }
                     ';
-
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
     }
 
@@ -384,11 +373,14 @@ class Infofields extends Module
     {
         $inf_ids = $data['inf_infofield_ids'];
         $inf_ids = json_decode($inf_ids, true);
+
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $parent_type) {
                 $object = new MetaModel(null, $inf_id, $obj->id);
+
                 if(isset($object->id)) {
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
+
                     if($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
@@ -397,6 +389,7 @@ class Infofields extends Module
                     $object->id_infofields = $inf_id;
                     $object->parent_item_id = $obj->id;
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
+
                     if($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
@@ -524,9 +517,7 @@ class Infofields extends Module
             'lang_id' => $id_lang,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
-
         echo $output;
-
     }
 
     /**
@@ -580,19 +571,16 @@ class Infofields extends Module
         return false;
     }
 
-
     /**
      * Shows the notice
      */
     private function infofields_show_notice($infofields_text)
     {
         $lang_id = $this->context->language->id;
-
         $this->context->smarty->assign([
             'infofields_text' => $infofields_text,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/prextrameta.tpl');
-
         echo $output;
     }
 }
