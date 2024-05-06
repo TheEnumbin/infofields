@@ -87,6 +87,7 @@ class AdminInfoListsController extends ModuleAdminController
     public function renderForm()
     {
         $obj = $this->loadObject(true);
+
         if (!$obj) {
             return;
         }
@@ -95,6 +96,7 @@ class AdminInfoListsController extends ModuleAdminController
         $field_types = $this->getFieldTypes();
         $parent_arr = [];
         $field_types_arr = [];
+
         foreach ($parents as $id => $parent) {
             $parent_arr[] = [
                 'id' => $id,
@@ -112,7 +114,7 @@ class AdminInfoListsController extends ModuleAdminController
             'legend' => [
                 'title' => $this->l('Info Field Form'),
             ],
-            'input'  => [
+            'input' => [
                 [
                     'type' => 'text',
                     'label' => $this->l('Field Name'),
@@ -207,7 +209,7 @@ class AdminInfoListsController extends ModuleAdminController
             ],
             'submit' => [
                 'title' => $this->module->l('Save'),
-            ]
+            ],
         ];
 
         $id_infofields = Tools::getValue('id_infofields');
@@ -218,13 +220,13 @@ class AdminInfoListsController extends ModuleAdminController
             $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
         }
         return parent::renderForm();
-
     }
 
     public function getShortcode($id, $parent)
     {
         $parent_obj = '';
-        if($parent == 'product') {
+
+        if ($parent == 'product') {
             $parent_obj = '$product.id';
         }
         return "{hook h='displayInfofield' id_infofields=$id item_id=$parent_obj}";

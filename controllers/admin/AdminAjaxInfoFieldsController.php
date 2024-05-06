@@ -22,7 +22,6 @@ if (!defined('_PS_VERSION_')) {
 }
 require_once(dirname(__FILE__) . '/../../classes/MetaModel.php');
 
-
 class AdminAjaxInfofieldsController extends ModuleAdminController
 {
     public function ajaxProcessSaveInfometa()
@@ -34,15 +33,16 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $inf_type = (int) trim(Tools::getValue('inf_type'));
         $languages = Language::getLanguages(false);
         $lang_id = Context::getContext()->language->id;
+
         foreach ($languages as $language) {
-            if($language['iso_code'] == $iso_code) {
+            if ($language['iso_code'] == $iso_code) {
                 $lang_id = (int) $language['id_lang'];
             }
         }
-
         $object = new MetaModel(null, $inf_id, $prd_id);
-        if(isset($object->id)) {
-            if($inf_type == 6) {
+
+        if (isset($object->id)) {
+            if ($inf_type == 6) {
                 $inf_value = json_encode($inf_value);
             }
             $object->meta_data[$lang_id] = $inf_value;
@@ -50,12 +50,13 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         } else {
             $object->id_infofields = $inf_id;
             $object->parent_item_id = $prd_id;
-            if($inf_type == 6) {
+            if ($inf_type == 6) {
                 $inf_value = json_encode($inf_value);
             }
             $object->meta_data[$lang_id] = $inf_value;
             $object->add();
         }
+
         die();
     }
 }

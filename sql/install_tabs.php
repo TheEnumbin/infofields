@@ -40,9 +40,7 @@ foreach ($languages as $lang) {
 $main_tab->id_parent = '';
 $main_tab->module = $mod_name;
 $main_tab->add();
-
 $tabs = [];
-
 $id_parent = Tab::getIdFromClassName('AdminInfofieldsMain');
 $tabs = [
     [
@@ -58,7 +56,6 @@ $tabs = [
         'icon' => 'brush',
     ],
 ];
-
 
 foreach($tabs as $t) {
     $tab = new Tab();
