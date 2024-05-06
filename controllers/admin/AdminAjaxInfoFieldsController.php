@@ -20,7 +20,7 @@
 if (!defined('_PS_VERSION_')) {
     exit;
 }
-require_once(dirname(__FILE__) . '/../../classes/MetaModel.php');
+require_once dirname(__FILE__) . '/../../classes/MetaModel.php';
 
 class AdminAjaxInfofieldsController extends ModuleAdminController
 {
@@ -56,7 +56,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             $object->meta_data[$lang_id] = $inf_value;
             $object->add();
         }
-
-        die();
+        exit;
     }
 }

@@ -27,9 +27,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 $idtabs = [];
-$idtabs[] = Tab::getIdFromClassName("AdminInfofieldsMain");
-$idtabs[] = Tab::getIdFromClassName("AdminInfoLists");
-$idtabs[] = Tab::getIdFromClassName("AdminAjaxInfoFields");
+$idtabs[] = Tab::getIdFromClassName('AdminInfofieldsMain');
+$idtabs[] = Tab::getIdFromClassName('AdminInfoLists');
+$idtabs[] = Tab::getIdFromClassName('AdminAjaxInfoFields');
 
 foreach ($idtabs as $tabid) {
     if ($tabid) {

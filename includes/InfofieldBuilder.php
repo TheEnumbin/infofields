@@ -23,40 +23,19 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * International Registered Trademark & Property of MBE Worldwide
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
-
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\HiddenType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-
-use Symfony\Component\Form\Extension\Core\Type\RadioType;
-use PrestaShop\PrestaShop\Core\ConfigurationInterface;
-use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\CleanHtml;
-use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
-use PrestaShop\PrestaShop\Core\Domain\Category\SeoSettings;
-use PrestaShop\PrestaShop\Core\Feature\FeatureInterface;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use PrestaShopBundle\Form\Admin\Type\Material\MaterialChoiceTableType;
-use PrestaShopBundle\Form\Admin\Type\ShopChoiceTreeType;
-use PrestaShopBundle\Form\Admin\Type\TextWithRecommendedLengthType;
-use PrestaShopBundle\Form\Admin\Type\TranslateType;
-use PrestaShopBundle\Form\Admin\Type\TranslatorAwareType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class InfofieldBuilder
 {
@@ -84,12 +63,14 @@ class InfofieldBuilder
     public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $metas)
     {
         $inf_ids = [];
+
         foreach ($fields as $field) {
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
             $field_params['params']['data'] = $data;
-            if($field_params['has_translator']) {
+
+            if ($field_params['has_translator']) {
                 $formBuilder
                 ->add(
                     'inf_metafield_' . $field['id_infofields'],
@@ -120,7 +101,8 @@ class InfofieldBuilder
     public function inf_get_field_params($field)
     {
         $return_arr = null;
-        switch($field['field_type']) {
+
+        switch ($field['field_type']) {
             case 1:
                 $return_arr['params'] = [
                     'type' => TextType::class,
@@ -163,22 +145,23 @@ class InfofieldBuilder
                 $return_arr['has_translator'] = false;
                 $available_values = explode(',', $field['available_values']);
                 $return_arr['params']['choices']['Select An Item'] = 0;
-                foreach($available_values as $available_value) {
-                    $key_value = explode(":", $available_value);
-                    if(isset($key_value[1])) {
+
+                foreach ($available_values as $available_value) {
+                    $key_value = explode(':', $available_value);
+
+                    if (isset($key_value[1])) {
                         $label = $key_value[1];
                         $key = $key_value[0];
                     } else {
                         $label = $key_value[0];
-                        $key = str_replace(" ", "", strtolower($label));
+                        $key = str_replace(' ', '', strtolower($label));
                     }
-                    if($key != "") {
+                    if ($key != '') {
                         $return_arr['params']['choices'][$label] = $key;
                     }
                 }
                 break;
         }
-
         $return_arr['params']['required'] = false;
         $return_arr['params']['label'] = $field['field_name'];
 
@@ -187,7 +170,7 @@ class InfofieldBuilder
 
     public function inf_prepare_data($data, $field_type)
     {
-        switch($field_type) {
+        switch ($field_type) {
             case 1:
             case 2:
             case 3:
@@ -199,7 +182,7 @@ class InfofieldBuilder
             case 6:
                 $data = array_pop($data);
                 $data = json_decode($data, true);
-                if(is_array($data)) {
+                if (is_array($data)) {
                     $data = implode('-', $data);
                 } else {
                     $data = '';
@@ -207,7 +190,7 @@ class InfofieldBuilder
                 break;
             case 7:
                 $data = array_pop($data);
-                if($data == 1) {
+                if ($data == 1) {
                     $data = true;
                 } else {
                     $data = false;

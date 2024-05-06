@@ -23,7 +23,6 @@
  * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
  * International Registered Trademark & Property of MBE Worldwide
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -36,22 +35,22 @@ class MetaModel extends ObjectModel
     public $meta_data;
 
     public static $definition = [
-        'table'     => 'infofields_meta',
-        'primary'   => 'id_infofields_meta',
+        'table' => 'infofields_meta',
+        'primary' => 'id_infofields_meta',
         'multilang' => true,
-        'fields'    => [
-            'id_infofields'            => [
-                'type'     => self::TYPE_INT,
+        'fields' => [
+            'id_infofields' => [
+                'type' => self::TYPE_INT,
                 'validate' => 'isunsignedInt',
             ],
-            'parent_item_id'            => [
-                'type'     => self::TYPE_INT,
+            'parent_item_id' => [
+                'type' => self::TYPE_INT,
                 'validate' => 'isunsignedInt',
             ],
-            'meta_data'           => [
-                'type'     => self::TYPE_HTML,
+            'meta_data' => [
+                'type' => self::TYPE_HTML,
                 'validate' => 'isCleanHtml',
-                'lang'     => true,
+                'lang' => true,
             ],
         ],
     ];
@@ -80,25 +79,22 @@ class MetaModel extends ObjectModel
             return false;
         }
         $where_lang = '';
+
         if ($id_lang != null) {
-            $where_lang = " AND infml.`id_lang` = " . (int) $id_lang;
+            $where_lang = ' AND infml.`id_lang` = ' . (int) $id_lang;
         }
         $id_parents = [];
         $return_arr = [];
-        foreach($parent_fields as $parent_field) {
+
+        foreach ($parent_fields as $parent_field) {
             $id_parents[] = $parent_field['id_infofields'];
             $return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
         }
         $id_parents = implode(', ', $id_parents);
-        // $metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
-        // SELECT *
-        // FROM `" . _DB_PREFIX_ . "infofields` inf LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta` infm  ON (inf.`id_infofields` = infm.`id_infofields`)  LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
-        // WHERE infm.`id_infofields` IN ($id_parents) AND infm.`parent_item_id` = " . (int) $parent_id . $where_lang);
-
-        $metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS("
+        $metas = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
         SELECT *
-        FROM `" . _DB_PREFIX_ . "infofields_meta` infm  LEFT JOIN `" . _DB_PREFIX_ . "infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
-        WHERE infm.`id_infofields` IN ($id_parents) AND infm.`parent_item_id` = " . (int) $parent_id . $where_lang);
+        FROM `' . _DB_PREFIX_ . 'infofields_meta` infm  LEFT JOIN `' . _DB_PREFIX_ . 'infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
+        WHERE infm.`id_infofields` IN ($id_parents) AND infm.`parent_item_id` = ' . (int) $parent_id . $where_lang);
 
         foreach ($metas as $meta) {
             if ($only_data) {

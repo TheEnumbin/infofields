@@ -27,9 +27,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-require_once(dirname(__FILE__) . '/classes/FieldsModel.php');
-require_once(dirname(__FILE__) . '/classes/MetaModel.php');
-require_once(dirname(__FILE__) . '/includes/InfofieldBuilder.php');
+require_once dirname(__FILE__) . '/classes/FieldsModel.php';
+require_once dirname(__FILE__) . '/classes/MetaModel.php';
+require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
 
 class Infofields extends Module
 {
@@ -53,7 +53,7 @@ class Infofields extends Module
 
     private function define_constants()
     {
-        if(!defined('INFOFIELDS_CLASSES_PATH')) {
+        if (!defined('INFOFIELDS_CLASSES_PATH')) {
             define('INFOFIELDS_CLASSES_PATH', _PS_MODULE_DIR_ . 'infofields/classes/');
         }
     }
@@ -69,15 +69,15 @@ class Infofields extends Module
         include _PS_MODULE_DIR_ . $this->name . '/sql/install.php';
         include _PS_MODULE_DIR_ . $this->name . '/sql/install_tabs.php';
 
-        return parent::install() &&
-            $this->registerHook('actionCmsPageFormBuilderModifier') &&
-            $this->registerHook('actionObjectCmsUpdateAfter') &&
-            $this->registerHook('actionObjectCustomerUpdateAfter') &&
-            $this->registerHook('displayHeader') &&
-            $this->registerHook('displayBackOfficeHeader') &&
-            $this->registerHook('displayAdminProductsExtra') &&
-            $this->registerHook('displayInfofield') &&
-            $this->registerHook('displayProductPriceBlock');
+        return parent::install()
+            && $this->registerHook('actionCmsPageFormBuilderModifier')
+            && $this->registerHook('actionObjectCmsUpdateAfter')
+            && $this->registerHook('actionObjectCustomerUpdateAfter')
+            && $this->registerHook('displayHeader')
+            && $this->registerHook('displayBackOfficeHeader')
+            && $this->registerHook('displayAdminProductsExtra')
+            && $this->registerHook('displayInfofield')
+            && $this->registerHook('displayProductPriceBlock');
     }
 
     /**
@@ -378,10 +378,10 @@ class Infofields extends Module
             foreach ($inf_ids as $inf_id => $parent_type) {
                 $object = new MetaModel(null, $inf_id, $obj->id);
 
-                if(isset($object->id)) {
+                if (isset($object->id)) {
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
 
-                    if($parent_type == 6) {
+                    if ($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->update();
@@ -390,7 +390,7 @@ class Infofields extends Module
                     $object->parent_item_id = $obj->id;
                     $object->meta_data = $data['inf_metafield_' . $inf_id];
 
-                    if($parent_type == 6) {
+                    if ($parent_type == 6) {
                         $object->meta_data = json_encode($object->meta_data);
                     }
                     $object->add();
@@ -482,7 +482,6 @@ class Infofields extends Module
         $this->inf_update_object($customer_obj, $data);
     }
 
-
     /**
      * Add the CSS & JavaScript files you want to be added on the FO.
      */
@@ -502,7 +501,7 @@ class Infofields extends Module
         $id_lang = $this->context->language->id;
         $fields = [];
         $index = 0;
-        if(is_array($inf_ids)) {
+        if (is_array($inf_ids)) {
             // If have multiple ids
         } else {
             $fieldsmodel = new FieldsModel();

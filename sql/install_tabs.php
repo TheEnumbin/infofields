@@ -57,7 +57,7 @@ $tabs = [
     ],
 ];
 
-foreach($tabs as $t) {
+foreach ($tabs as $t) {
     $tab = new Tab();
     $tab->active = 1;
     $tab->class_name = $t['class_name'];
