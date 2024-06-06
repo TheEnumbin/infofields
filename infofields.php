@@ -70,8 +70,11 @@ class Infofields extends Module
         include _PS_MODULE_DIR_ . $this->name . '/sql/install_tabs.php';
 
         return parent::install()
+            && $this->registerHook('actionCategoryFormBuilderModifier')
             && $this->registerHook('actionCmsPageFormBuilderModifier')
+            && $this->registerHook('actionCustomerFormBuilderModifier')
             && $this->registerHook('actionObjectCmsUpdateAfter')
+            && $this->registerHook('actionObjectCategoryUpdateAfter')
             && $this->registerHook('actionObjectCustomerUpdateAfter')
             && $this->registerHook('displayHeader')
             && $this->registerHook('displayBackOfficeHeader')
@@ -404,16 +407,15 @@ class Infofields extends Module
      */
     public function hookDisplayBackOfficeHeader()
     {
-        $controller =  Tools::getValue('controller');
+        $controller = Tools::getValue('controller');
 
-        if($controller == 'AdminProducts') {
+        if ($controller == 'AdminProducts') {
             $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
             $this->context->controller->addJS($this->_path . 'views/js/admin.js');
             Media::addJsDef([
                 'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
             ]);
         }
-
     }
 
     /**

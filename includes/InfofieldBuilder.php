@@ -60,7 +60,7 @@ class InfofieldBuilder
         return $this->metas;
     }
 
-    public function inf_build_form(FormBuilderInterface $formBuilder, $fields, $metas)
+    public function inf_build_form($formBuilder, $fields, $metas)
     {
         $inf_ids = [];
 
