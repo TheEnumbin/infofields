@@ -404,11 +404,16 @@ class Infofields extends Module
      */
     public function hookDisplayBackOfficeHeader()
     {
-        $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
-        $this->context->controller->addJS($this->_path . 'views/js/admin.js');
-        Media::addJsDef([
-            'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
-        ]);
+        $controller =  Tools::getValue('controller');
+
+        if($controller == 'AdminProducts') {
+            $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
+            $this->context->controller->addJS($this->_path . 'views/js/admin.js');
+            Media::addJsDef([
+                'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
+            ]);
+        }
+
     }
 
     /**
