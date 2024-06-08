@@ -1,0 +1,35 @@
+<?php
+
+global $_MODULE;
+$_MODULE = array();
+$_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Champs d\'informations : créer des champs méta avancés personnalisés';
+$_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Ajoutez des champs supplémentaires à vos produits, catégories, clients et pages.';
+$_MODULE['<{infofields}prestashop>infofields_f4f70727dc34561dfde1a3c529b6205c'] = 'Paramètres';
+$_MODULE['<{infofields}prestashop>infofields_75e7422f2fe253fc69d3f6c148d197ee'] = 'Couleur de l\'arrière plan';
+$_MODULE['<{infofields}prestashop>infofields_8903861290617267b361478ab7f16f31'] = 'Couleur du texte';
+$_MODULE['<{infofields}prestashop>infofields_659e6460da1dc6f0fc5225f0cdda50b9'] = 'Mettez votre taille de police comme \"12px\"';
+$_MODULE['<{infofields}prestashop>infofields_45f0d4fa9a30e9c5571dbaa9ad1be931'] = 'Taille de police';
+$_MODULE['<{infofields}prestashop>infofields_da5c63571d61185624bf31b272fecc52'] = 'Mettez votre remplissage comme \"6px\"';
+$_MODULE['<{infofields}prestashop>infofields_a10443964156b9e87c95e74c8f9baf15'] = 'Rembourrage';
+$_MODULE['<{infofields}prestashop>infofields_c9cc8cce247e49bae79f15173ce97354'] = 'Sauvegarder';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_b718adec73e04ce3ec720dd11a06a308'] = 'IDENTIFIANT';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_49ee3087348e8d44e1feda1917443987'] = 'Nom';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_34e478a97ec7c58de5889491463dae4f'] = 'Élément parent';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_189efd19c4153526994a6d7ea5f6f068'] = 'Type de champ';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_f259a6539fc3e620737c137cdc93e2af'] = 'Formulaire de champ d\'information';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_ee9b2f3cf31c23c944b15fb0b33d6a77'] = 'Nom de domaine';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_8583251ac8d9896ac28cbd011bf105ac'] = 'Cela apparaîtra comme nom de champ sur votre formulaire.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_2561708cb973a618f4d96217d2b1e816'] = 'Métadonnées globales';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_5b37b8dd2d529a4400a1f09d2f63946a'] = 'Cela agira comme des métadonnées globales.  Une méta spécifique l\'écrasera.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_46a2ef42bcb6ef72605c514f78b7f525'] = 'Cela agira comme des métadonnées globales.  Une méta spécifique l\'écrasera.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_83a42e8173fbafaa83b0c63a7b3c2737'] = 'Articles disponibles';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf9ec8d9ef7ce'] = 'Uniquement pour les types Sélection, Radio, Cases à cocher.  [Exemple de format pour Select et Radio : key1:label1,key2:label2] [Exemple de format pour les cases à cocher : label1,label2]';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_db3794c7d704611ce61c9d8cc09cd806'] = 'Date de début';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_3c1429dca1ae285353b112dfacae5fe5'] = 'Date de fin';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_573e0f60b3783b9f6af90c1bc56d1931'] = 'Afficher avec le nom du champ';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_93cba07454f06a4a960172bbd6e2a435'] = 'Oui';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Non';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_15a90bc25e60fb92a0541bf7bc40d423'] = 'Afficher avec le nom du champ sur le frontend ex : Nom du champ : Valeur';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_6feadb455c64759731e453380c52fbd9'] = 'Petit code';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_b82aac3a65be77efa2c15e00c4bf7ce2'] = 'Utilisez-le dans votre fichier tpl pour afficher les méta-informations.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_c9cc8cce247e49bae79f15173ce97354'] = 'Sauvegarder';
