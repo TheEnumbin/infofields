@@ -223,20 +223,141 @@ class AdminInfoListsController extends ModuleAdminController
         return parent::renderForm();
     }
 
-    public function postProcess()
+    public function processSave()
     {
-        if (Tools::isSubmit('submitAddinfofields')) {
-            $field = new FieldsModel();
-            $field->field_name = Tools::getValue('field_name');
+        if (Tools::isSubmit('submitAddFields')) {
+            $id_infofields = (int)Tools::getValue('id_infofields');
+            $fields = new FieldsModel($id_infofields);
 
-            if ($field->add()) {
-                $this->confirmations[] = $this->l('Item added successfully.');
+            // Multilanguage fields
+            $languages = Language::getLanguages();
+            foreach ($languages as $lang) {
+                $fields->field_name[$lang['id_lang']] = Tools::getValue('field_name_'.$lang['id_lang']);
+                $fields->global_meta_data[$lang['id_lang']] = Tools::getValue('global_meta_data_'.$lang['id_lang']);
+                $fields->available_values[$lang['id_lang']] = Tools::getValue('available_values_'.$lang['id_lang']);
+            }
+
+            // Other fields
+            $fields->parent_item = (int)Tools::getValue('parent_item');
+            $fields->field_type = (int)Tools::getValue('field_type');
+            $fields->start_date = Tools::getValue('start_date');
+            $fields->end_date = Tools::getValue('end_date');
+            $fields->with_field_name = (bool)Tools::getValue('with_field_name');
+
+            // Validate dates
+            if (strtotime($fields->start_date) > strtotime($fields->end_date)) {
+                $this->errors[] = $this->l('Start date cannot be later than end date.');
+                return false;
+            }
+
+            // Multishop handling
+            if (Shop::isFeatureActive()) {
+                $fields->id_shop = (int)Context::getContext()->shop->id;
+            }
+
+            // Save or update fields
+            if ($fields->id) {
+                // Update existing fields
+                if ($fields->update()) {
+                    $this->confirmations[] = $this->l('Fields updated successfully.');
+                } else {
+                    $this->errors[] = $this->l('Failed to update fields.');
+                    return false;
+                }
             } else {
-                $this->errors[] = $this->l('Failed to add item.');
+                // Add new fields
+                if ($fields->add()) {
+                    $this->confirmations[] = $this->l('Fields added successfully.');
+                } else {
+                    $this->errors[] = $this->l('Failed to add fields.');
+                    return false;
+                }
             }
         }
 
-        parent::postProcess();
+        return true;
+    }
+
+    public function processDelete()
+    {
+        if (Tools::isSubmit('delete'.$this->table) && ($id = (int)Tools::getValue($this->identifier))) {
+            $fields = new FieldsModel($id);
+
+            if (Validate::isLoadedObject($fields)) {
+                if ($fields->delete()) {
+                    $this->confirmations[] = $this->l('Field deleted successfully.');
+                } else {
+                    $this->errors[] = $this->l('Failed to delete field.');
+                    return false;
+                }
+            } else {
+                $this->errors[] = $this->l('Field not found.');
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function postProcess()
+    {
+        if (!$this->processSave() || !$this->processDelete()) {
+            return false;
+        }
+
+        return parent::postProcess();
+        if (Tools::isSubmit('submitAddinfofields')) {
+            $id_infofields = (int)Tools::getValue('id_infofields');
+            $fields = new FieldsModel($id_infofields);
+
+            // Update existing fields
+            if ($id_infofields) {
+                $fields->id = $id_infofields;
+            }
+
+            // Multilanguage fields
+            $languages = Language::getLanguages();
+            foreach ($languages as $lang) {
+                $fields->field_name[$lang['id_lang']] = Tools::getValue('field_name_'.$lang['id_lang']);
+                $fields->global_meta_data[$lang['id_lang']] = Tools::getValue('global_meta_data_'.$lang['id_lang']);
+                $fields->available_values[$lang['id_lang']] = Tools::getValue('available_values_'.$lang['id_lang']);
+            }
+
+            // Other fields
+            $fields->parent_item = (int)Tools::getValue('parent_item');
+            $fields->field_type = (int)Tools::getValue('field_type');
+            $fields->start_date = Tools::getValue('start_date');
+            $fields->end_date = Tools::getValue('end_date');
+            $fields->with_field_name = (bool)Tools::getValue('with_field_name');
+
+            // Validate dates
+            if (strtotime($fields->start_date) > strtotime($fields->end_date)) {
+                $this->errors[] = $this->l('Start date cannot be later than end date.');
+                return parent::postProcess();
+            }
+
+            // Multishop handling
+            if (Shop::isFeatureActive()) {
+                $fields->id_shop = (int)Context::getContext()->shop->id;
+            }
+
+            // Save or update fields
+            if ($fields->id) {
+                if ($fields->update()) {
+                    $this->confirmations[] = $this->l('Fields updated successfully.');
+                } else {
+                    $this->errors[] = $this->l('Failed to update fields.');
+                }
+            } else {
+                if ($fields->add()) {
+                    $this->confirmations[] = $this->l('Fields added successfully.');
+                } else {
+                    $this->errors[] = $this->l('Failed to add fields.');
+                }
+            }
+        }
+
+        return true;
     }
 
     public function getShortcode($id, $parent)
