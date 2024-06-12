@@ -223,6 +223,22 @@ class AdminInfoListsController extends ModuleAdminController
         return parent::renderForm();
     }
 
+    public function postProcess()
+    {
+        if (Tools::isSubmit('submitAddinfofields')) {
+            $field = new FieldsModel();
+            $field->field_name = Tools::getValue('field_name');
+
+            if ($field->add()) {
+                $this->confirmations[] = $this->l('Item added successfully.');
+            } else {
+                $this->errors[] = $this->l('Failed to add item.');
+            }
+        }
+
+        parent::postProcess();
+    }
+
     public function getShortcode($id, $parent)
     {
         $parent_obj = '';

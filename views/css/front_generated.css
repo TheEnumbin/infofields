@@ -2,10 +2,21 @@
                         padding: 12px  !important;
                         font-size: 16px !important;
                         color: #01008b !important;
-                        background: #00ee9f !important;
+                        background: #40ff1f !important;
                     }
-                    
                     .infofield-wrapper .infofield-category-meta{
+                        padding:  !important;
+                        font-size:  !important;
+                        color:  !important;
+                        background: #ff0000 !important;
+                    }
+                    .infofield-wrapper .infofield-customer-meta{
+                        padding:  !important;
+                        font-size:  !important;
+                        color:  !important;
+                        background:  !important;
+                    }
+                    .infofield-wrapper .infofield-cms-meta{
                         padding:  !important;
                         font-size:  !important;
                         color:  !important;

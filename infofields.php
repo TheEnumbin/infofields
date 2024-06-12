@@ -115,11 +115,13 @@ class Infofields extends Module
      */
     public function getContent()
     {
+        $output = '';
         if (((bool) Tools::isSubmit('submitInfofieldsModule')) == true) {
             $this->postProcess();
+            $output .= $this->displayConfirmation($this->l('Settings updated'));
         }
 
-        return $this->renderForm();
+        return $output . $this->renderForm();
     }
 
     /**
