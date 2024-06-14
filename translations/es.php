@@ -1,7 +1,7 @@
 <?php
 
 global $_MODULE;
-$_MODULE = array();
+$_MODULE = [];
 $_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Campos de información: crear metacampos avanzados personalizados';
 $_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Agregue campos adicionales a sus Productos, Categorías, Clientes y Páginas.';
 $_MODULE['<{infofields}prestashop>infofields_f4f70727dc34561dfde1a3c529b6205c'] = 'Ajustes';
