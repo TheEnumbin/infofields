@@ -247,7 +247,6 @@ class AdminInfoListsController extends ModuleAdminController
             // Validate dates
             if (strtotime($fields->start_date) > strtotime($fields->end_date)) {
                 $this->errors[] = $this->l('Start date cannot be later than end date.');
-                return false;
             }
 
             // Multishop handling
@@ -260,52 +259,54 @@ class AdminInfoListsController extends ModuleAdminController
                 // Update existing fields
                 if ($fields->update()) {
                     $this->confirmations[] = $this->l('Fields updated successfully.');
+                    return true;
                 } else {
                     $this->errors[] = $this->l('Failed to update fields.');
-                    return false;
                 }
             } else {
                 // Add new fields
                 if ($fields->add()) {
                     $this->confirmations[] = $this->l('Fields added successfully.');
+                    return true;
                 } else {
                     $this->errors[] = $this->l('Failed to add fields.');
-                    return false;
                 }
             }
         }
 
-        return true;
+        return false;
     }
 
-    public function processDelete()
-    {
-        if (Tools::isSubmit('delete'.$this->table) && ($id = (int)Tools::getValue($this->identifier))) {
-            $fields = new FieldsModel($id);
+    // public function processDelete()
+    // {
+    //     if (Tools::isSubmit('delete'.$this->table) && ($id = (int)Tools::getValue($this->identifier))) {
+    //         $fields = new FieldsModel($id);
 
-            if (Validate::isLoadedObject($fields)) {
-                if ($fields->delete()) {
-                    $this->confirmations[] = $this->l('Field deleted successfully.');
-                } else {
-                    $this->errors[] = $this->l('Failed to delete field.');
-                    return false;
-                }
-            } else {
-                $this->errors[] = $this->l('Field not found.');
-                return false;
-            }
-        }
+    //         if (Validate::isLoadedObject($fields)) {
+    //             if ($fields->delete()) {
+    //                 $this->confirmations[] = $this->l('Field deleted successfully.');
+    //             } else {
+    //                 $this->errors[] = $this->l('Failed to delete field.');
+    //                 return false;
+    //             }
+    //         } else {
+    //             $this->errors[] = $this->l('Field not found.');
+    //             return false;
+    //         }
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     public function postProcess()
     {
-        if (!$this->processSave() || !$this->processDelete()) {
-            return false;
+        if ($this->processSave()) {
+            return true;
+        } else {
+            return parent::postProcess();
         }
 
-        return parent::postProcess();
+        return false;
     }
 
     public function getShortcode($id, $parent)
