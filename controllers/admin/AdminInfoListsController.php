@@ -205,7 +205,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'size' => 60,
                     'desc' => $this->l('Use this in your tpl file to show the meta info.'),
                     'disabled' => true,
-                    'class' => 'text-danger',
+                    'class' => 'text-danger infofield-shortcode-class',
                 ],
             ],
             'submit' => [
@@ -226,32 +226,51 @@ class AdminInfoListsController extends ModuleAdminController
     public function processSave()
     {
         if (Tools::isSubmit('submitAddinfofields')) {
-            $id_infofields = (int)Tools::getValue('id_infofields');
+            $id_infofields = (int) Tools::getValue('id_infofields');
             $fields = new FieldsModel($id_infofields);
-
-            // Multilanguage fields
+            $defaultLangId = (int) Context::getContext()->language->id;
             $languages = Language::getLanguages();
+            $defaultFieldName = Tools::getValue('field_name_' . $defaultLangId);
+
+            // Check if all field names are empty
+            $allFieldNamesEmpty = true;
             foreach ($languages as $lang) {
-                $fields->field_name[$lang['id_lang']] = Tools::getValue('field_name_'.$lang['id_lang']);
-                $fields->global_meta_data[$lang['id_lang']] = Tools::getValue('global_meta_data_'.$lang['id_lang']);
-                $fields->available_values[$lang['id_lang']] = Tools::getValue('available_values_'.$lang['id_lang']);
+                $field_name = Tools::getValue('field_name_' . $lang['id_lang']);
+                if (!empty($field_name)) {
+                    $allFieldNamesEmpty = false;
+                    break;
+                }
+            }
+
+            if ($allFieldNamesEmpty) {
+                $this->errors[] = $this->l('Field name cannot be empty for all languages.');
+                return false;
+            }
+            foreach ($languages as $lang) {
+                $field_name = Tools::getValue('field_name_' . $lang['id_lang']);
+                if (empty($field_name)) {
+                    $fields->field_name[$lang['id_lang']] = $defaultFieldName;
+                } else {
+                    $fields->field_name[$lang['id_lang']] = $field_name;
+                }
+                $fields->global_meta_data[$lang['id_lang']] = Tools::getValue('global_meta_data_' . $lang['id_lang']);
+                $fields->available_values[$lang['id_lang']] = Tools::getValue('available_values_' . $lang['id_lang']);
             }
 
             // Other fields
-            $fields->parent_item = (int)Tools::getValue('parent_item');
-            $fields->field_type = (int)Tools::getValue('field_type');
+            $fields->parent_item = (int) Tools::getValue('parent_item');
+            $fields->field_type = (int) Tools::getValue('field_type');
             $fields->start_date = Tools::getValue('start_date');
             $fields->end_date = Tools::getValue('end_date');
-            $fields->with_field_name = (bool)Tools::getValue('with_field_name');
+            $fields->with_field_name = (bool) Tools::getValue('with_field_name');
 
             // Validate dates
             if (strtotime($fields->start_date) > strtotime($fields->end_date)) {
                 $this->errors[] = $this->l('Start date cannot be later than end date.');
+                return false;
             }
-
-            // Multishop handling
             if (Shop::isFeatureActive()) {
-                $fields->id_shop = (int)Context::getContext()->shop->id;
+                $fields->id_shop = (int) Context::getContext()->shop->id;
             }
 
             // Save or update fields
@@ -277,27 +296,6 @@ class AdminInfoListsController extends ModuleAdminController
         return false;
     }
 
-    // public function processDelete()
-    // {
-    //     if (Tools::isSubmit('delete'.$this->table) && ($id = (int)Tools::getValue($this->identifier))) {
-    //         $fields = new FieldsModel($id);
-
-    //         if (Validate::isLoadedObject($fields)) {
-    //             if ($fields->delete()) {
-    //                 $this->confirmations[] = $this->l('Field deleted successfully.');
-    //             } else {
-    //                 $this->errors[] = $this->l('Failed to delete field.');
-    //                 return false;
-    //             }
-    //         } else {
-    //             $this->errors[] = $this->l('Field not found.');
-    //             return false;
-    //         }
-    //     }
-
-    //     return true;
-    // }
-
     public function postProcess()
     {
         if ($this->processSave()) {
@@ -313,9 +311,23 @@ class AdminInfoListsController extends ModuleAdminController
     {
         $parent_obj = '';
 
-        if ($parent == 'product') {
-            $parent_obj = '$product.id';
+        switch ($parent) {
+            case 'product':
+                $parent_obj = '$product.id';
+                break;
+            case 'cms page':
+                $parent_obj = '$cms.id';
+                break;
+            case 'category':
+                $parent_obj = '$category.id';
+                break;
+            case 'customer':
+                $parent_obj = '$customer.id';
+                break;
+            default:
+                $parent_obj = 'unknown';
         }
+
         return "{hook h='displayInfofield' id_infofields=$id item_id=$parent_obj}";
     }
 

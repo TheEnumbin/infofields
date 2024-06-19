@@ -28,11 +28,19 @@
 .hidden-field {
     display: none;
 }
+
 .inf-meta-wrapper {
     margin-top: 12px;
 }
+
 .inf-meta-form-wrapper {
     border-top: 1px dashed #000;
     border-bottom: 1px dashed #000;
     padding: 12px 0px 12px 0px;
+}
+
+#shortcode.infofield-shortcode-class {
+    font-size: 20px;
+    color: black !important;
+    font-weight: 600;
 }
