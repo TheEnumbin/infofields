@@ -1,0 +1,35 @@
+<?php
+
+global $_MODULE;
+$_MODULE = [];
+$_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Campos de información: crear metacampos avanzados personalizados';
+$_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Agregue campos adicionales a sus Productos, Categorías, Clientes y Páginas.';
+$_MODULE['<{infofields}prestashop>infofields_f4f70727dc34561dfde1a3c529b6205c'] = 'Ajustes';
+$_MODULE['<{infofields}prestashop>infofields_75e7422f2fe253fc69d3f6c148d197ee'] = 'Color de fondo';
+$_MODULE['<{infofields}prestashop>infofields_8903861290617267b361478ab7f16f31'] = 'Color de texto';
+$_MODULE['<{infofields}prestashop>infofields_659e6460da1dc6f0fc5225f0cdda50b9'] = 'Pon tu tamaño de fuente como \"12px\"';
+$_MODULE['<{infofields}prestashop>infofields_45f0d4fa9a30e9c5571dbaa9ad1be931'] = 'Tamaño de fuente';
+$_MODULE['<{infofields}prestashop>infofields_da5c63571d61185624bf31b272fecc52'] = 'Pon tu relleno como \"6px\"';
+$_MODULE['<{infofields}prestashop>infofields_a10443964156b9e87c95e74c8f9baf15'] = 'Relleno';
+$_MODULE['<{infofields}prestashop>infofields_c9cc8cce247e49bae79f15173ce97354'] = 'Ahorrar';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_b718adec73e04ce3ec720dd11a06a308'] = 'IDENTIFICACIÓN';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_49ee3087348e8d44e1feda1917443987'] = 'Nombre';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_34e478a97ec7c58de5889491463dae4f'] = 'Artículo principal';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_189efd19c4153526994a6d7ea5f6f068'] = 'Tipo de campo';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_f259a6539fc3e620737c137cdc93e2af'] = 'Formulario de campo de información';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_ee9b2f3cf31c23c944b15fb0b33d6a77'] = 'Nombre del campo';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_8583251ac8d9896ac28cbd011bf105ac'] = 'Esto aparecerá como el nombre del campo en su formulario.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_2561708cb973a618f4d96217d2b1e816'] = 'Metadatos globales';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_5b37b8dd2d529a4400a1f09d2f63946a'] = 'Esto actuará como metadatos globales.  El meta específico lo sobrescribirá.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_46a2ef42bcb6ef72605c514f78b7f525'] = 'El campo de texto enriquecido solo funciona para Productos y Categoría.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_83a42e8173fbafaa83b0c63a7b3c2737'] = 'Objetos disponibles';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf9ec8d9ef7ce'] = 'Solo para tipos Seleccionar, Radio, Casillas de verificación.  [Formato de ejemplo para Seleccionar y Radio: tecla1:etiqueta1,clave2:etiqueta2] [Formato de ejemplo para casillas de verificación: etiqueta1,etiqueta2]';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_db3794c7d704611ce61c9d8cc09cd806'] = 'Fecha de inicio';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_3c1429dca1ae285353b112dfacae5fe5'] = 'Fecha de inicio';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_573e0f60b3783b9f6af90c1bc56d1931'] = 'Mostrar con nombre de campo';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_93cba07454f06a4a960172bbd6e2a435'] = 'Sí';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_bafd7322c6e97d25b6299b5d6fe8920b'] = 'No';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_15a90bc25e60fb92a0541bf7bc40d423'] = 'Mostrar con el nombre del campo en la interfaz, por ejemplo: Nombre del campo: Valor';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_6feadb455c64759731e453380c52fbd9'] = 'Código corto';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_b82aac3a65be77efa2c15e00c4bf7ce2'] = 'Utilice esto en su archivo tpl para mostrar la metainformación.';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_c9cc8cce247e49bae79f15173ce97354'] = 'Ahorrar';
