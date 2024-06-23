@@ -35,6 +35,7 @@ class FieldsModel extends ObjectModel
     public $start_date;
     public $end_date;
     public $with_field_name;
+    public $as_product_tab;
     public $field_name;
     public $global_meta_data;
     public $available_values;
@@ -67,6 +68,10 @@ class FieldsModel extends ObjectModel
                 'required' => true,
             ],
             'with_field_name' => [
+                'type' => self::TYPE_BOOL,
+                'validate' => 'isBool',
+            ],
+            'as_product_tab' => [
                 'type' => self::TYPE_BOOL,
                 'validate' => 'isBool',
             ],

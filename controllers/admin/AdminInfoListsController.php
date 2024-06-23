@@ -198,6 +198,26 @@ class AdminInfoListsController extends ModuleAdminController
                     'hint' => $this->l('Show with the field name on frontend ex: Field name: Value'),
                 ],
                 [
+                    'type' => 'switch',
+                    'label' => $this->l('Show as a Tab on Products'),
+                    'name' => 'as_product_tab',
+                    'required' => false,
+                    'class' => 't',
+                    'values' => [
+                        [
+                            'id' => 'active_on',
+                            'value' => 1,
+                            'label' => $this->l('Yes'),
+                        ],
+                        [
+                            'id' => 'active_off',
+                            'value' => 0,
+                            'label' => $this->l('No'),
+                        ],
+                    ],
+                    'hint' => $this->l('Only works for products'),
+                ],
+                [
                     'type' => 'text',
                     'label' => $this->l('Shortcode'),
                     'name' => 'shortcode',
@@ -263,6 +283,7 @@ class AdminInfoListsController extends ModuleAdminController
             $fields->start_date = Tools::getValue('start_date');
             $fields->end_date = Tools::getValue('end_date');
             $fields->with_field_name = (bool) Tools::getValue('with_field_name');
+            $fields->as_product_tab = (bool) Tools::getValue('as_product_tab');
 
             // Validate dates
             if (strtotime($fields->start_date) > strtotime($fields->end_date)) {
@@ -360,8 +381,8 @@ class AdminInfoListsController extends ModuleAdminController
             2 => 'Rich Text Field',
             3 => 'Textarea',
             4 => 'Switch',
-            5 => 'Image',
-            9 => 'File',
+            // 5 => 'Image',
+            // 9 => 'File',
             6 => 'Date',
             // 7 => 'Radio',
             7 => 'Checkboxes',
