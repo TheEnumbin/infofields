@@ -165,6 +165,24 @@ class Infofields extends Module
                 ],
                 'input' => [
                     [
+                        'type' => 'switch',
+                        'label' => $this->l('Show meta as extra tab'),
+                        'name' => 'INFOFIELDS_PRD_EXTRATAB_HOOK',
+                        'values' => [
+                            [
+                                'id' => 'enable',
+                                'value' => true,
+                                'label' => $this->l('Enable'),
+                            ],
+                            [
+                                'id' => 'disable',
+                                'value' => false,
+                                'label' => $this->l('Disable'),
+                            ],
+                        ],
+                        'tab' => 'peoduct_design',
+                    ],
+                    [
                         'type' => 'select',
                         'label' => $this->l('Label and Meta Orientation'),
                         'name' => 'INFOFIELDS_PRD_ORIENTATION',
@@ -379,6 +397,7 @@ class Infofields extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
+            'INFOFIELDS_PRD_EXTRATAB_HOOK' => Configuration::get('INFOFIELDS_PRD_EXTRATAB_HOOK', false),
             'INFOFIELDS_PRD_ORIENTATION' => Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row'),
             'INFOFIELDS_PRD_BACK_COLOR' => Configuration::get('INFOFIELDS_PRD_BACK_COLOR', ''),
             'INFOFIELDS_PRD_FONT_COLOR' => Configuration::get('INFOFIELDS_PRD_FONT_COLOR', ''),
@@ -413,6 +432,17 @@ class Infofields extends Module
         $lang_id = $this->context->language->id;
 
         foreach (array_keys($form_values) as $key) {
+            if ($key == 'INFOFIELDS_PRD_EXTRATAB_HOOK') {
+                if (Tools::getValue($key) == true) {
+                    if (!$this->isRegisteredInHook('displayProductExtraContent')) {
+                        $this->registerHook('displayProductExtraContent');
+                    }
+                } else {
+                    if ($this->isRegisteredInHook('displayProductExtraContent')) {
+                        $this->unregisterHook('displayProductExtraContent');
+                    }
+                }
+            }
             Configuration::updateValue($key, Tools::getValue($key));
         }
         $infofields_prd_orientation = Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row');
@@ -622,6 +652,38 @@ class Infofields extends Module
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
         echo $output;
+    }
+
+    /**
+     * HookdisplayProductExtraContent hook callback for the hook "displayProductExtraContent"
+     *
+     * @param mixed $params pramaeters for the functions.
+     */
+    public function hookdisplayProductExtraContent($params)
+    {
+
+        // include_once CLASSSY_PEXTRATAB_CLASS_DIR . 'classyproductextratab.php';
+
+        $id_product = Tools::getValue('id_product');
+
+        // $classyextraobg = new classyproductextratab();
+
+        // $results = $classyextraobg->GetTabContentByProductId($id_product, 'title');
+
+        $array = array();
+        // foreach ($results as $result) {
+
+        //     $content = $result['content'];
+
+        //     $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
+        //         ->setTitle($result['title'])
+        //         ->setContent($content);
+        // }
+
+        $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
+                ->setTitle("Tab")
+                ->setContent("Content");
+        return $array;
     }
 
     /**
