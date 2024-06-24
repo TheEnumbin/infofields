@@ -42,6 +42,7 @@ $(document).ready(function () {
 
     $(document).on('click', '#saveInfoMeta', function () {
         let $iso_code = $(".js-locale-btn").html().trim();
+        $iso_code = $iso_code.toLowerCase();
         let $prd_id = $('.inf_input_prd').val();
         let $this = $(this);
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
@@ -58,6 +59,8 @@ $(document).ready(function () {
             }
 
         } else {
+            console.log($wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val());
+            console.log('#inf_metafield_' + $infofield_id + '_' + $iso_code);
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
         console.log($value);
