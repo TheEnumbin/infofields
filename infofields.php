@@ -90,22 +90,26 @@ class Infofields extends Module
     {
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall.php';
         include _PS_MODULE_DIR_ . $this->name . '/sql/uninstall_tabs.php';
-        Configuration::deleteByName('IINFOFIELDS_PRD_BACK_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_PRD_FONT_SIZE');
-        Configuration::deleteByName('IINFOFIELDS_PRD_PADDING');
-        Configuration::deleteByName('IINFOFIELDS_PRD_FONT_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CTG_BACK_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CTG_FONT_SIZE');
-        Configuration::deleteByName('IINFOFIELDS_CTG_PADDING');
-        Configuration::deleteByName('IINFOFIELDS_CTG_FONT_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CUST_BACK_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CUST_FONT_SIZE');
-        Configuration::deleteByName('IINFOFIELDS_CUST_PADDING');
-        Configuration::deleteByName('IINFOFIELDS_CUST_FONT_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CMS_BACK_COLOR');
-        Configuration::deleteByName('IINFOFIELDS_CMS_FONT_SIZE');
-        Configuration::deleteByName('IINFOFIELDS_CMS_PADDING');
-        Configuration::deleteByName('IINFOFIELDS_CMS_FONT_COLOR');
+        Configuration::deleteByName('INFOFIELDS_PRD_ORIENTATION');
+        Configuration::deleteByName('INFOFIELDS_PRD_BACK_COLOR');
+        Configuration::deleteByName('INFOFIELDS_PRD_FONT_SIZE');
+        Configuration::deleteByName('INFOFIELDS_PRD_PADDING');
+        Configuration::deleteByName('INFOFIELDS_PRD_FONT_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CTG_ORIENTATION');
+        Configuration::deleteByName('INFOFIELDS_CTG_BACK_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CTG_FONT_SIZE');
+        Configuration::deleteByName('INFOFIELDS_CTG_PADDING');
+        Configuration::deleteByName('INFOFIELDS_CTG_FONT_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CUST_ORIENTATION');
+        Configuration::deleteByName('INFOFIELDS_CUST_BACK_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CUST_FONT_SIZE');
+        Configuration::deleteByName('INFOFIELDS_CUST_PADDING');
+        Configuration::deleteByName('INFOFIELDS_CUST_FONT_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CMS_ORIENTATION');
+        Configuration::deleteByName('INFOFIELDS_CMS_BACK_COLOR');
+        Configuration::deleteByName('INFOFIELDS_CMS_FONT_SIZE');
+        Configuration::deleteByName('INFOFIELDS_CMS_PADDING');
+        Configuration::deleteByName('INFOFIELDS_CMS_FONT_COLOR');
 
         return parent::uninstall();
     }
@@ -161,6 +165,26 @@ class Infofields extends Module
                 ],
                 'input' => [
                     [
+                        'type' => 'select',
+                        'label' => $this->l('Label and Meta Orientation'),
+                        'name' => 'INFOFIELDS_PRD_ORIENTATION',
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
+                                ],
+                                [
+                                    'id' => 'column',
+                                    'name' => $this->l('Stacked'),
+                                ],
+                            ],
+                            'id' => 'id',
+                            'name' => 'name',
+                        ],
+                        'tab' => 'peoduct_design',
+                    ],
+                    [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
                         'name' => 'INFOFIELDS_PRD_BACK_COLOR',
@@ -189,6 +213,26 @@ class Infofields extends Module
                         'tab' => 'peoduct_design',
                     ],
                     // Category Design
+                    [
+                        'type' => 'select',
+                        'label' => $this->l('Label and Meta Orientation'),
+                        'name' => 'INFOFIELDS_CTG_ORIENTATION',
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
+                                ],
+                                [
+                                    'id' => 'column',
+                                    'name' => $this->l('Stacked'),
+                                ],
+                            ],
+                            'id' => 'id',
+                            'name' => 'name',
+                        ],
+                        'tab' => 'category_design',
+                    ],
                     [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
@@ -219,6 +263,26 @@ class Infofields extends Module
                     ],
                     // Customer Design Fields
                     [
+                        'type' => 'select',
+                        'label' => $this->l('Label and Meta Orientation'),
+                        'name' => 'INFOFIELDS_CUST_ORIENTATION',
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
+                                ],
+                                [
+                                    'id' => 'column',
+                                    'name' => $this->l('Stacked'),
+                                ],
+                            ],
+                            'id' => 'id',
+                            'name' => 'name',
+                        ],
+                        'tab' => 'customer_design',
+                    ],
+                    [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
                         'name' => 'INFOFIELDS_CUST_BACK_COLOR',
@@ -247,6 +311,26 @@ class Infofields extends Module
                         'tab' => 'customer_design',
                     ],
                     // CMS Design Fields
+                    [
+                        'type' => 'select',
+                        'label' => $this->l('Label and Meta Orientation'),
+                        'name' => 'INFOFIELDS_CMS_ORIENTATION',
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
+                                ],
+                                [
+                                    'id' => 'column',
+                                    'name' => $this->l('Stacked'),
+                                ],
+                            ],
+                            'id' => 'id',
+                            'name' => 'name',
+                        ],
+                        'tab' => 'customer_design',
+                    ],
                     [
                         'type' => 'color',
                         'label' => $this->l('Background Color'),
@@ -295,18 +379,22 @@ class Infofields extends Module
     protected function getConfigFormValues()
     {
         $ret_arr = [
+            'INFOFIELDS_PRD_ORIENTATION' => Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row'),
             'INFOFIELDS_PRD_BACK_COLOR' => Configuration::get('INFOFIELDS_PRD_BACK_COLOR', ''),
             'INFOFIELDS_PRD_FONT_COLOR' => Configuration::get('INFOFIELDS_PRD_FONT_COLOR', ''),
             'INFOFIELDS_PRD_FONT_SIZE' => Configuration::get('INFOFIELDS_PRD_FONT_SIZE', ''),
             'INFOFIELDS_PRD_PADDING' => Configuration::get('INFOFIELDS_PRD_PADDING', ''),
+            'INFOFIELDS_CTG_ORIENTATION' => Configuration::get('INFOFIELDS_CTG_ORIENTATION', 'row'),
             'INFOFIELDS_CTG_BACK_COLOR' => Configuration::get('INFOFIELDS_CTG_BACK_COLOR', ''),
             'INFOFIELDS_CTG_FONT_COLOR' => Configuration::get('INFOFIELDS_CTG_FONT_COLOR', ''),
             'INFOFIELDS_CTG_FONT_SIZE' => Configuration::get('INFOFIELDS_CTG_FONT_SIZE', ''),
             'INFOFIELDS_CTG_PADDING' => Configuration::get('INFOFIELDS_CTG_PADDING', ''),
+            'INFOFIELDS_CUST_ORIENTATION' => Configuration::get('INFOFIELDS_CUST_ORIENTATION', 'row'),
             'INFOFIELDS_CUST_BACK_COLOR' => Configuration::get('INFOFIELDS_CUST_BACK_COLOR', ''),
             'INFOFIELDS_CUST_FONT_COLOR' => Configuration::get('INFOFIELDS_CUST_FONT_COLOR', ''),
             'INFOFIELDS_CUST_FONT_SIZE' => Configuration::get('INFOFIELDS_CUST_FONT_SIZE', ''),
             'INFOFIELDS_CUST_PADDING' => Configuration::get('INFOFIELDS_CUST_PADDING', ''),
+            'INFOFIELDS_CMS_ORIENTATION' => Configuration::get('INFOFIELDS_CMS_ORIENTATION', 'row'),
             'INFOFIELDS_CMS_BACK_COLOR' => Configuration::get('INFOFIELDS_CMS_BACK_COLOR', ''),
             'INFOFIELDS_CMS_FONT_COLOR' => Configuration::get('INFOFIELDS_CMS_FONT_COLOR', ''),
             'INFOFIELDS_CMS_FONT_SIZE' => Configuration::get('INFOFIELDS_CMS_FONT_SIZE', ''),
@@ -327,44 +415,52 @@ class Infofields extends Module
         foreach (array_keys($form_values) as $key) {
             Configuration::updateValue($key, Tools::getValue($key));
         }
+        $infofields_prd_orientation = Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row');
         $infofields_prd_back_color = Configuration::get('INFOFIELDS_PRD_BACK_COLOR', '');
         $infofields_prd_font_color = Configuration::get('INFOFIELDS_PRD_FONT_COLOR', '');
         $infofields_prd_font_size = Configuration::get('INFOFIELDS_PRD_FONT_SIZE', '');
         $infofields_prd_padding = Configuration::get('INFOFIELDS_PRD_PADDING', '');
 
+        $infofields_ctg_orientation = Configuration::get('INFOFIELDS_CTG_ORIENTATION', 'row');
         $infofields_ctg_back_color = Configuration::get('INFOFIELDS_CTG_BACK_COLOR', '');
         $infofields_ctg_font_color = Configuration::get('INFOFIELDS_CTG_FONT_COLOR', '');
         $infofields_ctg_font_size = Configuration::get('INFOFIELDS_CTG_FONT_SIZE', '');
         $infofields_ctg_padding = Configuration::get('INFOFIELDS_CTG_PADDING', '');
 
+        $infofields_cust_orientation = Configuration::get('INFOFIELDS_CUST_ORIENTATION', '');
         $infofields_cust_back_color = Configuration::get('INFOFIELDS_CUST_BACK_COLOR', '');
         $infofields_cust_font_color = Configuration::get('INFOFIELDS_CUST_FONT_COLOR', '');
         $infofields_cust_font_size = Configuration::get('INFOFIELDS_CUST_FONT_SIZE', '');
         $infofields_cust_padding = Configuration::get('INFOFIELDS_CUST_PADDING', '');
 
+        $infofields_cms_orientation = Configuration::get('INFOFIELDS_CMS_ORIENTATION', '');
         $infofields_cms_back_color = Configuration::get('INFOFIELDS_CMS_BACK_COLOR', '');
         $infofields_cms_font_color = Configuration::get('INFOFIELDS_CMS_FONT_COLOR', '');
         $infofields_cms_font_size = Configuration::get('INFOFIELDS_CMS_FONT_SIZE', '');
         $infofields_cms_padding = Configuration::get('INFOFIELDS_CMS_PADDING', '');
         $gen_css = '.infofield-wrapper .infofield-product-meta{
+                        flex-direction: ' . $infofields_prd_orientation . ';
                         padding: ' . $infofields_prd_padding . ' !important;
                         font-size: ' . $infofields_prd_font_size . ' !important;
                         color: ' . $infofields_prd_font_color . ' !important;
                         background: ' . $infofields_prd_back_color . ' !important;
                     }
                     .infofield-wrapper .infofield-category-meta{
+                        flex-direction: ' . $infofields_ctg_orientation . ';
                         padding: ' . $infofields_ctg_padding . ' !important;
                         font-size: ' . $infofields_ctg_font_size . ' !important;
                         color: ' . $infofields_ctg_font_color . ' !important;
                         background: ' . $infofields_ctg_back_color . ' !important;
                     }
                     .infofield-wrapper .infofield-customer-meta{
+                        flex-direction: ' . $infofields_cust_orientation . ';
                         padding: ' . $infofields_cust_padding . ' !important;
                         font-size: ' . $infofields_cust_font_size . ' !important;
                         color: ' . $infofields_cust_font_color . ' !important;
                         background: ' . $infofields_cust_back_color . ' !important;
                     }
                     .infofield-wrapper .infofield-cms-meta{
+                        flex-direction: ' . $infofields_cms_orientation . ';
                         padding: ' . $infofields_cms_padding . ' !important;
                         font-size: ' . $infofields_cms_font_size . ' !important;
                         color: ' . $infofields_cms_font_color . ' !important;

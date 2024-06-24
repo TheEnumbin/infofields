@@ -25,16 +25,17 @@
 * Don't forget to prefix your containers with your own identifier
 * to avoid any conflicts with others containers.
 */
-.infofield-meta-item h3{
+.infofield-meta-item h3 {
     margin: 0;
 }
-.infofield-meta-item p{
+
+.infofield-meta-item p {
     margin: 0;
 }
+
 .infofield-meta-item {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     gap: 6px;
     padding: 8px 0px 8px 0px;
 }
