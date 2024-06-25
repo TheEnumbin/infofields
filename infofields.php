@@ -669,10 +669,18 @@ class Infofields extends Module
         $metas = $metamodel->get_meta_by_parent($id_product, $fields, $lang_id);
         $array = array();
         foreach ($fields as $field) {
-            $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
-            $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
-                ->setTitle($field['field_name'])
-                ->setContent($content);
+            if ($metas[$field['id_infofields']][$lang_id]['meta_data'] != '') {
+                $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
+                $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
+                    ->setTitle($field['field_name'])
+                    ->setContent($content);
+            } elseif ($field['global_meta_data'] != "") {
+                $content = $field['global_meta_data'];
+                $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
+                    ->setTitle($field['field_name'])
+                    ->setContent($content);
+            }
+
         }
         return $array;
     }
