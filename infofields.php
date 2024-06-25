@@ -661,28 +661,19 @@ class Infofields extends Module
      */
     public function hookdisplayProductExtraContent($params)
     {
-
-        // include_once CLASSSY_PEXTRATAB_CLASS_DIR . 'classyproductextratab.php';
-
+        $lang_id = Context::getContext()->language->id;
+        $fieldsmodel = new FieldsModel();
+        $fields = $fieldsmodel->get_infofield_by_parent_item(2, $lang_id, true);
         $id_product = Tools::getValue('id_product');
-
-        // $classyextraobg = new classyproductextratab();
-
-        // $results = $classyextraobg->GetTabContentByProductId($id_product, 'title');
-
+        $metamodel = new MetaModel();
+        $metas = $metamodel->get_meta_by_parent($id_product, $fields, $lang_id);
         $array = array();
-        // foreach ($results as $result) {
-
-        //     $content = $result['content'];
-
-        //     $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
-        //         ->setTitle($result['title'])
-        //         ->setContent($content);
-        // }
-
-        $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
-                ->setTitle("Tab")
-                ->setContent("Content");
+        foreach ($fields as $field) {
+            $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
+            $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
+                ->setTitle($field['field_name'])
+                ->setContent($content);
+        }
         return $array;
     }
 

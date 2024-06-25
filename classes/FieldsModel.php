@@ -94,16 +94,23 @@ class FieldsModel extends ObjectModel
         parent::__construct($id, $id_lang, $id_shop);
     }
 
-    public function get_infofield_by_parent_item($p_item)
+    public function get_infofield_by_parent_item($p_item, $id_lang = null, $as_product_tab = false)
     {
-        $lang_id = Context::getContext()->language->id;
         $shop_id = Context::getContext()->shop->id;
+        $for_tab_q = '';
+        $lang_q = '';
+        if ($as_product_tab) {
+            $as_product_tab = ' AND inf.as_product_tab = 1 ';
+        }
+        if ($id_lang) {
+            $lang_q = ' AND infl.id_lang = ' . (int) $id_lang;
+        }
         $results = Db::getInstance(_PS_USE_SQL_SLAVE_)->executeS('
 		SELECT *
 		FROM ' . _DB_PREFIX_ . 'infofields inf
 		LEFT JOIN ' . _DB_PREFIX_ . 'infofields_lang infl ON (inf.id_infofields = infl.id_infofields)
 		' . Shop::addSqlAssociation('infofields', 'inf') . '
-		WHERE inf.parent_item = ' . (int) $p_item, true);
+		WHERE inf.parent_item = ' . (int) $p_item . $lang_q . $as_product_tab, true);
 
         return $results;
     }
