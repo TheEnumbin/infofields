@@ -2,7 +2,7 @@
 
 global $_MODULE;
 $_MODULE = [];
-$_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Champs d\'informations : créer des champs méta avancés personnalisés';
+$_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Champs d\'informations: créer des champs méta avancés personnalisés';
 $_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Ajoutez des champs supplémentaires à vos produits, catégories, clients et pages.';
 $_MODULE['<{infofields}prestashop>infofields_f4f70727dc34561dfde1a3c529b6205c'] = 'Paramètres';
 $_MODULE['<{infofields}prestashop>infofields_75e7422f2fe253fc69d3f6c148d197ee'] = 'Couleur de l\'arrière plan';
@@ -23,13 +23,13 @@ $_MODULE['<{infofields}prestashop>admininfolistscontroller_2561708cb973a618f4d96
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_5b37b8dd2d529a4400a1f09d2f63946a'] = 'Cela agira comme des métadonnées globales.  Une méta spécifique l\'écrasera.';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_46a2ef42bcb6ef72605c514f78b7f525'] = 'Cela agira comme des métadonnées globales.  Une méta spécifique l\'écrasera.';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_83a42e8173fbafaa83b0c63a7b3c2737'] = 'Articles disponibles';
-$_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf9ec8d9ef7ce'] = 'Uniquement pour les types Sélection, Radio, Cases à cocher.  [Exemple de format pour Select et Radio : key1:label1,key2:label2] [Exemple de format pour les cases à cocher : label1,label2]';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf9ec8d9ef7ce'] = 'Uniquement pour les types Sélection, Radio, Cases à cocher.  [Exemple de format pour Select et Radio: key1:label1,key2:label2] [Exemple de format pour les cases à cocher: label1,label2]';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_db3794c7d704611ce61c9d8cc09cd806'] = 'Date de début';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_3c1429dca1ae285353b112dfacae5fe5'] = 'Date de fin';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_573e0f60b3783b9f6af90c1bc56d1931'] = 'Afficher avec le nom du champ';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_93cba07454f06a4a960172bbd6e2a435'] = 'Oui';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_bafd7322c6e97d25b6299b5d6fe8920b'] = 'Non';
-$_MODULE['<{infofields}prestashop>admininfolistscontroller_15a90bc25e60fb92a0541bf7bc40d423'] = 'Afficher avec le nom du champ sur le frontend ex : Nom du champ : Valeur';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_15a90bc25e60fb92a0541bf7bc40d423'] = 'Afficher avec le nom du champ sur le frontend ex: Nom du champ: Valeur';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_6feadb455c64759731e453380c52fbd9'] = 'Petit code';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_b82aac3a65be77efa2c15e00c4bf7ce2'] = 'Utilisez-le dans votre fichier tpl pour afficher les méta-informations.';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_c9cc8cce247e49bae79f15173ce97354'] = 'Sauvegarder';

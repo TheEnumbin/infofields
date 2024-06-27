@@ -38,7 +38,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.0.0';
+        $this->version = '1.1.0';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
@@ -656,8 +656,6 @@ class Infofields extends Module
 
     /**
      * HookdisplayProductExtraContent hook callback for the hook "displayProductExtraContent"
-     *
-     * @param mixed $params pramaeters for the functions.
      */
     public function hookdisplayProductExtraContent($params)
     {
@@ -667,7 +665,7 @@ class Infofields extends Module
         $id_product = Tools::getValue('id_product');
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($id_product, $fields, $lang_id);
-        $array = array();
+        $array = [];
         foreach ($fields as $field) {
             if (!empty($metas[$field['id_infofields']][$lang_id])) {
                 if ($metas[$field['id_infofields']][$lang_id]['meta_data'] != '') {
@@ -675,13 +673,13 @@ class Infofields extends Module
                     $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
                         ->setTitle($field['field_name'])
                         ->setContent($content);
-                } elseif ($field['global_meta_data'] != "") {
+                } elseif ($field['global_meta_data'] != '') {
                     $content = $field['global_meta_data'];
                     $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
                         ->setTitle($field['field_name'])
                         ->setContent($content);
                 }
-            } elseif ($field['global_meta_data'] != "") {
+            } elseif ($field['global_meta_data'] != '') {
                 $content = $field['global_meta_data'];
                 $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
                     ->setTitle($field['field_name'])
