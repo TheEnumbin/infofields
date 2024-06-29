@@ -53,13 +53,37 @@
                             {if $infofield.with_field_name != false}
                                 <h3 class="infofield-meta-label">{$infofield.field_name}</h3>
                             {/if}
-                            <pre>
-                                                                                        {$infofield|print_r}
-                                                                                        </pre>
-                            <pre>
-                                                                                        {$infometa|print_r}
-                                                                                        </pre>
-                            {$infometa[$lang_id].meta_data nofilter}
+                            {* <pre>
+{$infofield|print_r}
+</pre>
+<pre>
+{$infometa|print_r}
+</pre> *}
+                            {if $infofield.field_type == 4}
+                                {if $infometa[$lang_id].meta_data == 1}
+                                    <span style="color: green;">&#10004;</span>
+                                {else}
+                                    No
+                                {/if}
+
+                            {elseif $infofield.field_type == 7 || $infofield.field_type == 8 }
+                                {assign var="available_values" value=","|explode:$infofield.available_values}
+                                {foreach from=$available_values item=available_value}
+                                    {assign var="key_value" value=":"|explode:$available_value}
+                                    {if isset($key_value[1])}
+                                        {assign var="label" value=$key_value[1]}
+                                        {assign var="key" value=$key_value[0]}
+                                    {else}
+                                        {assign var="label" value=$key_value[0]}
+                                        {assign var="key" value=$key_value[0]}
+                                    {/if}
+                                    {if $key == $infometa[$lang_id].meta_data }
+                                        {$label}
+                                    {/if}
+                                {/foreach}
+                            {else}
+                                {$infometa[$lang_id].meta_data nofilter}
+                            {/if}
                         </div>
                     {elseif $infofield.global_meta_data != ""}
                         <div class="infofield-meta-item infofield-{$parent_item}-meta">
