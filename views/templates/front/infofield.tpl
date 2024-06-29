@@ -53,6 +53,12 @@
                             {if $infofield.with_field_name != false}
                                 <h3 class="infofield-meta-label">{$infofield.field_name}</h3>
                             {/if}
+                            <pre>
+                                                                                        {$infofield|print_r}
+                                                                                        </pre>
+                            <pre>
+                                                                                        {$infometa|print_r}
+                                                                                        </pre>
                             {$infometa[$lang_id].meta_data nofilter}
                         </div>
                     {elseif $infofield.global_meta_data != ""}
