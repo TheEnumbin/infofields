@@ -56,9 +56,9 @@
 
                             {if $infofield.field_type == 4}
                                 {if $infometa[$lang_id].meta_data == 1}
-                                    <span style="color: green;">&#10004;</span>
+                                    <span class="inf-done-sign">&#10004;</span>
                                 {else}
-                                    No
+                                    <span class="inf-not-done-sign">&#10006;</span>
                                 {/if}
 
                             {elseif $infofield.field_type == 7 || $infofield.field_type == 8 }
