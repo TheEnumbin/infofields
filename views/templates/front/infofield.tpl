@@ -60,7 +60,6 @@
                                 {else}
                                     <span class="inf-not-done-sign">&#10006;</span>
                                 {/if}
-
                             {elseif $infofield.field_type == 7 || $infofield.field_type == 8 }
                                 {assign var="available_values" value=","|explode:$infofield.available_values}
                                 {foreach from=$available_values item=available_value}
@@ -76,6 +75,9 @@
                                         {$label}
                                     {/if}
                                 {/foreach}
+                            {elseif $infofield.field_type == 6 }
+                                {assign var="date_value" value=$infometa[$lang_id].meta_data|json_decode:true}
+                                {$date_value.year}-{$date_value.month}-{$date_value.day}
                             {else}
                                 {$infometa[$lang_id].meta_data nofilter}
                             {/if}
