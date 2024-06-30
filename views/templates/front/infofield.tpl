@@ -53,12 +53,7 @@
                             {if $infofield.with_field_name != false}
                                 <h3 class="infofield-meta-label">{$infofield.field_name}</h3>
                             {/if}
-                            {* <pre>
-{$infofield|print_r}
-</pre>
-<pre>
-{$infometa|print_r}
-</pre> *}
+
                             {if $infofield.field_type == 4}
                                 {if $infometa[$lang_id].meta_data == 1}
                                     <span style="color: green;">&#10004;</span>

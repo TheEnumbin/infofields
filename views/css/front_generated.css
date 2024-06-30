@@ -1,31 +1,33 @@
-.infofield-wrapper .infofield-product-meta {
-    flex-direction: column;
-    padding: 12px !important;
-    font-size: 16px !important;
-    color: #01008b !important;
-    background: #40ff1f !important;
-}
-
-.infofield-wrapper .infofield-category-meta {
-    flex-direction: row;
-    padding: !important;
-    font-size: !important;
-    color: !important;
-    background: #ff0000 !important;
-}
-
-.infofield-wrapper .infofield-customer-meta {
-    flex-direction: row;
-    padding: !important;
-    font-size: !important;
-    color: !important;
-    background: !important;
-}
-
-.infofield-wrapper .infofield-cms-meta {
-    flex-direction: row;
-    padding: !important;
-    font-size: !important;
-    color: !important;
-    background: !important;
-}
+.infofield-wrapper .infofield-product-meta{
+                        flex-direction: row;
+                        align-items: center;
+                        padding: 12px  !important;
+                        font-size: 16px !important;
+                        color: #01008b !important;
+                        background: #40ff1f !important;
+                    }
+                    .infofield-wrapper .infofield-category-meta{
+                        flex-direction: column;
+                        align-items: flex-start;
+                        padding:  !important;
+                        font-size:  !important;
+                        color:  !important;
+                        background: #ff0000 !important;
+                    }
+                    .infofield-wrapper .infofield-customer-meta{
+                        flex-direction: row;
+                        align-items: center;
+                        padding:  !important;
+                        font-size:  !important;
+                        color:  !important;
+                        background: #ffffff !important;
+                    }
+                    .infofield-wrapper .infofield-cms-meta{
+                        flex-direction: row;
+                        align-items: center;
+                        padding:  !important;
+                        font-size:  !important;
+                        color:  !important;
+                        background:  !important;
+                    }
+                    
