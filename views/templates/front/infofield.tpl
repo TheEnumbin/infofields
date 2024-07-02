@@ -52,8 +52,6 @@
                         {if $infofield.with_field_name != false}
                             <h3 class="infofield-meta-label">{$infofield.field_name}</h3>
                         {/if}
-
-
                         {if $infofield.field_type == 7 || $infofield.field_type == 4}
                             {if $infometa[$lang_id].meta_data == 1}
                                 <span class="inf-done-sign">&#10004;</span>

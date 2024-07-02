@@ -445,44 +445,44 @@ class Infofields extends Module
             }
             Configuration::updateValue($key, Tools::getValue($key));
         }
-        $infofields_prd_alignment = "center";
+        $infofields_prd_alignment = 'center';
         $infofields_prd_orientation = Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row');
         $infofields_prd_back_color = Configuration::get('INFOFIELDS_PRD_BACK_COLOR', '');
         $infofields_prd_font_color = Configuration::get('INFOFIELDS_PRD_FONT_COLOR', '');
         $infofields_prd_font_size = Configuration::get('INFOFIELDS_PRD_FONT_SIZE', '');
         $infofields_prd_padding = Configuration::get('INFOFIELDS_PRD_PADDING', '');
         if ($infofields_prd_orientation == 'column') {
-            $infofields_prd_alignment = "flex-start";
+            $infofields_prd_alignment = 'flex-start';
         }
 
-        $infofields_ctg_alignment = "center";
+        $infofields_ctg_alignment = 'center';
         $infofields_ctg_orientation = Configuration::get('INFOFIELDS_CTG_ORIENTATION', 'row');
         $infofields_ctg_back_color = Configuration::get('INFOFIELDS_CTG_BACK_COLOR', '');
         $infofields_ctg_font_color = Configuration::get('INFOFIELDS_CTG_FONT_COLOR', '');
         $infofields_ctg_font_size = Configuration::get('INFOFIELDS_CTG_FONT_SIZE', '');
         $infofields_ctg_padding = Configuration::get('INFOFIELDS_CTG_PADDING', '');
         if ($infofields_ctg_orientation == 'column') {
-            $infofields_ctg_alignment = "flex-start";
+            $infofields_ctg_alignment = 'flex-start';
         }
 
-        $infofields_cust_alignment = "center";
+        $infofields_cust_alignment = 'center';
         $infofields_cust_orientation = Configuration::get('INFOFIELDS_CUST_ORIENTATION', '');
         $infofields_cust_back_color = Configuration::get('INFOFIELDS_CUST_BACK_COLOR', '');
         $infofields_cust_font_color = Configuration::get('INFOFIELDS_CUST_FONT_COLOR', '');
         $infofields_cust_font_size = Configuration::get('INFOFIELDS_CUST_FONT_SIZE', '');
         $infofields_cust_padding = Configuration::get('INFOFIELDS_CUST_PADDING', '');
         if ($infofields_cust_orientation == 'column') {
-            $infofields_cust_alignment = "flex-start";
+            $infofields_cust_alignment = 'flex-start';
         }
 
-        $infofields_cms_alignment = "center";
+        $infofields_cms_alignment = 'center';
         $infofields_cms_orientation = Configuration::get('INFOFIELDS_CMS_ORIENTATION', '');
         $infofields_cms_back_color = Configuration::get('INFOFIELDS_CMS_BACK_COLOR', '');
         $infofields_cms_font_color = Configuration::get('INFOFIELDS_CMS_FONT_COLOR', '');
         $infofields_cms_font_size = Configuration::get('INFOFIELDS_CMS_FONT_SIZE', '');
         $infofields_cms_padding = Configuration::get('INFOFIELDS_CMS_PADDING', '');
         if ($infofields_cms_orientation == 'column') {
-            $infofields_cms_alignment = "flex-start";
+            $infofields_cms_alignment = 'flex-start';
         }
         $gen_css = '.infofield-wrapper .infofield-product-meta{
                         flex-direction: ' . $infofields_prd_orientation . ';
