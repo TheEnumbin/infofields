@@ -135,7 +135,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'cols' => 62,
                     'class' => 'rte',
                     'autoload_rte' => true,
-                    'desc' => $this->l('This will act as global meta data. Specific meta will overwrite it.'),
+                    'desc' => $this->l('This will act as global meta data. Specific meta will overwrite it. Put 0 or 1 for Checkbox & Switch field.'),
                 ],
                 [
                     'type' => 'select',
