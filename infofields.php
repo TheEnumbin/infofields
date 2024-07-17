@@ -125,9 +125,17 @@ class Infofields extends Module
             $output .= $this->displayConfirmation($this->l('Settings updated'));
         }
 
-        return $output . $this->renderForm();
+        $advertise = $this->advertise_template();
+
+        return $output . $this->renderForm() . $advertise;
     }
 
+    protected function advertise_template()
+    {
+        // Fetch and render the template file
+        $this->context->smarty->assign('module_dir', $this->_path);
+        return $this->context->smarty->fetch($this->local_path . 'views/templates/admin/advertise_template.tpl');
+    }
     /**
      * Create the form that will be displayed in the configuration of your module.
      */
