@@ -685,7 +685,7 @@ class Infofields extends Module
     /**
      * HookdisplayProductExtraContent hook callback for the hook "displayProductExtraContent"
      */
-    public function hookdisplayProductExtraContent($params)
+    public function hookDisplayProductExtraContent($params)
     {
         $lang_id = Context::getContext()->language->id;
         $fieldsmodel = new FieldsModel();
@@ -715,69 +715,5 @@ class Infofields extends Module
             }
         }
         return $array;
-    }
-
-    /**
-     * Call back function for the  hook DisplayProductPriceBlock
-     */
-    public function hookDisplayProductPriceBlock($params)
-    {
-        $product = $params['product'];
-        $infofields_meta = $this->infofields_init($product);
-
-        if ($infofields_meta) {
-            $infofields_pos = Configuration::get('INFOFIELDS_POSITION', 'after_price');
-
-            if ($params['type'] == $infofields_pos) {
-                $this->infofields_show_notice($infofields_meta);
-            }
-        }
-    }
-
-    /**
-     * Call back function for the  hook DisplayFooterProduct
-     */
-    public function hookDisplayFooterProduct($params)
-    {
-        $product = $params['product'];
-        $infofields_meta = $this->infofields_init($product);
-
-        if ($infofields_meta) {
-            $this->infofields_show_notice($infofields_meta);
-        }
-    }
-
-    /**
-     * Call back function for the  hook DisplayProductButtons
-     */
-    public function hookDisplayProductButtons($params)
-    {
-        $product = $params['product'];
-        $infofields_meta = $this->infofields_init($product);
-
-        if ($infofields_meta) {
-            $this->infofields_show_notice($infofields_meta);
-        }
-    }
-
-    /**
-     * Returns the Omnibus Price if poduct has promotion
-     */
-    private function infofields_init($product)
-    {
-        return false;
-    }
-
-    /**
-     * Shows the notice
-     */
-    private function infofields_show_notice($infofields_text)
-    {
-        $lang_id = $this->context->language->id;
-        $this->context->smarty->assign([
-            'infofields_text' => $infofields_text,
-        ]);
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/prextrameta.tpl');
-        echo $output;
     }
 }
