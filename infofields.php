@@ -530,9 +530,13 @@ class Infofields extends Module
 
     public function inf_update_object($obj, $data)
     {
+        echo '<pre>';
+        print_r($_FILES);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
         $inf_ids = $data['inf_infofield_ids'];
         $inf_ids = json_decode($inf_ids, true);
-
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $parent_type) {
                 $object = new MetaModel(null, $inf_id, $obj->id);

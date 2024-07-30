@@ -36,6 +36,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class InfofieldBuilder
 {
@@ -128,7 +129,10 @@ class InfofieldBuilder
             case 5:
                 $return_arr['classtype'] = FileType::class;
                 $return_arr['has_translator'] = false;
-                // no break
+                $return_arr['attr'] = [
+                    'accept' => 'gif,jpg,jpeg,jpe,png',
+                ];
+                break;
             case 6:
                 $return_arr['params'] = [
                     'format' => 'yyyy-MM-dd',
@@ -178,6 +182,9 @@ class InfofieldBuilder
             case 1:
             case 2:
             case 3:
+                break;
+            case 5:
+                $data = "";
                 break;
             case 4:
             case 8:
