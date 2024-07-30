@@ -125,6 +125,10 @@ class InfofieldBuilder
                 $return_arr['classtype'] = SwitchType::class;
                 $return_arr['has_translator'] = false;
                 break;
+            case 5:
+                $return_arr['classtype'] = FileType::class;
+                $return_arr['has_translator'] = false;
+                // no break
             case 6:
                 $return_arr['params'] = [
                     'format' => 'yyyy-MM-dd',
