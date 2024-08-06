@@ -127,6 +127,7 @@ class InfofieldBuilder
                 $return_arr['has_translator'] = false;
                 break;
             case 5:
+            case 9:
                 $return_arr['classtype'] = FileType::class;
                 $return_arr['has_translator'] = false;
                 $return_arr['attr'] = [
