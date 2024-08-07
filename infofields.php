@@ -530,32 +530,69 @@ class Infofields extends Module
 
     public function inf_update_object($obj, $data)
     {
-        echo '<pre>';
-        print_r($_FILES);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
         $inf_ids = $data['inf_infofield_ids'];
         $inf_ids = json_decode($inf_ids, true);
+
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $parent_type) {
                 $object = new MetaModel(null, $inf_id, $obj->id);
 
                 if (isset($object->id)) {
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    if ($parent_type == 5) {
+                        $file = $_FILES['inf_metafield_' . $inf_id];
+                        $uploadDir = _PS_IMG_DIR_ . 'c/';
+                        $fileName = 'category_image_' . $categoryId . '.jpg';
 
-                    if ($parent_type == 6) {
-                        $object->meta_data = json_encode($object->meta_data);
+                        // Check for errors
+                        if ($file['error'] !== UPLOAD_ERR_OK) {
+                            return false;
+                        }
+
+                        // Move the uploaded file to the desired directory
+                        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $fileName)) {
+                            return false;
+                        }
+                    } else {
+                        $object->meta_data = $data['inf_metafield_' . $inf_id];
+
+                        if ($parent_type == 6) {
+                            $object->meta_data = json_encode($object->meta_data);
+                        }
                     }
                     $object->update();
                 } else {
                     $object->id_infofields = $inf_id;
                     $object->parent_item_id = $obj->id;
-                    $object->meta_data = $data['inf_metafield_' . $inf_id];
+                    if ($parent_type == 5) {
+                        echo '<pre>';
+                        print_r($_FILES);
+                        echo '</pre>';
+                        echo __FILE__ . ' : ' . __LINE__;
+                        $file = $_FILES['inf_metafield_' . $inf_id];
+                        echo '<pre>';
+                        print_r($file);
+                        echo '</pre>';
+                        echo __FILE__ . ' : ' . __LINE__;
+                        die(__FILE__ . ' : ' . __LINE__);
+                        $uploadDir = _PS_IMG_DIR_ . 'c/';
+                        $fileName = 'category_image_' . $categoryId . '.jpg';
 
-                    if ($parent_type == 6) {
-                        $object->meta_data = json_encode($object->meta_data);
+                        // Check for errors
+                        if ($file['error'] !== UPLOAD_ERR_OK) {
+                            return false;
+                        }
+
+                        // Move the uploaded file to the desired directory
+                        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $fileName)) {
+                            return false;
+                        }
+                    } else {
+                        $object->meta_data = $data['inf_metafield_' . $inf_id];
+                        if ($parent_type == 6) {
+                            $object->meta_data = json_encode($object->meta_data);
+                        }
                     }
+
                     $object->add();
                 }
             }
