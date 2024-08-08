@@ -535,13 +535,13 @@ class Infofields extends Module
 
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $parent_type) {
-                $object = new MetaModel(null, $inf_id, $obj->id);
+                $meta_object = new MetaModel(null, $inf_id, $obj->id);
 
-                if (isset($object->id)) {
+                if (isset($meta_object->id)) {
                     if ($parent_type == 5) {
                         $file = $_FILES['inf_metafield_' . $inf_id];
                         $uploadDir = _PS_IMG_DIR_ . 'c/';
-                        $fileName = 'category_image_' . $categoryId . '.jpg';
+                        $fileName = 'category_image_' . $obj->id . '.jpg';
 
                         // Check for errors
                         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -553,47 +553,44 @@ class Infofields extends Module
                             return false;
                         }
                     } else {
-                        $object->meta_data = $data['inf_metafield_' . $inf_id];
+                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
 
                         if ($parent_type == 6) {
-                            $object->meta_data = json_encode($object->meta_data);
+                            $meta_object->meta_data = json_encode($meta_object->meta_data);
                         }
                     }
-                    $object->update();
+                    $meta_object->update();
                 } else {
-                    $object->id_infofields = $inf_id;
-                    $object->parent_item_id = $obj->id;
+                    $meta_object->id_infofields = $inf_id;
+                    $meta_object->parent_item_id = $obj->id;
                     if ($parent_type == 5) {
-                        echo '<pre>';
-                        print_r($_FILES);
-                        echo '</pre>';
-                        echo __FILE__ . ' : ' . __LINE__;
-                        $file = $_FILES['inf_metafield_' . $inf_id];
-                        echo '<pre>';
-                        print_r($file);
-                        echo '</pre>';
-                        echo __FILE__ . ' : ' . __LINE__;
-                        die(__FILE__ . ' : ' . __LINE__);
+                        // echo '<pre>';
+                        // print_r($_FILES);
+                        // echo '</pre>';
+                        // echo __FILE__ . ' : ' . __LINE__;
+                        // die(__FILE__ . ' : ' . __LINE__);
+                        $file = $_FILES['category']['name']['inf_metafield_' . $inf_id];
+                        $tmp_name = $_FILES['category']['tmp_name']['inf_metafield_' . $inf_id];
                         $uploadDir = _PS_IMG_DIR_ . 'c/';
-                        $fileName = 'category_image_' . $categoryId . '.jpg';
+                        $fileName = 'inf_catg.jpg';
 
                         // Check for errors
-                        if ($file['error'] !== UPLOAD_ERR_OK) {
-                            return false;
-                        }
+                        // if ($file['error'] !== UPLOAD_ERR_OK) {
+                        //     return false;
+                        // }
 
                         // Move the uploaded file to the desired directory
-                        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $fileName)) {
+                        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
                             return false;
                         }
                     } else {
-                        $object->meta_data = $data['inf_metafield_' . $inf_id];
+                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
                         if ($parent_type == 6) {
-                            $object->meta_data = json_encode($object->meta_data);
+                            $meta_object->meta_data = json_encode($meta_object->meta_data);
                         }
                     }
 
-                    $object->add();
+                    $meta_object->add();
                 }
             }
         }
