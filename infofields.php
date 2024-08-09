@@ -539,17 +539,9 @@ class Infofields extends Module
 
                 if (isset($meta_object->id)) {
                     if ($parent_type == 5) {
-                        $file = $_FILES['inf_metafield_' . $inf_id];
-                        $uploadDir = _PS_IMG_DIR_ . 'c/';
-                        $fileName = 'category_image_' . $obj->id . '.jpg';
+                        $done_upload = $this->inf_upload_files($_FILES);
 
-                        // Check for errors
-                        if ($file['error'] !== UPLOAD_ERR_OK) {
-                            return false;
-                        }
-
-                        // Move the uploaded file to the desired directory
-                        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $fileName)) {
+                        if (!$done_upload) {
                             return false;
                         }
                     } else {
@@ -564,23 +556,9 @@ class Infofields extends Module
                     $meta_object->id_infofields = $inf_id;
                     $meta_object->parent_item_id = $obj->id;
                     if ($parent_type == 5) {
-                        // echo '<pre>';
-                        // print_r($_FILES);
-                        // echo '</pre>';
-                        // echo __FILE__ . ' : ' . __LINE__;
-                        // die(__FILE__ . ' : ' . __LINE__);
-                        $file = $_FILES['category']['name']['inf_metafield_' . $inf_id];
-                        $tmp_name = $_FILES['category']['tmp_name']['inf_metafield_' . $inf_id];
-                        $uploadDir = _PS_IMG_DIR_ . 'c/';
-                        $fileName = 'inf_catg.jpg';
+                        $done_upload = $this->inf_upload_files($_FILES);
 
-                        // Check for errors
-                        // if ($file['error'] !== UPLOAD_ERR_OK) {
-                        //     return false;
-                        // }
-
-                        // Move the uploaded file to the desired directory
-                        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
+                        if (!$done_upload) {
                             return false;
                         }
                     } else {
@@ -753,5 +731,25 @@ class Infofields extends Module
             }
         }
         return $array;
+    }
+
+    private function inf_upload_files($files)
+    {
+        $file = $files['category']['name']['inf_metafield_' . $inf_id];
+        $tmp_name = $files['category']['tmp_name']['inf_metafield_' . $inf_id];
+        $err_code = $files['category']['error']['inf_metafield_' . $inf_id];
+        $uploadDir = _PS_IMG_DIR_ . 'c/';
+        $fileName = 'inf_catg.jpg';
+
+        // Check for errors
+        if ($err_code !== UPLOAD_ERR_OK) {
+            return false;
+        }
+
+        // Move the uploaded file to the desired directory
+        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
+            return false;
+        }
+        return true;
     }
 }
