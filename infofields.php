@@ -528,18 +528,18 @@ class Infofields extends Module
         file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
     }
 
-    public function inf_update_object($obj, $data)
+    public function inf_update_object($obj, $data, $parent_type)
     {
         $inf_ids = $data['inf_infofield_ids'];
         $inf_ids = json_decode($inf_ids, true);
 
         if (!empty($inf_ids)) {
-            foreach ($inf_ids as $inf_id => $parent_type) {
+            foreach ($inf_ids as $inf_id => $field_type) {
                 $meta_object = new MetaModel(null, $inf_id, $obj->id);
 
                 if (isset($meta_object->id)) {
-                    if ($parent_type == 5) {
-                        $done_upload = $this->inf_upload_files($_FILES);
+                    if ($field_type == 5) {
+                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type);
 
                         if (!$done_upload) {
                             return false;
@@ -547,7 +547,7 @@ class Infofields extends Module
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
 
-                        if ($parent_type == 6) {
+                        if ($field_type == 6) {
                             $meta_object->meta_data = json_encode($meta_object->meta_data);
                         }
                     }
@@ -555,15 +555,15 @@ class Infofields extends Module
                 } else {
                     $meta_object->id_infofields = $inf_id;
                     $meta_object->parent_item_id = $obj->id;
-                    if ($parent_type == 5) {
-                        $done_upload = $this->inf_upload_files($_FILES);
+                    if ($field_type == 5) {
+                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type);
 
                         if (!$done_upload) {
                             return false;
                         }
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
-                        if ($parent_type == 6) {
+                        if ($field_type == 6) {
                             $meta_object->meta_data = json_encode($meta_object->meta_data);
                         }
                     }
@@ -644,21 +644,21 @@ class Infofields extends Module
     {
         $data = Tools::getValue('category');
         $category_obj = $params['object'];
-        $this->inf_update_object($category_obj, $data);
+        $this->inf_update_object($category_obj, $data, 'category');
     }
 
     public function hookActionObjectCmsUpdateAfter($params)
     {
         $data = Tools::getValue('cms_page');
         $cms_obj = $params['object'];
-        $this->inf_update_object($cms_obj, $data);
+        $this->inf_update_object($cms_obj, $data, 'cms');
     }
 
     public function hookActionObjectCustomerUpdateAfter($params)
     {
         $data = Tools::getValue('customer');
         $customer_obj = $params['object'];
-        $this->inf_update_object($customer_obj, $data);
+        $this->inf_update_object($customer_obj, $data, 'customer');
     }
 
     /**
@@ -733,13 +733,13 @@ class Infofields extends Module
         return $array;
     }
 
-    private function inf_upload_files($files)
+    private function inf_upload_files($inf_id, $obj_id, $files, $parent_type)
     {
-        $file = $files['category']['name']['inf_metafield_' . $inf_id];
-        $tmp_name = $files['category']['tmp_name']['inf_metafield_' . $inf_id];
-        $err_code = $files['category']['error']['inf_metafield_' . $inf_id];
+        $file = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
+        $tmp_name = $files[$parent_type]['tmp_name']['inf_metafield_' . $inf_id];
+        $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'c/';
-        $fileName = 'inf_catg.jpg';
+        $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id . '.jpg';
 
         // Check for errors
         if ($err_code !== UPLOAD_ERR_OK) {
