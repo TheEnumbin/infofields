@@ -624,6 +624,28 @@ class Infofields extends Module
         $id_cms = $params['id'];
         $builder = new InfofieldBuilder(1, $id_cms);
         $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
+
+        // $this->context->smarty->assign([
+        //     'image_url' => $imagePath,
+        // ]);
+
+        $formBuilder = $params['form_builder'];
+        $formData = $params['data'];
+        // Fetch the rendered template and insert it into the form
+        $imageHtml = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/file_display.tpl');
+
+        // Add the rendered template to the form
+        $formBuilder->add('imageHtml', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class, [
+            'label' => false,
+            'required' => false,
+            'data' => $imageHtml,
+            'attr' => [
+                'readonly' => 'readonly',
+                'class' => 'hidden',
+            ],
+        ]);
+
+        $params['form_builder'] = $formBuilder;
     }
 
     public function hookActionCmsPageFormBuilderModifier(array $params)
