@@ -635,17 +635,18 @@ class Infofields extends Module
         $imageHtml = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/file_display.tpl');
 
         // Add the rendered template to the form
-        $formBuilder->add('imageHtml', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class, [
-            'label' => false,
-            'required' => false,
-            'data' => $imageHtml,
-            'attr' => [
-                'readonly' => 'readonly',
-                'class' => 'hidden',
-            ],
-        ]);
+        // $formBuilder->add('imageHtml', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class, [
+        //     'label' => false,
+        //     'required' => false,
+        //     'data' => $imageHtml,
+        //     'attr' => [
+        //         'readonly' => 'readonly',
+        //         'class' => 'hidden',
+        //     ],
+        // ]);
 
         $params['form_builder'] = $formBuilder;
+        echo $imageHtml;
     }
 
     public function hookActionCmsPageFormBuilderModifier(array $params)
