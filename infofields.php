@@ -27,6 +27,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\File;
+
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
@@ -635,15 +638,16 @@ class Infofields extends Module
         $imageHtml = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/file_display.tpl');
 
         // Add the rendered template to the form
-        // $formBuilder->add('imageHtml', \Symfony\Component\Form\Extension\Core\Type\TextareaType::class, [
-        //     'label' => false,
-        //     'required' => false,
-        //     'data' => $imageHtml,
-        //     'attr' => [
-        //         'readonly' => 'readonly',
-        //         'class' => 'hidden',
-        //     ],
-        // ]);
+        $staticImagePath = 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';
+
+        $uploadDir = _PS_IMG_DIR_ . 'c/';
+        $sampleFile = new File($uploadDir . 'inf_img_category9_35.jpg');
+        // Add the image file field to the form
+        $formBuilder->add('category_image', FileType::class, [
+            'label' => $this->l('Upload Image'),
+            'required' => false,
+            'data' => $sampleFile,
+        ]);
 
         $params['form_builder'] = $formBuilder;
         echo $imageHtml;
