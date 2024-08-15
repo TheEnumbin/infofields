@@ -37,6 +37,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\File\File;
 
 class InfofieldBuilder
 {
@@ -185,7 +186,9 @@ class InfofieldBuilder
             case 3:
                 break;
             case 5:
-                $data = "";
+                $uploadDir = _PS_IMG_DIR_ . 'c/';
+                $sampleFile = new File($uploadDir . 'inf_img_category9_35.jpg');
+                $data = $sampleFile;
                 break;
             case 4:
             case 8:
