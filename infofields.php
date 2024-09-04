@@ -647,8 +647,15 @@ class Infofields extends Module
             'label' => $this->l('Upload Image'),
             'required' => false,
             'data' => $sampleFile,
+            'attr' => [
+                    'class' => 'type-file',
+                ],
         ]);
-
+        // echo '<pre>';
+        // print_r($sampleFile);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
         $params['form_builder'] = $formBuilder;
         echo $imageHtml;
     }
