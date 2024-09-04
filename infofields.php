@@ -642,21 +642,31 @@ class Infofields extends Module
 
         $uploadDir = _PS_IMG_DIR_ . 'c/';
         $sampleFile = new File($uploadDir . 'inf_img_category9_35.jpg');
+        $sampleFile_url = _PS_IMG_ . 'c/' . 'inf_img_category9_35.jpg';
+        // $sampleFile['category_image_url'] = $sampleFile_url;
         // Add the image file field to the form
         $formBuilder->add('category_image', FileType::class, [
             'label' => $this->l('Upload Image'),
             'required' => false,
-            'data' => $sampleFile,
             'attr' => [
                     'class' => 'type-file',
                 ],
         ]);
+        // if (file_exists($sampleFile)) {
+        //     die(__FILE__ . ' : ' . __LINE__);
+        // }
+        // echo '<pre>';
+        // print_r($sampleFile_url);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
+        $params['data']['category_image_url'] = 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';
         // echo '<pre>';
         // print_r($sampleFile);
         // echo '</pre>';
         // echo __FILE__ . ' : ' . __LINE__;
         // die(__FILE__ . ' : ' . __LINE__);
-        $params['form_builder'] = $formBuilder;
+        // $params['form_builder'] = $formBuilder;
         echo $imageHtml;
     }
 
