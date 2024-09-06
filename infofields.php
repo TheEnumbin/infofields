@@ -667,6 +667,12 @@ class Infofields extends Module
         // echo __FILE__ . ' : ' . __LINE__;
         // die(__FILE__ . ' : ' . __LINE__);
         // $params['form_builder'] = $formBuilder;
+
+// Retrieve existing image (if any) and pass it to the template
+  
+     
+            $formBuilder->setData(['category_image_url' => 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';]);
+        
         echo $imageHtml;
     }
 
