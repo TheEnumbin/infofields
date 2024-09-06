@@ -70,7 +70,7 @@ class InfofieldBuilder
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
-            $field_params['params']['data'] = $data;
+            // $field_params['params']['data'] = $data;
 
             if ($field_params['has_translator']) {
                 $formBuilder

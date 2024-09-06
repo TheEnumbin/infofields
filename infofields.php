@@ -28,6 +28,7 @@ if (!defined('_PS_VERSION_')) {
 }
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use PrestaShopBundle\Form\Admin\Type\CustomContentType;
 use Symfony\Component\HttpFoundation\File\File;
 
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
@@ -52,6 +53,7 @@ class Infofields extends Module
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
+        $this->registerHook('actionCategoryFormDataProviderData');
     }
 
     private function define_constants()
@@ -622,18 +624,15 @@ class Infofields extends Module
         return $output;
     }
 
-public function hookDisplayBackOfficeCategoryForm($params)
-{
-    $categoryId = (int)$params['id'];
-    $imageUrl = $this->getCategoryImage($categoryId);
-
-    $this->context->smarty->assign([
-        'category_image_url' => $imageUrl,
-        'category_image_label' => $this->l('Current Category Image'),
-    ]);
-
-    return $this->display(__FILE__, 'views/templates/admin/category_image.tpl');
-}
+    public function hookActionCategoryFormDataProviderData(array $params)
+    {
+        $params['data']['inf_metafield_29'][1] = 'hello';
+        // echo '<pre>';
+        // print_r($params);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
+    }
 
     public function hookActionCategoryFormBuilderModifier(array $params)
     {
@@ -665,27 +664,16 @@ public function hookDisplayBackOfficeCategoryForm($params)
                     'class' => 'type-file',
                 ],
         ]);
-        // if (file_exists($sampleFile)) {
-        //     die(__FILE__ . ' : ' . __LINE__);
-        // }
-        // echo '<pre>';
-        // print_r($sampleFile_url);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-        $params['data']['category_image_url'] = 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';
-        // echo '<pre>';
-        // print_r($sampleFile);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-        // $params['form_builder'] = $formBuilder;
+        $formBuilder->add('image_preview', CustomContentType::class, [
+            'label' => "Image Preview",
+            'template' => '@Modules/infofields/views/templates/admin/upload_image.html.twig',
+            'data' => [
+                'imageUrl' => 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg',
+            ],
+        ]);
 
-// Retrieve existing image (if any) and pass it to the template
-  
-     
-            $formBuilder->setData(['category_image_url' => 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';]);
-        
+
+
         echo $imageHtml;
     }
 
