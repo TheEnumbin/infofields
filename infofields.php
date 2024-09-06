@@ -622,6 +622,19 @@ class Infofields extends Module
         return $output;
     }
 
+public function hookDisplayBackOfficeCategoryForm($params)
+{
+    $categoryId = (int)$params['id'];
+    $imageUrl = $this->getCategoryImage($categoryId);
+
+    $this->context->smarty->assign([
+        'category_image_url' => $imageUrl,
+        'category_image_label' => $this->l('Current Category Image'),
+    ]);
+
+    return $this->display(__FILE__, 'views/templates/admin/category_image.tpl');
+}
+
     public function hookActionCategoryFormBuilderModifier(array $params)
     {
         $id_cms = $params['id'];
