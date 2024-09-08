@@ -27,10 +27,6 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use PrestaShopBundle\Form\Admin\Type\CustomContentType;
-use Symfony\Component\HttpFoundation\File\File;
-
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
@@ -53,7 +49,6 @@ class Infofields extends Module
         $this->description = $this->l('Add extra fields to your Products, Categories, Customers, Pages.');
         $this->ps_versions_compliancy = ['min' => '1.7', 'max' => _PS_VERSION_];
         $this->define_constants();
-        $this->registerHook('actionCategoryFormDataProviderData');
     }
 
     private function define_constants()
@@ -624,57 +619,11 @@ class Infofields extends Module
         return $output;
     }
 
-    public function hookActionCategoryFormDataProviderData(array $params)
-    {
-        $params['data']['inf_metafield_29'][1] = 'hello';
-        // echo '<pre>';
-        // print_r($params);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-    }
-
     public function hookActionCategoryFormBuilderModifier(array $params)
     {
         $id_cms = $params['id'];
         $builder = new InfofieldBuilder(1, $id_cms);
         $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
-
-        // $this->context->smarty->assign([
-        //     'image_url' => $imagePath,
-        // ]);
-
-        $formBuilder = $params['form_builder'];
-        $formData = $params['data'];
-        // Fetch the rendered template and insert it into the form
-        $imageHtml = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/file_display.tpl');
-
-        // Add the rendered template to the form
-        $staticImagePath = 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg';
-
-        $uploadDir = _PS_IMG_DIR_ . 'c/';
-        $sampleFile = new File($uploadDir . 'inf_img_category9_35.jpg');
-        $sampleFile_url = _PS_IMG_ . 'c/' . 'inf_img_category9_35.jpg';
-        // $sampleFile['category_image_url'] = $sampleFile_url;
-        // Add the image file field to the form
-        $formBuilder->add('category_image', FileType::class, [
-            'label' => $this->l('Upload Image'),
-            'required' => false,
-            'attr' => [
-                    'class' => 'type-file',
-                ],
-        ]);
-        $formBuilder->add('image_preview', CustomContentType::class, [
-            'label' => "Image Preview",
-            'template' => '@Modules/infofields/views/templates/admin/upload_image.html.twig',
-            'data' => [
-                'imageUrl' => 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg',
-            ],
-        ]);
-
-
-
-        echo $imageHtml;
     }
 
     public function hookActionCmsPageFormBuilderModifier(array $params)

@@ -27,6 +27,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use PrestaShopBundle\Form\Admin\Type\CustomContentType;
 use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
@@ -70,7 +71,7 @@ class InfofieldBuilder
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
-            // $field_params['params']['data'] = $data;
+            $field_params['params']['data'] = $data;
 
             if ($field_params['has_translator']) {
                 $formBuilder
@@ -86,6 +87,14 @@ class InfofieldBuilder
                         $field_params['classtype'],
                         $field_params['params'],
                     );
+                if ($field['field_type'] == 5) {
+                    $formBuilder->add('image_preview', CustomContentType::class, [
+                        'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                        'data' => [
+                            'imageUrl' => 'http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg',
+                        ],
+                    ]);
+                }
             }
         }
         $inf_ids = array_unique($inf_ids);
@@ -132,7 +141,6 @@ class InfofieldBuilder
                 $return_arr['classtype'] = FileType::class;
                 $return_arr['has_translator'] = false;
                 $return_arr['data_class'] = null; // Important to handle File objects
-                $return_arr['help'] = '<img src="http://localhost/prestashop/presta-8.1.1/img/c/inf_img_category9_35.jpg" alt="Current Image" style="max-width: 150px;">';
                 $return_arr['attr'] = [
                     'accept' => 'gif,jpg,jpeg,jpe,png',
                 ];
