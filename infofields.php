@@ -544,6 +544,7 @@ class Infofields extends Module
                         if (!$done_upload) {
                             return false;
                         }
+                        $meta_object->meta_data = $done_upload;
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
 
@@ -750,6 +751,6 @@ class Infofields extends Module
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
             return false;
         }
-        return true;
+        return $fileName;
     }
 }
