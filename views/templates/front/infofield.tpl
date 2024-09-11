@@ -58,6 +58,14 @@
                             {else}
                                 <span class="inf-not-done-sign">&#10006;</span>
                             {/if}
+                        {elseif $infofield.field_type == 5 }
+                            {if $infometa[$lang_id].meta_data != ""}
+                                <div class="image-wrapper">
+                                    <img src="{$img_dir}/{$infometa[$lang_id].meta_data}" alt="Uploaded Image" />
+                                </div>
+                            {else}
+                                <p>No image uploaded.</p>
+                            {/if}
                         {elseif $infofield.field_type == 8 }
                             {assign var="available_values" value=","|explode:$infofield.available_values}
                             {foreach from=$available_values item=available_value}
