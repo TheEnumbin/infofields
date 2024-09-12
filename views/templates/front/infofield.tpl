@@ -61,7 +61,7 @@
                         {elseif $infofield.field_type == 5 }
                             {if $infometa[$lang_id].meta_data != ""}
                                 <div class="image-wrapper">
-                                    <img src="{$img_dir}/{$infometa[$lang_id].meta_data}" alt="Uploaded Image" />
+                                    <img src="{$img_dir}/{$infometa[$lang_id].meta_data}" alt="Uploaded Image" width="{$infofield.width}" height="{$infofield.height}" />
                                 </div>
                             {else}
                                 <p>No image uploaded.</p>
