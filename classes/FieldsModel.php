@@ -37,6 +37,8 @@ class FieldsModel extends ObjectModel
     public $with_field_name;
     public $as_product_tab;
     public $field_name;
+    public $img_width;
+    public $img_height;
     public $global_meta_data;
     public $available_values;
 
@@ -66,6 +68,14 @@ class FieldsModel extends ObjectModel
                 'validate' => 'isString',
                 'lang' => true,
                 'required' => true,
+            ],
+            'img_width' => [
+                'type' => self::TYPE_STRING,
+                'validate' => 'isString',
+            ],
+            'img_height' => [
+                'type' => self::TYPE_STRING,
+                'validate' => 'isString',
             ],
             'with_field_name' => [
                 'type' => self::TYPE_BOOL,

@@ -178,6 +178,22 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'end_date',
                 ],
                 [
+                    'type' => 'text',
+                    'label' => $this->l('Image Width'),
+                    'name' => 'img_width',
+                    'id' => 'img_width',
+                    'size' => 20,
+                    'desc' => $this->l('Only for image fields. Unit: px'),
+                ],
+                [
+                    'type' => 'text',
+                    'label' => $this->l('Image Height'),
+                    'name' => 'img_height',
+                    'id' => 'img_height',
+                    'size' => 20,
+                    'desc' => $this->l('Only for image fields. Unit: px'),
+                ],
+                [
                     'type' => 'switch',
                     'label' => $this->l('Show with field name'),
                     'name' => 'with_field_name',
