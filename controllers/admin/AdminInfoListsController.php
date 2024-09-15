@@ -183,7 +183,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'img_width',
                     'id' => 'img_width',
                     'size' => 20,
-                    'desc' => $this->l('Only for image fields. Unit: px'),
+                    'desc' => $this->l('Only for image fields. Example: 20px'),
                 ],
                 [
                     'type' => 'text',
@@ -191,7 +191,7 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'img_height',
                     'id' => 'img_height',
                     'size' => 20,
-                    'desc' => $this->l('Only for image fields. Unit: px'),
+                    'desc' => $this->l('Only for image fields. Example: 20px'),
                 ],
                 [
                     'type' => 'switch',
@@ -299,6 +299,8 @@ class AdminInfoListsController extends ModuleAdminController
             $fields->start_date = Tools::getValue('start_date');
             $fields->end_date = Tools::getValue('end_date');
             $fields->with_field_name = (bool) Tools::getValue('with_field_name');
+            $fields->img_width = Tools::getValue('img_width');
+            $fields->img_height = Tools::getValue('img_height');
             $fields->as_product_tab = (bool) Tools::getValue('as_product_tab');
 
             // Validate dates

@@ -30,7 +30,6 @@ if (!defined('_PS_VERSION_')) {
 function upgrade_module_1_2_0($object, $install = false)
 {
     $sql = [];
-    $sql[] = 'ALTER TABLE `' . _DB_PREFIX_ . 'infofields` ADD `as_product_tab` BOOLEAN NOT NULL AFTER `with_field_name`;';
     $sql[] = 'ALTER TABLE `' . _DB_PREFIX_ . 'infofields`  ADD `img_width` VARCHAR(20) NULL AFTER `as_product_tab`, ADD `img_height` VARCHAR(20) NULL AFTER `img_width`;';
 
     foreach ($sql as $query) {
