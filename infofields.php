@@ -27,6 +27,8 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+use ImageManager;
+
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
@@ -740,17 +742,34 @@ class Infofields extends Module
         $file = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
         $tmp_name = $files[$parent_type]['tmp_name']['inf_metafield_' . $inf_id];
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
-        $uploadDir = _PS_IMG_DIR_ . 'c/';
+        $uploadDir = _PS_IMG_DIR_ . 'infofield/';
         $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id . '.jpg';
 
-        // Check for errors
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
         if ($err_code !== UPLOAD_ERR_OK) {
             return false;
         }
 
-        // Move the uploaded file to the desired directory
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
             return false;
+        }
+        $imageTypes = ImageType::getImagesTypes($entityType);
+
+        foreach ($imageTypes as $imageType) {
+            $newWidth = (int)$imageType['width'];
+            $newHeight = (int)$imageType['height'];
+            $resized = ImageManager::resize(
+                $imagePath,
+                _PS_IMG_DIR_ . 'infofield/' . $fileName,
+                $newWidth,
+                $newHeight
+            );
+
+            if (!$resized) {
+                return false;
+            }
         }
         return $fileName;
     }
