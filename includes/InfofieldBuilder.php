@@ -209,16 +209,7 @@ class InfofieldBuilder
                 $data = json_decode($data, true);
                 if (is_array($data)) {
                     $flag = 0;
-                    if (isset($data['year']) && $data['year'] != '') {
-                        $flag = 1;
-                    }
-                    if (isset($data['month']) && $data['month'] != '') {
-                        $flag = 1;
-                    }
-                    if (isset($data['month']) && $data['month'] != '') {
-                        $flag = 1;
-                    }
-                    if ($flag) {
+                    if ($data['year'] != '' && $data['month'] != '' && $data['day'] != '') {
                         $data = implode('-', $data);
                     } else {
                         $data = '';
