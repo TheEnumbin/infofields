@@ -754,7 +754,7 @@ class Infofields extends Module
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
             return false;
         }
-        $imageTypes = ImageType::getImagesTypes($entityType);
+        $imageTypes = ImageType::getImagesTypes();
 
         foreach ($imageTypes as $imageType) {
             $newWidth = (int)$imageType['width'];
@@ -770,6 +770,11 @@ class Infofields extends Module
                 return false;
             }
         }
+        echo '<pre>';
+        print_r($fileName);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
         return $fileName;
     }
 }
