@@ -754,13 +754,13 @@ class Infofields extends Module
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
             return false;
         }
-        $imageTypes = ImageType::getImagesTypes();
+        $imageTypes = ImageType::getImagesTypes('products');
 
         foreach ($imageTypes as $imageType) {
             $newWidth = (int)$imageType['width'];
             $newHeight = (int)$imageType['height'];
             $resized = ImageManager::resize(
-                $imagePath,
+                $uploadDir . $fileName,
                 _PS_IMG_DIR_ . 'infofield/' . $fileName,
                 $newWidth,
                 $newHeight
@@ -770,11 +770,6 @@ class Infofields extends Module
                 return false;
             }
         }
-        echo '<pre>';
-        print_r($fileName);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
         return $fileName;
     }
 }
