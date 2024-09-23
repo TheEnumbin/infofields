@@ -30,7 +30,7 @@ if (!defined('_PS_VERSION_')) {
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
-use ImageManager;
+// use ImageManager;
 
 class Infofields extends Module
 {
@@ -742,7 +742,7 @@ class Infofields extends Module
         $tmp_name = $files[$parent_type]['tmp_name']['inf_metafield_' . $inf_id];
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'infofield/';
-        $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id . '.jpg';
+        $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -751,25 +751,44 @@ class Infofields extends Module
             return false;
         }
 
-        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName)) {
+        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.jpg')) {
             return false;
         }
-        $imageTypes = ImageType::getImagesTypes('products');
-
-        foreach ($imageTypes as $imageType) {
-            $newWidth = (int)$imageType['width'];
-            $newHeight = (int)$imageType['height'];
+        $imgSizeData = [
+            [
+                'name' => 'backend_default',
+                'width' => 125,
+                'height' => 125,
+            ],
+            [
+                'name' => 'custom_default',
+                'width' => 250,
+                'height' => 250,
+            ]
+        ];
+        foreach ($imgSizeData as $imgSize) {
+            $newWidth = (int)$imgSize['width'];
+            $newHeight = (int)$imgSize['height'];
             $resized = ImageManager::resize(
-                $uploadDir . $fileName,
-                _PS_IMG_DIR_ . 'infofield/' . $fileName,
+                $uploadDir . $fileName . '.jpg',
+                _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.jpg',
                 $newWidth,
                 $newHeight
             );
+            echo '<pre>';
+            print_r($imgSize);
+            echo '</pre>';
+            echo __FILE__ . ' : ' . __LINE__;
+            echo '<pre>';
+            print_r($resized);
+            echo '</pre>';
+            echo __FILE__ . ' : ' . __LINE__;
 
-            if (!$resized) {
-                return false;
-            }
+            // if (!$resized) {
+            //     return false;
+            // }
         }
+        die(__FILE__ . ' : ' . __LINE__);
         return $fileName;
     }
 }
