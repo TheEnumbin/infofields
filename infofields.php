@@ -775,20 +775,11 @@ class Infofields extends Module
                 $newWidth,
                 $newHeight
             );
-            echo '<pre>';
-            print_r($imgSize);
-            echo '</pre>';
-            echo __FILE__ . ' : ' . __LINE__;
-            echo '<pre>';
-            print_r($resized);
-            echo '</pre>';
-            echo __FILE__ . ' : ' . __LINE__;
 
-            // if (!$resized) {
-            //     return false;
-            // }
+            if (!$resized) {
+                return false;
+            }
         }
-        die(__FILE__ . ' : ' . __LINE__);
         return $fileName;
     }
 }
