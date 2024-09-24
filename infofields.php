@@ -743,6 +743,7 @@ class Infofields extends Module
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'infofield/';
         $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
+        $id_lang = $this->context->language->id;
 
         if (!is_dir($uploadDir)) {
             mkdir($uploadDir, 0755, true);
@@ -754,6 +755,8 @@ class Infofields extends Module
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.jpg')) {
             return false;
         }
+        $fieldsmodel = new FieldsModel();
+        $fields = $fieldsmodel->get_infofield_by_id($inf_id, $id_lang);
         $imgSizeData = [
             [
                 'name' => 'backend_default',
@@ -762,8 +765,8 @@ class Infofields extends Module
             ],
             [
                 'name' => 'custom_default',
-                'width' => 250,
-                'height' => 250,
+                'width' => $fields[0]['img_width'],
+                'height' => $fields[0]['img_height'],
             ]
         ];
         foreach ($imgSizeData as $imgSize) {
