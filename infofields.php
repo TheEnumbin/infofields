@@ -695,7 +695,7 @@ class Infofields extends Module
             'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
-            'img_dir' => _PS_IMG_ . 'c/'
+            'img_dir' => _PS_IMG_ . 'infofield/'
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
         echo $output;
