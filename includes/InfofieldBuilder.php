@@ -66,12 +66,12 @@ class InfofieldBuilder
     public function inf_build_form($formBuilder, $fields, $metas)
     {
         $inf_ids = [];
-
+        $file_fileds = [5, 9];
         foreach ($fields as $field) {
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
-            if ($field['field_type'] != 5) {
+            if (!in_array($field['field_type'], $file_fileds)) {
                 $field_params['params']['data'] = $data;
             }
             if ($field_params['has_translator']) {
@@ -138,12 +138,19 @@ class InfofieldBuilder
                 $return_arr['has_translator'] = false;
                 break;
             case 5:
-            case 9:
                 $return_arr['classtype'] = FileType::class;
                 $return_arr['has_translator'] = false;
                 $return_arr['data_class'] = null; // Important to handle File objects
                 $return_arr['attr'] = [
                     'accept' => 'gif,jpg,jpeg,jpe,png',
+                ];
+                break;
+            case 9:
+                $return_arr['classtype'] = FileType::class;
+                $return_arr['has_translator'] = false;
+                $return_arr['data_class'] = null; // Important to handle File objects
+                $return_arr['attr'] = [
+                    'accept' => 'pdf,doc',
                 ];
                 break;
             case 6:
