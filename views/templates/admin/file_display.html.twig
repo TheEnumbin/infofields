@@ -1,11 +1,23 @@
-<div class="form-group row mt-3">
-    <div class="col-sm">
-        <div>
-            <figure class="figure">
-                <img src="{{ imageUrl }}" class="figure-img img-fluid img-thumbnail inf-thumb">
-            </figure>
-            <div class="d-block">
+{if isset($imageUrl)}
+    <!-- Show image -->
+    <div class="form-group row mt-3">
+        <div class="col-sm">
+            <div>
+                <figure class="figure">
+                    <img src="{{ imageUrl }}" class="figure-img img-fluid img-thumbnail inf-thumb">
+                </figure>
+                <div class="d-block">
+                </div>
             </div>
         </div>
     </div>
-</div>
+{elseif isset($fileUrl)}
+    <!-- Show file preview and download link -->
+    <div class="file-preview">
+        <a href="{$fileUrl}" target="_blank" class="file-download-link">
+            <i class="fa fa-download"></i> Download File
+        </a>
+        <!-- Optional file preview if it's a document (e.g., PDF) -->
+        <iframe src="{$fileUrl}" width="100%" height="400px"></iframe>
+    </div>
+{/if}

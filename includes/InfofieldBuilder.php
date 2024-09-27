@@ -95,6 +95,13 @@ class InfofieldBuilder
                             'imageUrl' => $data . '_backend_default.jpg',
                         ],
                     ]);
+                } elseif ($field['field_type'] == 9) {
+                    $formBuilder->add('file_preview', CustomContentType::class, [
+                        'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                        'data' => [
+                            'fileUrl' => $data,
+                        ],
+                    ]);
                 }
             }
         }
@@ -204,6 +211,10 @@ class InfofieldBuilder
             case 3:
                 break;
             case 5:
+                $data = array_pop($data);
+                $data = _PS_IMG_ . 'infofield/' . $data;
+                break;
+            case 9:
                 $data = array_pop($data);
                 $data = _PS_IMG_ . 'infofield/' . $data;
                 break;
