@@ -89,19 +89,25 @@ class InfofieldBuilder
                         $field_params['params'],
                     );
                 if ($field['field_type'] == 5) {
-                    $formBuilder->add('image_preview', CustomContentType::class, [
-                        'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
-                        'data' => [
-                            'imageUrl' => $data . '_backend_default.jpg',
-                        ],
-                    ]);
+                    if ($data != '') {
+                        $data = _PS_IMG_ . 'infofield/' . $data;
+                        $formBuilder->add('image_preview', CustomContentType::class, [
+                            'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                            'data' => [
+                                'imageUrl' => $data . '_backend_default.jpg',
+                            ],
+                        ]);
+                    }
                 } elseif ($field['field_type'] == 9) {
-                    $formBuilder->add('file_preview', CustomContentType::class, [
-                        'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
-                        'data' => [
-                            'fileUrl' => $data,
-                        ],
-                    ]);
+                    if ($data != '') {
+                        $data = _PS_IMG_ . 'infofield/' . $data;
+                        $formBuilder->add('file_preview', CustomContentType::class, [
+                            'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                            'data' => [
+                                'fileUrl' => $data,
+                            ],
+                        ]);
+                    }
                 }
             }
         }
@@ -211,12 +217,8 @@ class InfofieldBuilder
             case 3:
                 break;
             case 5:
-                $data = array_pop($data);
-                $data = _PS_IMG_ . 'infofield/' . $data;
-                break;
             case 9:
                 $data = array_pop($data);
-                $data = _PS_IMG_ . 'infofield/' . $data;
                 break;
             case 4:
             case 8:
