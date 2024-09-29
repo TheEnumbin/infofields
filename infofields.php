@@ -539,8 +539,8 @@ class Infofields extends Module
                 $meta_object = new MetaModel(null, $inf_id, $obj->id);
 
                 if (isset($meta_object->id)) {
-                    if ($field_type == 5) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type);
+                    if ($field_type == 5 || $field_type == 9) {
+                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
 
                         if (!$done_upload) {
                             return false;
@@ -557,8 +557,8 @@ class Infofields extends Module
                 } else {
                     $meta_object->id_infofields = $inf_id;
                     $meta_object->parent_item_id = $obj->id;
-                    if ($field_type == 5) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type);
+                    if ($field_type == 5 || $field_type == 9) {
+                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
 
                         if (!$done_upload) {
                             return false;
@@ -736,13 +736,27 @@ class Infofields extends Module
         return $array;
     }
 
-    private function inf_upload_files($inf_id, $obj_id, $files, $parent_type)
+    private function inf_upload_files($inf_id, $obj_id, $files, $parent_type, $field_type)
     {
         $file = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
         $tmp_name = $files[$parent_type]['tmp_name']['inf_metafield_' . $inf_id];
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'infofield/';
         $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
+        // $original_name = $files[$parent_type]['name'];
+        // $ext = pathinfo($original_name, PATHINFO_EXTENSION);
+        echo '<pre>';
+        print_r($files);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        // echo '<pre>';
+        // print_r($ext);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
+        if ($field_type == 9) {
+            $fileName = 'inf_file_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
+        }
         $id_lang = $this->context->language->id;
 
         if (!is_dir($uploadDir)) {
