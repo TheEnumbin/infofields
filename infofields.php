@@ -543,7 +543,7 @@ class Infofields extends Module
                         $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
 
                         if (!$done_upload) {
-                            return false;
+                            continue;
                         }
                         $meta_object->meta_data = $done_upload;
                     } else {
@@ -561,7 +561,7 @@ class Infofields extends Module
                         $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
 
                         if (!$done_upload) {
-                            return false;
+                            continue;
                         }
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
@@ -743,17 +743,8 @@ class Infofields extends Module
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'infofield/';
         $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
-        // $original_name = $files[$parent_type]['name'];
-        // $ext = pathinfo($original_name, PATHINFO_EXTENSION);
-        echo '<pre>';
-        print_r($files);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        // echo '<pre>';
-        // print_r($ext);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        $ext = pathinfo($file, PATHINFO_EXTENSION);
+
         if ($field_type == 9) {
             $fileName = 'inf_file_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
         }
@@ -766,7 +757,7 @@ class Infofields extends Module
             return false;
         }
 
-        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.jpg')) {
+        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.' . $ext)) {
             return false;
         }
         $fieldsmodel = new FieldsModel();
@@ -787,8 +778,8 @@ class Infofields extends Module
             $newWidth = (int)$imgSize['width'];
             $newHeight = (int)$imgSize['height'];
             $resized = ImageManager::resize(
-                $uploadDir . $fileName . '.jpg',
-                _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.jpg',
+                $uploadDir . $fileName . '.' . $ext,
+                _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.' . $ext,
                 $newWidth,
                 $newHeight
             );
