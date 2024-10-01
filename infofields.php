@@ -545,7 +545,7 @@ class Infofields extends Module
                         if (!$done_upload) {
                             continue;
                         }
-                        $meta_object->meta_data = $done_upload;
+                        $meta_object->meta_data = json_encode($done_upload);
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
 
@@ -563,6 +563,7 @@ class Infofields extends Module
                         if (!$done_upload) {
                             continue;
                         }
+                        $meta_object->meta_data = json_encode($done_upload);
                     } else {
                         $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
                         if ($field_type == 6) {
@@ -746,7 +747,7 @@ class Infofields extends Module
         $ext = pathinfo($file, PATHINFO_EXTENSION);
 
         if ($field_type == 9) {
-            $fileName = 'inf_file_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
+            $fileName = $file;
         }
         $id_lang = $this->context->language->id;
 
@@ -760,34 +761,37 @@ class Infofields extends Module
         if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.' . $ext)) {
             return false;
         }
-        $fieldsmodel = new FieldsModel();
-        $fields = $fieldsmodel->get_infofield_by_id($inf_id, $id_lang);
-        $imgSizeData = [
-            [
-                'name' => 'backend_default',
-                'width' => 125,
-                'height' => 125,
-            ],
-            [
-                'name' => 'custom_default',
-                'width' => $fields[0]['img_width'],
-                'height' => $fields[0]['img_height'],
-            ]
-        ];
-        foreach ($imgSizeData as $imgSize) {
-            $newWidth = (int)$imgSize['width'];
-            $newHeight = (int)$imgSize['height'];
-            $resized = ImageManager::resize(
-                $uploadDir . $fileName . '.' . $ext,
-                _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.' . $ext,
-                $newWidth,
-                $newHeight
-            );
 
-            if (!$resized) {
-                return false;
+        if ($field_type == 5) {
+            $fieldsmodel = new FieldsModel();
+            $fields = $fieldsmodel->get_infofield_by_id($inf_id, $id_lang);
+            $imgSizeData = [
+                [
+                    'name' => 'backend_default',
+                    'width' => 125,
+                    'height' => 125,
+                ],
+                [
+                    'name' => 'custom_default',
+                    'width' => $fields[0]['img_width'],
+                    'height' => $fields[0]['img_height'],
+                ]
+            ];
+            foreach ($imgSizeData as $imgSize) {
+                $newWidth = (int)$imgSize['width'];
+                $newHeight = (int)$imgSize['height'];
+                $resized = ImageManager::resize(
+                    $uploadDir . $fileName . '.' . $ext,
+                    _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.' . $ext,
+                    $newWidth,
+                    $newHeight
+                );
+
+                if (!$resized) {
+                    return false;
+                }
             }
         }
-        return $fileName;
+        return ['file' => $fileName, 'ext' => $ext];
     }
 }
