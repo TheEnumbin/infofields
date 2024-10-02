@@ -94,7 +94,7 @@ class InfofieldBuilder
                         $formBuilder->add('image_preview', CustomContentType::class, [
                             'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
                             'data' => [
-                                'imageUrl' => $data . '_backend_default.jpg',
+                                'imageUrl' => $data,
                             ],
                         ]);
                     }
@@ -219,6 +219,16 @@ class InfofieldBuilder
             case 5:
             case 9:
                 $data = array_pop($data);
+                $data = json_decode($data, true);
+                if (is_array($data)) {
+                    if ($field_type == 5) {
+                        $data = $data['file'] . '_backend_default' . $data['ext'];
+                    } else {
+                        $data = $data['file'];
+                    }
+                } else {
+                    $data = '';
+                }
                 break;
             case 4:
             case 8:

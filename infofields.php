@@ -739,15 +739,16 @@ class Infofields extends Module
 
     private function inf_upload_files($inf_id, $obj_id, $files, $parent_type, $field_type)
     {
-        $file = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
+        $ogName = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
         $tmp_name = $files[$parent_type]['tmp_name']['inf_metafield_' . $inf_id];
         $err_code = $files[$parent_type]['error']['inf_metafield_' . $inf_id];
         $uploadDir = _PS_IMG_DIR_ . 'infofield/';
-        $fileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
-        $ext = pathinfo($file, PATHINFO_EXTENSION);
-
+        $ext = pathinfo($ogName, PATHINFO_EXTENSION);
+        $newFileName = 'inf_img_' . $parent_type . '_' . $obj_id . '_' . $inf_id;
+        $uploadFile = $newFileName . '.' . $ext;
         if ($field_type == 9) {
-            $fileName = $file;
+            $newFileName = $ogName;
+            $uploadFile = $ogName;
         }
         $id_lang = $this->context->language->id;
 
@@ -758,7 +759,7 @@ class Infofields extends Module
             return false;
         }
 
-        if (!move_uploaded_file($tmp_name, $uploadDir . $fileName . '.' . $ext)) {
+        if (!move_uploaded_file($tmp_name, $uploadDir . $uploadFile)) {
             return false;
         }
 
@@ -781,17 +782,17 @@ class Infofields extends Module
                 $newWidth = (int)$imgSize['width'];
                 $newHeight = (int)$imgSize['height'];
                 $resized = ImageManager::resize(
-                    $uploadDir . $fileName . '.' . $ext,
-                    _PS_IMG_DIR_ . 'infofield/' . $fileName . '_' . $imgSize['name'] . '.' . $ext,
+                    $uploadDir . $newFileName . '.' . $ext,
+                    _PS_IMG_DIR_ . 'infofield/' . $uploadFile,
                     $newWidth,
                     $newHeight
                 );
 
                 if (!$resized) {
-                    return false;
+                    continue;
                 }
             }
         }
-        return ['file' => $fileName, 'ext' => $ext];
+        return ['file' => $newFileName, 'ext' => $ext];
     }
 }
