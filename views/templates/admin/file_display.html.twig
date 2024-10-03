@@ -7,7 +7,7 @@
                     <img src="{{ imageUrl }}" class="figure-img img-fluid img-thumbnail inf-thumb">
                 </figure>
                 <div class="d-block">
-                    <button class="btn btn-danger delete-btn" data-file="{{ imageUrl }}" data-type="image">Delete Image</button>
+                    <button class="btn btn-danger delete-btn mt-2" data-file="{{ fileUrl }}" data-type="file">Delete File</button>
                     <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
                 </div>
             </div>
@@ -16,9 +16,8 @@
 {% elseif fileUrl is defined and fileUrl is not empty %}
     <!-- Show file preview and download link -->
     <div class="file-preview" id="file-container">
-        <a href="{{ fileUrl }}" target="_blank" class="file-download-link btn btn-primary d-flex align-items-center" download>
-            <i class="fa fa-download me-2"></i> <!-- Font Awesome download icon -->
-            <span>Download File</span>
+        <a href="{{ fileUrl }}" target="_blank" class="download-link">
+            Download File
         </a>
         <div>
             <button class="btn btn-danger delete-btn mt-2" data-file="{{ fileUrl }}" data-type="file">Delete File</button>
