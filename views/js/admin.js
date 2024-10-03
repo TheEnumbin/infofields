@@ -59,11 +59,8 @@ $(document).ready(function () {
             }
 
         } else {
-            console.log($wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val());
-            console.log('#inf_metafield_' + $infofield_id + '_' + $iso_code);
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
-        console.log($value);
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
@@ -83,4 +80,11 @@ $(document).ready(function () {
             }
         });
     });
+    $(document).on('click', '.inf-delete-btn', function () {
+        let $old_locale = $(".inf_lang_iso").val().trim();
+        let $this = $(this);
+        let $locale = $this.data('locale').trim();
+        $toogle_langs($locale, $old_locale);
+    });
+
 });
