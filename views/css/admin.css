@@ -48,3 +48,37 @@
 .inf-thumb {
     max-width: 30%;
 }
+
+.file-download-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    /* Primary button color */
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    margin-bottom: 10px;
+}
+
+.file-download-link:hover {
+    background-color: #0056b3;
+    /* Darker shade for hover */
+    text-decoration: none;
+}
+
+.file-preview {
+    margin-top: 10px;
+}
+
+.file-preview i.fa-download {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.loader {
+    margin-left: 10px;
+    vertical-align: middle;
+}
