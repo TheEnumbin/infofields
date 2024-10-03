@@ -222,7 +222,7 @@ class InfofieldBuilder
                 $data = json_decode($data, true);
                 if (is_array($data)) {
                     if ($field_type == 5) {
-                        $data = $data['file'] . '_backend_default' . $data['ext'];
+                        $data = $data['file'] . '_backend_default' . '.' . $data['ext'];
                     } else {
                         $data = $data['file'];
                     }

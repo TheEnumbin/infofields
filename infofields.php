@@ -782,8 +782,8 @@ class Infofields extends Module
                 $newWidth = (int)$imgSize['width'];
                 $newHeight = (int)$imgSize['height'];
                 $resized = ImageManager::resize(
-                    $uploadDir . $newFileName . '.' . $ext,
-                    _PS_IMG_DIR_ . 'infofield/' . $uploadFile,
+                    $uploadDir . $uploadFile,
+                    _PS_IMG_DIR_ . 'infofield/' . $newFileName . '_' . $imgSize['name'] . '.' . $ext,
                     $newWidth,
                     $newHeight
                 );
