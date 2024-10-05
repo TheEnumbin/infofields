@@ -67,11 +67,6 @@ class InfofieldBuilder
     {
         $inf_ids = [];
         $file_fileds = [5, 9];
-        // echo '<pre>';
-        // print_r($metas);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
         foreach ($fields as $field) {
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
