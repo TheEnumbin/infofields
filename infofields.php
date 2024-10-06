@@ -624,8 +624,8 @@ class Infofields extends Module
 
     public function hookActionCategoryFormBuilderModifier(array $params)
     {
-        $id_cms = $params['id'];
-        $builder = new InfofieldBuilder(1, $id_cms);
+        $id_category = $params['id'];
+        $builder = new InfofieldBuilder(1, $id_category);
         $builder->inf_build_form($params['form_builder'], $builder->get_fields(), $builder->get_metas());
     }
 

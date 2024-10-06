@@ -81,10 +81,7 @@ $(document).ready(function () {
         });
     });
     $(document).on('click', '.inf-delete-btn', function () {
-        let $old_locale = $(".inf_lang_iso").val().trim();
-        let $this = $(this);
-        let $locale = $this.data('locale').trim();
-        $toogle_langs($locale, $old_locale);
+
     });
 
 });
