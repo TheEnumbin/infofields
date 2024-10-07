@@ -44,9 +44,11 @@ class InfofieldBuilder
 {
     private $fields;
     private $metas;
+    private $current_item_id;
 
     public function __construct($form_for, $item_id)
     {
+        $this->current_item_id = $item_id;
         $fieldsmodel = new FieldsModel();
         $this->fields = $fieldsmodel->get_infofield_by_parent_item($form_for);
         $metamodel = new MetaModel();
@@ -96,6 +98,7 @@ class InfofieldBuilder
                             'data' => [
                                 'imageUrl' => $data,
                                 'id_infofield' => $field['id_infofields'],
+                                'item_id' => $this->current_item_id,
                             ],
                         ]);
                     }
@@ -107,6 +110,7 @@ class InfofieldBuilder
                             'data' => [
                                 'fileUrl' => $data,
                                 'id_infofield' => $field['id_infofields'],
+                                'item_id' => $this->current_item_id,
                             ],
                         ]);
                     }

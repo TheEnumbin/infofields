@@ -80,8 +80,24 @@ $(document).ready(function () {
             }
         });
     });
-    $(document).on('click', '.inf-delete-btn', function () {
+    $(document).on('click', '.inf-delete-btn', function (e) {
+        e.preventDefault()
+        const $this = $(this)
+        $.ajax({
+            type: 'POST',
+            url: infofields_ajax_url,
+            dataType: 'html',
+            data: {
+                controller: 'AdminAjaxInfofields',
+                action: 'DeleteFileImg',
+                inf_id: $this.data('inf_id'),
+                item_id: $this.data('item_id'),
+                ajax: true
+            },
+            success: function (data) {
 
+            }
+        });
     });
 
 });

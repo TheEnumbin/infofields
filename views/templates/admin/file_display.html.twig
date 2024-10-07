@@ -7,7 +7,7 @@
                     <img src="{{ imageUrl }}" class="figure-img img-fluid img-thumbnail">
                 </figure>
                 <div class="d-block">
-                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}" data-file="{{ imageUrl }}" data-type="file">Delete File</button>
+                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}" data-item_id="{{ item_id }}" data-file="{{ imageUrl }}" data-type="file">Delete File</button>
                     <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
                 </div>
             </div>
@@ -20,7 +20,7 @@
             Download File
         </a>
         <div>
-            <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}" data-file="{{ fileUrl }}" data-type="file">Delete File</button>
+            <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}" data-item_id="{{ item_id }}" data-file="{{ fileUrl }}" data-type="file">Delete File</button>
             <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
         </div>
     </div>

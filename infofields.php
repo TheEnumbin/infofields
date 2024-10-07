@@ -584,7 +584,7 @@ class Infofields extends Module
     {
         $controller = Tools::getValue('controller');
 
-        if ($controller == 'AdminProducts' || $controller == 'AdminInfoLists' || $controller == 'AdminCmsContent' || $controller == 'AdminCustomers') {
+        if ($controller == 'AdminProducts' || $controller == 'AdminInfoLists' || $controller == 'AdminCmsContent' || $controller == 'AdminCustomers' || $controller == 'AdminCategories') {
             $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
             $this->context->controller->addJS($this->_path . 'views/js/admin.js');
             Media::addJsDef([
