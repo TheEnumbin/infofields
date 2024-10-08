@@ -65,17 +65,22 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $item_id = (int) trim(Tools::getValue('item_id'));
         $lang_id = Context::getContext()->language->id;
         $object = new MetaModel(null, $inf_id, $item_id);
-        // echo '<pre>';
-        // print_r($object);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-        if (!empty($object->meta_data)) {
-            $meta_data = json_decode(array_pop($object->meta_data));
-            $file = $meta_data['file'] . '.' . $meta_data['ext'];
-        }
+        $deleted = 0;
+
         if (isset($object->id)) {
+            if (!empty($object->meta_data)) {
+                $meta_data = json_decode(array_pop($object->meta_data), true);
+                $file = $meta_data['file'] . '.' . $meta_data['ext'];
+                $total_path = _PS_IMG_DIR_ . 'infofield/' . $file;
+                unlink($total_path);
+            }
             $object->delete();
+            $delete = 1;
+        }
+        if ($delete) {
+            echo json_encode(['deleted' => true]);
+        } else {
+            echo json_encode(['deleted' => false]);
         }
         exit;
     }

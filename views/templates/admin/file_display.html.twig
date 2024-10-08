@@ -1,8 +1,8 @@
 {% if imageUrl is defined and imageUrl is not empty %}
     <!-- Show image -->
-    <div class="form-group row mt-3" id="image-container">
+    <div class="form-group row mt-3 image-preview" id="image-container">
         <div class="col-sm">
-            <div>
+            <div class="preview-wrapper">
                 <figure class="figure">
                     <img src="{{ imageUrl }}" class="figure-img img-fluid img-thumbnail">
                 </figure>
@@ -15,7 +15,7 @@
     </div>
 {% elseif fileUrl is defined and fileUrl is not empty %}
     <!-- Show file preview and download link -->
-    <div class="file-preview" id="file-container">
+    <div class="file-preview preview-wrapper" id="file-container">
         <a href="{{ fileUrl }}" target="_blank" class="download-link">
             Download File
         </a>

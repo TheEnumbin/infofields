@@ -95,7 +95,11 @@ $(document).ready(function () {
                 ajax: true
             },
             success: function (data) {
-
+                let response = JSON.parse(data);
+                if (response.deleted == true) {
+                    console.log($this.closest(".preview-wrapper"))
+                    $this.closest(".preview-wrapper").html("")
+                }
             }
         });
     });
