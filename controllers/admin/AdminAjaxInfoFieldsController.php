@@ -64,7 +64,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $inf_id = (int) trim(Tools::getValue('inf_id'));
         $item_id = (int) trim(Tools::getValue('item_id'));
         $lang_id = Context::getContext()->language->id;
-
         $object = new MetaModel(null, $inf_id, $item_id);
         echo '<pre>';
         print_r($object);
@@ -72,19 +71,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         echo __FILE__ . ' : ' . __LINE__;
         die(__FILE__ . ' : ' . __LINE__);
         // if (isset($object->id)) {
-        //     if ($inf_type == 6) {
-        //         $inf_value = json_encode($inf_value);
-        //     }
-        //     $object->meta_data[$lang_id] = $inf_value;
-        //     $object->update();
-        // } else {
-        //     $object->id_infofields = $inf_id;
-        //     $object->parent_item_id = $prd_id;
-        //     if ($inf_type == 6) {
-        //         $inf_value = json_encode($inf_value);
-        //     }
-        //     $object->meta_data[$lang_id] = $inf_value;
-        //     $object->add();
+        //     $object->delete();
         // }
         exit;
     }
