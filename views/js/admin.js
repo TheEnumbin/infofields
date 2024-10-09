@@ -92,6 +92,7 @@ $(document).ready(function () {
                 action: 'DeleteFileImg',
                 inf_id: $this.data('inf_id'),
                 item_id: $this.data('item_id'),
+                field_type: $this.data('type'),
                 ajax: true
             },
             success: function (data) {
