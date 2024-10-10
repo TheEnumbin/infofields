@@ -120,6 +120,19 @@
                             </select>
                         </div>
                     </div>
+                {elseif $infofield.field_type == 5}
+                    <div class="form-group row select-widget">
+                        <div class="col-sm input-container">
+                            <div class="custom-file">
+                                <input type="file" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                    name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                    class="custom-file-input" data-multiple-files-text="%count% file(s)">
+                                <label class="custom-file-label" for="category_inf_metafield_1">
+                                    Choose file(s)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 {/if}
             </div>
             <button id="saveInfoMeta" class="inf-meta-save-bt btn-primary btn" type="button">Save</button>

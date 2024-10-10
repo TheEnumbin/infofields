@@ -60,6 +60,7 @@ $(document).ready(function () {
 
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
+            console.log($value)
         }
         $.ajax({
             type: 'POST',
