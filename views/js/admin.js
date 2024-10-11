@@ -58,6 +58,35 @@ $(document).ready(function () {
                 $value = 0;
             }
 
+        } else if ($infofield_type == "5") {
+            var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
+            var formData = new FormData();
+            console.log(fileInput)
+            if (fileInput.files.length > 0) {
+                formData.append('file', fileInput.files[0]);
+                formData.append('file', fileInput.files[0]);
+                console.log(formData)
+                $.ajax({
+                    url: 'your_backend_file.php',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,  // Tell jQuery to not set content type
+                    processData: false,  // Prevent jQuery from processing the data
+                    success: function (response) {
+                        var data = JSON.parse(response);
+                        if (data.success) {
+                            $('#upload-status').html('File uploaded successfully!');
+                        } else {
+                            $('#upload-status').html('File upload failed: ' + data.error);
+                        }
+                    },
+                    error: function () {
+                        $('#upload-status').html('Error during file upload!');
+                    }
+                });
+            } else {
+                alert("Please select a file to upload.");
+            }
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
             console.log($value)
