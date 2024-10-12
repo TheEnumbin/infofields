@@ -1,4 +1,4 @@
-/**
+ki/**
 * 2007-2024 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -61,32 +61,36 @@ $(document).ready(function () {
         } else if ($infofield_type == "5") {
             var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
             var formData = new FormData();
-            console.log(fileInput)
-            if (fileInput.files.length > 0) {
-                formData.append('file', fileInput.files[0]);
-                formData.append('file', fileInput.files[0]);
-                console.log(formData)
-                $.ajax({
-                    url: 'your_backend_file.php',
-                    type: 'POST',
-                    data: formData,
-                    contentType: false,  // Tell jQuery to not set content type
-                    processData: false,  // Prevent jQuery from processing the data
-                    success: function (response) {
-                        var data = JSON.parse(response);
-                        if (data.success) {
-                            $('#upload-status').html('File uploaded successfully!');
-                        } else {
-                            $('#upload-status').html('File upload failed: ' + data.error);
-                        }
-                    },
-                    error: function () {
-                        $('#upload-status').html('Error during file upload!');
-                    }
-                });
-            } else {
-                alert("Please select a file to upload.");
-            }
+            if (file) {
+    formData.append('inf_value', file);
+}
+
+// Append the other form data to FormData
+formData.append('controller', 'AdminAjaxInfofields');
+formData.append('action', 'SaveInfometa');
+formData.append('iso_code', $iso_code);
+formData.append('inf_id', $infofield_id);
+formData.append('inf_type', $infofield_type);
+formData.append('prd_id', $prd_id);
+formData.append('ajax', true);
+
+// Make the AJAX request
+$.ajax({
+    type: 'POST',
+    url: infofields_ajax_url,
+    dataType: 'html',  // Expect HTML response (or change to 'json' if backend returns JSON)
+    data: formData,    // Send the FormData object (contains both the file and the other data)
+    contentType: false,  // Important: tells jQuery not to process content type automatically
+    processData: false,  // Important: tells jQuery not to process the data automatically
+    success: function (response) {
+        // Handle the success response
+        console.log('File and data uploaded successfully:', response);
+    },
+    error: function (error) {
+        // Handle any errors
+        console.error('Error uploading file and data:', error);
+    }
+});
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
             console.log($value)
