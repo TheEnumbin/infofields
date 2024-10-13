@@ -1,4 +1,4 @@
-ki/**
+/**
 * 2007-2024 PrestaShop
 *
 * NOTICE OF LICENSE
@@ -61,6 +61,7 @@ $(document).ready(function () {
         } else if ($infofield_type == "5") {
             var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
             var formData = new FormData();
+            var file = fileInput.files[0];
             if (file) {
                 formData.append('inf_value', file);
             }
@@ -84,35 +85,35 @@ $(document).ready(function () {
                 processData: false,  // Important: tells jQuery not to process the data automatically
                 success: function (response) {
                     // Handle the success response
-                    console.log('File and data uploaded successfully:', response);
+                    // console.log('File and data uploaded successfully:', response);
                 },
                 error: function (error) {
                     // Handle any errors
-                    console.error('Error uploading file and data:', error);
+                    // console.error('Error uploading file and data:', error);
                 }
             });
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
             console.log($value)
         }
-        $.ajax({
-            type: 'POST',
-            url: infofields_ajax_url,
-            dataType: 'html',
-            data: {
-                controller: 'AdminAjaxInfofields',
-                action: 'SaveInfometa',
-                iso_code: $iso_code,
-                inf_id: $infofield_id,
-                inf_type: $infofield_type,
-                prd_id: $prd_id,
-                inf_value: $value,
-                ajax: true
-            },
-            success: function (data) {
+        // $.ajax({
+        //     type: 'POST',
+        //     url: infofields_ajax_url,
+        //     dataType: 'html',
+        //     data: {
+        //         controller: 'AdminAjaxInfofields',
+        //         action: 'SaveInfometa',
+        //         iso_code: $iso_code,
+        //         inf_id: $infofield_id,
+        //         inf_type: $infofield_type,
+        //         prd_id: $prd_id,
+        //         inf_value: $value,
+        //         ajax: true
+        //     },
+        //     success: function (data) {
 
-            }
-        });
+        //     }
+        // });
     });
     $(document).on('click', '.inf-delete-btn', function (e) {
         e.preventDefault()
