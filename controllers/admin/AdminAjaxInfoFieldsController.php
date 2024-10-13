@@ -34,7 +34,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $languages = Language::getLanguages(false);
         $lang_id = Context::getContext()->language->id;
         echo '<pre>';
-        print_r($inf_type);
+        print_r($_FILES);
         echo '</pre>';
         echo __FILE__ . ' : ' . __LINE__;
         die(__FILE__ . ' : ' . __LINE__);
