@@ -49,7 +49,7 @@ $(document).ready(function () {
         let $infofield_id = $wrapper.find('.inf_input_id').val();
         let $infofield_type = $wrapper.find('.inf_input_type').val();
         var $value = '';
-        let dataarr = []
+        let dataarr = {}
         if ($infofield_type == "4") {
             $value = $wrapper.find("input[type='radio'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']:checked").val();
         } else if ($infofield_type == "7") {
@@ -63,24 +63,36 @@ $(document).ready(function () {
             var formData = new FormData();
             $value = fileInput.files[0];
             dataarr = formData;
+            dataarr.append('inf_value', $value);
+            dataarr.append('controller', 'AdminAjaxInfofields');
+            dataarr.append('action', 'SaveInfometa');
+            dataarr.append('iso_code', $iso_code);
+            dataarr.append('inf_id', $infofield_id);
+            dataarr.append('inf_type', $infofield_type);
+            dataarr.append('prd_id', $prd_id);
+            dataarr.append('ajax', true);
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
-        dataarr.append('inf_value', $value);
-        dataarr.append('controller', 'AdminAjaxInfofields');
-        dataarr.append('action', 'SaveInfometa');
-        dataarr.append('iso_code', $iso_code);
-        dataarr.append('inf_id', $infofield_id);
-        dataarr.append('inf_type', $infofield_type);
-        dataarr.append('prd_id', $prd_id);
-        dataarr.append('ajax', true);
+        console.log(typeof dataarr)
+        if ($infofield_type != "5") {
+            dataarr.controller = 'AdminAjaxInfofields';
+            dataarr.action = 'SaveInfometa';
+            dataarr.iso_code = $iso_code;
+            dataarr.inf_id = $infofield_id;
+            dataarr.inf_type = $infofield_type;
+            dataarr.prd_id = $prd_id;
+            dataarr.inf_value = $value;
+            dataarr.ajax = true;
+        }
+
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
             dataType: 'html',  // Expect HTML response (or change to 'json' if backend returns JSON)
             data: dataarr,    // Send the FormData object (contains both the file and the other data)
-            contentType: false,  // Important: tells jQuery not to process content type automatically
-            processData: false,  // Important: tells jQuery not to process the data automatically
+            // contentType: true,  // Important: tells jQuery not to process content type automatically
+            // processData: true,  // Important: tells jQuery not to process the data automatically
             success: function (response) {
                 // Handle the success response
                 // console.log('File and data uploaded successfully:', response);
