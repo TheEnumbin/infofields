@@ -41,8 +41,14 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#saveInfoMeta', function () {
-        let $iso_code = $(".js-locale-btn").html().trim();
-        $iso_code = $iso_code.toLowerCase();
+        const iso_local = $(".js-locale-btn");
+        let $iso_code = infofields_def_iso_code;
+        console.log(iso_local)
+        console.log(typeof iso_local)
+        if (iso_local) {
+            $iso_code = $(".js-locale-btn").html().trim();
+            $iso_code = $iso_code.toLowerCase();
+        }
         let $prd_id = $('.inf_input_prd').val();
         let $this = $(this);
         let $wrapper = $this.parent('.inf-meta-form-wrapper');
@@ -91,8 +97,8 @@ $(document).ready(function () {
             url: infofields_ajax_url,
             dataType: 'html',  // Expect HTML response (or change to 'json' if backend returns JSON)
             data: dataarr,    // Send the FormData object (contains both the file and the other data)
-            // contentType: true,  // Important: tells jQuery not to process content type automatically
-            // processData: true,  // Important: tells jQuery not to process the data automatically
+            contentType: true,  // Important: tells jQuery not to process content type automatically
+            processData: true,  // Important: tells jQuery not to process the data automatically
             success: function (response) {
                 // Handle the success response
                 // console.log('File and data uploaded successfully:', response);

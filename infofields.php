@@ -587,8 +587,11 @@ class Infofields extends Module
         if ($controller == 'AdminProducts' || $controller == 'AdminInfoLists' || $controller == 'AdminCmsContent' || $controller == 'AdminCustomers' || $controller == 'AdminCategories') {
             $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
             $this->context->controller->addJS($this->_path . 'views/js/admin.js');
+            $defaultLangId = Configuration::get('PS_LANG_DEFAULT');
+            $defaultLanguage = new Language($defaultLangId);
             Media::addJsDef([
                 'infofields_ajax_url' => $this->context->link->getAdminLink('AdminAjaxInfofields'),
+                'infofields_def_iso_code' => $defaultLanguage->iso_code,
             ]);
         }
     }
