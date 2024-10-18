@@ -45,7 +45,7 @@ $(document).ready(function () {
         let $iso_code = infofields_def_iso_code;
         console.log(iso_local)
         console.log(typeof iso_local)
-        if (iso_local) {
+        if (iso_local.length > 0) {
             $iso_code = $(".js-locale-btn").html().trim();
             $iso_code = $iso_code.toLowerCase();
         }
@@ -56,6 +56,8 @@ $(document).ready(function () {
         let $infofield_type = $wrapper.find('.inf_input_type').val();
         var $value = '';
         let dataarr = {}
+        let contentType = 'application/x-www-form-urlencoded'
+        let processData = true;
         if ($infofield_type == "4") {
             $value = $wrapper.find("input[type='radio'][name='" + 'inf_metafield_' + $infofield_id + '_' + $iso_code + "']:checked").val();
         } else if ($infofield_type == "7") {
@@ -77,6 +79,8 @@ $(document).ready(function () {
             dataarr.append('inf_type', $infofield_type);
             dataarr.append('prd_id', $prd_id);
             dataarr.append('ajax', true);
+            contentType = false
+            processData = false
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
@@ -97,8 +101,8 @@ $(document).ready(function () {
             url: infofields_ajax_url,
             dataType: 'html',  // Expect HTML response (or change to 'json' if backend returns JSON)
             data: dataarr,    // Send the FormData object (contains both the file and the other data)
-            contentType: true,  // Important: tells jQuery not to process content type automatically
-            processData: true,  // Important: tells jQuery not to process the data automatically
+            contentType: contentType,  // Important: tells jQuery not to process content type automatically
+            processData: processData,  // Important: tells jQuery not to process the data automatically
             success: function (response) {
                 // Handle the success response
                 // console.log('File and data uploaded successfully:', response);
