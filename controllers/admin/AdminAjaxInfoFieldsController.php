@@ -33,15 +33,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $inf_type = (int) trim(Tools::getValue('inf_type'));
         $languages = Language::getLanguages(false);
         $lang_id = Context::getContext()->language->id;
-        echo '<pre>';
-        print_r($_FILES);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        echo '<pre>';
-        print_r($inf_value);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
 
         foreach ($languages as $language) {
             if ($language['iso_code'] == $iso_code) {
