@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/../classes/MetaModel.php';
 
 trait infofieldHelper
 {
-    private function infofield_meta_update()
+    private function infofield_meta_update($inf_id, $obj, $field_type, $parent_type)
     {
                 $meta_object = new MetaModel(null, $inf_id, $obj->id);
 
