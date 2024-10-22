@@ -28,45 +28,45 @@ trait infofieldHelper
 {
     private function infofield_meta_update($inf_id, $obj, $field_type, $parent_type)
     {
-                $meta_object = new MetaModel(null, $inf_id, $obj->id);
+        $meta_object = new MetaModel(null, $inf_id, $obj->id);
 
-                if (isset($meta_object->id)) {
-                    if ($field_type == 5 || $field_type == 9) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
+        if (isset($meta_object->id)) {
+            if ($field_type == 5 || $field_type == 9) {
+                $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
 
-                        if (!$done_upload) {
-                            continue;
-                        }
-                        $meta_object->meta_data = json_encode($done_upload);
-                    } else {
-                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
+                if (!$done_upload) {
+                    continue;
+                }
+                $meta_object->meta_data = json_encode($done_upload);
+            } else {
+                $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
 
-                        if ($field_type == 6) {
-                            $meta_object->meta_data = json_encode($meta_object->meta_data);
-                        }
-                    }
-                    $meta_object->update();
-                } else {
-                    $meta_object->id_infofields = $inf_id;
-                    $meta_object->parent_item_id = $obj->id;
-                    if ($field_type == 5 || $field_type == 9) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
-
-                        if (!$done_upload) {
-                            continue;
-                        }
-                        $meta_object->meta_data = json_encode($done_upload);
-                    } else {
-                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
-                        if ($field_type == 6) {
-                            $meta_object->meta_data = json_encode($meta_object->meta_data);
-                        }
-                    }
-
-                    $meta_object->add();
+                if ($field_type == 6) {
+                    $meta_object->meta_data = json_encode($meta_object->meta_data);
                 }
             }
+            $meta_object->update();
+        } else {
+            $meta_object->id_infofields = $inf_id;
+            $meta_object->parent_item_id = $obj->id;
+            if ($field_type == 5 || $field_type == 9) {
+                $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
+
+                if (!$done_upload) {
+                    continue;
+                }
+                $meta_object->meta_data = json_encode($done_upload);
+            } else {
+                $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
+                if ($field_type == 6) {
+                    $meta_object->meta_data = json_encode($meta_object->meta_data);
+                }
+            }
+
+            $meta_object->add();
+        }
     }
+
     private function inf_upload_files($inf_id, $obj_id, $files, $parent_type, $field_type)
     {
         $ogName = $files[$parent_type]['name']['inf_metafield_' . $inf_id];
