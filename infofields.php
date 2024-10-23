@@ -30,10 +30,12 @@ if (!defined('_PS_VERSION_')) {
 require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
+require_once dirname(__FILE__) . '/includes/InfofieldHelper.php';
 // use ImageManager;
 
 class Infofields extends Module
 {
+    use infofieldHelper;
     protected $config_form = false;
 
     public function __construct()
@@ -536,42 +538,10 @@ class Infofields extends Module
 
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $field_type) {
-                $meta_object = new MetaModel(null, $inf_id, $obj->id);
+                $meta_updated = $this->infofield_meta_update($inf_id, $obj->id, $field_type, $parent_type);
 
-                if (isset($meta_object->id)) {
-                    if ($field_type == 5 || $field_type == 9) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
-
-                        if (!$done_upload) {
-                            continue;
-                        }
-                        $meta_object->meta_data = json_encode($done_upload);
-                    } else {
-                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
-
-                        if ($field_type == 6) {
-                            $meta_object->meta_data = json_encode($meta_object->meta_data);
-                        }
-                    }
-                    $meta_object->update();
-                } else {
-                    $meta_object->id_infofields = $inf_id;
-                    $meta_object->parent_item_id = $obj->id;
-                    if ($field_type == 5 || $field_type == 9) {
-                        $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
-
-                        if (!$done_upload) {
-                            continue;
-                        }
-                        $meta_object->meta_data = json_encode($done_upload);
-                    } else {
-                        $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
-                        if ($field_type == 6) {
-                            $meta_object->meta_data = json_encode($meta_object->meta_data);
-                        }
-                    }
-
-                    $meta_object->add();
+                if (!$meta_object) {
+                    continue;
                 }
             }
         }

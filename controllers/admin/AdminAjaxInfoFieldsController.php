@@ -21,9 +21,12 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 require_once dirname(__FILE__) . '/../../classes/MetaModel.php';
+require_once dirname(__FILE__) . '/../includes/InfofieldHelper.php';
 
 class AdminAjaxInfofieldsController extends ModuleAdminController
 {
+    use InfofieldHelper;
+
     public function ajaxProcessSaveInfometa()
     {
         $iso_code = trim(Tools::getValue('iso_code'));
@@ -39,23 +42,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $object = new MetaModel(null, $inf_id, $prd_id);
-
-        if (isset($object->id)) {
-            if ($inf_type == 6) {
-                $inf_value = json_encode($inf_value);
-            }
-            $object->meta_data[$lang_id] = $inf_value;
-            $object->update();
-        } else {
-            $object->id_infofields = $inf_id;
-            $object->parent_item_id = $prd_id;
-            if ($inf_type == 6) {
-                $inf_value = json_encode($inf_value);
-            }
-            $object->meta_data[$lang_id] = $inf_value;
-            $object->add();
-        }
+        $this->infofield_meta_update($inf_id, $prd_id, $inf_type);
         exit;
     }
 

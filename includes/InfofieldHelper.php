@@ -26,16 +26,16 @@ require_once dirname(__FILE__) . '/../classes/MetaModel.php';
 
 trait infofieldHelper
 {
-    private function infofield_meta_update($inf_id, $obj, $field_type, $parent_type)
+    private function infofield_meta_update($inf_id, $obj_id, $field_type, $parent_type)
     {
-        $meta_object = new MetaModel(null, $inf_id, $obj->id);
+        $meta_object = new MetaModel(null, $inf_id, $obj_id);
 
         if (isset($meta_object->id)) {
             if ($field_type == 5 || $field_type == 9) {
-                $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
+                $done_upload = $this->inf_upload_files($inf_id, $obj_id, $_FILES, $parent_type, $field_type);
 
                 if (!$done_upload) {
-                    continue;
+                    return false;
                 }
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
@@ -48,12 +48,12 @@ trait infofieldHelper
             $meta_object->update();
         } else {
             $meta_object->id_infofields = $inf_id;
-            $meta_object->parent_item_id = $obj->id;
+            $meta_object->parent_item_id = $obj_id;
             if ($field_type == 5 || $field_type == 9) {
-                $done_upload = $this->inf_upload_files($inf_id, $obj->id, $_FILES, $parent_type, $field_type);
+                $done_upload = $this->inf_upload_files($inf_id, $obj_id, $_FILES, $parent_type, $field_type);
 
                 if (!$done_upload) {
-                    continue;
+                    return false;
                 }
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
@@ -65,6 +65,7 @@ trait infofieldHelper
 
             $meta_object->add();
         }
+        return true;
     }
 
     private function inf_upload_files($inf_id, $obj_id, $files, $parent_type, $field_type)
