@@ -21,7 +21,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 require_once dirname(__FILE__) . '/../../classes/MetaModel.php';
-require_once dirname(__FILE__) . '/../includes/InfofieldHelper.php';
+require_once dirname(__FILE__) . '/../../includes/InfofieldHelper.php';
 
 class AdminAjaxInfofieldsController extends ModuleAdminController
 {
@@ -42,7 +42,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 2);
+        $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 2, $inf_value, true);
         exit;
     }
 

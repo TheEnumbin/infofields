@@ -538,9 +538,9 @@ class Infofields extends Module
 
         if (!empty($inf_ids)) {
             foreach ($inf_ids as $inf_id => $field_type) {
-                $meta_updated = $this->infofield_meta_update($inf_id, $obj->id, $field_type, $parent_type);
+                $meta_updated = $this->infofield_meta_update($inf_id, $obj->id, $field_type, $parent_type, $data);
 
-                if (!$meta_object) {
+                if (!$meta_updated) {
                     continue;
                 }
             }

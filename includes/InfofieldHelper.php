@@ -26,7 +26,7 @@ require_once dirname(__FILE__) . '/../classes/MetaModel.php';
 
 trait infofieldHelper
 {
-    private function infofield_meta_update($inf_id, $obj_id, $field_type, $parent_type)
+    private function infofield_meta_update($inf_id, $obj_id, $field_type, $parent_type, $data, $ajax = false)
     {
         $meta_object = new MetaModel(null, $inf_id, $obj_id);
 
@@ -39,7 +39,12 @@ trait infofieldHelper
                 }
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
-                $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
+                $meta_data = $data;
+
+                if (!$ajax) {
+                    $meta_data = $data['inf_metafield_' . $inf_id];
+                }
+                $meta_object->meta_data = $meta_data;
 
                 if ($field_type == 6) {
                     $meta_object->meta_data = json_encode($meta_object->meta_data);
@@ -57,7 +62,12 @@ trait infofieldHelper
                 }
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
-                $meta_object->meta_data = $data['inf_metafield_' . $inf_id];
+                $meta_data = $data;
+
+                if (!$ajax) {
+                    $meta_data = $data['inf_metafield_' . $inf_id];
+                }
+                $meta_object->meta_data = $meta_data;
                 if ($field_type == 6) {
                     $meta_object->meta_data = json_encode($meta_object->meta_data);
                 }
