@@ -17,7 +17,6 @@
  * @copyright Since 2007 PrestaShop SA and Contributors
  * @license   https://opensource.org/licenses/AFL-3.0 Academic Free License 3.0 (AFL-3.0)
  */
-
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -116,11 +115,11 @@ trait infofieldHelper
                     'name' => 'custom_default',
                     'width' => $fields[0]['img_width'],
                     'height' => $fields[0]['img_height'],
-                ]
+                ],
             ];
             foreach ($imgSizeData as $imgSize) {
-                $newWidth = (int)$imgSize['width'];
-                $newHeight = (int)$imgSize['height'];
+                $newWidth = (int) $imgSize['width'];
+                $newHeight = (int) $imgSize['height'];
                 $resized = ImageManager::resize(
                     $uploadDir . $uploadFile,
                     _PS_IMG_DIR_ . 'infofield/' . $newFileName . '_' . $imgSize['name'] . '.' . $ext,

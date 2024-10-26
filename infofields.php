@@ -640,7 +640,7 @@ class Infofields extends Module
     /**
      * Add the CSS & JavaScript files you want to be added on the FO.
      */
-    public function hookHeader()
+    public function hookDisplayHeader()
     {
         $this->context->controller->addCSS($this->_path . '/views/css/front_generated.css');
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
@@ -669,7 +669,7 @@ class Infofields extends Module
             'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
-            'img_dir' => _PS_IMG_ . 'infofield/'
+            'img_dir' => _PS_IMG_ . 'infofield/',
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
         echo $output;

@@ -1,7 +1,7 @@
 <?php
 
 global $_MODULE;
-$_MODULE = array();
+$_MODULE = [];
 $_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Informationsfelder: Erstellen Sie erweiterte benutzerdefinierte Metafelder';
 $_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Fügen Sie Ihren Produkten, Kategorien, Kunden und Seiten zusätzliche Felder hinzu.';
 $_MODULE['<{infofields}prestashop>infofields_c888438d14855d7d96a2724ee9c306bd'] = 'Einstellungen aktualisiert';

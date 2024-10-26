@@ -154,7 +154,6 @@ class InfofieldBuilder
             case 2:
                 $locales = Language::getLanguages();
                 $return_arr['params'] = [
-                    'label' => "hello",
                     'type' => FormattedTextareaType::class,
                     'locales' => $locales,
                     'hideTabs' => false,
@@ -244,7 +243,7 @@ class InfofieldBuilder
                 $data = json_decode($data, true);
                 if (is_array($data)) {
                     if ($field_type == 5) {
-                        $data = $data['file'] . '_backend_default' . '.' . $data['ext'];
+                        $data = $data['file'] . '_backend_default.' . $data['ext'];
                     } else {
                         $data = $data['file'];
                     }

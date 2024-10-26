@@ -1,7 +1,7 @@
 <?php
 
 global $_MODULE;
-$_MODULE = array();
+$_MODULE = [];
 $_MODULE['<{infofields}prestashop>infofields_a51401f9518fa68044a1f6eeacde6a23'] = 'Champs d\'informations: créer des champs méta avancés personnalisés';
 $_MODULE['<{infofields}prestashop>infofields_a9ee12d0723d0f475a6d3e71d19e2e1f'] = 'Ajoutez des champs supplémentaires à vos produits, catégories, clients et pages.';
 $_MODULE['<{infofields}prestashop>infofields_c888438d14855d7d96a2724ee9c306bd'] = 'Paramètres mis à jour';
@@ -33,7 +33,7 @@ $_MODULE['<{infofields}prestashop>admininfolistscontroller_83a42e8173fbafaa83b0c
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf9ec8d9ef7ce'] = 'Uniquement pour les types Sélection, Radio, Cases à cocher.  [Exemple de format pour Select et Radio: key1:label1,key2:label2] [Exemple de format pour les cases à cocher: label1,label2]';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_db3794c7d704611ce61c9d8cc09cd806'] = 'Date de début';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_3c1429dca1ae285353b112dfacae5fe5'] = 'Date de fin';
-$_MODULE['<{infofields}prestashop>admininfolistscontroller_7c1ca41bb61dedd0e0f5e6e239e7140c'] = 'Largeur de l\'image';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_7c1ca41bb61dedd0e0f5e6e239e7140c'] = 'Largeur de limage';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_1b3f598227a6bb4f5a8b4ce627c2c060'] = 'Uniquement pour les champs d\'image. Exemple : 20 px';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_73272b37e90e93583b05761520dc45b5'] = 'Hauteur de l\'image';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_573e0f60b3783b9f6af90c1bc56d1931'] = 'Afficher avec le nom du champ';
