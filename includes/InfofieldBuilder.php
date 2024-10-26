@@ -30,6 +30,7 @@ if (!defined('_PS_VERSION_')) {
 use PrestaShopBundle\Form\Admin\Type\CustomContentType;
 use PrestaShopBundle\Form\Admin\Type\FormattedTextareaType;
 use PrestaShopBundle\Form\Admin\Type\SwitchType;
+use PrestaShopBundle\Form\Admin\Type\TranslateType;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -73,16 +74,26 @@ class InfofieldBuilder
             $field_params = $this->inf_get_field_params($field);
             $inf_ids[$field['id_infofields']] = $field['field_type'];
             $data = $this->inf_prepare_data($metas[$field['id_infofields']], $field['field_type']);
+
             if (!in_array($field['field_type'], $file_fileds)) {
                 $field_params['params']['data'] = $data;
             }
             if ($field_params['has_translator']) {
-                $formBuilder
-                ->add(
-                    'inf_metafield_' . $field['id_infofields'],
-                    TranslatableType::class,
-                    $field_params['params'],
-                );
+                if ($field['field_type'] == 2) {
+                    $formBuilder
+                    ->add(
+                        'inf_metafield_' . $field['id_infofields'],
+                        TranslateType::class,
+                        $field_params['params'],
+                    );
+                } else {
+                    $formBuilder
+                        ->add(
+                            'inf_metafield_' . $field['id_infofields'],
+                            TranslatableType::class,
+                            $field_params['params'],
+                        );
+                }
             } else {
                 $formBuilder
                     ->add(
@@ -141,8 +152,13 @@ class InfofieldBuilder
                 $return_arr['has_translator'] = true;
                 break;
             case 2:
+                $locales = Language::getLanguages();
                 $return_arr['params'] = [
+                    'label' => "hello",
                     'type' => FormattedTextareaType::class,
+                    'locales' => $locales,
+                    'hideTabs' => false,
+                    'required' => false,
                 ];
                 $return_arr['has_translator'] = true;
                 break;

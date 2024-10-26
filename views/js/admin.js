@@ -43,8 +43,6 @@ $(document).ready(function () {
     $(document).on('click', '#saveInfoMeta', function () {
         const iso_local = $(".js-locale-btn");
         let $iso_code = infofields_def_iso_code;
-        console.log(iso_local)
-        console.log(typeof iso_local)
         if (iso_local.length > 0) {
             $iso_code = $(".js-locale-btn").html().trim();
             $iso_code = $iso_code.toLowerCase();

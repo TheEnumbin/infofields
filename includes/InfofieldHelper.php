@@ -40,7 +40,6 @@ trait infofieldHelper
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
                 $meta_data = $data;
-
                 if (!$ajax) {
                     $meta_data = $data['inf_metafield_' . $inf_id];
                 }
