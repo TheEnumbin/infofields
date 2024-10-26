@@ -24,7 +24,12 @@
 *}
 <div class="panel">
     <div class="panel-heading">Our Other Products</div>
-    <div class="form-wrapper">
+    <div class="form-wrapper infofields-advertisement-wrapper">
+        <a target="_blank"
+            href="https://addons.prestashop.com/en/legal/90152-omniverse-pricing-eu-omnibus-directive-law-compatible.html">
+            <img src="{$module_dir}views/img/omni_advertisement.png" alt="Your Image Description"
+                style="max-width: 100%; height: auto;">
+        </a>
         <a target="_blank"
             href="https://addons.prestashop.com/en/registration-ordering-process/94239-infofields-create-advanced-custom-fields-product-tabs.html">
             <img src="{$module_dir}views/img/infofield_advertisement.png" alt="Your Image Description"

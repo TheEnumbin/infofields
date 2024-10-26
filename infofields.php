@@ -31,7 +31,6 @@ require_once dirname(__FILE__) . '/classes/FieldsModel.php';
 require_once dirname(__FILE__) . '/classes/MetaModel.php';
 require_once dirname(__FILE__) . '/includes/InfofieldBuilder.php';
 require_once dirname(__FILE__) . '/includes/InfofieldHelper.php';
-// use ImageManager;
 
 class Infofields extends Module
 {

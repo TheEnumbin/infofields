@@ -34,7 +34,7 @@ $_MODULE['<{infofields}prestashop>admininfolistscontroller_af6646e29699d89f432cf
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_db3794c7d704611ce61c9d8cc09cd806'] = 'Date de début';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_3c1429dca1ae285353b112dfacae5fe5'] = 'Date de fin';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_7c1ca41bb61dedd0e0f5e6e239e7140c'] = 'Largeur de limage';
-$_MODULE['<{infofields}prestashop>admininfolistscontroller_1b3f598227a6bb4f5a8b4ce627c2c060'] = 'Uniquement pour les champs d\'image. Exemple : 20 px';
+$_MODULE['<{infofields}prestashop>admininfolistscontroller_1b3f598227a6bb4f5a8b4ce627c2c060'] = 'Uniquement pour les champs d\'image. Exemple: 20px';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_73272b37e90e93583b05761520dc45b5'] = 'Hauteur de l\'image';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_573e0f60b3783b9f6af90c1bc56d1931'] = 'Afficher avec le nom du champ';
 $_MODULE['<{infofields}prestashop>admininfolistscontroller_93cba07454f06a4a960172bbd6e2a435'] = 'Oui';

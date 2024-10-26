@@ -81,8 +81,9 @@ class AdminInfoListsController extends ModuleAdminController
                 'callback' => 'getFieldtypeName',
             ],
         ];
+        $advertise = $this->advertise_template();
 
-        return parent::renderList();
+        return parent::renderList() . $advertise;
     }
 
     public function renderForm()
@@ -406,5 +407,12 @@ class AdminInfoListsController extends ModuleAdminController
             7 => 'Checkboxes',
             8 => 'Select',
         ];
+    }
+
+    protected function advertise_template()
+    {
+        // Fetch and render the template file
+        $this->context->smarty->assign('module_dir', $this->module->getPathUri());
+        return $this->context->smarty->fetch($this->module->getLocalPath() . 'views/templates/admin/advertise_template.tpl');
     }
 }
