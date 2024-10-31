@@ -588,6 +588,7 @@ class Infofields extends Module
             'infometas' => $metas,
             'id_prd' => $id_product,
             'langs' => $langs,
+            'img_dir' => _PS_IMG_,
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/admin/fields_form.tpl');
 

@@ -85,9 +85,11 @@ class MetaModel extends ObjectModel
         }
         $id_parents = [];
         $return_arr = [];
+        $field_type_arr = [];
 
         foreach ($parent_fields as $parent_field) {
             $id_parents[] = $parent_field['id_infofields'];
+            $field_type_arr[$parent_field['id_infofields']] = $parent_field['field_type'];
             $return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
         }
         $id_parents = implode(', ', $id_parents);
@@ -97,17 +99,20 @@ class MetaModel extends ObjectModel
         WHERE infm.`id_infofields` IN (' . $id_parents . ') AND infm.`parent_item_id` = ' . (int) $parent_id . $where_lang);
 
         foreach ($metas as $meta) {
-            // echo '<pre>';
-            // print_r($meta);
-            // echo '</pre>';
-            // echo __FILE__ . ' : ' . __LINE__;
             if ($only_data) {
-                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta['meta_data'];
+                $final_meta = $meta['meta_data'];
+                if ($field_type_arr[$meta['id_infofields']] == 9 || $field_type_arr[$meta['id_infofields']] == 5) {
+                    $final_meta = json_decode($final_meta, true);
+                }
+                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $final_meta;
             } else {
-                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
+                $final_meta = $meta;
+                if ($field_type_arr[$meta['id_infofields']] == 9 || $field_type_arr[$meta['id_infofields']] == 5) {
+                    $final_meta['meta_data'] = json_decode($final_meta['meta_data'], true);
+                }
+                $return_arr[$meta['id_infofields']][$meta['id_lang']] = $final_meta;
             }
         }
-        // die(__FILE__ . ' : ' . __LINE__);
         return $return_arr;
     }
 }

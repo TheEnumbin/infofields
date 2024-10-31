@@ -121,6 +121,9 @@
                         </div>
                     </div>
                 {elseif $infofield.field_type == 5}
+                    <pre>
+                                                            {}
+                                                            </pre>
                     <div class="form-group column select-widget">
                         <div class="col-sm input-container">
                             <div class="custom-file">
@@ -132,17 +135,17 @@
                                 </label>
                             </div>
                         </div>
-                        <pre>
-                                {$infometas|print_r}
-                                </pre>
                         <div class="col-sm">
                             <div class="preview-wrapper">
                                 <figure class="figure">
-                                    <img src="" class="figure-img img-fluid img-thumbnail">
+                                    <img src="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
+                                        class="figure-img img-fluid img-thumbnail">
                                 </figure>
                                 <div class="d-block">
-                                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}"
-                                        data-item_id="" data-file="" data-type="image">Delete
+                                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{$infofield.id_infofields}"
+                                        data-item_id="{$id_prd}"
+                                        data-file="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
+                                        data-type="image">Delete
                                         File</button>
                                     <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
                                 </div>
