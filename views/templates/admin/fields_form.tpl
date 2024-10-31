@@ -121,7 +121,7 @@
                         </div>
                     </div>
                 {elseif $infofield.field_type == 5}
-                    <div class="form-group row select-widget">
+                    <div class="form-group column select-widget">
                         <div class="col-sm input-container">
                             <div class="custom-file">
                                 <input type="file" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
@@ -130,6 +130,22 @@
                                 <label class="custom-file-label" for="category_inf_metafield_1">
                                     Choose file(s)
                                 </label>
+                            </div>
+                        </div>
+                        <pre>
+                                {$infometas|print_r}
+                                </pre>
+                        <div class="col-sm">
+                            <div class="preview-wrapper">
+                                <figure class="figure">
+                                    <img src="" class="figure-img img-fluid img-thumbnail">
+                                </figure>
+                                <div class="d-block">
+                                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{{ id_infofield }}"
+                                        data-item_id="" data-file="" data-type="image">Delete
+                                        File</button>
+                                    <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -97,12 +97,17 @@ class MetaModel extends ObjectModel
         WHERE infm.`id_infofields` IN (' . $id_parents . ') AND infm.`parent_item_id` = ' . (int) $parent_id . $where_lang);
 
         foreach ($metas as $meta) {
+            // echo '<pre>';
+            // print_r($meta);
+            // echo '</pre>';
+            // echo __FILE__ . ' : ' . __LINE__;
             if ($only_data) {
                 $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta['meta_data'];
             } else {
                 $return_arr[$meta['id_infofields']][$meta['id_lang']] = $meta;
             }
         }
+        // die(__FILE__ . ' : ' . __LINE__);
         return $return_arr;
     }
 }

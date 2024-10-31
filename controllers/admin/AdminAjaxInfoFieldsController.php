@@ -42,7 +42,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 2, $inf_value, true);
+        $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 'product', $inf_value, true);
         exit;
     }
 
