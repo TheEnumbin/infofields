@@ -64,7 +64,7 @@ $(document).ready(function () {
             } else {
                 $value = 0;
             }
-        } else if ($infofield_type == "5") {
+        } else if ($infofield_type == "5" || $infofield_type == "9") {
             var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
             var formData = new FormData();
             $value = fileInput.files[0];
@@ -83,7 +83,7 @@ $(document).ready(function () {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
         console.log(typeof dataarr)
-        if ($infofield_type != "5") {
+        if ($infofield_type != "5" && $infofield_type != "9") {
             dataarr.controller = 'AdminAjaxInfofields';
             dataarr.action = 'SaveInfometa';
             dataarr.iso_code = $iso_code;
@@ -102,32 +102,18 @@ $(document).ready(function () {
             contentType: contentType,  // Important: tells jQuery not to process content type automatically
             processData: processData,  // Important: tells jQuery not to process the data automatically
             success: function (response) {
-                // Handle the success response
-                // console.log('File and data uploaded successfully:', response);
+                console.log(response);
+                const responseArr = JSON.parse(response)
+                console.log(responseArr);
+                console.log(responseArr.success);
+                if ($infofield_type != "5") {
+                    $this.parent(".inf-meta-form-group")
+                    console.log($this.parent(".inf-meta-form-group"))
+                }
             },
             error: function (error) {
-                // Handle any errors
-                // console.error('Error uploading file and data:', error);
             }
         });
-        // $.ajax({
-        //     type: 'POST',
-        //     url: infofields_ajax_url,
-        //     dataType: 'html',
-        //     data: {
-        //         controller: 'AdminAjaxInfofields',
-        //         action: 'SaveInfometa',
-        //         iso_code: $iso_code,
-        //         inf_id: $infofield_id,
-        //         inf_type: $infofield_type,
-        //         prd_id: $prd_id,
-        //         inf_value: $value,
-        //         ajax: true
-        //     },
-        //     success: function (data) {
-
-        //     }
-        // });
     });
     $(document).on('click', '.inf-delete-btn', function (e) {
         e.preventDefault()

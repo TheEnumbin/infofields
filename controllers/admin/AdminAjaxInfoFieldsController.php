@@ -42,7 +42,14 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $lang_id = (int) $language['id_lang'];
             }
         }
-        $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 'product', $inf_value, true);
+        $response = $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 'product', $inf_value, true);
+
+        if ($response) {
+            echo json_encode($response);
+            exit;
+        }
+
+        echo json_encode(['success' => false]);
         exit;
     }
 
@@ -62,9 +69,13 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                     $file = $meta_data['file'];
                 } else {
                     $file = $meta_data['file'] . '.' . $meta_data['ext'];
+                    $backend_file = $meta_data['file'] . '_backend_default.' . $meta_data['ext'];
+                    $custom_file = $meta_data['file'] . '_custom_default.' . $meta_data['ext'];
                 }
-                $total_path = _PS_IMG_DIR_ . 'infofield/' . $file;
-                unlink($total_path);
+                $total_path = _PS_IMG_DIR_ . 'infofield/';
+                unlink($total_path . $file);
+                unlink($total_path . $backend_file);
+                unlink($total_path . $custom_file);
             }
             $object->delete();
             $delete = 1;

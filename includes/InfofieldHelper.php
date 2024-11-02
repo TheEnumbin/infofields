@@ -28,7 +28,7 @@ trait infofieldHelper
     private function infofield_meta_update($inf_id, $obj_id, $field_type, $parent_type, $data, $ajax = false)
     {
         $meta_object = new MetaModel(null, $inf_id, $obj_id);
-
+        $return_arr = [];
         if (isset($meta_object->id)) {
             if ($field_type == 5 || $field_type == 9) {
                 $done_upload = $this->inf_upload_files($inf_id, $obj_id, $_FILES, $parent_type, $field_type, $ajax);
@@ -36,6 +36,7 @@ trait infofieldHelper
                 if (!$done_upload) {
                     return false;
                 }
+                $return_arr['file'] = $done_upload;
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
                 $meta_data = $data;
@@ -58,6 +59,7 @@ trait infofieldHelper
                 if (!$done_upload) {
                     return false;
                 }
+                $return_arr['file'] = $done_upload;
                 $meta_object->meta_data = json_encode($done_upload);
             } else {
                 $meta_data = $data;
@@ -73,7 +75,8 @@ trait infofieldHelper
 
             $meta_object->add();
         }
-        return true;
+        $return_arr['success'] = true;
+        return $return_arr;
     }
 
     private function inf_upload_files($inf_id, $obj_id, $files, $parent_type, $field_type, $ajax = false)

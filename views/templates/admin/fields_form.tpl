@@ -121,34 +121,66 @@
                         </div>
                     </div>
                 {elseif $infofield.field_type == 5}
-                    <pre>
-                                                            {}
-                                                            </pre>
-                    <div class="form-group column select-widget">
-                        <div class="col-sm input-container">
+                    <div class="form-group column">
+                        <div class=" input-container">
                             <div class="custom-file">
                                 <input type="file" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                     name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                                     class="custom-file-input" data-multiple-files-text="%count% file(s)">
-                                <label class="custom-file-label" for="category_inf_metafield_1">
+                                <label class="custom-file-label">
+                                    Choose file(s)
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="preview-wrapper">
+                                {if $infometa_value }
+                                    <figure class="figure">
+                                        <img src="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
+                                            class="figure-img img-fluid img-thumbnail">
+                                    </figure>
+                                    <div class="d-block">
+                                        <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{$infofield.id_infofields}"
+                                            data-item_id="{$id_prd}"
+                                            data-file="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
+                                            data-type="image">Delete
+                                            File</button>
+                                        <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
+                                    </div>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                {elseif $infofield.field_type == 9}
+                    <div class="form-group column">
+                        <div class="input-container">
+                            <div class="custom-file">
+                                <input type="file" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                    name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
+                                    class="custom-file-input" data-multiple-files-text="%count% file(s)">
+                                <label class="custom-file-label">
                                     Choose file(s)
                                 </label>
                             </div>
                         </div>
                         <div class="col-sm">
                             <div class="preview-wrapper">
-                                <figure class="figure">
-                                    <img src="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
-                                        class="figure-img img-fluid img-thumbnail">
-                                </figure>
-                                <div class="d-block">
-                                    <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="{$infofield.id_infofields}"
-                                        data-item_id="{$id_prd}"
-                                        data-file="{$img_dir}/infofield/{$infometa_value.file}_backend_default.{$infometa_value.ext}"
-                                        data-type="image">Delete
-                                        File</button>
-                                    <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
-                                </div>
+                                {if $infometa_value }
+                                    <div class="file-preview preview-wrapper" id="file-container">
+                                        <a href="{$img_dir}/infofield/{$infometa_value.file}.{$infometa_value.ext}" target="_blank"
+                                            class="download-link">
+                                            Download File
+                                        </a>
+                                        <div>
+                                            <button class="btn btn-danger inf-delete-btn mt-2"
+                                                data-inf_id="{$infofield.id_infofields}" data-item_id="{$id_prd}"
+                                                data-file="{$img_dir}/infofield/{$infometa_value.file}.{$infometa_value.ext}"
+                                                data-type="file">Delete File</button>
+                                            <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
+                                        </div>
+                                    </div>
+                                {/if}
                             </div>
                         </div>
                     </div>
