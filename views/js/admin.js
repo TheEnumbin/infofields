@@ -82,7 +82,6 @@ $(document).ready(function () {
         } else {
             $value = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code).val();
         }
-        console.log(typeof dataarr)
         if ($infofield_type != "5" && $infofield_type != "9") {
             dataarr.controller = 'AdminAjaxInfofields';
             dataarr.action = 'SaveInfometa';
@@ -106,9 +105,9 @@ $(document).ready(function () {
                 const responseArr = JSON.parse(response)
                 console.log(responseArr);
                 console.log(responseArr.success);
-                if ($infofield_type != "5") {
+                if ($infofield_type == "5") {
                     $this.parent(".inf-meta-form-group")
-                    console.log($this.parent(".inf-meta-form-group"))
+                    console.log($this.siblings('.inf-meta-form-group').find('.preview-wrapper'))
                 }
             },
             error: function (error) {
