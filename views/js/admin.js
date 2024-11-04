@@ -104,10 +104,41 @@ $(document).ready(function () {
                 console.log(response);
                 const responseArr = JSON.parse(response)
                 console.log(responseArr);
-                console.log(responseArr.success);
-                if ($infofield_type == "5") {
-                    $this.parent(".inf-meta-form-group")
-                    console.log($this.siblings('.inf-meta-form-group').find('.preview-wrapper'))
+                console.log(typeof responseArr.success);
+                if (responseArr.success == true) {
+                    if ($infofield_type == "5") {
+                        $this.siblings('.inf-meta-form-group').find('.preview-wrapper').append(
+                            `<figure class="figure">
+                                        <img src="${responseArr.img_dir}/infofield/${responseArr.file.file}_backend_default.${responseArr.file.ext}"
+                                            class="figure-img img-fluid img-thumbnail">
+                                    </figure>
+                                    <div class="d-block">
+                                        <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="${$infofield_id}"
+                                            data-item_id="${$prd_id}"
+                                            data-file="${responseArr.img_dir}/infofield/${responseArr.file.file}_backend_default.${responseArr.file.ext}"
+                                            data-type="image">Delete
+                                            File</button>
+                                        <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
+                                    </div>`
+                        )
+                    } else if ($infofield_type == "9") {
+                        $this.siblings('.inf-meta-form-group').find('.preview-wrapper').append(
+                            `<div class="file-preview preview-wrapper" id="file-container">
+                                        <a href="${responseArr.img_dir}/infofield/${responseArr.file.file}.${responseArr.file.ext}" target="_blank"
+                                            class="download-link">
+                                            Download File
+                                        </a>
+                                        <div>
+                                            <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="${$infofield_id}"
+                                            data-item_id="${$prd_id}"
+                                            data-file="${responseArr.img_dir}/infofield/${responseArr.file.file}.${responseArr.file.ext}"
+                                            data-type="image">Delete
+                                            File</button>
+                                            <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
+                                        </div>
+                                    </div>`
+                        )
+                    }
                 }
             },
             error: function (error) {

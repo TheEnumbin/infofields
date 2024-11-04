@@ -43,7 +43,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             }
         }
         $response = $this->infofield_meta_update($inf_id, $prd_id, $inf_type, 'product', $inf_value, true);
-
+        $response['img_dir'] = _PS_IMG_;
         if ($response) {
             echo json_encode($response);
             exit;
