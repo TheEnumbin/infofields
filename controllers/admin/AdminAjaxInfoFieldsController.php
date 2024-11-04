@@ -65,22 +65,26 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         if (isset($object->id)) {
             if (!empty($object->meta_data)) {
                 $meta_data = json_decode(array_pop($object->meta_data), true);
+
                 if ($field_type == 'file') {
                     $file = $meta_data['file'];
+                    $total_path = _PS_IMG_DIR_ . '/infofield/';
+
+                    unlink($total_path . $file);
                 } else {
                     $file = $meta_data['file'] . '.' . $meta_data['ext'];
                     $backend_file = $meta_data['file'] . '_backend_default.' . $meta_data['ext'];
                     $custom_file = $meta_data['file'] . '_custom_default.' . $meta_data['ext'];
+                    $total_path = _PS_IMG_DIR_ . '/infofield/';
+                    unlink($total_path . $file);
+                    unlink($total_path . $backend_file);
+                    unlink($total_path . $custom_file);
                 }
-                $total_path = _PS_IMG_DIR_ . 'infofield/';
-                unlink($total_path . $file);
-                unlink($total_path . $backend_file);
-                unlink($total_path . $custom_file);
             }
             $object->delete();
-            $delete = 1;
+            $deleted = 1;
         }
-        if ($delete) {
+        if ($deleted) {
             echo json_encode(['deleted' => true]);
         } else {
             echo json_encode(['deleted' => false]);

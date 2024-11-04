@@ -168,15 +168,14 @@
                             <div class="preview-wrapper">
                                 {if $infometa_value }
                                     <div class="file-preview preview-wrapper" id="file-container">
-                                        <a href="{$img_dir}/infofield/{$infometa_value.file}.{$infometa_value.ext}" target="_blank"
-                                            class="download-link">
+                                        <a href="{$img_dir}/infofield/{$infometa_value.file}" target="_blank" class="download-link">
                                             Download File
                                         </a>
                                         <div>
                                             <button class="btn btn-danger inf-delete-btn mt-2"
                                                 data-inf_id="{$infofield.id_infofields}" data-item_id="{$id_prd}"
-                                                data-file="{$img_dir}/infofield/{$infometa_value.file}.{$infometa_value.ext}"
-                                                data-type="file">Delete File</button>
+                                                data-file="{$img_dir}/infofield/{$infometa_value.file}" data-type="file">Delete
+                                                File</button>
                                             <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
                                         </div>
                                     </div>

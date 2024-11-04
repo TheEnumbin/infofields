@@ -124,15 +124,15 @@ $(document).ready(function () {
                     } else if ($infofield_type == "9") {
                         $this.siblings('.inf-meta-form-group').find('.preview-wrapper').append(
                             `<div class="file-preview preview-wrapper" id="file-container">
-                                        <a href="${responseArr.img_dir}/infofield/${responseArr.file.file}.${responseArr.file.ext}" target="_blank"
+                                        <a href="${responseArr.img_dir}/infofield/${responseArr.file.file}" target="_blank"
                                             class="download-link">
                                             Download File
                                         </a>
                                         <div>
                                             <button class="btn btn-danger inf-delete-btn mt-2" data-inf_id="${$infofield_id}"
                                             data-item_id="${$prd_id}"
-                                            data-file="${responseArr.img_dir}/infofield/${responseArr.file.file}.${responseArr.file.ext}"
-                                            data-type="image">Delete
+                                            data-file="${responseArr.img_dir}/infofield/${responseArr.file.file}"
+                                            data-type="file">Delete
                                             File</button>
                                             <img src="/path/to/loader.gif" class="loader" style="display:none;" alt="Loading">
                                         </div>
