@@ -690,7 +690,13 @@ class Infofields extends Module
         foreach ($fields as $field) {
             if (!empty($metas[$field['id_infofields']][$lang_id])) {
                 if ($metas[$field['id_infofields']][$lang_id]['meta_data'] != '') {
-                    $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
+                    if ($field['field_type'] == '5') {
+                        $this->context->smarty->assign('module_dir', $this->_path);
+                        $this->context->smarty->assign('infofield', $field);
+                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_image.tpl');
+                    } else {
+                        $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
+                    }
                     $array[] = (new PrestaShop\PrestaShop\Core\Product\ProductExtraContent())
                         ->setTitle($field['field_name'])
                         ->setContent($content);
