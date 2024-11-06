@@ -40,7 +40,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.2.1';
+        $this->version = '1.2.2';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
@@ -81,8 +81,7 @@ class Infofields extends Module
             && $this->registerHook('displayHeader')
             && $this->registerHook('displayBackOfficeHeader')
             && $this->registerHook('displayAdminProductsExtra')
-            && $this->registerHook('displayInfofield')
-            && $this->registerHook('displayProductPriceBlock');
+            && $this->registerHook('displayInfofield');
     }
 
     /**
