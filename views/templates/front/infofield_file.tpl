@@ -23,12 +23,9 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="infofield-wrapper">
-    <div class="image-wrapper">
-        {assign var="img_size" value=""}
-        {if $infofield.img_height != '' && $infofield.img_width != ''}
-            {assign var="img_size" value="_custom_default"}
-        {/if}
-        {assign var="img_data" value=$infometa}
-        <img src="{$img_dir}{$img_data.file}{$img_size}.{$img_data.ext}" alt="Uploaded Image" />
+    <div class="file-wrapper">
+        <a href="{$img_dir}{$infometa.file}" target="_blank" class="download-link">
+            Download File
+        </a>
     </div>
 </div>

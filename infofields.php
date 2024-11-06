@@ -691,9 +691,14 @@ class Infofields extends Module
             if (!empty($metas[$field['id_infofields']][$lang_id])) {
                 if ($metas[$field['id_infofields']][$lang_id]['meta_data'] != '') {
                     if ($field['field_type'] == '5') {
-                        $this->context->smarty->assign('module_dir', $this->_path);
+                        $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infofield', $field);
+                        $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
                         $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_image.tpl');
+                    } elseif ($field['field_type'] == '9') {
+                        $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
+                        $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
+                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_file.tpl');
                     } else {
                         $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
                     }
