@@ -178,6 +178,13 @@ class InfofieldBuilder
                     'accept' => 'gif,jpg,jpeg,jpe,png',
                 ];
                 break;
+            case 10:
+                $return_arr['params'] = [
+                    'type' => TextType::class,
+                ];
+                $return_arr['has_translator'] = false;
+                $return_arr['help'] = "Put the link of the video here";
+                break;
             case 9:
                 $return_arr['classtype'] = FileType::class;
                 $return_arr['has_translator'] = false;
