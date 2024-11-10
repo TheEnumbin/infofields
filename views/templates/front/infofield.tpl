@@ -65,7 +65,7 @@
                                     {if isset($infofield.img_height) && isset($infofield.img_width)}
                                         {assign var="img_size" value="_custom_default"}
                                     {/if}
-                                    {assign var="img_data" value=$infometa[$lang_id].meta_data|json_decode:true}
+                                    {assign var="img_data" value=$infometa[$lang_id].meta_data}
                                     <img src="{$img_dir}{$img_data.file}{$img_size}.{$img_data.ext}" alt="Uploaded Image" />
                                 </div>
                             {else}
@@ -74,7 +74,7 @@
                         {elseif $infofield.field_type == 9 }
                             {if $infometa[$lang_id].meta_data != ""}
                                 <div class="file-wrapper">
-                                    {assign var="file_data" value=$infometa[$lang_id].meta_data|json_decode:true}
+                                    {assign var="file_data" value=$infometa[$lang_id].meta_data}
                                     <a href="{$img_dir}{$file_data.file}" target="_blank" class="download-link">
                                         Download File
                                     </a>

@@ -94,35 +94,44 @@ class InfofieldBuilder
                         );
                 }
             } else {
-                $formBuilder
+                if ($field['field_type'] == 10) {
+                    $formBuilder
+                        ->add(
+                            'inf_metafield_' . $field['id_infofields'],
+                            $field_params['classtype'],
+                            $field_params['params']
+                        );
+                } else {
+                    $formBuilder
                     ->add(
                         'inf_metafield_' . $field['id_infofields'],
                         $field_params['classtype'],
                         $field_params['params'],
                     );
-                if ($field['field_type'] == 5) {
-                    if ($data != '') {
-                        $data = _PS_IMG_ . 'infofield/' . $data;
-                        $formBuilder->add('image_preview', CustomContentType::class, [
-                            'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
-                            'data' => [
-                                'imageUrl' => $data,
-                                'id_infofield' => $field['id_infofields'],
-                                'item_id' => $this->current_item_id,
-                            ],
-                        ]);
-                    }
-                } elseif ($field['field_type'] == 9) {
-                    if ($data != '') {
-                        $data = _PS_IMG_ . 'infofield/' . $data;
-                        $formBuilder->add('file_preview', CustomContentType::class, [
-                            'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
-                            'data' => [
-                                'fileUrl' => $data,
-                                'id_infofield' => $field['id_infofields'],
-                                'item_id' => $this->current_item_id,
-                            ],
-                        ]);
+                    if ($field['field_type'] == 5) {
+                        if ($data != '') {
+                            $data = _PS_IMG_ . 'infofield/' . $data;
+                            $formBuilder->add('image_preview', CustomContentType::class, [
+                                'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                                'data' => [
+                                    'imageUrl' => $data,
+                                    'id_infofield' => $field['id_infofields'],
+                                    'item_id' => $this->current_item_id,
+                                ],
+                            ]);
+                        }
+                    } elseif ($field['field_type'] == 9) {
+                        if ($data != '') {
+                            $data = _PS_IMG_ . 'infofield/' . $data;
+                            $formBuilder->add('file_preview', CustomContentType::class, [
+                                'template' => '@Modules/infofields/views/templates/admin/file_display.html.twig',
+                                'data' => [
+                                    'fileUrl' => $data,
+                                    'id_infofield' => $field['id_infofields'],
+                                    'item_id' => $this->current_item_id,
+                                ],
+                            ]);
+                        }
                     }
                 }
             }
@@ -179,9 +188,7 @@ class InfofieldBuilder
                 ];
                 break;
             case 10:
-                $return_arr['params'] = [
-                    'type' => TextType::class,
-                ];
+                $return_arr['classtype'] = TextType::class;
                 $return_arr['has_translator'] = false;
                 $return_arr['help'] = "Put the link of the video here";
                 break;
@@ -258,6 +265,7 @@ class InfofieldBuilder
                 break;
             case 4:
             case 8:
+            case 10:
                 $data = array_pop($data);
                 break;
             case 6:
