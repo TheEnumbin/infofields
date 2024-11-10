@@ -401,7 +401,7 @@ class AdminInfoListsController extends ModuleAdminController
             3 => 'Textarea',
             4 => 'Switch',
             5 => 'Image',
-            10 => 'Video',
+            // 10 => 'Video',
             9 => 'File',
             6 => 'Date',
             7 => 'Checkboxes',

@@ -178,7 +178,7 @@ class InfofieldBuilder
                     'accept' => 'gif,jpg,jpeg,jpe,png',
                 ];
                 break;
-            case 10:
+                // case 10:
                 $return_arr['params'] = [
                     'type' => TextType::class,
                 ];
