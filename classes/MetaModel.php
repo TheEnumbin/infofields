@@ -97,7 +97,6 @@ class MetaModel extends ObjectModel
         SELECT *
         FROM `' . _DB_PREFIX_ . 'infofields_meta` infm  LEFT JOIN `' . _DB_PREFIX_ . 'infofields_meta_lang` infml ON (infm.id_infofields_meta = infml.id_infofields_meta)
         WHERE infm.`id_infofields` IN (' . $id_parents . ') AND infm.`parent_item_id` = ' . (int) $parent_id . $where_lang);
-
         foreach ($metas as $meta) {
             if ($only_data) {
                 $final_meta = $meta['meta_data'];

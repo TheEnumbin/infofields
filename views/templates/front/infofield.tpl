@@ -82,6 +82,17 @@
                             {else}
                                 <p>No image uploaded.</p>
                             {/if}
+                        {elseif $infofield.field_type == 10 }
+                            {if $infometa[$lang_id].meta_data != ""}
+                                <div class="video-container">
+                                    <iframe width="560" height="315"
+                                        src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            {/if}
                         {elseif $infofield.field_type == 8 }
                             {assign var="available_values" value=","|explode:$infofield.available_values}
                             {foreach from=$available_values item=available_value}
