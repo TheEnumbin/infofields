@@ -190,7 +190,9 @@ class InfofieldBuilder
             case 10:
                 $return_arr['classtype'] = TextType::class;
                 $return_arr['has_translator'] = false;
-                $return_arr['help'] = "Put the link of the video here";
+                $return_arr['params'] = [
+                    'help' => 'Put the video id here.',
+                ];
                 break;
             case 9:
                 $return_arr['classtype'] = FileType::class;
