@@ -85,7 +85,14 @@
                         {elseif $infofield.field_type == 10 }
                             {if $infometa[$lang_id].meta_data != ""}
                                 <div class="video-container">
-                                    <iframe width="560" height="315"
+                                    {if isset($infofield.img_height) && isset($infofield.img_width)}
+                                        {assign var="vid_height" value=$infofield.img_height}
+                                        {assign var="vid_width" value=$infofield.img_width}
+                                    {else}
+                                        {assign var="vid_height" value="315"}
+                                        {assign var="vid_width" value="560"}
+                                    {/if}
+                                    <iframe width="{$vid_width}" height="{$vid_height}"
                                         src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
                                         title="YouTube video player" frameborder="0"
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
