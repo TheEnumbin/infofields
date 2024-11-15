@@ -88,7 +88,7 @@ class MetaModel extends ObjectModel
         $field_type_arr = [];
 
         foreach ($parent_fields as $parent_field) {
-            $id_parents[] = $parent_field['id_infofields'];
+            $id_parents[] = (int) $parent_field['id_infofields'];
             $field_type_arr[$parent_field['id_infofields']] = $parent_field['field_type'];
             $return_arr[$parent_field['id_infofields']][$parent_field['id_lang']] = false;
         }
