@@ -309,9 +309,6 @@ class AdminInfoListsController extends ModuleAdminController
                 $this->errors[] = $this->l('Start date cannot be later than end date.');
                 return false;
             }
-            if (Shop::isFeatureActive()) {
-                $fields->id_shop = (int) Context::getContext()->shop->id;
-            }
 
             // Save or update fields
             if ($fields->id) {
