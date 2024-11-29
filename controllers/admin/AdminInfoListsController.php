@@ -40,6 +40,11 @@ class AdminInfoListsController extends ModuleAdminController
         $this->_orderBy = 'id_infofields';
         $this->_orderWay = 'asc';
         parent::__construct();
+        echo '<pre>';
+        print_r($this->_listSql);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
     }
 
     public function setMedia($isNewTheme = false)
@@ -81,6 +86,7 @@ class AdminInfoListsController extends ModuleAdminController
                 'callback' => 'getFieldtypeName',
             ],
         ];
+
         $advertise = $this->advertise_template();
 
         return parent::renderList() . $advertise;
