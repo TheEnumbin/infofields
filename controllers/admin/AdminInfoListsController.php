@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -40,11 +41,8 @@ class AdminInfoListsController extends ModuleAdminController
         $this->_orderBy = 'id_infofields';
         $this->_orderWay = 'asc';
         parent::__construct();
-        echo '<pre>';
-        print_r($this->_listSql);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        $this->_join = 'LEFT JOIN ' . _DB_PREFIX_ . 'infofields_shop i_shop ON (a.id_infofields = i_shop.id_infofields)';
+        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id;
     }
 
     public function setMedia($isNewTheme = false)
@@ -86,7 +84,6 @@ class AdminInfoListsController extends ModuleAdminController
                 'callback' => 'getFieldtypeName',
             ],
         ];
-
         $advertise = $this->advertise_template();
 
         return parent::renderList() . $advertise;
