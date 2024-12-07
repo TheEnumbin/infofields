@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 PrestaShop
  *
@@ -698,6 +699,10 @@ class Infofields extends Module
                         $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
                         $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_file.tpl');
+                    } elseif ($field['field_type'] == '10') {
+                        $this->context->smarty->assign('infofield', $field);
+                        $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
+                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_video.tpl');
                     } else {
                         $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
                     }

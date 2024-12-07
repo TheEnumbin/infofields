@@ -40,7 +40,7 @@
             <input type="hidden" class="inf_input_type" value="{$infofield.field_type}">
             <h3>{$infofield.field_name}</h3>
             <div class="inf-meta-form-group form-group">
-                {if $infofield.field_type == 1}
+                {if $infofield.field_type == 1 || $infofield.field_type == 10}
                     <div class="input-group">
                         <input type="text" id="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
                             name="inf_metafield_{$infofield.id_infofields}_{$langs[$infofield.id_lang]}"
