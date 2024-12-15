@@ -527,7 +527,53 @@ class Infofields extends Module
                         background: ' . $infofields_cms_back_color . ' !important;
                     }
                     ';
-        file_put_contents(_PS_MODULE_DIR_ . $this->name . '/views/css/front_generated.css', $gen_css);
+        $this->generateCustomCSS($gen_css);
+        $this->_clearCache('*');
+    }
+
+    /**
+     * Generate the custom CSS securely using allowlist
+     *
+     * @param string $css_content The raw CSS content to save
+     * @return bool
+     * @throws Exception
+     */
+    public function generateCustomCSS($css_content)
+    {
+        $base_path = _PS_MODULE_DIR_ . $this->name . '/views/css/';
+        $file_name = 'front_generated.css';
+
+        // Validate the directory path using an allowlist
+        $allowed_files = ['front_generated.css']; // Define allowed filenames
+        if (!in_array($file_name, $allowed_files, true)) {
+            throw new Exception('Invalid file name.');
+        }
+
+        // Validate and sanitize the CSS content
+        $sanitized_css = $this->sanitizeCssContent($css_content);
+
+        // Ensure the file path is within the allowed directory
+        $css_path = realpath($base_path . $file_name);
+        if (strpos($css_path, realpath($base_path)) !== 0) {
+            throw new Exception('Invalid file path.');
+        }
+
+        // Save the CSS file
+        return file_put_contents($css_path, $sanitized_css) !== false;
+    }
+
+    /**
+     * Sanitize the CSS content
+     *
+     * @param string $css_content
+     * @return string
+     */
+    private function sanitizeCssContent($css_content)
+    {
+        // Example: Remove <script> tags or disallowed content (customize as needed)
+        $css_content = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $css_content);
+
+        return $css_content;
     }
 
     public function inf_update_object($obj, $data, $parent_type)
