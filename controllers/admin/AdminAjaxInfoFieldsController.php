@@ -77,7 +77,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                     $backend_file = $meta_data['file'] . '_backend_default.' . $meta_data['ext'];
                     $custom_file = $meta_data['file'] . '_custom_default.' . $meta_data['ext'];
                     $total_path = _PS_IMG_DIR_ . '/infofield/';
-                    $allowed_extensions = ['pdf', 'doc', 'docx', 'txt'];
+                    $allowed_extensions = ['gif', 'jpg', 'jpeg', 'jpe', 'png'];
                     $this->inf_unlink($total_path, $file, $allowed_extensions);
                     $this->inf_unlink($total_path, $backend_file, $allowed_extensions);
                     $this->inf_unlink($total_path, $custom_file, $allowed_extensions);
