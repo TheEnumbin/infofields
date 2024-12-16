@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -69,16 +70,17 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 if ($field_type == 'file') {
                     $file = $meta_data['file'];
                     $total_path = _PS_IMG_DIR_ . '/infofield/';
-
-                    unlink($total_path . $file);
+                    $allowed_extensions = ['pdf', 'doc', 'docx', 'txt'];
+                    $this->inf_unlink($total_path, $file, $allowed_extensions);
                 } else {
                     $file = $meta_data['file'] . '.' . $meta_data['ext'];
                     $backend_file = $meta_data['file'] . '_backend_default.' . $meta_data['ext'];
                     $custom_file = $meta_data['file'] . '_custom_default.' . $meta_data['ext'];
                     $total_path = _PS_IMG_DIR_ . '/infofield/';
-                    unlink($total_path . $file);
-                    unlink($total_path . $backend_file);
-                    unlink($total_path . $custom_file);
+                    $allowed_extensions = ['pdf', 'doc', 'docx', 'txt'];
+                    $this->inf_unlink($total_path, $file, $allowed_extensions);
+                    $this->inf_unlink($total_path, $backend_file, $allowed_extensions);
+                    $this->inf_unlink($total_path, $custom_file, $allowed_extensions);
                 }
             }
             $object->delete();
@@ -90,5 +92,28 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             echo json_encode(['deleted' => false]);
         }
         exit;
+    }
+
+    private function inf_unlink($total_path, $file, $allowlist)
+    {
+        $file_extension = pathinfo($file, PATHINFO_EXTENSION);
+
+        if (in_array(strtolower($file_extension), $allowlist, true)) {
+            $full_path = realpath($total_path . $file);
+
+            // Validate that the full path exists and is within the intended directory
+            if ($full_path && strpos($full_path, realpath($total_path)) === 0) {
+                // Delete the file
+                if (file_exists($full_path)) {
+                    unlink($full_path);
+                }
+            } else {
+                // Log an error or handle the invalid path case
+                error_log('Invalid file path: ' . $full_path);
+            }
+        } else {
+            // Log an error or handle the invalid file type case
+            error_log('Attempt to delete an unauthorized file type: ' . $file);
+        }
     }
 }
