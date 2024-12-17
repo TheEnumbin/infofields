@@ -41,7 +41,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.2.5';
+        $this->version = '1.2.6';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
@@ -570,7 +570,6 @@ class Infofields extends Module
      */
     private function sanitizeCssContent($css_content)
     {
-        // Example: Remove <script> tags or disallowed content (customize as needed)
         $css_content = preg_replace('/<script\b[^>]*>(.*?)<\/script>/is', '', $css_content);
 
         return $css_content;
