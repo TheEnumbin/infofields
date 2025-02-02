@@ -1,5 +1,5 @@
-/**
-* 2007-2022 PrestaShop
+{*
+* 2007-2025 PrestaShop
 *
 * NOTICE OF LICENSE
 *
@@ -18,54 +18,8 @@
 * needs please refer to http://www.prestashop.com for more information.
 *
 *  @author    PrestaShop SA <contact@prestashop.com>
-*  @copyright 2007-2022 PrestaShop SA
+*  @copyright 2007-2025 PrestaShop SA
 *  @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
 *  International Registered Trademark & Property of PrestaShop SA
-*
-* Don't forget to prefix your containers with your own identifier
-* to avoid any conflicts with others containers.
-*/
-.hidden-field {
-    display: none;
-}
-
-.inf-meta-wrapper {
-    margin-top: 12px;
-}
-
-.inf-meta-form-wrapper {
-    border-top: 1px dashed #000;
-    border-bottom: 1px dashed #000;
-    padding: 12px 0px 12px 0px;
-}
-
-#shortcode.infofield-shortcode-class {
-    font-size: 20px;
-    color: black !important;
-    font-weight: 600;
-}
-
-
-.download-link {
-    color: #007bff !important;
-    font-size: 16px;
-    text-decoration: underline;
-}
-
-.download-link:hover {
-    color: #0056b3 !important;
-    text-decoration: underline;
-}
-
-.text-danger {
-    color: #dc3545;
-    cursor: pointer;
-}
-
-.text-danger:hover {
-    text-decoration: underline;
-}
-
-.inf-solid {
-    border-bottom: 3px solid #000;
-}
+*}
+<hr class="inf-solid">

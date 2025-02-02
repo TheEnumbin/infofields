@@ -167,6 +167,8 @@ class Infofields extends Module
      */
     protected function getConfigForm()
     {
+        $this->context->smarty->assign('import_txt', $this->l('Import Now!!!'));
+        $this->context->smarty->assign('stop_import', $this->l('Stop'));
         return [
             'form' => [
                 'legend' => [
@@ -174,6 +176,77 @@ class Infofields extends Module
                     'icon' => 'icon-cogs',
                 ],
                 'input' => [
+                    // Import/Export Fields
+                    [
+                        'type' => 'file',
+                        'label' => $this->l('Custom Fields CSV'),
+                        'name' => 'INFOFIELDS_CSV_IMPORT',
+                        'desc' => $this->l('Upload a CSV file to import data.'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => $this->l('Entity-Specific Import'),
+                        'name' => 'INFOFIELDS_DIVIDER_HTML',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'file',
+                        'label' => $this->l('Products CSV'),
+                        'name' => 'products_csv',
+                        'desc' => $this->l('CSV with product assignments'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => $this->l(''),
+                        'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'file',
+                        'label' => $this->l('Categories CSV'),
+                        'name' => 'categories_csv',
+                        'desc' => $this->l('CSV with category assignments'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => $this->l(''),
+                        'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'file',
+                        'label' => $this->l('Customers CSV'),
+                        'name' => 'customers_csv',
+                        'desc' => $this->l('CSV with customer assignments'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => $this->l(''),
+                        'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'file',
+                        'label' => $this->l('CMS CSV'),
+                        'name' => 'cms_csv',
+                        'desc' => $this->l('CSV with CMS page assignments'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => $this->l(''),
+                        'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
                     [
                         'type' => 'switch',
                         'label' => $this->l('Show meta as extra tab'),
@@ -389,6 +462,7 @@ class Infofields extends Module
                     ],
                 ],
                 'tabs' => [
+                    'import_export' => 'Import',
                     'peoduct_design' => 'Product Meta Settings',
                     'category_design' => 'Category Meta Settings',
                     'customer_design' => 'Customer Meta Settings',
