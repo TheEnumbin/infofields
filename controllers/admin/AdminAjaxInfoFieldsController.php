@@ -94,6 +94,43 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         exit;
     }
 
+    public function ajaxProcessImportCSV()
+    {
+        $file = $_FILES['csv_file'];
+        $chunkSize = 100; // Number of rows per chunk
+        $offset = (int)Tools::getValue('offset', 0);
+
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            die(json_encode(array('error' => 'File upload failed')));
+        }
+
+        $handle = fopen($file['tmp_name'], 'r');
+        if (!$handle) {
+            die(json_encode(array('error' => 'Unable to open CSV file')));
+        }
+
+        // Skip rows until offset
+        for ($i = 0; $i < $offset; $i++) {
+            fgetcsv($handle);
+        }
+
+        $processedRows = 0;
+        while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
+            // Process each row
+            $this->processCSVRow($row);
+            $processedRows++;
+        }
+
+        $isFinished = feof($handle);
+        fclose($handle);
+
+        die(json_encode(array(
+          'offset' => $offset + $processedRows,
+          'is_finished' => $isFinished,
+          'progress' => ($isFinished ? 100 : round(($offset + $processedRows) / $this->countCSVRows($file['tmp_name']) * 100))
+        )));
+    }
+
     private function inf_unlink($total_path, $file, $allowlist)
     {
         $file_extension = pathinfo($file, PATHINFO_EXTENSION);

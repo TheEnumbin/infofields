@@ -200,9 +200,15 @@ class Infofields extends Module
                     ],
                     [
                         'type' => 'html',
-                        'label' => $this->l(''),
+                        'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'name' => 'INFOFIELDS_DIVIDER_HTML',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),
                         'tab' => 'import_export',
                     ],
                     [
@@ -214,9 +220,15 @@ class Infofields extends Module
                     ],
                     [
                         'type' => 'html',
-                        'label' => $this->l(''),
+                        'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'name' => 'INFOFIELDS_DIVIDER_HTML',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),
                         'tab' => 'import_export',
                     ],
                     [
@@ -228,9 +240,15 @@ class Infofields extends Module
                     ],
                     [
                         'type' => 'html',
-                        'label' => $this->l(''),
+                        'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'name' => 'INFOFIELDS_DIVIDER_HTML',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),
                         'tab' => 'import_export',
                     ],
                     [
@@ -242,7 +260,7 @@ class Infofields extends Module
                     ],
                     [
                         'type' => 'html',
-                        'label' => $this->l(''),
+                        'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
                         'tab' => 'import_export',

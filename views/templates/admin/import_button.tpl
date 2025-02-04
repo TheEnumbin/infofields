@@ -23,10 +23,10 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div>
-    <button id="inf_import" class="btn btn-default" type="button">
+    <button class="inf-import-bt btn btn-default" type="button">
         {$import_txt}
     </button>
-    <button id="inf_stop_import" class="btn btn-danger hidden ml-1" type="button">
+    <button class="inf-import-stop btn btn-danger hidden ml-1" type="button">
         {$stop_import}
     </button>
 </div>
