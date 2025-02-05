@@ -171,9 +171,7 @@ $(document).ready(function () {
         });
     });
 
-    $(document).on('click', '.inf-import-bt', function (e) {
-        e.preventDefault()
-        const $this = $(this)
+    function inf_ajax_import() {
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
@@ -184,12 +182,14 @@ $(document).ready(function () {
                 ajax: true
             },
             success: function (data) {
-                let response = JSON.parse(data);
-                if (response.deleted == true) {
-                    console.log($this.closest(".preview-wrapper"))
-                    $this.closest(".preview-wrapper").html("")
-                }
+
             }
         });
+    }
+
+    $(document).on('click', '.inf-import-bt', () => {
+        e.preventDefault()
+        const $this = $(this)
+
     });
 });
