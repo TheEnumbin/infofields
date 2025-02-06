@@ -186,6 +186,13 @@ class Infofields extends Module
                     ],
                     [
                         'type' => 'html',
+                        'label' => '',
+                        'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
                         'label' => $this->l('Entity-Specific Import'),
                         'name' => 'INFOFIELDS_DIVIDER_HTML',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),

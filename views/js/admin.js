@@ -146,18 +146,23 @@ $(document).ready(function () {
     $(document).on('click', '.inf-delete-btn', function (e) {
         e.preventDefault()
         const $this = $(this)
+        let dataarr = {}
+        var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
         var formData = new FormData();
+        $value = fileInput.files[0];
+        dataarr = formData;
+        dataarr.append('inf_value', $value);
+        dataarr.append('controller', 'AdminAjaxInfofields');
+        dataarr.append('action', 'ImportCSV');
+        dataarr.append('iso_code', $iso_code);
+        dataarr.append('inf_type', $infofield_type);
+        dataarr.append('ajax', true);
         formData.append('csv_file', fileInput.files[0]);
         formData.append('offset', offset);
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
             dataType: 'html',
-            data: {
-                controller: 'AdminAjaxInfofields',
-                action: 'ImportCSV',
-                ajax: true
-            },
             data: formData,
             contentType: false,
             processData: false,
