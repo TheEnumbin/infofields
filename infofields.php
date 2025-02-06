@@ -188,7 +188,9 @@ class Infofields extends Module
                         'type' => 'html',
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
+                        'class' => "dadadasd",
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
+                        'form_group_class' => "fields-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
