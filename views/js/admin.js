@@ -101,10 +101,7 @@ $(document).ready(function () {
             contentType: contentType,  // Important: tells jQuery not to process content type automatically
             processData: processData,  // Important: tells jQuery not to process the data automatically
             success: function (response) {
-                console.log(response);
                 const responseArr = JSON.parse(response)
-                console.log(responseArr);
-                console.log(typeof responseArr.success);
                 if (responseArr.success == true) {
                     if ($infofield_type == "5") {
                         $this.siblings('.inf-meta-form-group').find('.preview-wrapper').append(
@@ -149,24 +146,27 @@ $(document).ready(function () {
     $(document).on('click', '.inf-delete-btn', function (e) {
         e.preventDefault()
         const $this = $(this)
+        var formData = new FormData();
+        formData.append('csv_file', fileInput.files[0]);
+        formData.append('offset', offset);
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,
             dataType: 'html',
             data: {
                 controller: 'AdminAjaxInfofields',
-                action: 'DeleteFileImg',
-                inf_id: $this.data('inf_id'),
-                item_id: $this.data('item_id'),
-                field_type: $this.data('type'),
+                action: 'ImportCSV',
                 ajax: true
             },
-            success: function (data) {
-                let response = JSON.parse(data);
-                if (response.deleted == true) {
-                    console.log($this.closest(".preview-wrapper"))
-                    $this.closest(".preview-wrapper").html("")
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                const responseArr = JSON.parse(response)
+                if (responseArr.success == true) {
                 }
+            },
+            error: function (error) {
             }
         });
     });
