@@ -182,7 +182,7 @@ class Infofields extends Module
                         'label' => $this->l('Custom Fields CSV'),
                         'name' => 'INFOFIELDS_CSV_IMPORT',
                         'desc' => $this->l('Upload a CSV file to import data.'),
-                        'form_group_class' => "inf-field-csv",
+                        'form_group_class' => "inf-csv-input inf-field-csv",
                         'tab' => 'import_export',
                     ],
                     [
@@ -190,7 +190,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-field-csv-bt",
+                        'form_group_class' => "inf-field-csv-bt inf-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
@@ -204,8 +204,8 @@ class Infofields extends Module
                         'type' => 'file',
                         'label' => $this->l('Products CSV'),
                         'name' => 'products_csv',
-                        'desc' => $this->l('CSV with product assignments'),
-                        'form_group_class' => "inf-prd-csv",
+                        'desc' => $this->l('CSV for product custom data'),
+                        'form_group_class' => "inf-csv-input inf-prd-csv",
                         'tab' => 'import_export',
                     ],
                     [
@@ -213,7 +213,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-prd-csv-bt",
+                        'form_group_class' => "inf-prd-csv-bt inf-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
@@ -226,8 +226,8 @@ class Infofields extends Module
                         'type' => 'file',
                         'label' => $this->l('Categories CSV'),
                         'name' => 'categories_csv',
-                        'desc' => $this->l('CSV with category assignments'),
-                        'form_group_class' => "inf-ctg-csv",
+                        'desc' => $this->l('CSV for category custom data'),
+                        'form_group_class' => "inf-csv-input inf-ctg-csv",
                         'tab' => 'import_export',
                     ],
                     [
@@ -235,7 +235,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-ctg-csv-bt",
+                        'form_group_class' => "inf-ctg-csv-bt inf-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
@@ -248,8 +248,8 @@ class Infofields extends Module
                         'type' => 'file',
                         'label' => $this->l('Customers CSV'),
                         'name' => 'customers_csv',
-                        'desc' => $this->l('CSV with customer assignments'),
-                        'form_group_class' => "inf-cst-csv",
+                        'desc' => $this->l('CSV for customer custom data'),
+                        'form_group_class' => "inf-csv-input inf-cst-csv",
                         'tab' => 'import_export',
                     ],
                     [
@@ -257,7 +257,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-cst-csv-bt",
+                        'form_group_class' => "inf-cst-csv-bt inf-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
@@ -270,8 +270,8 @@ class Infofields extends Module
                         'type' => 'file',
                         'label' => $this->l('CMS CSV'),
                         'name' => 'cms_csv',
-                        'desc' => $this->l('CSV with CMS page assignments'),
-                        'form_group_class' => "inf-cms-csv",
+                        'desc' => $this->l('CSV for CMS page custom data'),
+                        'form_group_class' => "inf-csv-input inf-cms-csv",
                         'tab' => 'import_export',
                     ],
                     [
@@ -279,7 +279,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-cms-csv-bt",
+                        'form_group_class' => "inf-cms-csv-bt inf-csv-bt",
                         'tab' => 'import_export',
                     ],
                     [
