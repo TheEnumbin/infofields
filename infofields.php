@@ -707,7 +707,7 @@ class Infofields extends Module
     {
         $controller = Tools::getValue('controller');
 
-        if ($controller == 'AdminProducts' || $controller == 'AdminInfoLists' || $controller == 'AdminCmsContent' || $controller == 'AdminCustomers' || $controller == 'AdminCategories') {
+        if ($controller == 'AdminProducts' || $controller == 'AdminInfoLists' || $controller == 'AdminCmsContent' || $controller == 'AdminCustomers' || $controller == 'AdminCategories' || Tools::getValue('configure') == $this->name) {
             $this->context->controller->addCSS($this->_path . 'views/css/admin.css');
             $this->context->controller->addJS($this->_path . 'views/js/admin.js');
             $defaultLangId = Configuration::get('PS_LANG_DEFAULT');
