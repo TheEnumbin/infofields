@@ -171,8 +171,14 @@ $(document).ready(function () {
     $(document).on('click', '.inf-import-bt', function (e) {
         e.preventDefault()
         const $this = $(this)
-        const $import_element = $this.closest('.inf-csv-bt').prev('.inf-csv-input')
-        console.log($import_element)
+        const $import_element = $this.closest('.inf-csv-bt').prev('.inf-csv-input').find('input')
+        console.log($import_element[0])
+        var fileInput = $import_element[0];
+        if (!fileInput.files.length) {
+            alert('Please select a CSV file.');
+            return;
+        }
+
         // let dataarr = {}
         // var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
         // var formData = new FormData();
