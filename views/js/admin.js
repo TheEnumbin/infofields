@@ -168,45 +168,42 @@ $(document).ready(function () {
         });
     });
 
+
+
     $(document).on('click', '.inf-import-bt', function (e) {
         e.preventDefault()
         const $this = $(this)
         const $import_element = $this.closest('.inf-csv-bt').prev('.inf-csv-input').find('input')
         console.log($import_element[0])
         var fileInput = $import_element[0];
-        if (!fileInput.files.length) {
-            alert('Please select a CSV file.');
-            return;
-        }
+        // if (!fileInput.files.length) {
+        //     alert('Please select a CSV file.');
+        //     return;
+        // }
 
-        // let dataarr = {}
-        // var fileInput = $wrapper.find('#inf_metafield_' + $infofield_id + '_' + $iso_code)[0];
-        // var formData = new FormData();
-        // $value = fileInput.files[0];
-        // dataarr = formData;
-        // dataarr.append('inf_value', $value);
-        // dataarr.append('controller', 'AdminAjaxInfofields');
-        // dataarr.append('action', 'ImportCSV');
-        // dataarr.append('iso_code', $iso_code);
-        // dataarr.append('inf_type', $infofield_type);
-        // dataarr.append('ajax', true);
-        // formData.append('csv_file', fileInput.files[0]);
-        // formData.append('offset', offset);
-        // $.ajax({
-        //     type: 'POST',
-        //     url: infofields_ajax_url,
-        //     dataType: 'html',
-        //     data: formData,
-        //     contentType: false,
-        //     processData: false,
-        //     success: function (response) {
-        //         const responseArr = JSON.parse(response)
-        //         if (responseArr.success == true) {
-        //         }
-        //     },
-        //     error: function (error) {
-        //     }
-        // });
+        let dataarr = {}
+        var formData = new FormData();
+        dataarr = formData;
+        dataarr.append('csv_file', fileInput.files[0]);
+        dataarr.append('offset', offset);
+        dataarr.append('controller', 'AdminAjaxInfofields');
+        dataarr.append('action', 'ImportCSV');
+        dataarr.append('ajax', true);
+        $.ajax({
+            type: 'POST',
+            url: infofields_ajax_url,
+            dataType: 'html',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // const responseArr = JSON.parse(response)
+                // if (responseArr.success == true) {
+                // }
+            },
+            error: function (error) {
+            }
+        });
     });
 
     function inf_ajax_import() {
@@ -214,13 +211,15 @@ $(document).ready(function () {
             type: 'POST',
             url: infofields_ajax_url,
             dataType: 'html',
-            data: {
-                controller: 'AdminAjaxInfofields',
-                action: 'ImportCSV',
-                ajax: true
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                // const responseArr = JSON.parse(response)
+                // if (responseArr.success == true) {
+                // }
             },
-            success: function (data) {
-
+            error: function (error) {
             }
         });
     }
