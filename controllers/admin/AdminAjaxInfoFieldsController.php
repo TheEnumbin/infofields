@@ -97,11 +97,11 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     public function ajaxProcessImportCSV()
     {
         $file = $_FILES['csv_file'];
-        echo '<pre>';
-        print_r($file);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        // echo '<pre>';
+        // print_r($file);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
         // $chunkSize = 100; // Number of rows per chunk
         // $offset = (int)Tools::getValue('offset', 0);
 
