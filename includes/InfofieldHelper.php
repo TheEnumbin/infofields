@@ -1,4 +1,4 @@
-<?php
+no<?php
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -144,4 +144,24 @@ trait infofieldHelper
         }
         return ['file' => $newFileName, 'ext' => $ext];
     }
+
+
+private function processCSVRow($row) {
+  // Your logic to process each row
+  // Example: Insert into database
+  Db::getInstance()->insert('ps_custom_fields', array(
+    'field_id' => pSQL($row[0]),
+    'value' => pSQL($row[1])
+  ));
+}
+
+private function countCSVRows($filePath) {
+  $handle = fopen($filePath, 'r');
+  $rowCount = 0;
+  while (fgetcsv($handle) !== false) {
+    $rowCount++;
+  }
+  fclose($handle);
+  return $rowCount;
+}
 }
