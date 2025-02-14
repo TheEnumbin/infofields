@@ -97,43 +97,43 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     public function ajaxProcessImportCSV()
     {
         $file = $_FILES['csv_file'];
-        // echo '<pre>';
-        // print_r($file);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-        // $chunkSize = 100; // Number of rows per chunk
-        // $offset = (int)Tools::getValue('offset', 0);
+        echo '<pre>';
+        print_r($file);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
+        $chunkSize = 100; // Number of rows per chunk
+        $offset = (int)Tools::getValue('offset', 0);
 
-        // if ($file['error'] !== UPLOAD_ERR_OK) {
-        //     die(json_encode(array('error' => 'File upload failed')));
-        // }
+        if ($file['error'] !== UPLOAD_ERR_OK) {
+            die(json_encode(array('error' => 'File upload failed')));
+        }
 
-        // $handle = fopen($file['tmp_name'], 'r');
-        // if (!$handle) {
-        //     die(json_encode(array('error' => 'Unable to open CSV file')));
-        // }
+        $handle = fopen($file['tmp_name'], 'r');
+        if (!$handle) {
+            die(json_encode(array('error' => 'Unable to open CSV file')));
+        }
 
-        // // Skip rows until offset
-        // for ($i = 0; $i < $offset; $i++) {
-        //     fgetcsv($handle);
-        // }
+        // Skip rows until offset
+        for ($i = 0; $i < $offset; $i++) {
+            fgetcsv($handle);
+        }
 
-        // $processedRows = 0;
-        // while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
-        //     // Process each row
-        //     $this->processCSVRow($row);
-        //     $processedRows++;
-        // }
+        $processedRows = 0;
+        while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
+            // Process each row
+            $this->processCSVRow($row);
+            $processedRows++;
+        }
 
-        // $isFinished = feof($handle);
-        // fclose($handle);
+        $isFinished = feof($handle);
+        fclose($handle);
 
-        // die(json_encode(array(
-        //   'offset' => $offset + $processedRows,
-        //   'is_finished' => $isFinished,
-        //   'progress' => ($isFinished ? 100 : round(($offset + $processedRows) / $this->countCSVRows($file['tmp_name']) * 100))
-        // )));
+        die(json_encode(array(
+          'offset' => $offset + $processedRows,
+          'is_finished' => $isFinished,
+          'progress' => ($isFinished ? 100 : round(($offset + $processedRows) / $this->countCSVRows($file['tmp_name']) * 100))
+        )));
     }
 
     private function inf_unlink($total_path, $file, $allowlist)
