@@ -176,37 +176,23 @@ $(document).ready(function () {
         const $import_element = $this.closest('.inf-csv-bt').prev('.inf-csv-input').find('input')
         console.log($import_element[0])
         var fileInput = $import_element[0];
-        // if (!fileInput.files.length) {
-        //     alert('Please select a CSV file.');
-        //     return;
-        // }
+        if (!fileInput.files.length) {
+            alert('Please select a CSV file.');
+            return;
+        }
 
+        inf_ajax_import(fileInput.files[0], 0)
+    });
+
+    function inf_ajax_import(file, offset) {
         let dataarr = {}
         var formData = new FormData();
         dataarr = formData;
-        dataarr.append('csv_file', fileInput.files[0]);
+        dataarr.append('csv_file', file);
         dataarr.append('offset', offset);
         dataarr.append('controller', 'AdminAjaxInfofields');
         dataarr.append('action', 'ImportCSV');
         dataarr.append('ajax', true);
-        $.ajax({
-            type: 'POST',
-            url: infofields_ajax_url,
-            dataType: 'html',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                // const responseArr = JSON.parse(response)
-                // if (responseArr.success == true) {
-                // }
-            },
-            error: function (error) {
-            }
-        });
-    });
-
-    function inf_ajax_import() {
         $.ajax({
             type: 'POST',
             url: infofields_ajax_url,

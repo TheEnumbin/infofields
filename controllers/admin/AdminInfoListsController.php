@@ -172,16 +172,6 @@ class AdminInfoListsController extends ModuleAdminController
                     'desc' => $this->l('Only for Select, Radio, Checkboxes types. [Example Format for Select and Radio: key1:label1,key2:label2] [Example Format for Checkboxes: label1,label2]'),
                 ],
                 [
-                    'label' => $this->l('Start Date'),
-                    'type' => 'date',
-                    'name' => 'start_date',
-                ],
-                [
-                    'label' => $this->l('End Date'),
-                    'type' => 'date',
-                    'name' => 'end_date',
-                ],
-                [
                     'type' => 'text',
                     'label' => $this->l('Width'),
                     'name' => 'img_width',
@@ -196,6 +186,16 @@ class AdminInfoListsController extends ModuleAdminController
                     'id' => 'img_height',
                     'size' => 20,
                     'desc' => $this->l('Only for image and video fields. Example: 20px'),
+                ],
+                [
+                    'label' => $this->l('Start Date'),
+                    'type' => 'date',
+                    'name' => 'start_date',
+                ],
+                [
+                    'label' => $this->l('End Date'),
+                    'type' => 'date',
+                    'name' => 'end_date',
                 ],
                 [
                     'type' => 'switch',

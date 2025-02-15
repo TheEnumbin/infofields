@@ -97,9 +97,14 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     public function ajaxProcessImportCSV()
     {
         $file = $_FILES['csv_file'];
+        $offset = $_FILES['offset'];
         echo '<pre>';
         print_r($file);
         echo '</pre>';
+        echo '<pre>';
+        print_r($offset);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
         echo __FILE__ . ' : ' . __LINE__;
         die(__FILE__ . ' : ' . __LINE__);
         $chunkSize = 100; // Number of rows per chunk
