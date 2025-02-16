@@ -97,18 +97,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     public function ajaxProcessImportCSV()
     {
         $file = $_FILES['csv_file'];
-        $offset = $_FILES['offset'];
-        echo '<pre>';
-        print_r($file);
-        echo '</pre>';
-        echo '<pre>';
-        print_r($offset);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        $offset = trim(Tools::getValue('offset'));
+
         $chunkSize = 100; // Number of rows per chunk
-        $offset = (int)Tools::getValue('offset', 0);
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
@@ -127,8 +118,12 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $processedRows = 0;
         while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
             // Process each row
-            $this->processCSVRow($row);
-            $processedRows++;
+            echo '<pre>';
+            print_r($row);
+            echo '</pre>';
+            echo __FILE__ . ' : ' . __LINE__;
+            // $this->processCSVRow($row);
+            // $processedRows++;
         }
 
         $isFinished = feof($handle);
