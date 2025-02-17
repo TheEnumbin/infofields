@@ -99,7 +99,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
 
-        $chunkSize = 100; // Number of rows per chunk
+        $chunkSize = 5; // Number of rows per chunk
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
@@ -110,29 +110,29 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             die(json_encode(array('error' => 'Unable to open CSV file')));
         }
 
-        // Skip rows until offset
-        for ($i = 0; $i < $offset; $i++) {
-            fgetcsv($handle);
-        }
+        fseek($handle, $offset);
 
         $processedRows = 0;
         while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
             // Process each row
-            echo '<pre>';
-            print_r($row);
-            echo '</pre>';
-            echo __FILE__ . ' : ' . __LINE__;
-            // $this->processCSVRow($row);
-            // $processedRows++;
+            $this->processCSVRow($row);
+            $processedRows++;
         }
 
+        // Get the current file pointer position
+        $currentOffset = ftell($handle);
         $isFinished = feof($handle);
         fclose($handle);
 
+        echo '<pre>';
+        print_r($currentOffset);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+
         die(json_encode(array(
-          'offset' => $offset + $processedRows,
-          'is_finished' => $isFinished,
-          'progress' => ($isFinished ? 100 : round(($offset + $processedRows) / $this->countCSVRows($file['tmp_name']) * 100))
+            'offset' => $currentOffset, // Send the new offset to the frontend
+            'is_finished' => $isFinished,
+            // 'progress' => ($isFinished ? 100 : round($currentOffset / filesize($filePath) * 100))
         )));
     }
 

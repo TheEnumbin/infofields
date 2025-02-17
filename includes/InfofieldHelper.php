@@ -149,12 +149,15 @@ trait infofieldHelper
 
     private function processCSVRow($row)
     {
-        // Your logic to process each row
-        // Example: Insert into database
-        Db::getInstance()->insert('ps_custom_fields', array(
-          'field_id' => pSQL($row[0]),
-          'value' => pSQL($row[1])
-        ));
+        echo '<pre>';
+        print_r($row);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
+        // Db::getInstance()->insert('infofields', array(
+        //   'field_id' => pSQL($row[0]),
+        //   'value' => pSQL($row[1])
+        // ));
     }
 
     private function countCSVRows($filePath)
