@@ -201,9 +201,10 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-                // const responseArr = JSON.parse(response)
+                const responseArr = JSON.parse(response)
                 // if (responseArr.success == true) {
                 // }
+                inf_ajax_import(file, responseArr.offset)
             },
             error: function (error) {
             }

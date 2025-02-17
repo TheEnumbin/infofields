@@ -113,9 +113,11 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         fseek($handle, $offset);
 
         $processedRows = 0;
+        $lastrow = [];
         while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
             // Process each row
             $this->processCSVRow($row);
+            $lastrow[] = $row;
             $processedRows++;
         }
 
@@ -124,14 +126,10 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $isFinished = feof($handle);
         fclose($handle);
 
-        echo '<pre>';
-        print_r($currentOffset);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-
         die(json_encode(array(
             'offset' => $currentOffset, // Send the new offset to the frontend
             'is_finished' => $isFinished,
+            'last_row' => $lastrow,
             // 'progress' => ($isFinished ? 100 : round($currentOffset / filesize($filePath) * 100))
         )));
     }

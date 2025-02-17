@@ -149,10 +149,10 @@ trait infofieldHelper
 
     private function processCSVRow($row)
     {
-        echo '<pre>';
-        print_r($row);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
+        // echo '<pre>';
+        // print_r($row);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
         // die(__FILE__ . ' : ' . __LINE__);
         // Db::getInstance()->insert('infofields', array(
         //   'field_id' => pSQL($row[0]),
