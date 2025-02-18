@@ -61,7 +61,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $field_type = trim(Tools::getValue('field_type'));
         $lang_id = Context::getContext()->language->id;
         $object = new MetaModel(null, $inf_id, $item_id);
-        $deleted = 0;
+        $deleted = true;
 
         if (isset($object->id)) {
             if (!empty($object->meta_data)) {
@@ -98,7 +98,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     {
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
-
+        $continue_import = 1;
         $chunkSize = 5; // Number of rows per chunk
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -121,6 +121,10 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             $processedRows++;
         }
 
+        if (empty($lastrow)) {
+            $continue_import = false;
+        }
+
         // Get the current file pointer position
         $currentOffset = ftell($handle);
         $isFinished = feof($handle);
@@ -130,6 +134,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             'offset' => $currentOffset, // Send the new offset to the frontend
             'is_finished' => $isFinished,
             'last_row' => $lastrow,
+            'continue' => $continue_import,
             // 'progress' => ($isFinished ? 100 : round($currentOffset / filesize($filePath) * 100))
         )));
     }
