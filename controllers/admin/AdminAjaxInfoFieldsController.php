@@ -131,7 +131,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         fclose($handle);
 
         die(json_encode(array(
-            'offset' => $currentOffset, // Send the new offset to the frontend
+            'offset' => $currentOffset,
             'is_finished' => $isFinished,
             'last_row' => $lastrow,
             'continue' => $continue_import,
