@@ -186,6 +186,11 @@ class Infofields extends Module
                         'tab' => 'import_export',
                     ],
                     [
+                        'type' => 'hidden',
+                        'name' => 'INFOFIELDS_CSV_TYPE',
+                        'tab' => 'import_export',
+                    ],
+                    [
                         'type' => 'html',
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
@@ -537,6 +542,7 @@ class Infofields extends Module
             'INFOFIELDS_CMS_FONT_COLOR' => Configuration::get('INFOFIELDS_CMS_FONT_COLOR', ''),
             'INFOFIELDS_CMS_FONT_SIZE' => Configuration::get('INFOFIELDS_CMS_FONT_SIZE', ''),
             'INFOFIELDS_CMS_PADDING' => Configuration::get('INFOFIELDS_CMS_PADDING', ''),
+            'INFOFIELDS_CSV_TYPE' => '1',
         ];
 
         return $ret_arr;
