@@ -175,6 +175,7 @@ $(document).ready(function () {
         const $this = $(this)
         const $import_element_wrapper = $this.closest('.inf-csv-bt').prev('.inf-csv-input')
         const $import_element = $import_element_wrapper.find('input')
+        console.log($import_element)
         var fileInput = $import_element[0];
         if (!fileInput.files.length) {
             alert('Please select a CSV file.');
