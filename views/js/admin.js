@@ -173,15 +173,14 @@ $(document).ready(function () {
     $(document).on('click', '.inf-import-bt', function (e) {
         e.preventDefault()
         const $this = $(this)
-        const $import_element_wrapper = $this.closest('.inf-csv-bt').prev('.inf-csv-input')
-        const $import_element = $import_element_wrapper.find('input')
-        console.log($import_element)
+        const $import_element_type = $this.closest('.inf-csv-bt').prev('.inf-csv-type').find('input')
+        const $import_element = $import_element_type.prev('.inf-csv-input').find('input')
         var fileInput = $import_element[0];
         if (!fileInput.files.length) {
             alert('Please select a CSV file.');
             return;
         }
-        console.log($($import_element_wrapper))
+        console.log($($import_element_type.val()))
         inf_ajax_import(fileInput.files[0], 0)
     });
 
