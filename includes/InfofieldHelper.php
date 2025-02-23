@@ -171,9 +171,9 @@ trait infofieldHelper
         return $rowCount;
     }
 
-    private function inf_table_heads()
+    private function inf_table_heads($which, $of)
     {
-        return [
+        $table_heads = [
             'infofields' => [
                 'main' => [
 
@@ -194,5 +194,7 @@ trait infofieldHelper
                 ],
             ],
         ];
+
+        return $table_heads[$of][$which];
     }
 }
