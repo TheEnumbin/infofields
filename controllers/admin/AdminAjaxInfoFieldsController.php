@@ -98,6 +98,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
     {
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
+        $csv_type = trim(Tools::getValue('csv_type'));
         $continue_import = 1;
         $chunkSize = 5; // Number of rows per chunk
 

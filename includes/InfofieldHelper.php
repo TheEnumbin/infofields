@@ -147,7 +147,7 @@ trait infofieldHelper
     }
 
 
-    private function processCSVRow($row)
+    private function process_csv_rows($row)
     {
         // echo '<pre>';
         // print_r($row);
@@ -160,7 +160,7 @@ trait infofieldHelper
         // ));
     }
 
-    private function countCSVRows($filePath)
+    private function count_csv_rows($filePath)
     {
         $handle = fopen($filePath, 'r');
         $rowCount = 0;
@@ -169,5 +169,30 @@ trait infofieldHelper
         }
         fclose($handle);
         return $rowCount;
+    }
+
+    private function inf_table_heads()
+    {
+        return [
+            'infofields' => [
+                'main' => [
+
+                ],
+                'lang' => [
+
+                ],
+                'shop' => [
+
+                ],
+            ],
+            'meta' => [
+                'main' => [
+
+                ],
+                'lang' => [
+
+                ],
+            ],
+        ];
     }
 }

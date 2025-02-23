@@ -174,21 +174,21 @@ $(document).ready(function () {
         e.preventDefault()
         const $this = $(this)
         const $import_element_type = $this.closest('.inf-csv-bt').prev('.inf-csv-type').find('input')
-        const $import_element = $import_element_type.prev('.inf-csv-input').find('input')
+        const $import_element = $import_element_type.closest('.inf-csv-type').prev('.inf-csv-input').find('input')
         var fileInput = $import_element[0];
         if (!fileInput.files.length) {
             alert('Please select a CSV file.');
             return;
         }
-        console.log($($import_element_type.val()))
-        inf_ajax_import(fileInput.files[0], 0)
+        inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0)
     });
 
-    function inf_ajax_import(file, offset) {
+    function inf_ajax_import(file, type, offset) {
         let dataarr = {}
         var formData = new FormData();
         dataarr = formData;
         dataarr.append('csv_file', file);
+        dataarr.append('csv_type', type);
         dataarr.append('offset', offset);
         dataarr.append('controller', 'AdminAjaxInfofields');
         dataarr.append('action', 'ImportCSV');
@@ -203,7 +203,7 @@ $(document).ready(function () {
             success: function (response) {
                 const responseArr = JSON.parse(response)
                 if (responseArr.continue == true) {
-                    inf_ajax_import(file, responseArr.offset)
+                    inf_ajax_import(file, type, responseArr.offset)
                 }
             },
             error: function (error) {
