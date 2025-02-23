@@ -176,21 +176,36 @@ trait infofieldHelper
         $table_heads = [
             'infofields' => [
                 'main' => [
-
+                    'parent_item',
+                    'field_type',
+                    'start_date',
+                    'end_date',
+                    'with_field_name',
+                    'as_product_tab',
+                    'img_width',
+                    'img_height',
                 ],
                 'lang' => [
-
+                    'id_infofields',
+                    'id_lang',
+                    'field_name',
+                    'global_meta_data',
+                    'available_values',
                 ],
                 'shop' => [
-
+                    'id_infofields',
+                    'id_shop',
                 ],
             ],
             'meta' => [
                 'main' => [
-
+                    'id_infofields',
+                    'parent_item_id',
                 ],
                 'lang' => [
-
+                    'id_infofields_meta',
+                    'id_lang',
+                    'meta_data',
                 ],
             ],
         ];
