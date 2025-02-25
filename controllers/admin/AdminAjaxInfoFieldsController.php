@@ -115,13 +115,13 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         $processedRows = 0;
         $lastrow = [];
-        $insertable_row = '';
         while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
             // Process each row
-            $insertable_row += $this->process_csv_row($row, $csv_type);
+            $this->process_csv_row($row, $csv_type);
             $lastrow[] = $row;
             $processedRows++;
         }
+        die(__FILE__ . ' : ' . __LINE__);
 
         if (empty($lastrow)) {
             $continue_import = false;

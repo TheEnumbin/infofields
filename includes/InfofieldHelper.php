@@ -22,6 +22,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
+require_once dirname(__FILE__) . '/InfofieldDb.php';
 require_once dirname(__FILE__) . '/../classes/MetaModel.php';
 
 trait infofieldHelper
@@ -149,12 +150,21 @@ trait infofieldHelper
     private function process_csv_row($row, $csv_type)
     {
         $insert_q = '';
+        $inf_db = new InfofieldDB();
 
-        // echo '<pre>';
-        // print_r($row);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
+        if ($csv_type == 5) {
+            $inf_id = $inf_db->insert_infofields($row);
+            $inf_db->insert_infofields_lang($row);
+        }
+        echo '<pre>';
+        print_r($row);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        echo '<pre>';
+        print_r($inf_id);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
         // Db::getInstance()->insert('infofields', array(
         //   'field_id' => pSQL($row[0]),
         //   'value' => pSQL($row[1])
