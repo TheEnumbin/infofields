@@ -113,13 +113,15 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         fseek($handle, $offset);
 
-        $processedRows = 0;
+        $processed_rows = 0;
         $lastrow = [];
-        while (($row = fgetcsv($handle)) !== false && $processedRows < $chunkSize) {
+        while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
             // Process each row
-            $this->process_csv_row($row, $csv_type);
-            $lastrow[] = $row;
-            $processedRows++;
+            if ($processed_rows > 0) {
+                $this->process_csv_row($row, $csv_type);
+                $lastrow[] = $row;
+            }
+            $processed_rows++;
         }
         die(__FILE__ . ' : ' . __LINE__);
 

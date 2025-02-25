@@ -153,7 +153,8 @@ trait infofieldHelper
         $inf_db = new InfofieldDB();
 
         if ($csv_type == 5) {
-            $inf_id = $inf_db->insert_infofields($row);
+            $processed_row = $this->process_row_data($row, $csv_type);
+            $inf_id = $inf_db->insert_infofields($processed_row);
             $inf_db->insert_infofields_lang($row);
         }
         echo '<pre>';
@@ -180,6 +181,18 @@ trait infofieldHelper
         }
         fclose($handle);
         return $rowCount;
+    }
+
+    private function process_row_data($row, $csv_type)
+    {
+        if ($csv_type == 5) {
+            $row[2] = $this->inf_value_array('parent_item', $row[2]);
+        }
+        echo '<pre>';
+        print_r($row);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
     }
 
     private function inf_table_heads($which, $of)
@@ -222,5 +235,31 @@ trait infofieldHelper
         ];
 
         return $table_heads[$of][$which];
+    }
+
+    private function inf_value_array($of, $which)
+    {
+        $value_arr = [
+            'parent_item' => [
+                'product' => 2,
+                'customer' => 4,
+                'category' => 1,
+                'cms' => 3,
+            ],
+            'field_type' => [
+                'textfield' => 1,
+                'rte' => 2,
+                'textarea' => 3,
+                'switch' => 4,
+                'image' => 5,
+                'video' => 10,
+                'file' => 9,
+                'date' => 6,
+                'checkboxes' => 7,
+                'select' => 8,
+            ],
+        ];
+
+        return $value_arr[$of][$which];
     }
 }

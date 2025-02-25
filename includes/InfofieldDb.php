@@ -37,14 +37,14 @@ class InfofieldDB
             `parent_item`, `field_type`, `start_date`, `end_date`,
             `with_field_name`, `as_product_tab`, `img_width`, `img_height`
             ) VALUES (
-            ' . pSQL($row[0]) . ',
-            ' . pSQL($row[1]) . ',
-            ' . (empty($row[2]) ? 'NULL' : "'" . pSQL($row[2]) . "'") . ',
-            ' . (empty($row[3]) ? 'NULL' : "'" . pSQL($row[3]) . "'") . ',
-            ' . (strtoupper($row[4]) === 'TRUE' ? 1 : 0) . ',
+            ' . pSQL($row[2]) . ',
+            ' . pSQL($row[3]) . ',
+            ' . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ',
+            ' . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ',
             ' . (strtoupper($row[5]) === 'TRUE' ? 1 : 0) . ',
-            ' . (empty($row[6]) ? 'NULL' : (int)$row[6]) . ',
-            ' . (empty($row[7]) ? 'NULL' : (int)$row[7]) . '
+            ' . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ',
+            ' . (empty($row[8]) ? 'NULL' : (int)$row[8]) . ',
+            ' . (empty($row[9]) ? 'NULL' : (int)$row[9]) . '
             )';
 
         if (Db::getInstance()->execute($query)) {
