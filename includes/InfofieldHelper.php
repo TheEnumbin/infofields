@@ -146,9 +146,10 @@ trait infofieldHelper
         return ['file' => $newFileName, 'ext' => $ext];
     }
 
-
-    private function process_csv_rows($row)
+    private function process_csv_row($row, $csv_type)
     {
+        $insert_q = '';
+
         // echo '<pre>';
         // print_r($row);
         // echo '</pre>';
