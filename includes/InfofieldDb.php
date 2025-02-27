@@ -32,6 +32,10 @@ class InfofieldDB
 {
     public function insert_infofields($row)
     {
+        echo '<pre>';
+        print_r($row);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields` (
             `parent_item`, `field_type`, `start_date`, `end_date`,
@@ -46,7 +50,11 @@ class InfofieldDB
             ' . (empty($row[8]) ? 'NULL' : (int)$row[8]) . ',
             ' . (empty($row[9]) ? 'NULL' : (int)$row[9]) . '
             )';
-
+        echo '<pre>';
+        print_r($query);
+        echo '</pre>';
+        echo __FILE__ . ' : ' . __LINE__;
+        die(__FILE__ . ' : ' . __LINE__);
         if (Db::getInstance()->execute($query)) {
             return Db::getInstance()->Insert_ID();
         }

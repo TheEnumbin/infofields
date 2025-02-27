@@ -187,12 +187,14 @@ trait infofieldHelper
     {
         if ($csv_type == 5) {
             $row[2] = $this->inf_value_array('parent_item', $row[2]);
+            $row[3] = $this->inf_value_array('field_type', $row[3]);
         }
-        echo '<pre>';
-        print_r($row);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+        // echo '<pre>';
+        // print_r($row);
+        // echo '</pre>';
+        // echo __FILE__ . ' : ' . __LINE__;
+        // die(__FILE__ . ' : ' . __LINE__);
+        return $row;
     }
 
     private function inf_table_heads($which, $of)
