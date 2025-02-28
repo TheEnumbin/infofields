@@ -77,4 +77,21 @@ class InfofieldDB
 
         return false;
     }
+
+    public function insert_infofields_shop()
+    {
+        $shop_id = Context::getContext()->shop->id;
+        $query = '
+            INSERT INTO `' . _DB_PREFIX_ . 'infofields_shop` (
+            `id_infofields`, `id_shop`
+            ) 
+            SELECT id_infofields, ' . $shop_id . ' FROM `' . _DB_PREFIX_ . 'infofields` 
+            ';
+
+        if (Db::getInstance()->execute($query)) {
+            return true;
+        }
+
+        return false;
+    }
 }

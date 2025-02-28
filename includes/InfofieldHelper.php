@@ -156,6 +156,7 @@ trait infofieldHelper
             $processed_row = $this->process_row_data($row, $csv_type);
             $inf_id = $inf_db->insert_infofields($processed_row);
             $done = $inf_db->insert_infofields_lang($row, $inf_id);
+            $done = $inf_db->insert_infofields_shop();
 
             return $done;
         }
