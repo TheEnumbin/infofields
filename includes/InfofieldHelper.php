@@ -149,13 +149,22 @@ trait infofieldHelper
 
     private function process_csv_row($row, $csv_type)
     {
-        $insert_q = '';
         $inf_db = new InfofieldDB();
 
         if ($csv_type == 5) {
             $processed_row = $this->process_row_data($row, $csv_type);
             $inf_id = $inf_db->insert_infofields($processed_row);
             $done = $inf_db->insert_infofields_lang($row, $inf_id);
+
+            return $done;
+        }
+    }
+
+    private function finish_processing_import($csv_type)
+    {
+        $inf_db = new InfofieldDB();
+
+        if ($csv_type == 5) {
             $done = $inf_db->insert_infofields_shop();
 
             return $done;

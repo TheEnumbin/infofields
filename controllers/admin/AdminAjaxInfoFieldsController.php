@@ -129,6 +129,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         if (empty($lastrow)) {
             $continue_import = false;
+            $this->finish_processing_import($csv_type);
         }
 
         // Get the current file pointer position
