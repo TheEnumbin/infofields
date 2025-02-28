@@ -32,10 +32,6 @@ class InfofieldDB
 {
     public function insert_infofields($row)
     {
-        echo '<pre>';
-        print_r($row);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields` (
             `parent_item`, `field_type`, `start_date`, `end_date`,
@@ -45,16 +41,12 @@ class InfofieldDB
             ' . pSQL($row[3]) . ',
             ' . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ',
             ' . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ',
-            ' . (strtoupper($row[5]) === 'TRUE' ? 1 : 0) . ',
+            ' . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ',
             ' . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ',
-            ' . (empty($row[8]) ? 'NULL' : (int)$row[8]) . ',
-            ' . (empty($row[9]) ? 'NULL' : (int)$row[9]) . '
+            ' . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ',
+            ' . (empty($row[9]) ? 'NULL' : (int) $row[9]) . '
             )';
-        echo '<pre>';
-        print_r($query);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
+
         if (Db::getInstance()->execute($query)) {
             return Db::getInstance()->Insert_ID();
         }
@@ -62,7 +54,23 @@ class InfofieldDB
         return false;
     }
 
-    public function insert_infofields_lang($row)
+    public function insert_infofields_lang($row, $inf_id)
     {
+        $query = '
+            INSERT INTO `' . _DB_PREFIX_ . 'infofields_lang` (
+            `id_infofields`, `id_lang`, `field_name`, `global_meta_data`, `available_values`
+            ) VALUES (
+            ' . pSQL($inf_id) . ',
+            ' . pSQL($row[3]) . ',
+            ' . $row[0]. ',
+            ' . $row[1] . ',
+            ' . (strtoupper($row[]) === 'TRUE' ? 1 : 0) . ',
+            )';
+
+        if (Db::getInstance()->execute($query)) {
+            return Db::getInstance()->Insert_ID();
+        }
+
+        return false;
     }
 }

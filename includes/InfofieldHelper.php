@@ -155,21 +155,8 @@ trait infofieldHelper
         if ($csv_type == 5) {
             $processed_row = $this->process_row_data($row, $csv_type);
             $inf_id = $inf_db->insert_infofields($processed_row);
-            $inf_db->insert_infofields_lang($row);
+            $inf_db->insert_infofields_lang($row, $inf_id);
         }
-        echo '<pre>';
-        print_r($row);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        echo '<pre>';
-        print_r($inf_id);
-        echo '</pre>';
-        echo __FILE__ . ' : ' . __LINE__;
-        die(__FILE__ . ' : ' . __LINE__);
-        // Db::getInstance()->insert('infofields', array(
-        //   'field_id' => pSQL($row[0]),
-        //   'value' => pSQL($row[1])
-        // ));
     }
 
     private function count_csv_rows($filePath)
