@@ -155,7 +155,9 @@ trait infofieldHelper
         if ($csv_type == 5) {
             $processed_row = $this->process_row_data($row, $csv_type);
             $inf_id = $inf_db->insert_infofields($processed_row);
-            $inf_db->insert_infofields_lang($row, $inf_id);
+            $done = $inf_db->insert_infofields_lang($row, $inf_id);
+
+            return $done;
         }
     }
 

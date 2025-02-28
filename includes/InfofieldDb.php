@@ -56,19 +56,23 @@ class InfofieldDB
 
     public function insert_infofields_lang($row, $inf_id)
     {
+        if (empty($row[0])) {
+            return false;
+        }
+        $lang_id = Context::getContext()->language->id;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_lang` (
             `id_infofields`, `id_lang`, `field_name`, `global_meta_data`, `available_values`
             ) VALUES (
             ' . pSQL($inf_id) . ',
-            ' . pSQL($row[3]) . ',
-            ' . $row[0]. ',
-            ' . $row[1] . ',
-            ' . (strtoupper($row[]) === 'TRUE' ? 1 : 0) . ',
+            ' . pSQL($lang_id) . ',
+            "' . pSQL($row[0]). '",
+            ' . (empty($row[1]) ? "''" : "'" . pSQL($row[1]) . "'") . ',
+            ' . (empty($row[4]) ? "''" : "'" . pSQL($row[4]) . "'") . '
             )';
 
         if (Db::getInstance()->execute($query)) {
-            return Db::getInstance()->Insert_ID();
+            return true;
         }
 
         return false;
