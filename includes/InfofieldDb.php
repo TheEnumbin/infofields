@@ -101,14 +101,8 @@ class InfofieldDB
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_meta` (
             `id_infofields`, `parent_item_id`
             ) VALUES (
-            ' . pSQL($row[2]) . ',
-            ' . pSQL($row[3]) . ',
-            ' . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ',
-            ' . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ',
-            ' . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ',
-            ' . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ',
-            ' . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ',
-            ' . (empty($row[9]) ? 'NULL' : (int) $row[9]) . '
+            ' . pSQL($row[0]) . ',
+            ' . pSQL($row[1]) . '
             )';
 
         if (Db::getInstance()->execute($query)) {
@@ -130,9 +124,7 @@ class InfofieldDB
             ) VALUES (
             ' . pSQL($inf_meta_id) . ',
             ' . pSQL($lang_id) . ',
-            "' . pSQL($row[0]). '",
-            ' . (empty($row[1]) ? "''" : "'" . pSQL($row[1]) . "'") . ',
-            ' . (empty($row[4]) ? "''" : "'" . pSQL($row[4]) . "'") . '
+            "' . pSQL($row[2]). '"
             )';
 
         if (Db::getInstance()->execute($query)) {

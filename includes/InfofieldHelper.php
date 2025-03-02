@@ -152,9 +152,15 @@ trait infofieldHelper
         $inf_db = new InfofieldDB();
 
         if ($csv_type == 5) {
-            $processed_row = $this->process_row_data($row, $csv_type);
-            $inf_id = $inf_db->insert_infofields($processed_row);
+            $row[2] = $this->inf_value_array('parent_item', $row[2]);
+            $row[3] = $this->inf_value_array('field_type', $row[3]);
+            $inf_id = $inf_db->insert_infofields($row);
             $done = $inf_db->insert_infofields_lang($row, $inf_id);
+
+            return $done;
+        } else {
+            $inf_meta_id = $inf_db->insert_infofields_meta($row);
+            $done = $inf_db->insert_infofields_meta_lang($row, $inf_meta_id);
 
             return $done;
         }
@@ -180,62 +186,6 @@ trait infofieldHelper
         }
         fclose($handle);
         return $rowCount;
-    }
-
-    private function process_row_data($row, $csv_type)
-    {
-        if ($csv_type == 5) {
-            $row[2] = $this->inf_value_array('parent_item', $row[2]);
-            $row[3] = $this->inf_value_array('field_type', $row[3]);
-        }
-        // echo '<pre>';
-        // print_r($row);
-        // echo '</pre>';
-        // echo __FILE__ . ' : ' . __LINE__;
-        // die(__FILE__ . ' : ' . __LINE__);
-        return $row;
-    }
-
-    private function inf_table_heads($which, $of)
-    {
-        $table_heads = [
-            'infofields' => [
-                'main' => [
-                    'parent_item',
-                    'field_type',
-                    'start_date',
-                    'end_date',
-                    'with_field_name',
-                    'as_product_tab',
-                    'img_width',
-                    'img_height',
-                ],
-                'lang' => [
-                    'id_infofields',
-                    'id_lang',
-                    'field_name',
-                    'global_meta_data',
-                    'available_values',
-                ],
-                'shop' => [
-                    'id_infofields',
-                    'id_shop',
-                ],
-            ],
-            'meta' => [
-                'main' => [
-                    'id_infofields',
-                    'parent_item_id',
-                ],
-                'lang' => [
-                    'id_infofields_meta',
-                    'id_lang',
-                    'meta_data',
-                ],
-            ],
-        ];
-
-        return $table_heads[$of][$which];
     }
 
     private function inf_value_array($of, $which)

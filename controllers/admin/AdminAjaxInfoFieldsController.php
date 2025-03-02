@@ -119,7 +119,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             // Process each row
             if ($processed_rows > 0) {
                 $done = $this->process_csv_row($row, $csv_type);
-                $lastrow[] = $row;
                 if ($done) {
                     $lastrow[] = $row;
                 }
