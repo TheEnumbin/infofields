@@ -178,10 +178,10 @@ $(document).ready(function () {
             return;
         }
         $this.siblings('.inf-import-stop').removeClass('hidden')
-        inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0)
+        inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0, $this)
     });
 
-    function inf_ajax_import(file, type, offset) {
+    const inf_ajax_import = (file, type, offset, button) => {
         let dataarr = {}
         var formData = new FormData();
         dataarr = formData;
@@ -201,9 +201,10 @@ $(document).ready(function () {
             success: function (response) {
                 const responseArr = JSON.parse(response)
                 if (responseArr.continue == true) {
-                    inf_ajax_import(file, type, responseArr.offset)
+                    inf_ajax_import(file, type, responseArr.offset, button)
                 } else {
-                    $this.siblings('.inf-import-stop').addClass('hidden')
+                    console.log(this)
+                    button.siblings('.inf-import-stop').addClass('hidden')
                 }
             },
             error: function (error) {
