@@ -167,9 +167,6 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
     $(document).on('click', '.inf-import-bt', function (e) {
         e.preventDefault()
         const $this = $(this)
@@ -180,6 +177,7 @@ $(document).ready(function () {
             alert('Please select a CSV file.');
             return;
         }
+        $this.siblings('.inf-import-stop').removeClass('hidden')
         inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0)
     });
 
@@ -204,6 +202,8 @@ $(document).ready(function () {
                 const responseArr = JSON.parse(response)
                 if (responseArr.continue == true) {
                     inf_ajax_import(file, type, responseArr.offset)
+                } else {
+                    $this.siblings('.inf-import-stop').addClass('hidden')
                 }
             },
             error: function (error) {
