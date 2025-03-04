@@ -167,6 +167,8 @@ $(document).ready(function () {
             }
         });
     });
+
+    var stop_import = 1;
     $(document).on('click', '.inf-import-bt', function (e) {
         e.preventDefault()
         const $this = $(this)
@@ -177,8 +179,14 @@ $(document).ready(function () {
             alert('Please select a CSV file.');
             return;
         }
+        stop_import = 0
         $this.siblings('.inf-import-stop').removeClass('hidden')
         inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0, $this)
+    });
+
+    $(document).on('click', '.inf-import-stop', function (e) {
+        e.preventDefault()
+        stop_import = 1
     });
 
     const inf_ajax_import = (file, type, offset, button) => {
@@ -200,10 +208,13 @@ $(document).ready(function () {
             processData: false,
             success: function (response) {
                 const responseArr = JSON.parse(response)
-                if (responseArr.continue == true) {
-                    inf_ajax_import(file, type, responseArr.offset, button)
+                if (!stop_import) {
+                    if (responseArr.continue == true) {
+                        inf_ajax_import(file, type, responseArr.offset, button)
+                    } else {
+                        button.siblings('.inf-import-stop').addClass('hidden')
+                    }
                 } else {
-                    console.log(this)
                     button.siblings('.inf-import-stop').addClass('hidden')
                 }
             },

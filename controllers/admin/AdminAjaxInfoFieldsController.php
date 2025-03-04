@@ -141,7 +141,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             'is_finished' => $isFinished,
             'last_row' => $lastrow,
             'continue' => $continue_import,
-            // 'progress' => ($isFinished ? 100 : round($currentOffset / filesize($filePath) * 100))
         )));
     }
 
