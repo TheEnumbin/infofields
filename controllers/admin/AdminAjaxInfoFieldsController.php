@@ -105,20 +105,21 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
         }
-
         $handle = fopen($file['tmp_name'], 'r');
+
         if (!$handle) {
             die(json_encode(array('error' => 'Unable to open CSV file')));
         }
-
         fseek($handle, $offset);
 
         $processed_rows = 0;
         $lastrow = [];
+
         while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
-            // Process each row
+
             if ($processed_rows > 0) {
                 $done = $this->process_csv_row($row, $csv_type);
+
                 if ($done) {
                     $lastrow[] = $row;
                 }
