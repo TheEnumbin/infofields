@@ -38,21 +38,14 @@ class InfofieldDB
         return $latest_id;
     }
 
-    public function insert_infofields($row)
+    public function insert_infofields($values)
     {
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields` (
             `parent_item`, `field_type`, `start_date`, `end_date`,
             `with_field_name`, `as_product_tab`, `img_width`, `img_height`
             ) VALUES (
-            ' . pSQL($row[2]) . ',
-            ' . pSQL($row[3]) . ',
-            ' . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ',
-            ' . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ',
-            ' . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ',
-            ' . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ',
-            ' . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ',
-            ' . (empty($row[9]) ? 'NULL' : (int) $row[9]) . '
+            ' . implode(',', $values) . '
             )';
 
         if (Db::getInstance()->execute($query)) {

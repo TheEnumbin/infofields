@@ -154,10 +154,18 @@ trait infofieldHelper
         if ($csv_type == 5) {
             $row[2] = $this->inf_value_array('parent_item', $row[2]);
             $row[3] = $this->inf_value_array('field_type', $row[3]);
-            $inf_id = $inf_db->insert_infofields($row);
-            $done = $inf_db->insert_infofields_lang($row, $inf_id);
-
-            return $done;
+            // $inf_id = $inf_db->insert_infofields($row);
+            // $done = $inf_db->insert_infofields_lang($row, $inf_id);
+            return "(
+                '" . pSQL($row[2]) . "',
+                '" . pSQL($row[3]) . "',
+                " . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ",
+                " . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ",
+                " . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ",
+                " . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ",
+                " . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ",
+                " . (empty($row[9]) ? 'NULL' : (int) $row[9]) . "
+            )";
         } else {
             $inf_meta_id = $inf_db->insert_infofields_meta($row);
             $done = $inf_db->insert_infofields_meta_lang($row, $inf_meta_id);
@@ -174,6 +182,14 @@ trait infofieldHelper
             $done = $inf_db->insert_infofields_shop();
 
             return $done;
+        }
+    }
+
+    private function inf_insert_values_str($row, $csv_type)
+    {
+
+        if ($csv_type == 5) {
+
         }
     }
 

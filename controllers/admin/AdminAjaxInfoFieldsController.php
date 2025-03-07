@@ -102,6 +102,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $csv_type = trim(Tools::getValue('csv_type'));
         $continue_import = 1;
         $chunkSize = 100;
+        $inf_db = new InfofieldDB();
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
@@ -113,23 +114,24 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         }
 
         if ($offset == 0) {
-            $inf_db = new InfofieldDB();
             $latest_id = $inf_db->inf_get_last_id();
         }
         fseek($handle, $offset);
         $processed_rows = 0;
         $lastrow = [];
+        $insert_values_str = [];
 
         while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
 
             if ($processed_rows > 0) {
-                $done = $this->process_csv_row($row, $csv_type);
-
-                if ($done) {
-                    $lastrow[] = $row;
-                }
+                $insert_values_str[] = $this->process_csv_row($row, $csv_type);
+                $lastrow[] = $row;
             }
             $processed_rows++;
+        }
+
+        if ($csv_type == 5) {
+            $inf_db->insert_infofields($insert_values_str);
         }
 
         if (empty($lastrow)) {
