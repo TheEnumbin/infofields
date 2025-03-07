@@ -30,6 +30,14 @@ if (!defined('_PS_VERSION_')) {
 
 class InfofieldDB
 {
+    public function inf_get_last_id()
+    {
+        $latest_id = Db::getInstance()->getValue('
+            SELECT MAX(id_infofields) AS latest_id FROM ' . _DB_PREFIX_ . 'infofields
+        ');
+        return $latest_id;
+    }
+
     public function insert_infofields($row)
     {
         $query = '

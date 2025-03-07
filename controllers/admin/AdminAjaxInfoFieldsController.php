@@ -22,6 +22,7 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 require_once dirname(__FILE__) . '/../../classes/MetaModel.php';
+require_once dirname(__FILE__) . '/../../includes/InfofieldDb.php';
 require_once dirname(__FILE__) . '/../../includes/InfofieldHelper.php';
 
 class AdminAjaxInfofieldsController extends ModuleAdminController
@@ -110,8 +111,12 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         if (!$handle) {
             die(json_encode(array('error' => 'Unable to open CSV file')));
         }
-        fseek($handle, $offset);
 
+        if ($offset == 0) {
+            $inf_db = new InfofieldDB();
+            $latest_id = $inf_db->inf_get_last_id();
+        }
+        fseek($handle, $offset);
         $processed_rows = 0;
         $lastrow = [];
 
