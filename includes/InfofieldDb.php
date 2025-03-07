@@ -44,9 +44,8 @@ class InfofieldDB
             INSERT INTO `' . _DB_PREFIX_ . 'infofields` (
             `parent_item`, `field_type`, `start_date`, `end_date`,
             `with_field_name`, `as_product_tab`, `img_width`, `img_height`
-            ) VALUES (
-            ' . implode(',', $values) . '
-            )';
+            ) VALUES'
+            . implode(',', $values) . '';
 
         if (Db::getInstance()->execute($query)) {
             return Db::getInstance()->Insert_ID();
