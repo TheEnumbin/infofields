@@ -147,25 +147,32 @@ trait infofieldHelper
         return ['file' => $newFileName, 'ext' => $ext];
     }
 
-    private function process_csv_row($row, $csv_type)
+    private function process_csv_row($row, $csv_type, $latest_id)
     {
         $inf_db = new InfofieldDB();
-
+        $lang_id = Context::getContext()->language->id;
         if ($csv_type == 5) {
             $row[2] = $this->inf_value_array('parent_item', $row[2]);
             $row[3] = $this->inf_value_array('field_type', $row[3]);
-            // $inf_id = $inf_db->insert_infofields($row);
-            // $done = $inf_db->insert_infofields_lang($row, $inf_id);
-            return "(
-                '" . pSQL($row[2]) . "',
-                '" . pSQL($row[3]) . "',
-                " . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ",
-                " . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ",
-                " . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ",
-                " . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ",
-                " . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ",
-                " . (empty($row[9]) ? 'NULL' : (int) $row[9]) . "
-            )";
+            return [
+                'main_table_values' => "(
+                    '" . pSQL($row[2]) . "',
+                    '" . pSQL($row[3]) . "',
+                    " . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ",
+                    " . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ",
+                    " . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ",
+                    " . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ",
+                    " . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ",
+                    " . (empty($row[9]) ? 'NULL' : (int) $row[9]) . "
+                )",
+                'lang_table_values' => '(
+                    ' . pSQL($latest_id) . ',
+                    ' . pSQL($lang_id) . ',
+                    "' . pSQL($row[0]). '",
+                    ' . (empty($row[1]) ? "''" : "'" . pSQL($row[1]) . "'") . ',
+                    ' . (empty($row[4]) ? "''" : "'" . pSQL($row[4]) . "'") . '
+                )',
+            ];
         } else {
             $inf_meta_id = $inf_db->insert_infofields_meta($row);
             $done = $inf_db->insert_infofields_meta_lang($row, $inf_meta_id);

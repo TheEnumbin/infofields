@@ -45,7 +45,7 @@ class InfofieldDB
             `parent_item`, `field_type`, `start_date`, `end_date`,
             `with_field_name`, `as_product_tab`, `img_width`, `img_height`
             ) VALUES'
-            . implode(',', $values) . '';
+            . implode(',', $values);
 
         if (Db::getInstance()->execute($query)) {
             return Db::getInstance()->Insert_ID();
@@ -54,23 +54,13 @@ class InfofieldDB
         return false;
     }
 
-    public function insert_infofields_lang($row, $inf_id)
+    public function insert_infofields_lang($values)
     {
-        if (empty($row[0])) {
-            return false;
-        }
-        $lang_id = Context::getContext()->language->id;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_lang` (
             `id_infofields`, `id_lang`, `field_name`, `global_meta_data`, `available_values`
-            ) VALUES (
-            ' . pSQL($inf_id) . ',
-            ' . pSQL($lang_id) . ',
-            "' . pSQL($row[0]). '",
-            ' . (empty($row[1]) ? "''" : "'" . pSQL($row[1]) . "'") . ',
-            ' . (empty($row[4]) ? "''" : "'" . pSQL($row[4]) . "'") . '
-            )';
-
+            ) VALUES '
+            . implode(',', $values) . '';
         if (Db::getInstance()->execute($query)) {
             return true;
         }

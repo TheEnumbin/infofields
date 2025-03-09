@@ -103,6 +103,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $continue_import = 1;
         $chunkSize = 100;
         $inf_db = new InfofieldDB();
+        $latest_id = 0;
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
@@ -115,28 +116,35 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         if ($offset == 0) {
             $latest_id = $inf_db->inf_get_last_id();
+            $latest_id++;
         }
         fseek($handle, $offset);
         $processed_rows = 0;
         $lastrow = [];
-        $insert_values_str = [];
+        $main_table_values_str = [];
+        $lang_table_values_str = [];
 
         while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
 
             if ($processed_rows > 0) {
-                $insert_values_str[] = $this->process_csv_row($row, $csv_type);
+                // $insert_values_str[] = $this->process_csv_row($row, $csv_type);
+                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $latest_id);
+                $main_table_values_str[] = $main_table_values;
+                $lang_table_values_str[] = $lang_table_values;
                 $lastrow[] = $row;
+                $latest_id++;
             }
             $processed_rows++;
-        }
-
-        if ($csv_type == 5) {
-            $inf_db->insert_infofields($insert_values_str);
         }
 
         if (empty($lastrow)) {
             $continue_import = false;
             $this->finish_processing_import($csv_type);
+        } else {
+            if ($csv_type == 5) {
+                $inf_db->insert_infofields($main_table_values_str);
+                $inf_db->insert_infofields_lang($lang_table_values_str);
+            }
         }
 
         // Get the current file pointer position
