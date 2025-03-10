@@ -100,10 +100,10 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
         $csv_type = trim(Tools::getValue('csv_type'));
-        $starting_id = trim(Tools::getValue('starting_id'));
-        $inf_id_index = trim(Tools::getValue('inf_id_index'));
+        $starting_id = (int) trim(Tools::getValue('starting_id'));
+        $inf_id_index = (int) trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
-        $chunkSize = 100;
+        $chunkSize = 5;
         $inf_db = new InfofieldDB();
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
@@ -139,7 +139,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         if (empty($lastrow)) {
             $continue_import = false;
-            $this->finish_processing_import($csv_type);
+            $this->finish_processing_import($csv_type, $starting_id);
         } else {
 
             if ($csv_type == 5) {

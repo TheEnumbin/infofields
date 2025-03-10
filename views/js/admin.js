@@ -189,7 +189,7 @@ $(document).ready(function () {
         stop_import = 1
     });
 
-    const inf_ajax_import = (file, type, offset, button, starting_id, inf_id_index) => {
+    const inf_ajax_import = (file, type, offset, starting_id, inf_id_index, button) => {
         let dataarr = {}
         var formData = new FormData();
         dataarr = formData;

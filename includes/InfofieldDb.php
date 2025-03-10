@@ -35,6 +35,10 @@ class InfofieldDB
         $latest_id = Db::getInstance()->getValue('
             SELECT MAX(id_infofields) AS latest_id FROM ' . _DB_PREFIX_ . 'infofields
         ');
+
+        if ($latest_id == null) {
+            $latest_id = 0;
+        }
         return $latest_id;
     }
 
@@ -68,14 +72,14 @@ class InfofieldDB
         return false;
     }
 
-    public function insert_infofields_shop()
+    public function insert_infofields_shop($starting_id)
     {
         $shop_id = Context::getContext()->shop->id;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_shop` (
             `id_infofields`, `id_shop`
             ) 
-            SELECT id_infofields, ' . $shop_id . ' FROM `' . _DB_PREFIX_ . 'infofields` 
+            SELECT id_infofields, ' . $shop_id . ' FROM `' . _DB_PREFIX_ . 'infofields` WHERE  id_infofields > ' . (int) $starting_id . '
             ';
 
         if (Db::getInstance()->execute($query)) {

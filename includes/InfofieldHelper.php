@@ -181,12 +181,12 @@ trait infofieldHelper
         }
     }
 
-    private function finish_processing_import($csv_type)
+    private function finish_processing_import($csv_type, $starting_id)
     {
         $inf_db = new InfofieldDB();
 
         if ($csv_type == 5) {
-            $done = $inf_db->insert_infofields_shop();
+            $done = $inf_db->insert_infofields_shop($starting_id);
 
             return $done;
         }
