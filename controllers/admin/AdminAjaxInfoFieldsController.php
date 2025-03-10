@@ -100,10 +100,11 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
         $csv_type = trim(Tools::getValue('csv_type'));
+        $starting_id = trim(Tools::getValue('starting_id'));
+        $inf_id_index = trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
         $chunkSize = 100;
         $inf_db = new InfofieldDB();
-        $latest_id = 0;
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
             die(json_encode(array('error' => 'File upload failed')));
@@ -115,8 +116,8 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         }
 
         if ($offset == 0) {
-            $latest_id = $inf_db->inf_get_last_id();
-            $latest_id++;
+            $inf_id_index = $starting_id = $inf_db->inf_get_last_id();
+            $inf_id_index++;
         }
         fseek($handle, $offset);
         $processed_rows = 0;
@@ -127,12 +128,11 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
 
             if ($processed_rows > 0) {
-                // $insert_values_str[] = $this->process_csv_row($row, $csv_type);
-                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $latest_id);
+                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index);
                 $main_table_values_str[] = $main_table_values;
                 $lang_table_values_str[] = $lang_table_values;
                 $lastrow[] = $row;
-                $latest_id++;
+                $inf_id_index++;
             }
             $processed_rows++;
         }
@@ -141,18 +141,19 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             $continue_import = false;
             $this->finish_processing_import($csv_type);
         } else {
+
             if ($csv_type == 5) {
                 $inf_db->insert_infofields($main_table_values_str);
                 $inf_db->insert_infofields_lang($lang_table_values_str);
             }
         }
-
-        // Get the current file pointer position
         $currentOffset = ftell($handle);
         $isFinished = feof($handle);
         fclose($handle);
 
         die(json_encode(array(
+            'starting_id' => $starting_id,
+            'inf_id_index' => $inf_id_index,
             'offset' => $currentOffset,
             'is_finished' => $isFinished,
             'last_row' => $lastrow,
