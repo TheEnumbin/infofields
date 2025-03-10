@@ -125,9 +125,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $main_table_values_str = [];
         $lang_table_values_str = [];
 
-        while (($row = fgetcsv($handle)) !== false && $processed_rows < $chunkSize) {
+        while (($row = fgetcsv($handle)) !== false) {
 
-            if ($processed_rows > 0) {
+            if ($offset != 0 || $processed_rows > 0) {
                 list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index);
                 $main_table_values_str[] = $main_table_values;
                 $lang_table_values_str[] = $lang_table_values;
@@ -135,6 +135,10 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 $inf_id_index++;
             }
             $processed_rows++;
+
+            if ($processed_rows > $chunkSize) {
+                break;
+            }
         }
 
         if (empty($lastrow)) {
