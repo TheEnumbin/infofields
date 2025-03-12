@@ -64,7 +64,7 @@ class InfofieldDB
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_lang` (
             `id_infofields`, `id_lang`, `field_name`, `global_meta_data`, `available_values`
             ) VALUES '
-            . implode(',', $values) . '';
+            . implode(',', $values);
         if (Db::getInstance()->execute($query)) {
             return true;
         }
@@ -89,15 +89,13 @@ class InfofieldDB
         return false;
     }
 
-    public function insert_infofields_meta($row)
+    public function insert_infofields_meta($values)
     {
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_meta` (
             `id_infofields`, `parent_item_id`
-            ) VALUES (
-            ' . pSQL($row[0]) . ',
-            ' . pSQL($row[1]) . '
-            )';
+            ) VALUES '
+            . implode(',', $values);
 
         if (Db::getInstance()->execute($query)) {
             return Db::getInstance()->Insert_ID();
@@ -106,20 +104,13 @@ class InfofieldDB
         return false;
     }
 
-    public function insert_infofields_meta_lang($row, $inf_meta_id)
+    public function insert_infofields_meta_lang($values)
     {
-        if (empty($row[0])) {
-            return false;
-        }
-        $lang_id = Context::getContext()->language->id;
         $query = '
             INSERT INTO `' . _DB_PREFIX_ . 'infofields_meta_lang` (
             `id_infofields_meta`, `id_lang`, `meta_data`
-            ) VALUES (
-            ' . pSQL($inf_meta_id) . ',
-            ' . pSQL($lang_id) . ',
-            "' . pSQL($row[2]). '"
-            )';
+            ) VALUES '
+            . implode(',', $values);
 
         if (Db::getInstance()->execute($query)) {
             return true;
