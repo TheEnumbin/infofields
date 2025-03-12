@@ -30,15 +30,22 @@ if (!defined('_PS_VERSION_')) {
 
 class InfofieldDB
 {
-    public function inf_get_last_id()
+    public function inf_get_last_id($csv_type)
     {
-        $latest_id = Db::getInstance()->getValue('
-            SELECT MAX(id_infofields) AS latest_id FROM ' . _DB_PREFIX_ . 'infofields
-        ');
+        if ($csv_type == 5) {
+            $latest_id = Db::getInstance()->getValue('
+                SELECT MAX(id_infofields) AS latest_id FROM ' . _DB_PREFIX_ . 'infofields
+            ');
+        } else {
+            $latest_id = Db::getInstance()->getValue('
+                SELECT MAX(id_infofields_meta) AS latest_id FROM ' . _DB_PREFIX_ . 'infofields_meta
+            ');
+        }
 
         if ($latest_id == null) {
             $latest_id = 0;
         }
+
         return $latest_id;
     }
 

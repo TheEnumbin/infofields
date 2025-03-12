@@ -174,8 +174,6 @@ trait infofieldHelper
                 )',
             ];
         } else {
-            // $inf_meta_id = $inf_db->insert_infofields_meta($row);
-            // $done = $inf_db->insert_infofields_meta_lang($row, $inf_meta_id);
 
             return [
                 'main_table_values' => '(
@@ -183,7 +181,7 @@ trait infofieldHelper
                     ' . pSQL($row[1]) . '
                 )',
                 'lang_table_values' => '(
-                    ' . pSQL($inf_meta_id) . ',
+                    ' . pSQL($latest_id) . ',
                     ' . pSQL($lang_id) . ',
                     "' . pSQL($row[2]). '"
                 )',

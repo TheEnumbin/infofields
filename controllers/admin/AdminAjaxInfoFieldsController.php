@@ -116,7 +116,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         }
 
         if ($offset == 0) {
-            $inf_id_index = $starting_id = $inf_db->inf_get_last_id();
+            $inf_id_index = $starting_id = $inf_db->inf_get_last_id($csv_type);
             $inf_id_index++;
         }
         fseek($handle, $offset);
@@ -149,6 +149,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             if ($csv_type == 5) {
                 $inf_db->insert_infofields($main_table_values_str);
                 $inf_db->insert_infofields_lang($lang_table_values_str);
+            } else {
+                $inf_db->insert_infofields_meta($main_table_values_str);
+                $inf_db->insert_infofields_meta_lang($lang_table_values_str);
             }
         }
         $currentOffset = ftell($handle);
