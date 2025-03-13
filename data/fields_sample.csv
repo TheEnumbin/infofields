@@ -1,0 +1,14 @@
+Field Name,Global Meta Data,"Parent Item Ex: product, category, cms, customer","Field Type 
+Ex: textfield, rte, textarea, switch, image, video, file, date, checkboxes, select",Available Values,Start Date,End Date,"Show with field name 
+Ex: TRUE or FALSE","Show as a Tab on Products 
+Ex: TRUE or FALSE",Width,Height
+Test 1,,product,textfield,,,,TRUE,TRUE,,
+Test 2,,category,rte,,,,TRUE,TRUE,,
+Test 3,,cms,textarea,,,,TRUE,TRUE,,
+Test 4,,customer,switch,,,,FALSE,FALSE,,
+Test 5,,product,image,,,,FALSE,FALSE,40,40
+Test 6,,category,video,,,,TRUE,TRUE,500,300
+Test 7,,cms,file,,,,TRUE,TRUE,,
+Test 8,,customer,date,,,,TRUE,TRUE,,
+Test 9,,product,checkboxes,"label1,label2",,,FALSE,FALSE,,
+Test 10,,category,select,"key1:label1,key2:label2",,,FALSE,FALSE,,

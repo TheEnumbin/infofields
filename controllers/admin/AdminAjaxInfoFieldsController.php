@@ -103,7 +103,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $starting_id = (int) trim(Tools::getValue('starting_id'));
         $inf_id_index = (int) trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
-        $chunkSize = 5;
+        $chunkSize = 100;
         $inf_db = new InfofieldDB();
 
         if ($file['error'] !== UPLOAD_ERR_OK) {

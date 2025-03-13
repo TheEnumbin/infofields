@@ -169,6 +169,8 @@ class Infofields extends Module
     {
         $this->context->smarty->assign('import_txt', $this->l('Import Now!!!'));
         $this->context->smarty->assign('stop_import', $this->l('Stop'));
+        $this->context->smarty->assign('field_sample_url', $this->_path . '/data/fields_sample.csv');
+        $this->context->smarty->assign('meta_sample_url', $this->_path . '/data/meta_sample.csv');
         return [
             'form' => [
                 'legend' => [
@@ -227,6 +229,20 @@ class Infofields extends Module
                         'form_group_class' => "inf-csv-bt",
                         'tab' => 'import_export',
                     ],
+                    [
+                        'type' => 'html',
+                        'name' => 'INFOFIELDS_DIVIDER_HTML',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/divider.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    [
+                        'type' => 'html',
+                        'label' => 'Download Sample CSV Files',
+                        'name' => 'INFOFIELDS_IMPORT_SAMPLES',
+                        'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_sample.tpl'),
+                        'tab' => 'import_export',
+                    ],
+                    // Product Design
                     [
                         'type' => 'switch',
                         'label' => $this->l('Show meta as extra tab'),

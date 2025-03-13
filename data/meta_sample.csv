@@ -1,0 +1,7 @@
+"id_infofields 
+(Id of the Custom Field)","parent_item_id 
+(Id of the product / cms/ category / customer)",meta_data
+1,1,Text Data
+2,1,"<p><strong><span style=""text-decoration: underline;"">Hello Rich Text</span> </strong></p>"
+3,2,https://www.youtube.com/watch?v=Km3teK17ePA
+4,2,image_name.jpg
