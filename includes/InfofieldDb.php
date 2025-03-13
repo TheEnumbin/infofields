@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2017-2022 PrestaShop
  *

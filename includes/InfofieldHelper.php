@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -155,26 +154,25 @@ trait infofieldHelper
             $row[2] = $this->inf_value_array('parent_item', $row[2]);
             $row[3] = $this->inf_value_array('field_type', $row[3]);
             return [
-                'main_table_values' => "(
-                    '" . pSQL($row[2]) . "',
-                    '" . pSQL($row[3]) . "',
-                    " . (empty($row[4]) ? 'NULL' : "'" . pSQL($row[4]) . "'") . ",
-                    " . (empty($row[5]) ? 'NULL' : "'" . pSQL($row[5]) . "'") . ",
-                    " . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ",
-                    " . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ",
-                    " . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ",
-                    " . (empty($row[9]) ? 'NULL' : (int) $row[9]) . "
-                )",
+                'main_table_values' => '(
+                    "' . pSQL($row[2]) . '",
+                    "' . pSQL($row[3]) . '",
+                    ' . (empty($row[4]) ? 'NULL' : '"' . pSQL($row[4]) . '"') . ',
+                    ' . (empty($row[5]) ? 'NULL' : '"' . pSQL($row[5]) . '"') . ',
+                    ' . (strtoupper($row[6]) === 'TRUE' ? 1 : 0) . ',
+                    ' . (strtoupper($row[7]) === 'TRUE' ? 1 : 0) . ',
+                    ' . (empty($row[8]) ? 'NULL' : (int) $row[8]) . ',
+                    ' . (empty($row[9]) ? 'NULL' : (int) $row[9]) . '
+                )',
                 'lang_table_values' => '(
                     ' . pSQL($latest_id) . ',
                     ' . pSQL($lang_id) . ',
-                    "' . pSQL($row[0]). '",
-                    ' . (empty($row[1]) ? "''" : "'" . pSQL($row[1]) . "'") . ',
-                    ' . (empty($row[4]) ? "''" : "'" . pSQL($row[4]) . "'") . '
+                    "' . pSQL($row[0]) . '",
+                    ' . (empty($row[1]) ? '""' : '"' . pSQL($row[1]) . '"') . ',
+                    ' . (empty($row[4]) ? '""' : '"' . pSQL($row[4]) . '"') . '
                 )',
             ];
         } else {
-
             return [
                 'main_table_values' => '(
                     ' . pSQL($row[0]) . ',
@@ -183,7 +181,7 @@ trait infofieldHelper
                 'lang_table_values' => '(
                     ' . pSQL($latest_id) . ',
                     ' . pSQL($lang_id) . ',
-                    "' . pSQL($row[2]). '"
+                    "' . pSQL($row[2]) . '"
                 )',
             ];
         }
@@ -197,14 +195,6 @@ trait infofieldHelper
             $done = $inf_db->insert_infofields_shop($starting_id);
 
             return $done;
-        }
-    }
-
-    private function inf_insert_values_str($row, $csv_type)
-    {
-
-        if ($csv_type == 5) {
-
         }
     }
 

@@ -55,7 +55,7 @@ class MetaModel extends ObjectModel
         ],
     ];
 
-    public function __construct($id = null, $id_infofields = null, $parent_item_id = null, $id_lang = null)
+    public function __construct($id = null, $id_infofields = null, $parent_item_id = null)
     {
         if ($id) {
             parent::__construct($id);

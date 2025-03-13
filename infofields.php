@@ -1,5 +1,4 @@
 <?php
-
 /**
  * 2007-2022 PrestaShop
  *
@@ -41,7 +40,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.2.6';
+        $this->version = '1.2.7';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
@@ -184,13 +183,13 @@ class Infofields extends Module
                         'label' => $this->l('Custom Fields CSV'),
                         'name' => 'INFOFIELDS_CSV_IMPORT',
                         'desc' => $this->l('Upload a CSV file to import custom fields.'),
-                        'form_group_class' => "inf-csv-input",
+                        'form_group_class' => 'inf-csv-input',
                         'tab' => 'import_export',
                     ],
                     [
                         'type' => 'hidden',
                         'name' => 'INFOFIELDS_CSV_FIELD_TYPE',
-                        'form_group_class' => "inf-csv-type",
+                        'form_group_class' => 'inf-csv-type',
                         'tab' => 'import_export',
                     ],
                     [
@@ -198,7 +197,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-csv-bt",
+                        'form_group_class' => 'inf-csv-bt',
                         'tab' => 'import_export',
                     ],
                     [
@@ -212,13 +211,13 @@ class Infofields extends Module
                         'label' => $this->l('Meta CSV'),
                         'name' => 'products_csv',
                         'desc' => $this->l('CSV for product custom data for fields'),
-                        'form_group_class' => "inf-csv-input",
+                        'form_group_class' => 'inf-csv-input',
                         'tab' => 'import_export',
                     ],
                     [
                         'type' => 'hidden',
                         'name' => 'INFOFIELDS_CSV_META_TYPE',
-                        'form_group_class' => "inf-csv-type",
+                        'form_group_class' => 'inf-csv-type',
                         'tab' => 'import_export',
                     ],
                     [
@@ -226,7 +225,7 @@ class Infofields extends Module
                         'label' => '',
                         'name' => 'INFOFIELDS_IMPORT_BTNS',
                         'html_content' => $this->context->smarty->fetch($this->local_path . 'views/templates/admin/import_button.tpl'),
-                        'form_group_class' => "inf-csv-bt",
+                        'form_group_class' => 'inf-csv-bt',
                         'tab' => 'import_export',
                     ],
                     [

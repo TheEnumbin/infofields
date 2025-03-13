@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -27,7 +26,7 @@ require_once dirname(__FILE__) . '/../../includes/InfofieldHelper.php';
 
 class AdminAjaxInfofieldsController extends ModuleAdminController
 {
-    use InfofieldHelper;
+    use infofieldHelper;
 
     public function ajaxProcessSaveInfometa()
     {
@@ -107,12 +106,14 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $inf_db = new InfofieldDB();
 
         if ($file['error'] !== UPLOAD_ERR_OK) {
-            die(json_encode(array('error' => 'File upload failed')));
+            echo json_encode(['error' => 'File upload failed']);
+            exit;
         }
         $handle = fopen($file['tmp_name'], 'r');
 
         if (!$handle) {
-            die(json_encode(array('error' => 'Unable to open CSV file')));
+            echo json_encode(['error' => 'Unable to open CSV file']);
+            exit;
         }
 
         if ($offset == 0) {
@@ -126,7 +127,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $lang_table_values_str = [];
 
         while (($row = fgetcsv($handle)) !== false) {
-
             if ($offset != 0 || $processed_rows > 0) {
                 list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index);
                 $main_table_values_str[] = $main_table_values;
@@ -145,7 +145,6 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             $continue_import = false;
             $this->finish_processing_import($csv_type, $starting_id);
         } else {
-
             if ($csv_type == 5) {
                 $inf_db->insert_infofields($main_table_values_str);
                 $inf_db->insert_infofields_lang($lang_table_values_str);
@@ -157,15 +156,15 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $currentOffset = ftell($handle);
         $isFinished = feof($handle);
         fclose($handle);
-
-        die(json_encode(array(
+        echo json_encode([
             'starting_id' => $starting_id,
             'inf_id_index' => $inf_id_index,
             'offset' => $currentOffset,
             'is_finished' => $isFinished,
             'last_row' => $lastrow,
             'continue' => $continue_import,
-        )));
+        ]);
+        exit;
     }
 
     private function inf_unlink($total_path, $file, $allowlist)
