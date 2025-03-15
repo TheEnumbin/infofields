@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 PrestaShop
  *
@@ -47,6 +48,12 @@ $tabs = [
         'class_name' => 'AdminInfoLists',
         'id_parent' => $id_parent,
         'name' => 'Fields List',
+        'icon' => 'brush',
+    ],
+    [
+        'class_name' => 'AdminInfoGroups',
+        'id_parent' => $id_parent,
+        'name' => 'Field Groups (GPSR/FAQ) Others',
         'icon' => 'brush',
     ],
     [
