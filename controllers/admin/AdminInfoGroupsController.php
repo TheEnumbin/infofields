@@ -78,7 +78,7 @@ class AdminInfoGroupsController extends ModuleAdminController
                 'callback' => 'getParentName',
             ],
             'field_type' => [
-                'title' => $this->module->l('Field Type'),
+                'title' => $this->module->l('Group Type'),
                 'align' => 'center',
                 'type' => 'string',
                 'callback' => 'getFieldtypeName',

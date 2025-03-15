@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 PrestaShop
  *
@@ -54,6 +55,17 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_shop` (
     `id_shop` VARCHAR(255),
     PRIMARY KEY  (`id_infofields`, `id_shop`),
     FOREIGN KEY (`id_infofields`) REFERENCES `' . _DB_PREFIX_ . 'infofields`(id_infofields)
+) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
+
+$sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_groups` (
+    `id_infofields_groups` int(11) NOT NULL AUTO_INCREMENT,
+    `parent_item` int(11),
+    `field_type` int(11),
+    `start_date` datetime,
+    `end_date` datetime,
+    `with_field_name` BOOLEAN,
+    `as_product_tab` BOOLEAN,
+    PRIMARY KEY  (`id_infofields`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 
 $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields_meta` (
