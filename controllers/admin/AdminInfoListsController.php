@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -41,7 +42,7 @@ class AdminInfoListsController extends ModuleAdminController
         $this->_orderWay = 'asc';
         parent::__construct();
         $this->_join = 'LEFT JOIN ' . _DB_PREFIX_ . 'infofields_shop i_shop ON (a.id_infofields = i_shop.id_infofields)';
-        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id;
+        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id . ' AND a.group_id > 0';
     }
 
     public function setMedia($isNewTheme = false)
@@ -405,6 +406,8 @@ class AdminInfoListsController extends ModuleAdminController
             6 => 'Date',
             7 => 'Checkboxes',
             8 => 'Select',
+            11 => 'GPSR Fields',
+            12 => 'FAQ Fields',
         ];
     }
 

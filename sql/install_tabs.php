@@ -50,12 +50,12 @@ $tabs = [
         'name' => 'Fields List',
         'icon' => 'brush',
     ],
-    [
-        'class_name' => 'AdminInfoGroups',
-        'id_parent' => $id_parent,
-        'name' => 'Field Groups (GPSR/FAQ) Others',
-        'icon' => 'brush',
-    ],
+    // [
+    //     'class_name' => 'AdminInfoGroups',
+    //     'id_parent' => $id_parent,
+    //     'name' => 'Field Groups (GPSR/FAQ) Others',
+    //     'icon' => 'brush',
+    // ],
     [
         'class_name' => 'AdminAjaxInfoFields',
         'id_parent' => -1,
