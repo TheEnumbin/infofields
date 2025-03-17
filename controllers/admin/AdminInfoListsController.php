@@ -42,7 +42,7 @@ class AdminInfoListsController extends ModuleAdminController
         $this->_orderWay = 'asc';
         parent::__construct();
         $this->_join = 'LEFT JOIN ' . _DB_PREFIX_ . 'infofields_shop i_shop ON (a.id_infofields = i_shop.id_infofields)';
-        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id . ' AND a.group_id > 0';
+        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id . ' AND a.group_id IS NULL or a.group_id = 0';
     }
 
     public function setMedia($isNewTheme = false)
