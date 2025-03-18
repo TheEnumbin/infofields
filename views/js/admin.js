@@ -27,11 +27,39 @@
 */
 $(document).ready(function () {
 
+    const field_types_by_parent = (parent_type) => {
+        const common_fields = {
+            1: 'Text Field',
+            2: 'Rich Text Field',
+            3: 'Textarea',
+            4: 'Switch',
+            5: 'Image',
+            10: 'Video',
+            9: 'File',
+            6: 'Date',
+            7: 'Checkboxes',
+            8: 'Select',
+        };
+
+        if (parent_type == 2) {
+            Object.assign(common_fields, {
+                11: "GPSR Fields",
+                12: "FAQ Fields",
+            })
+        }
+        return common_fields;
+    }
+
     $(document).on('click', '#parent_item', function (e) {
         const $this = $(this)
-        const selected_parent_type = $this.val()
+        const $selected_parent_type = $this.val()
         const $field_type_select = $('#field_type')
         $field_type_select.html("")
+        const $dynamic_field_types = field_types_by_parent($selected_parent_type)
+        $.each($dynamic_field_types, function (key, value) {
+            $field_type_select.append(`<option value="${key}">${value}</option>`);
+        });
+
     });
 
     const $toogle_langs = ($locale, $old_locale) => {
