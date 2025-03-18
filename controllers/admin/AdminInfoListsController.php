@@ -409,15 +409,15 @@ class AdminInfoListsController extends ModuleAdminController
             8 => 'Select',
         ];
 
-        if ($parent_item == 0) {
-            return $defaults;
-        } else {
-            $return_fields = array_merge($defaults, [
+        if ($parent_item == 0 || $parent_item == 2) {
+            $return_fields = $defaults + [
                 11 => 'GPSR Fields',
                 12 => 'FAQ Fields',
-            ]);
+            ];
 
             return $return_fields;
+        } else {
+            return $defaults;
         }
         return [];
     }
