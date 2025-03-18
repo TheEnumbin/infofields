@@ -96,9 +96,10 @@ class AdminInfoListsController extends ModuleAdminController
         if (!$obj) {
             return;
         }
+        $id_infofields = Tools::getValue('id_infofields');
         $languages = Language::getLanguages(false);
         $parents = $this->getParentItems();
-        $field_types = $this->getFieldTypes();
+        $field_types = $this->getFieldTypes($obj->parent_item);
         $parent_arr = [];
         $field_types_arr = [];
 
@@ -255,8 +256,6 @@ class AdminInfoListsController extends ModuleAdminController
             ],
         ];
 
-        $id_infofields = Tools::getValue('id_infofields');
-
         if ($id_infofields && $id_infofields > 0) {
             $id = $obj->id_infofields;
             $parent = strtolower($this->getParentName($obj->parent_item));
@@ -395,9 +394,9 @@ class AdminInfoListsController extends ModuleAdminController
         ];
     }
 
-    public function getFieldTypes()
+    public function getFieldTypes($parent_item = 0)
     {
-        return [
+        $defaults = [
             1 => 'Text Field',
             2 => 'Rich Text Field',
             3 => 'Textarea',
@@ -408,9 +407,19 @@ class AdminInfoListsController extends ModuleAdminController
             6 => 'Date',
             7 => 'Checkboxes',
             8 => 'Select',
-            11 => 'GPSR Fields',
-            12 => 'FAQ Fields',
         ];
+
+        if ($parent_item == 0) {
+            return $defaults;
+        } else {
+            $return_fields = array_merge($defaults, [
+                11 => 'GPSR Fields',
+                12 => 'FAQ Fields',
+            ]);
+
+            return $return_fields;
+        }
+        return [];
     }
 
     protected function advertise_template()
