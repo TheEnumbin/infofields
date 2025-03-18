@@ -42,7 +42,7 @@ class AdminInfoListsController extends ModuleAdminController
         $this->_orderWay = 'asc';
         parent::__construct();
         $this->_join = 'LEFT JOIN ' . _DB_PREFIX_ . 'infofields_shop i_shop ON (a.id_infofields = i_shop.id_infofields)';
-        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id . ' AND a.group_id IS NULL or a.group_id = 0';
+        $this->_where = 'AND i_shop.id_shop = ' . (int) $this->context->shop->id . ' AND (a.group_id IS NULL or a.group_id = 0)';
     }
 
     public function setMedia($isNewTheme = false)
@@ -150,6 +150,7 @@ class AdminInfoListsController extends ModuleAdminController
                         'id' => 'id',
                         'name' => 'name',
                     ],
+                    'form_group_class' => 'inf-parent-item-form',
                 ],
                 [
                     'type' => 'select',
@@ -160,6 +161,7 @@ class AdminInfoListsController extends ModuleAdminController
                         'id' => 'id',
                         'name' => 'name',
                     ],
+                    'form_group_class' => 'inf-field-type-form',
                     'desc' => $this->l('Rich textfield only works for Products and Category.'),
                 ],
                 [
@@ -386,8 +388,8 @@ class AdminInfoListsController extends ModuleAdminController
     public function getParentItems()
     {
         return [
-            1 => 'Category',
             2 => 'Product',
+            1 => 'Category',
             3 => 'CMS Page',
             4 => 'Customer',
         ];

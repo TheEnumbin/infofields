@@ -27,6 +27,13 @@
 */
 $(document).ready(function () {
 
+    $(document).on('click', '#parent_item', function (e) {
+        const $this = $(this)
+        const selected_parent_type = $this.val()
+        const $field_type_select = $('#field_type')
+        $field_type_select.html("")
+    });
+
     const $toogle_langs = ($locale, $old_locale) => {
         $('.inf-meta-form-wrapper-' + $locale).toggleClass('hidden-field')
         $('.inf-meta-form-wrapper-' + $old_locale).toggleClass('hidden-field')
