@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -99,6 +100,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
         $csv_type = trim(Tools::getValue('csv_type'));
+        $prd_identifier = trim(Tools::getValue('prd_identifier'));
         $starting_id = (int) trim(Tools::getValue('starting_id'));
         $inf_id_index = (int) trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
