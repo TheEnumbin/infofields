@@ -100,7 +100,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
         $csv_type = trim(Tools::getValue('csv_type'));
-        $prd_identifier = trim(Tools::getValue('prd_identifier'));
+        $identifier = trim(Tools::getValue('prd_identifier'));
         $starting_id = (int) trim(Tools::getValue('starting_id'));
         $inf_id_index = (int) trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
@@ -130,7 +130,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         while (($row = fgetcsv($handle)) !== false) {
             if ($offset != 0 || $processed_rows > 0) {
-                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index);
+                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index, $identifier);
                 $main_table_values_str[] = $main_table_values;
                 $lang_table_values_str[] = $lang_table_values;
                 $lastrow[] = $row;
