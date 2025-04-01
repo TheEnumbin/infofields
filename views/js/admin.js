@@ -218,8 +218,6 @@ $(document).ready(function () {
         if ($import_element_type.val() != 1) {
             const $prd_identifier_element = $import_element.closest('.inf-csv-input').prev('.inf-prd-identifier').find('select')
             $prd_identifier = $prd_identifier_element.val()
-            console.log($prd_identifier_element)
-            console.log($prd_identifier)
         }
         stop_import = 0
         $this.siblings('.inf-import-stop').removeClass('hidden')
@@ -237,7 +235,7 @@ $(document).ready(function () {
         dataarr = formData;
         dataarr.append('csv_file', file);
         dataarr.append('csv_type', type);
-        dataarr.append('prd_identifier', prd_identifier);
+        dataarr.append('prd_identifier', $prd_identifier);
         dataarr.append('starting_id', starting_id);
         dataarr.append('inf_id_index', inf_id_index);
         dataarr.append('offset', offset);
