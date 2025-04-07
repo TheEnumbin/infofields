@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2007-2022 PrestaShop
  *
@@ -773,6 +774,12 @@ class Infofields extends Module
     {
         $inf_ids = $params['id_infofields'];
         $item_id = $params['item_id'];
+        if (isset($params['width'])) {
+            $width = $params['width'];
+        }
+        if (isset($params['height'])) {
+            $height = $params['height'];
+        }
         $id_lang = $this->context->language->id;
         $fields = [];
         $index = 0;
@@ -789,6 +796,8 @@ class Infofields extends Module
             'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
+            'width' => $width,
+            'height' => $height,
             'img_dir' => _PS_IMG_ . 'infofield/',
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
