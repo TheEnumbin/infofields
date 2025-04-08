@@ -774,6 +774,8 @@ class Infofields extends Module
     {
         $inf_ids = $params['id_infofields'];
         $item_id = $params['item_id'];
+        $width = 0;
+        $height = 0;
         if (isset($params['width'])) {
             $width = $params['width'];
         }
@@ -796,8 +798,8 @@ class Infofields extends Module
             'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
-            'width' => $width,
-            'height' => $height,
+            'hook_width' => $width,
+            'hook_height' => $height,
             'img_dir' => _PS_IMG_ . 'infofield/',
         ]);
         $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
