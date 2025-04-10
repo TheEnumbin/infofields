@@ -855,4 +855,10 @@ class Infofields extends Module
         }
         return $array;
     }
+
+    public function hookDisplayFooter()
+    {
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_footer.tpl');
+        echo $output;
+    }
 }

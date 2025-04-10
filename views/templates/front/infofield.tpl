@@ -145,10 +145,3 @@
         {/if}
     {/foreach}
 </div>
-
-<div id="inf-video-modal" class="inf-modal">
-    <div class="inf-modal-content">
-        <span class="inf-close">&times;</span>
-        <div class="inf-video-container"></div>
-    </div>
-</div>
