@@ -95,12 +95,22 @@
                                         {assign var="vid_height" value="315px"}
                                         {assign var="vid_width" value="560px"}
                                     {/if}
-                                    <iframe width="{$vid_width}" height="{$vid_height}"
-                                        src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen>
-                                    </iframe>
+
+                                    {if $show_meta_in != 'popup'}
+                                        <div class="inf-youtube-thumbnail"
+                                            data-video-id="{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}">
+                                            <img src="https://img.youtube.com/vi/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
+                                                alt="Video cover">
+                                            <span class="inf-play-btn"></span>
+                                        </div>
+                                    {else}
+                                        <iframe width="{$vid_width}" height="{$vid_height}"
+                                            src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
+                                            title="YouTube video player" frameborder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowfullscreen>
+                                        </iframe>
+                                    {/if}
                                 </div>
                             {/if}
                         {elseif $infofield.field_type == 8 }
