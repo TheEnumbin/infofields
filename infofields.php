@@ -268,12 +268,12 @@ class Infofields extends Module
                         'options' => [
                             'query' => [
                                 [
-                                    'id' => 'row',
-                                    'name' => $this->l('Inline'),
-                                ],
-                                [
                                     'id' => 'column',
                                     'name' => $this->l('Stacked'),
+                                ],
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
                                 ],
                             ],
                             'id' => 'id',
@@ -765,7 +765,7 @@ class Infofields extends Module
     {
         $this->context->controller->addCSS($this->_path . '/views/css/front_generated.css');
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
-        $this->context->controller->addJS($this->_path . 'views/js/front.js');
+        $this->context->controller->addJS($this->_path . '/views/js/front.js');
     }
 
     /**
@@ -794,7 +794,6 @@ class Infofields extends Module
         }
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($item_id, $fields, $id_lang);
-
         $this->context->smarty->assign([
             'infofields' => $fields,
             'infofields_metas' => $metas,

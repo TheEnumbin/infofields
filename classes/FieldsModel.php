@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 2017-2022 PrestaShop
  *
@@ -39,6 +40,7 @@ class FieldsModel extends ObjectModel
     public $field_name;
     public $img_width;
     public $img_height;
+    public $settings;
     public $global_meta_data;
     public $available_values;
 
@@ -74,6 +76,10 @@ class FieldsModel extends ObjectModel
                 'validate' => 'isString',
             ],
             'img_height' => [
+                'type' => self::TYPE_STRING,
+                'validate' => 'isString',
+            ],
+            'settings' => [
                 'type' => self::TYPE_STRING,
                 'validate' => 'isString',
             ],

@@ -39,6 +39,7 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields` (
     `as_product_tab` BOOLEAN,
     `img_width` VARCHAR(20),
     `img_height` VARCHAR(20),
+    `settings` LONGTEXT,
     PRIMARY KEY  (`id_infofields`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 

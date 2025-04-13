@@ -24,6 +24,7 @@
 *}
 <div class="infofield-wrapper">
     {foreach from=$infofields item=infofield}
+        {assign var="field_settings" value=$infofield.settings|json_decode:true}
         {assign var="now" value=$smarty.now}
         {if $infofield.start_date == "0000-00-00 00:00:00" || $infofield.start_date == ""}
             {assign var="start" value=0}
@@ -96,7 +97,7 @@
                                         {assign var="vid_width" value="560px"}
                                     {/if}
 
-                                    {if $show_meta_in != 'popup'}
+                                    {if $field_settings["show_meta_in"] == 'popup'}
                                         <div class="inf-youtube-thumbnail"
                                             data-video-id="{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}">
                                             <img src="https://img.youtube.com/vi/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
