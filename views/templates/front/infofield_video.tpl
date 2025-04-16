@@ -23,6 +23,7 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="video-container">
+    {assign var="field_settings" value=$infofield.settings|json_decode:true}
     {if isset($infofield.img_height) && isset($infofield.img_width)}
         {assign var="vid_height" value=$infofield.img_height}
         {assign var="vid_width" value=$infofield.img_width}
