@@ -456,6 +456,42 @@ class Infofields extends Module
                         'label' => $this->l('Padding'),
                         'tab' => 'cms_design',
                     ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Reset Fields Data'),
+                        'name' => 'INFOFIELDS_RESET_FIELDDATA',
+                        'values' => [
+                            [
+                                'id' => 'yes',
+                                'value' => true,
+                                'label' => $this->l('Yes'),
+                            ],
+                            [
+                                'id' => 'no',
+                                'value' => false,
+                                'label' => $this->l('No'),
+                            ],
+                        ],
+                        'tab' => 'action',
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Reset All Meta Data'),
+                        'name' => 'INFOFIELDS_RESET_METADATA',
+                        'values' => [
+                            [
+                                'id' => 'yes',
+                                'value' => true,
+                                'label' => $this->l('Yes'),
+                            ],
+                            [
+                                'id' => 'no',
+                                'value' => false,
+                                'label' => $this->l('No'),
+                            ],
+                        ],
+                        'tab' => 'action',
+                    ],
                 ],
                 'tabs' => [
                     'import_export' => 'Import',
@@ -463,6 +499,7 @@ class Infofields extends Module
                     'category_design' => 'Category Meta Settings',
                     'customer_design' => 'Customer Meta Settings',
                     'cms_design' => 'Cms Meta Settings',
+                    'action' => 'Actions',
                 ],
                 'submit' => [
                     'title' => $this->l('Save'),
@@ -498,6 +535,8 @@ class Infofields extends Module
             'INFOFIELDS_CMS_FONT_COLOR' => Configuration::get('INFOFIELDS_CMS_FONT_COLOR', ''),
             'INFOFIELDS_CMS_FONT_SIZE' => Configuration::get('INFOFIELDS_CMS_FONT_SIZE', ''),
             'INFOFIELDS_CMS_PADDING' => Configuration::get('INFOFIELDS_CMS_PADDING', ''),
+            'INFOFIELDS_RESET_FIELDDATA' => false,
+            'INFOFIELDS_RESET_METADATA' => false,
             'INFOFIELDS_CSV_FIELD_TYPE' => '5',
             'INFOFIELDS_CSV_META_TYPE' => '2',
             // 'INFOFIELDS_CSV_PRD_TYPE' => '2',
@@ -527,6 +566,21 @@ class Infofields extends Module
                     if ($this->isRegisteredInHook('displayProductExtraContent')) {
                         $this->unregisterHook('displayProductExtraContent');
                     }
+                }
+            } elseif ($key == 'INFOFIELDS_RESET_FIELDDATA') {
+                if (Tools::getValue($key)) {
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 0');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_shop`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_lang`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields`');
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 1');
+                }
+            } elseif ($key == 'INFOFIELDS_RESET_METADATA') {
+                if (Tools::getValue($key)) {
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 0');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_meta_lang`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_meta`');
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 1');
                 }
             }
             Configuration::updateValue($key, Tools::getValue($key));
