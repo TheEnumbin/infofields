@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -146,7 +147,7 @@ trait infofieldHelper
         return ['file' => $newFileName, 'ext' => $ext];
     }
 
-    private function process_csv_row($row, $csv_type, $latest_id)
+    private function process_csv_row($row, $csv_type, $latest_id, $identifier)
     {
         $inf_db = new InfofieldDB();
         $lang_id = Context::getContext()->language->id;
@@ -173,10 +174,18 @@ trait infofieldHelper
                 )',
             ];
         } else {
+            $parent_id = $row[1];
+            if ($identifier == 'reference') {
+                $parent_id = Product::getIdByReference($parent_id);
+
+                if (!$parent_id) {
+                    return false;
+                }
+            }
             return [
                 'main_table_values' => '(
                     ' . pSQL($row[0]) . ',
-                    ' . pSQL($row[1]) . '
+                    ' . pSQL($parent_id) . '
                 )',
                 'lang_table_values' => '(
                     ' . pSQL($latest_id) . ',

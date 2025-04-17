@@ -174,14 +174,19 @@ $(document).ready(function () {
         const $this = $(this)
         const $import_element_type = $this.closest('.inf-csv-bt').prev('.inf-csv-type').find('input')
         const $import_element = $import_element_type.closest('.inf-csv-type').prev('.inf-csv-input').find('input')
+        let $prd_identifier = 0;
         var fileInput = $import_element[0];
         if (!fileInput.files.length) {
             alert('Please select a CSV file.');
             return;
         }
+        if ($import_element_type.val() != 1) {
+            const $prd_identifier_element = $import_element.closest('.inf-csv-input').prev('.inf-prd-identifier').find('select')
+            $prd_identifier = $prd_identifier_element.val()
+        }
         stop_import = 0
         $this.siblings('.inf-import-stop').removeClass('hidden')
-        inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0, 0, 0, $this)
+        inf_ajax_import(fileInput.files[0], $import_element_type.val(), 0, 0, 0, $prd_identifier, $this)
     });
 
     $(document).on('click', '.inf-import-stop', function (e) {
@@ -189,12 +194,13 @@ $(document).ready(function () {
         stop_import = 1
     });
 
-    const inf_ajax_import = (file, type, offset, starting_id, inf_id_index, button) => {
+    const inf_ajax_import = (file, type, offset, starting_id, inf_id_index, $prd_identifier, button) => {
         let dataarr = {}
         var formData = new FormData();
         dataarr = formData;
         dataarr.append('csv_file', file);
         dataarr.append('csv_type', type);
+        dataarr.append('prd_identifier', $prd_identifier);
         dataarr.append('starting_id', starting_id);
         dataarr.append('inf_id_index', inf_id_index);
         dataarr.append('offset', offset);
@@ -212,7 +218,7 @@ $(document).ready(function () {
                 const responseArr = JSON.parse(response)
                 if (!stop_import) {
                     if (responseArr.continue == true) {
-                        inf_ajax_import(file, type, responseArr.offset, responseArr.starting_id, responseArr.inf_id_index, button)
+                        inf_ajax_import(file, type, responseArr.offset, responseArr.starting_id, responseArr.inf_id_index, $prd_identifier, button)
                     } else {
                         button.siblings('.inf-import-stop').addClass('hidden')
                     }

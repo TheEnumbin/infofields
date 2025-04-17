@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright since 2007 PrestaShop SA and Contributors
  * PrestaShop is an International Registered Trademark & Property of PrestaShop SA
@@ -99,6 +100,7 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
         $file = $_FILES['csv_file'];
         $offset = trim(Tools::getValue('offset'));
         $csv_type = trim(Tools::getValue('csv_type'));
+        $identifier = trim(Tools::getValue('prd_identifier'));
         $starting_id = (int) trim(Tools::getValue('starting_id'));
         $inf_id_index = (int) trim(Tools::getValue('inf_id_index'));
         $continue_import = 1;
@@ -128,9 +130,12 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
 
         while (($row = fgetcsv($handle)) !== false) {
             if ($offset != 0 || $processed_rows > 0) {
-                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index);
-                $main_table_values_str[] = $main_table_values;
-                $lang_table_values_str[] = $lang_table_values;
+                list('main_table_values' => $main_table_values, 'lang_table_values' => $lang_table_values) = $this->process_csv_row($row, $csv_type, $inf_id_index, $identifier);
+
+                if ($main_table_values && $lang_table_values) {
+                    $main_table_values_str[] = $main_table_values;
+                    $lang_table_values_str[] = $lang_table_values;
+                }
                 $lastrow[] = $row;
                 $inf_id_index++;
             }
@@ -145,12 +150,14 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
             $continue_import = false;
             $this->finish_processing_import($csv_type, $starting_id);
         } else {
-            if ($csv_type == 5) {
-                $inf_db->insert_infofields($main_table_values_str);
-                $inf_db->insert_infofields_lang($lang_table_values_str);
-            } else {
-                $inf_db->insert_infofields_meta($main_table_values_str);
-                $inf_db->insert_infofields_meta_lang($lang_table_values_str);
+            if (!empty($main_table_values_str) && !empty($lang_table_values_str)) {
+                if ($csv_type == 5) {
+                    $inf_db->insert_infofields($main_table_values_str);
+                    $inf_db->insert_infofields_lang($lang_table_values_str);
+                } else {
+                    $inf_db->insert_infofields_meta($main_table_values_str);
+                    $inf_db->insert_infofields_meta_lang($lang_table_values_str);
+                }
             }
         }
         $currentOffset = ftell($handle);

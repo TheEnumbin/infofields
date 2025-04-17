@@ -208,9 +208,31 @@ class Infofields extends Module
                         'tab' => 'import_export',
                     ],
                     [
+                        'type' => 'select',
+                        'label' => $this->l('Identify Product By'),
+                        'name' => 'INFOFIELDS_PRD_BY_TYPE',
+                        'options' => [
+                            'query' => [
+                                [
+                                    'id' => 'id',
+                                    'name' => $this->l('Product ID'),
+                                ],
+                                [
+                                    'id' => 'reference',
+                                    'name' => $this->l('Reference Key/Id'),
+                                ],
+                            ],
+                            'id' => 'id',
+                            'name' => 'name',
+                        ],
+                        'form_group_class' => 'inf-prd-identifier',
+                        'desc' => $this->l('Select How You Want to Import Product Data. With Reference Id or Product Id'),
+                        'tab' => 'import_export',
+                    ],
+                    [
                         'type' => 'file',
                         'label' => $this->l('Meta CSV'),
-                        'name' => 'products_csv',
+                        'name' => 'INFOFIELDS_META_CSV',
                         'desc' => $this->l('CSV for product custom data for fields'),
                         'form_group_class' => 'inf-csv-input',
                         'tab' => 'import_export',
@@ -516,6 +538,7 @@ class Infofields extends Module
         $ret_arr = [
             'INFOFIELDS_PRD_EXTRATAB_HOOK' => Configuration::get('INFOFIELDS_PRD_EXTRATAB_HOOK', false),
             'INFOFIELDS_PRD_ORIENTATION' => Configuration::get('INFOFIELDS_PRD_ORIENTATION', 'row'),
+            'INFOFIELDS_PRD_BY_TYPE' => Configuration::get('INFOFIELDS_PRD_BY_TYPE', 'id'),
             'INFOFIELDS_PRD_BACK_COLOR' => Configuration::get('INFOFIELDS_PRD_BACK_COLOR', ''),
             'INFOFIELDS_PRD_FONT_COLOR' => Configuration::get('INFOFIELDS_PRD_FONT_COLOR', ''),
             'INFOFIELDS_PRD_FONT_SIZE' => Configuration::get('INFOFIELDS_PRD_FONT_SIZE', ''),
