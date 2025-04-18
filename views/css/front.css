@@ -53,6 +53,32 @@
     border: 2px solid #dc3545;
 }
 
+.inf-youtube-thumbnail {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.inf-youtube-thumbnail img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.inf-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background: url('https://img.icons8.com/ios-filled/50/play-button-circled.png') no-repeat center center;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    opacity: 0.9;
+}
+
 .inf-modal {
     display: none;
     position: fixed;
@@ -67,15 +93,14 @@
 .inf-modal-content {
     position: relative;
     margin: 5% auto;
-    width: 80%;
-    max-width: 720px;
+    width: 90%;
+    max-width: 800px;
     background: #000;
 }
 
 .inf-video-container iframe {
     width: 100%;
-    height: 400px;
-    border: none;
+    height: 450px;
 }
 
 .inf-close {
