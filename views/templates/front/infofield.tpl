@@ -85,6 +85,7 @@
                             {/if}
                         {elseif $infofield.field_type == 10 }
                             {if $infometa[$lang_id].meta_data != ""}
+                                {assign var="single_vid" value=$infometa[$lang_id].meta_data|explode:','}
                                 <div class="video-container">
                                     {if $hook_width != 0 && $hook_height != 0}
                                         {assign var="vid_height" value=$hook_height}
@@ -99,14 +100,14 @@
 
                                     {if $field_settings["show_meta_in"] == 'popup'}
                                         <div class="inf-youtube-thumbnail"
-                                            data-video-id="{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}">
-                                            <img src="https://img.youtube.com/vi/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
+                                            data-video-id="{$single_vid|replace:'https://www.youtube.com/watch?v=':''}">
+                                            <img src="https://img.youtube.com/vi/{$single_vid|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
                                                 alt="Video cover">
                                             <span class="inf-play-btn"></span>
                                         </div>
                                     {else}
                                         <iframe width="{$vid_width}" height="{$vid_height}"
-                                            src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
+                                            src="https://www.youtube.com/embed/{$single_vid|replace:'https://www.youtube.com/watch?v=':''}"
                                             title="YouTube video player" frameborder="0"
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowfullscreen>
