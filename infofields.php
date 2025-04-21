@@ -136,7 +136,7 @@ class Infofields extends Module
     {
         // Fetch and render the template file
         $this->context->smarty->assign('module_dir', $this->_path);
-        return $this->context->smarty->fetch($this->local_path . 'views/templates/admin/advertise_template.tpl');
+        return $this->context->smarty->fetch('module:infofields/views/templates/admin/advertise_template.tpl');
     }
     /**
      * Create the form that will be displayed in the configuration of your module.
@@ -879,7 +879,7 @@ class Infofields extends Module
             'hook_height' => $height,
             'img_dir' => _PS_IMG_ . 'infofield/',
         ]);
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
+        $output = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield.tpl');
         echo $output;
     }
 
@@ -902,16 +902,16 @@ class Infofields extends Module
                         $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infofield', $field);
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_image.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_image.tpl');
                     } elseif ($field['field_type'] == '9') {
                         $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_file.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_file.tpl');
                     } elseif ($field['field_type'] == '10') {
                         $this->context->smarty->assign('infofield', $field);
                         $this->context->smarty->assign('infofield', $field);
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_video.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_video.tpl');
                     } else {
                         $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
                     }
