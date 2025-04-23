@@ -40,6 +40,7 @@ $sql[] = 'CREATE TABLE IF NOT EXISTS `' . _DB_PREFIX_ . 'infofields` (
     `img_width` VARCHAR(20),
     `img_height` VARCHAR(20),
     `group_id` int(11),
+    `settings` LONGTEXT,
     PRIMARY KEY  (`id_infofields`)
 ) ENGINE=' . _MYSQL_ENGINE_ . ' DEFAULT CHARSET=utf8;';
 

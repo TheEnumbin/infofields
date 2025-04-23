@@ -23,18 +23,32 @@
 *  International Registered Trademark & Property of PrestaShop SA
 *}
 <div class="video-container">
-    {if isset($infofield.img_height) && isset($infofield.img_width)}
-        {assign var="vid_height" value=$infofield.img_height}
-        {assign var="vid_width" value=$infofield.img_width}
-    {else}
-        {assign var="vid_height" value="315"}
-        {assign var="vid_width" value="560"}
-    {/if}
     {assign var="vid_data" value=$infometa}
-    <iframe width="{$vid_width}" height="{$vid_height}"
-        src="https://www.youtube.com/embed/{$vid_data|replace:'https://www.youtube.com/watch?v=':''}"
-        title="YouTube video player" frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen>
-    </iframe>
+    {assign var="vid_urls" value=$vid_data|trim}
+    {assign var="vid_items" value=","|explode:$vid_urls}
+    {foreach from=$vid_items item=vid_item}
+        {assign var="field_settings" value=$infofield.settings|json_decode:true}
+        {if isset($infofield.img_height) && isset($infofield.img_width)}
+            {assign var="vid_height" value=$infofield.img_height}
+            {assign var="vid_width" value=$infofield.img_width}
+        {else}
+            {assign var="vid_height" value="315"}
+            {assign var="vid_width" value="560"}
+        {/if}
+
+        {if $field_settings["show_meta_in"] == 'popup'}
+            <div class="inf-youtube-thumbnail" data-video-id="{$vid_item|replace:'https://www.youtube.com/watch?v=':''}">
+                <img src="https://img.youtube.com/vi/{$vid_item|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
+                    alt="Video cover">
+                <span class="inf-play-btn"></span>
+            </div>
+        {else}
+            <iframe width="{$vid_width}" height="{$vid_height}"
+                src="https://www.youtube.com/embed/{$vid_item|replace:'https://www.youtube.com/watch?v=':''}"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen>
+            </iframe>
+        {/if}
+    {/foreach}
 </div>

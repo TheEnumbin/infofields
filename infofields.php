@@ -41,7 +41,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.3.0';
+        $this->version = '1.3.1';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
@@ -136,7 +136,7 @@ class Infofields extends Module
     {
         // Fetch and render the template file
         $this->context->smarty->assign('module_dir', $this->_path);
-        return $this->context->smarty->fetch($this->local_path . 'views/templates/admin/advertise_template.tpl');
+        return $this->context->smarty->fetch('module:infofields/views/templates/admin/advertise_template.tpl');
     }
     /**
      * Create the form that will be displayed in the configuration of your module.
@@ -290,12 +290,12 @@ class Infofields extends Module
                         'options' => [
                             'query' => [
                                 [
-                                    'id' => 'row',
-                                    'name' => $this->l('Inline'),
-                                ],
-                                [
                                     'id' => 'column',
                                     'name' => $this->l('Stacked'),
+                                ],
+                                [
+                                    'id' => 'row',
+                                    'name' => $this->l('Inline'),
                                 ],
                             ],
                             'id' => 'id',
@@ -478,6 +478,42 @@ class Infofields extends Module
                         'label' => $this->l('Padding'),
                         'tab' => 'cms_design',
                     ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Reset Fields Data'),
+                        'name' => 'INFOFIELDS_RESET_FIELDDATA',
+                        'values' => [
+                            [
+                                'id' => 'yes',
+                                'value' => true,
+                                'label' => $this->l('Yes'),
+                            ],
+                            [
+                                'id' => 'no',
+                                'value' => false,
+                                'label' => $this->l('No'),
+                            ],
+                        ],
+                        'tab' => 'action',
+                    ],
+                    [
+                        'type' => 'switch',
+                        'label' => $this->l('Reset All Meta Data'),
+                        'name' => 'INFOFIELDS_RESET_METADATA',
+                        'values' => [
+                            [
+                                'id' => 'yes',
+                                'value' => true,
+                                'label' => $this->l('Yes'),
+                            ],
+                            [
+                                'id' => 'no',
+                                'value' => false,
+                                'label' => $this->l('No'),
+                            ],
+                        ],
+                        'tab' => 'action',
+                    ],
                 ],
                 'tabs' => [
                     'import_export' => 'Import',
@@ -485,6 +521,7 @@ class Infofields extends Module
                     'category_design' => 'Category Meta Settings',
                     'customer_design' => 'Customer Meta Settings',
                     'cms_design' => 'Cms Meta Settings',
+                    'action' => 'Actions',
                 ],
                 'submit' => [
                     'title' => $this->l('Save'),
@@ -521,6 +558,8 @@ class Infofields extends Module
             'INFOFIELDS_CMS_FONT_COLOR' => Configuration::get('INFOFIELDS_CMS_FONT_COLOR', ''),
             'INFOFIELDS_CMS_FONT_SIZE' => Configuration::get('INFOFIELDS_CMS_FONT_SIZE', ''),
             'INFOFIELDS_CMS_PADDING' => Configuration::get('INFOFIELDS_CMS_PADDING', ''),
+            'INFOFIELDS_RESET_FIELDDATA' => false,
+            'INFOFIELDS_RESET_METADATA' => false,
             'INFOFIELDS_CSV_FIELD_TYPE' => '5',
             'INFOFIELDS_CSV_META_TYPE' => '2',
             // 'INFOFIELDS_CSV_PRD_TYPE' => '2',
@@ -550,6 +589,21 @@ class Infofields extends Module
                     if ($this->isRegisteredInHook('displayProductExtraContent')) {
                         $this->unregisterHook('displayProductExtraContent');
                     }
+                }
+            } elseif ($key == 'INFOFIELDS_RESET_FIELDDATA') {
+                if (Tools::getValue($key)) {
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 0');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_shop`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_lang`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields`');
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 1');
+                }
+            } elseif ($key == 'INFOFIELDS_RESET_METADATA') {
+                if (Tools::getValue($key)) {
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 0');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_meta_lang`');
+                    Db::getInstance()->execute('TRUNCATE `' . _DB_PREFIX_ . 'infofields_meta`');
+                    Db::getInstance()->execute('SET FOREIGN_KEY_CHECKS = 1');
                 }
             }
             Configuration::updateValue($key, Tools::getValue($key));
@@ -788,6 +842,7 @@ class Infofields extends Module
     {
         $this->context->controller->addCSS($this->_path . '/views/css/front_generated.css');
         $this->context->controller->addCSS($this->_path . '/views/css/front.css');
+        $this->context->controller->addJS($this->_path . '/views/js/front.js');
     }
 
     /**
@@ -797,6 +852,14 @@ class Infofields extends Module
     {
         $inf_ids = $params['id_infofields'];
         $item_id = $params['item_id'];
+        $width = 0;
+        $height = 0;
+        if (isset($params['width'])) {
+            $width = $params['width'];
+        }
+        if (isset($params['height'])) {
+            $height = $params['height'];
+        }
         $id_lang = $this->context->language->id;
         $fields = [];
         $index = 0;
@@ -808,14 +871,15 @@ class Infofields extends Module
         }
         $metamodel = new MetaModel();
         $metas = $metamodel->get_meta_by_parent($item_id, $fields, $id_lang);
-
         $this->context->smarty->assign([
             'infofields' => $fields,
             'infofields_metas' => $metas,
             'lang_id' => $id_lang,
+            'hook_width' => $width,
+            'hook_height' => $height,
             'img_dir' => _PS_IMG_ . 'infofield/',
         ]);
-        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield.tpl');
+        $output = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield.tpl');
         echo $output;
     }
 
@@ -838,15 +902,16 @@ class Infofields extends Module
                         $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infofield', $field);
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_image.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_image.tpl');
                     } elseif ($field['field_type'] == '9') {
                         $this->context->smarty->assign('img_dir', _PS_IMG_ . 'infofield/');
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_file.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_file.tpl');
                     } elseif ($field['field_type'] == '10') {
                         $this->context->smarty->assign('infofield', $field);
+                        $this->context->smarty->assign('infofield', $field);
                         $this->context->smarty->assign('infometa', $metas[$field['id_infofields']][$lang_id]['meta_data']);
-                        $content = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_video.tpl');
+                        $content = $this->context->smarty->fetch('module:infofields/views/templates/front/infofield_video.tpl');
                     } else {
                         $content = $metas[$field['id_infofields']][$lang_id]['meta_data'];
                     }
@@ -867,5 +932,11 @@ class Infofields extends Module
             }
         }
         return $array;
+    }
+
+    public function hookDisplayFooter()
+    {
+        $output = $this->context->smarty->fetch($this->local_path . 'views/templates/front/infofield_footer.tpl');
+        echo $output;
     }
 }

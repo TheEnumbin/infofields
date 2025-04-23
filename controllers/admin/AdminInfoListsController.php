@@ -201,6 +201,25 @@ class AdminInfoListsController extends ModuleAdminController
                     'name' => 'end_date',
                 ],
                 [
+                    'type' => 'select',
+                    'label' => $this->l('Show Meta In'),
+                    'name' => 'show_meta_in',
+                    'options' => [
+                        'query' => [
+                            [
+                                'id' => 'popup',
+                                'name' => $this->l('In PopUp'),
+                            ],
+                            [
+                                'id' => 'embed',
+                                'name' => $this->l('Iframe Embed'),
+                            ],
+                        ],
+                        'id' => 'id',
+                        'name' => 'name',
+                    ],
+                ],
+                [
                     'type' => 'switch',
                     'label' => $this->l('Show with field name'),
                     'name' => 'with_field_name',
@@ -258,8 +277,10 @@ class AdminInfoListsController extends ModuleAdminController
 
         if ($id_infofields && $id_infofields > 0) {
             $id = $obj->id_infofields;
+            $settings = json_decode($obj->settings, true);
             $parent = strtolower($this->getParentName($obj->parent_item));
             $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
+            $this->fields_value['show_meta_in'] = $settings['show_meta_in'];
         }
         return parent::renderForm();
     }
@@ -297,6 +318,13 @@ class AdminInfoListsController extends ModuleAdminController
                 $fields->global_meta_data[$lang['id_lang']] = Tools::getValue('global_meta_data_' . $lang['id_lang']);
                 $fields->available_values[$lang['id_lang']] = Tools::getValue('available_values_' . $lang['id_lang']);
             }
+
+            // Settings
+            $settings = [];
+            $show_in_meta = Tools::getValue('show_meta_in');
+            $settings['show_meta_in'] = $show_in_meta;
+            $settings = json_encode($settings);
+            $fields->settings = $settings;
 
             // Other fields
             $fields->parent_item = (int) Tools::getValue('parent_item');
@@ -402,7 +430,7 @@ class AdminInfoListsController extends ModuleAdminController
             3 => 'Textarea',
             4 => 'Switch',
             5 => 'Image',
-            10 => 'Video',
+            10 => 'Videos',
             9 => 'File',
             6 => 'Date',
             7 => 'Checkboxes',

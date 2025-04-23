@@ -24,6 +24,7 @@
 *}
 <div class="infofield-wrapper">
     {foreach from=$infofields item=infofield}
+        {assign var="field_settings" value=$infofield.settings|json_decode:true}
         {assign var="now" value=$smarty.now}
         {if $infofield.start_date == "0000-00-00 00:00:00" || $infofield.start_date == ""}
             {assign var="start" value=0}
@@ -84,21 +85,38 @@
                             {/if}
                         {elseif $infofield.field_type == 10 }
                             {if $infometa[$lang_id].meta_data != ""}
-                                <div class="video-container">
-                                    {if isset($infofield.img_height) && isset($infofield.img_width)}
-                                        {assign var="vid_height" value=$infofield.img_height}
-                                        {assign var="vid_width" value=$infofield.img_width}
-                                    {else}
-                                        {assign var="vid_height" value="315"}
-                                        {assign var="vid_width" value="560"}
-                                    {/if}
-                                    <iframe width="{$vid_width}" height="{$vid_height}"
-                                        src="https://www.youtube.com/embed/{$infometa[$lang_id].meta_data|replace:'https://www.youtube.com/watch?v=':''}"
-                                        title="YouTube video player" frameborder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowfullscreen>
-                                    </iframe>
-                                </div>
+                                {assign var="vid_urls" value=$infometa[$lang_id].meta_data|trim}
+                                {assign var="vid_items" value=","|explode:$vid_urls}
+                                {foreach from=$vid_items item=vid_item}
+                                    <div class="video-container">
+                                        {if $hook_width != 0 && $hook_height != 0}
+                                            {assign var="vid_height" value=$hook_height}
+                                            {assign var="vid_width" value=$hook_width}
+                                        {elseif isset($infofield.img_height) && isset($infofield.img_width)}
+                                            {assign var="vid_height" value=$infofield.img_height}
+                                            {assign var="vid_width" value=$infofield.img_width}
+                                        {else}
+                                            {assign var="vid_height" value="315px"}
+                                            {assign var="vid_width" value="560px"}
+                                        {/if}
+
+                                        {if $field_settings["show_meta_in"] == 'popup'}
+                                            <div class="inf-youtube-thumbnail" style="width: {$vid_width}; height: {$vid_height};"
+                                                data-video-id="{$vid_item|replace:'https://www.youtube.com/watch?v=':''}">
+                                                <img src="https://img.youtube.com/vi/{$vid_item|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
+                                                    alt="Video cover">
+                                                <span class="inf-play-btn"></span>
+                                            </div>
+                                        {else}
+                                            <iframe width="{$vid_width}" height="{$vid_height}"
+                                                src="https://www.youtube.com/embed/{$vid_item|replace:'https://www.youtube.com/watch?v=':''}"
+                                                title="YouTube video player" frameborder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen>
+                                            </iframe>
+                                        {/if}
+                                    </div>
+                                {/foreach}
                             {/if}
                         {elseif $infofield.field_type == 8 }
                             {assign var="available_values" value=","|explode:$infofield.available_values}

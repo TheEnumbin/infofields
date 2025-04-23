@@ -175,9 +175,12 @@ trait infofieldHelper
             ];
         } else {
             $parent_id = $row[1];
-
             if ($identifier == 'reference') {
                 $parent_id = Product::getIdByReference($parent_id);
+
+                if (!$parent_id) {
+                    return false;
+                }
             }
             return [
                 'main_table_values' => '(

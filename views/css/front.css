@@ -52,3 +52,88 @@
     font-size: 20px;
     border: 2px solid #dc3545;
 }
+
+.inf-youtube-thumbnail {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.inf-youtube-thumbnail img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.inf-play-btn {
+    position: absolute;
+    top: calc(50% - 10px);
+    left: 50%;
+    width: 50%;
+    /* Play button size relative to container */
+    height: 50%;
+    background-size: contain;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0.8);
+    /* Center based on button’s size */
+    pointer-events: none;
+    border-radius: 20%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.inf-play-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-40%, -50%);
+    width: 0;
+    height: 0;
+    border-left: 18px solid white;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+}
+
+.inf-youtube-thumbnail:hover .inf-play-btn {
+    transform: translate(-50%, -50%) scale(1.1);
+    background-color: rgba(255, 0, 0, 1);
+}
+
+/* Modal styles remain the same */
+.inf-modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.inf-modal-content {
+    position: relative;
+    margin: 5% auto;
+    width: 90%;
+    max-width: 800px;
+    background: #000;
+    border-radius: 8px;
+}
+
+.inf-video-container iframe {
+    width: 100%;
+    height: 450px;
+    border-radius: 8px;
+}
+
+.inf-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}
