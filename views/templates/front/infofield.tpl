@@ -101,7 +101,7 @@
                                         {/if}
 
                                         {if $field_settings["show_meta_in"] == 'popup'}
-                                            <div class="inf-youtube-thumbnail"
+                                            <div class="inf-youtube-thumbnail" style="width: {$vid_width}; height: {$vid_height};"
                                                 data-video-id="{$vid_item|replace:'https://www.youtube.com/watch?v=':''}">
                                                 <img src="https://img.youtube.com/vi/{$vid_item|replace:'https://www.youtube.com/watch?v=':''}/hqdefault.jpg"
                                                     alt="Video cover">
