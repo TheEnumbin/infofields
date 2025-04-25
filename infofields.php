@@ -41,7 +41,7 @@ class Infofields extends Module
     public function __construct()
     {
         $this->name = 'infofields';
-        $this->version = '1.3.1';
+        $this->version = '1.3.2';
         $this->tab = 'pricing_promotion';
         $this->author = 'TheEnumbin';
         $this->need_instance = 0;
