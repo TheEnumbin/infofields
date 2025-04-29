@@ -135,9 +135,9 @@ class AdminAjaxInfofieldsController extends ModuleAdminController
                 if ($main_table_values && $lang_table_values) {
                     $main_table_values_str[] = $main_table_values;
                     $lang_table_values_str[] = $lang_table_values;
+                    $inf_id_index++;
                 }
                 $lastrow[] = $row;
-                $inf_id_index++;
             }
             $processed_rows++;
 
