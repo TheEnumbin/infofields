@@ -31,7 +31,7 @@ if (!defined('_PS_VERSION_')) {
 function upgrade_module_1_3_2($object, $install = false)
 {
     $sql = [];
-    $sql[] = 'ALTER TABLE `' . _DB_PREFIX_ . 'infofields`  ADD `settings` settings NULL AFTER `img_height`;';
+    $sql[] = 'ALTER TABLE `' . _DB_PREFIX_ . 'infofields`  ADD `settings` LONGTEXT NULL AFTER `img_height`;';
 
     foreach ($sql as $query) {
         Db::getInstance()->execute($query);

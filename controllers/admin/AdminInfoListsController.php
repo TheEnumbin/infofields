@@ -276,10 +276,12 @@ class AdminInfoListsController extends ModuleAdminController
 
         if ($id_infofields && $id_infofields > 0) {
             $id = $obj->id_infofields;
-            $settings = json_decode($obj->settings, true);
             $parent = strtolower($this->getParentName($obj->parent_item));
             $this->fields_value['shortcode'] = $this->getShortcode($id, $parent);
-            $this->fields_value['show_meta_in'] = $settings['show_meta_in'];
+            if ($obj->settings != "" || $obj->settings != null) {
+                $settings = json_decode($obj->settings, true);
+                $this->fields_value['show_meta_in'] = $settings['show_meta_in'];
+            }
         }
         return parent::renderForm();
     }
